@@ -39,6 +39,7 @@ const MD_OUTPUT = resolve(REPORT_DIR, 'latest-traffic-proof.md');
 const COVERAGE_DRILLDOWN_JSON = resolve(process.cwd(), DEFAULT_COVERAGE_DRILLDOWN_JSON_PATH);
 const SWEEP_JSON = resolve(process.cwd(), DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH);
 const CTR_JSON = resolve(process.cwd(), DEFAULT_TRAFFIC_JSON_PATH);
+const OPPORTUNITY_BOARD_JSON = resolve(process.cwd(), 'reports/seo/latest-gsc-opportunity-board.json');
 
 // ---------------------------------------------------------------------------
 // Types
@@ -83,6 +84,13 @@ type CtrJson = {
   priorityPageOpportunities?: number | null;
 };
 
+type OpportunityBoardJson = {
+  items?: Array<{
+    lane?: string;
+    actions?: string[];
+  }>;
+};
+
 type FreshnessSlaStatus = {
   drilldown: { ageDays: number | null; status: 'fresh' | 'stale' | 'missing' };
   sweep: { ageDays: number | null; status: 'fresh' | 'stale' | 'missing'; sampled: number };
@@ -91,6 +99,7 @@ type FreshnessSlaStatus = {
 
 type TrafficProofReport = {
   generatedAt: string;
+  credentialsPresent: boolean;
   freshnessSla: FreshnessSlaStatus;
   p0SurfaceHealth: Array<{
     url: string;
@@ -107,6 +116,10 @@ type TrafficProofReport = {
     pageRows: number | null;
     priorityQueryOpportunities: number | null;
     priorityPageOpportunities: number | null;
+  };
+  blocklistedUrlSummary: {
+    blocklistedInGscCount: number;
+    source: string;
   };
   complianceStatus: {
     overallVerdict: string;
@@ -155,6 +168,26 @@ function buildReport(): TrafficProofReport {
   const coverage = readJson<CoverageDrilldownJson>(COVERAGE_DRILLDOWN_JSON);
   const sweep = readJson<SweepJson>(SWEEP_JSON);
   const ctr = readJson<CtrJson>(CTR_JSON);
+  const opportunityBoard = readJson<OpportunityBoardJson>(OPPORTUNITY_BOARD_JSON);
+
+  // Resolve CI credential presence
+  const credentialsPresent = process.env.CREDENTIALS_PRESENT !== 'false';
+
+  // Count blocklisted skill URLs in GSC from opportunity board
+  let blocklistedInGscCount = 0;
+  if (Array.isArray(opportunityBoard?.items)) {
+    blocklistedInGscCount = opportunityBoard.items.filter(
+      (item: { lane?: string; actions?: string[] }) =>
+        item.lane === 'canonicalization' &&
+        Array.isArray(item.actions) &&
+        item.actions.some((a: string) => a.toLowerCase().includes('blocklisted')),
+    ).length;
+  }
+
+  const blocklistedUrlSummary = {
+    blocklistedInGscCount,
+    source: opportunityBoard ? 'opportunity-board' : 'unavailable',
+  };
 
   // Compute freshness SLA
   const drilldownAgeDays = coverage?.sourceFreshnessDays ?? computeAgeDays(coverage?.generatedAt);
@@ -232,9 +265,11 @@ function buildReport(): TrafficProofReport {
 
   return {
     generatedAt: new Date().toISOString(),
+    credentialsPresent,
     freshnessSla,
     p0SurfaceHealth,
     gscTrafficSummary,
+    blocklistedUrlSummary,
     complianceStatus,
     trendSnapshot,
   };
@@ -302,6 +337,21 @@ function renderMarkdown(report: TrafficProofReport): string {
         ? '_GSC API not configured. Set GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, GSC_SITE_URL._'
         : '_GSC traffic data unavailable._',
     );
+  }
+  lines.push('');
+
+  // Blocklisted URL Summary
+  lines.push('## Blocklisted URL Summary');
+  lines.push('');
+  const bl = report.blocklistedUrlSummary;
+  if (bl.blocklistedInGscCount > 50) {
+    lines.push(`🔴 **${bl.blocklistedInGscCount}** blocklisted skill URLs still appear in GSC page data (source: ${bl.source}). Continue REMOV-01 submission.`);
+  } else if (bl.blocklistedInGscCount > 10) {
+    lines.push(`🟡 **${bl.blocklistedInGscCount}** blocklisted skill URLs still appear in GSC page data (source: ${bl.source}).`);
+  } else if (bl.blocklistedInGscCount > 0) {
+    lines.push(`🟢 **${bl.blocklistedInGscCount}** blocklisted skill URLs in GSC page data (source: ${bl.source}). Within acceptable range.`);
+  } else {
+    lines.push('✅ No blocklisted skill URLs detected in GSC page data.');
   }
   lines.push('');
 

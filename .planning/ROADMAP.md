@@ -6,9 +6,9 @@ Milestone v5.1 First Impression & Coverage Closure is active. Phases 159-161 wil
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 159: REMOV-01 Completion & Second-Pass Submission
+- [x] Plan Phase 161: Pipeline & Compliance Hardening ✅
 - [ ] Plan Phase 160: First Impression Earners
-- [ ] Plan Phase 161: Pipeline & Compliance Hardening
+- [ ] Plan Phase 159: REMOV-01 Completion & Second-Pass Submission (blocked on operator)
 
 ## Current Milestone: v5.1 First Impression & Coverage Closure
 
@@ -18,7 +18,7 @@ Milestone v5.1 First Impression & Coverage Closure is active. Phases 159-161 wil
 
 - [ ] COV-01: **Coverage Closure**: Complete REMOV-01 submission and second-pass batch to reduce coverage affected pages below 5,000.
 - [ ] IMPR-01: **First Impression Earners**: Earn first measurable impressions and clicks on at least 2 primary authority surfaces (target: ≥3 impressions, ≥1 click each).
-- [ ] PIPE-01: **Pipeline & Compliance Hardening**: Wire structured data validation into daily CI, add API credential rotation alerting, and add blocklisted-URL-in-GSC detection so pipeline gaps surface automatically.
+- [x] PIPE-01: **Pipeline & Compliance Hardening**: Wire structured data validation into daily CI, add API credential rotation alerting, and add blocklisted-URL-in-GSC detection so pipeline gaps surface automatically.
 
 ### Phase 159: REMOV-01 Completion & Second-Pass Submission
 
@@ -46,15 +46,15 @@ Milestone v5.1 First Impression & Coverage Closure is active. Phases 159-161 wil
 
 ### Phase 161: Pipeline & Compliance Hardening
 
-- **Requirements:** PIPE-01
-- **Scope:** Wire structured-data-validate into SEO monitoring CI, add GSC API credential rotation alert, add blocklisted-URL-in-GSC detection, address trailing-slash canonicalization items from the GSC opportunity board.
-- **Status:** Planned
-- **Plans:** 0/1 plans complete
+- **Requirements:** PIPE-01 ✅
+- **Scope:** Wire structured-data-validate into SEO monitoring CI, add GSC API credential rotation alert, add blocklisted-URL-in-GSC detection, upgrade 2 compliance matrix lanes.
+- **Status:** ✅ Complete
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
-  - Structured data validation runs daily in CI
-  - GSC API credential rotation creates an alert/issue (not silently skipped)
-  - Blocklisted URLs detected proactively in GSC crawl data
-  - 2+ compliance matrix lanes move from watch → pass (structured-data-validity and ctr-search-appearance most achievable)
+  - [x] Structured data validation runs daily in CI
+  - [x] GSC API credential rotation creates an alert/issue (not silently skipped)
+  - [x] Blocklisted URLs detected proactively in GSC crawl data
+  - [x] 2+ compliance matrix lanes move from watch → pass (structured-data-validity and ctr-search-appearance)
 
 ## Milestones
 

@@ -128,6 +128,10 @@ jobs:
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
         run: npm run report:seo:coverage-sweep:p0
 
+      - name: Validate P0 Structured Data
+        if: always()
+        run: npm run report:seo:structured-data-validate
+
       - name: Build GSC Opportunity Board
         if: always()
         run: |
@@ -180,6 +184,8 @@ jobs:
 
       - name: Build Traffic Proof Dashboard
         if: always()
+        env:
+          CREDENTIALS_PRESENT: ${{ steps.gsc.outputs.configured }}
         run: npm run report:seo:traffic-proof
 
       - name: Upload GSC Monitoring Artifact
@@ -282,6 +288,26 @@ jobs:
           } catch (error) {
             console.log('');
             console.log(`Sitemap blocklist parse failed: ${error instanceof Error ? error.message : String(error)}`);
+          }
+          EOF
+          fi
+
+          if [ -f reports/seo/latest-structured-data-validation.json ]; then
+            node <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          const fs = require('node:fs');
+          try {
+            const val = JSON.parse(fs.readFileSync('reports/seo/latest-structured-data-validation.json', 'utf8'));
+            const failedSurfaces = (val.results || []).filter(r => !r.passed).map(r => r.surfaceId);
+            console.log('');
+            console.log('### Structured Data Validation Snapshot');
+            console.log(`- P0 surfaces validated: ${val.totalSurfaces ?? 'n/a'}`);
+            console.log(`- Passed: ${val.passed ?? 'n/a'} | Failed: ${val.failed ?? 'n/a'}`);
+            if (failedSurfaces.length > 0) {
+              console.log(`- Failed surfaces: ${failedSurfaces.join(', ')}`);
+            }
+          } catch (error) {
+            console.log('');
+            console.log(`Structured data validation parse failed: ${error instanceof Error ? error.message : String(error)}`);
           }
           EOF
           fi

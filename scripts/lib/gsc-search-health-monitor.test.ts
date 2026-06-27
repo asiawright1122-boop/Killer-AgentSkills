@@ -196,4 +196,80 @@ describe('GSC Search Health Monitor Tests', () => {
     expect(result.metrics.sweepFresh).toBe(false);
     expect(result.status).toBe('clear');
   });
+
+  // --- Credential presence tests (D2) ---
+
+  it('should emit credential missing alert when credentials not present', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, undefined, {
+      credentialsPresent: false,
+    });
+
+    expect(result.status).toBe('blocking');
+    const credAlert = result.alerts.find((a) => a.code === 'gsc_credential_missing');
+    expect(credAlert).toBeDefined();
+    expect(credAlert?.severity).toBe('critical');
+    expect(credAlert?.title).toContain('Credentials Missing');
+  });
+
+  it('should not emit credential missing alert when credentials are present', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, undefined, {
+      credentialsPresent: true,
+    });
+
+    expect(result.alerts.find((a) => a.code === 'gsc_credential_missing')).toBeUndefined();
+    expect(result.status).toBe('clear');
+  });
+
+  // --- Blocklisted URL detection tests (D3) ---
+
+  it('should emit blocklisted URLs critical alert when > 50 blocklisted URLs found in GSC', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, undefined, {
+      blocklistedInGscCount: 75,
+    });
+
+    expect(result.status).toBe('blocking');
+    const alert = result.alerts.find((a) => a.code === 'gsc_blocklisted_urls_in_index');
+    expect(alert).toBeDefined();
+    expect(alert?.severity).toBe('critical');
+    expect(result.metrics.blocklistedInGscCount).toBe(75);
+  });
+
+  it('should emit blocklisted URLs warning when > 10 blocklisted URLs found', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, undefined, {
+      blocklistedInGscCount: 25,
+    });
+
+    expect(result.status).toBe('warning');
+    const alert = result.alerts.find((a) => a.code === 'gsc_blocklisted_urls_warning');
+    expect(alert).toBeDefined();
+    expect(alert?.severity).toBe('warning');
+    // No critical alert should fire
+    expect(result.alerts.find((a) => a.code === 'gsc_blocklisted_urls_in_index')).toBeUndefined();
+  });
+
+  it('should not emit blocklisted alert when count is ≤ 10', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, undefined, {
+      blocklistedInGscCount: 8,
+    });
+
+    expect(result.alerts.find((a) => a.code === 'gsc_blocklisted_urls_warning')).toBeUndefined();
+    expect(result.alerts.find((a) => a.code === 'gsc_blocklisted_urls_in_index')).toBeUndefined();
+    expect(result.status).toBe('clear');
+    expect(result.metrics.blocklistedInGscCount).toBe(8);
+  });
 });

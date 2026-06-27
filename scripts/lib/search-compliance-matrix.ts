@@ -10,6 +10,8 @@ export const DEFAULT_RECOVERY_PROOF_WINDOW_JSON_PATH = 'reports/seo/latest-recov
 export const DEFAULT_AUTHORITY_UPLIFT_JSON_PATH = 'reports/seo/latest-authority-uplift-scorecard.json';
 export const DEFAULT_RECOVERY_EXPERIMENT_LADDER_JSON_PATH = 'reports/seo/latest-recovery-experiment-ladder.json';
 export const DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH = 'reports/seo/latest-url-inspection-coverage-sweep.json';
+export const DEFAULT_STRUCTURED_DATA_VALIDATION_JSON_PATH = 'reports/seo/latest-structured-data-validation.json';
+export const DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH = 'reports/seo/latest-gsc-opportunity-board.json';
 export const DEFAULT_GUIDELINES_RESEARCH_PATH = '.planning/research/v1.9-search-guidelines.md';
 
 export type SearchComplianceVerdict = 'pass' | 'watch' | 'block' | 'unavailable';
@@ -132,6 +134,19 @@ type UrlInspectionSweepJson = {
   clusters?: Array<{ cluster: string; sampleSize: number; passCount: number }>;
 };
 
+type StructuredDataValidationJson = {
+  generatedAt?: string;
+  host?: string;
+  totalSurfaces?: number;
+  passed?: number;
+  failed?: number;
+};
+
+type GscOpportunityBoardJson = {
+  status?: string;
+  items?: Array<{ priority?: string; lane?: string; actions?: string[] }>;
+};
+
 type SearchComplianceInputs = {
   generatedAt?: string;
   crawlHealth?: CrawlHealthJson | null;
@@ -141,6 +156,8 @@ type SearchComplianceInputs = {
   authority?: AuthorityUpliftJson | null;
   experimentLadder?: ExperimentLadderJson | null;
   urlInspectionSweep?: UrlInspectionSweepJson | null;
+  structuredDataValidation?: StructuredDataValidationJson | null;
+  opportunityBoard?: GscOpportunityBoardJson | null;
   guidelineResearchExists?: boolean;
 };
 
@@ -152,6 +169,8 @@ type SearchComplianceFileOptions = {
   authorityJsonPath?: string;
   experimentLadderJsonPath?: string;
   urlInspectionSweepJsonPath?: string;
+  structuredDataValidationJsonPath?: string;
+  opportunityBoardJsonPath?: string;
   guidelineResearchPath?: string;
 };
 
@@ -258,6 +277,8 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const authority = input.authority;
   const experiment = input.experimentLadder;
   const sweep = input.urlInspectionSweep;
+  const structuredDataVal = input.structuredDataValidation;
+  const opportunityBoard = input.opportunityBoard;
 
   const sitemapFetchErrors = crawl?.sitemapErrors?.length ?? null;
   const checkedUrls = crawl?.totals?.pageUrlsChecked ?? null;
@@ -289,6 +310,12 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
     (experiment?.summary?.limitedRollout ?? 0) > 0 ||
     (experiment?.summary?.automationCandidate ?? 0) > 0 ||
     automationPolicyStatus !== 'locked';
+
+  const structuredDataValAvailable = structuredDataVal != null && structuredDataVal.totalSurfaces != null;
+  const structuredDataValPassed = structuredDataValAvailable && (structuredDataVal.failed ?? 0) === 0;
+  const opportunityP0P1Count = (opportunityBoard?.items ?? []).filter(
+    (item) => item.priority === 'P0' || item.priority === 'P1',
+  ).length;
 
   return [
     {
@@ -420,13 +447,27 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             ? `traffic=${traffic.status || 'missing'}, source=${traffic.sourceMode || 'missing'}, period=${traffic.currentPeriod?.start || '?'} -> ${traffic.currentPeriod?.end || '?'}, queryRows=${formatNumber(traffic.queryRows)}, pageRows=${formatNumber(traffic.pageRows)}, priorityQueries=${formatNumber(traffic.priorityQueryOpportunities)}, priorityPages=${formatNumber(traffic.priorityPageOpportunities)}, queryPrecisionRisks=${formatNumber(traffic.queryPrecisionRisks)}`
             : 'GSC CTR report missing',
         ),
+        evidence(
+          DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH,
+          Boolean(opportunityBoard),
+          opportunityBoard
+            ? `status=${opportunityBoard.status || 'missing'}, P0/P1 opportunities=${opportunityP0P1Count}`
+            : 'opportunity board report missing',
+        ),
       ],
-      verdict: trafficClear ? 'watch' : 'block',
-      rationale: trafficClear
-        ? 'Live GSC data is available, but the opportunity counts do not yet justify broad metadata rewrites.'
-        : 'CTR work cannot be evidence-led without live GSC page and query data.',
+      verdict: trafficClear && opportunityP0P1Count === 0 ? 'pass' : trafficClear ? 'watch' : 'block',
+      rationale:
+        trafficClear && opportunityP0P1Count === 0
+          ? 'Live GSC data is available and no priority CTR opportunities require immediate attention. CTR work is evidence-led and non-urgent.'
+          : trafficClear
+            ? 'Live GSC data is available, but priority CTR opportunities exist that may justify targeted metadata improvements.'
+            : 'CTR work cannot be evidence-led without live GSC page and query data.',
       nextAction:
-        'Use Phase 66 to select only priority surfaces from GSC and authority evidence; avoid broad title churn or recovery-claim copy.',
+        trafficClear && opportunityP0P1Count === 0
+          ? 'Continue monitoring GSC CTR data in the daily pipeline; no urgent CTR action needed.'
+          : trafficClear
+            ? 'Review P0/P1 opportunity items from the GSC opportunity board for targeted, evidence-led metadata improvements.'
+            : 'Restore GSC API access to enable evidence-led CTR work.',
     },
     {
       id: 'structured-data-validity',
@@ -436,6 +477,13 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
       primarySources: ['Google Search Essentials', 'Google SEO Starter Guide', 'Bing Webmaster Guidelines'],
       projectEvidence: [
         evidence(
+          DEFAULT_STRUCTURED_DATA_VALIDATION_JSON_PATH,
+          structuredDataValAvailable,
+          structuredDataValAvailable
+            ? `totalSurfaces=${structuredDataVal.totalSurfaces}, passed=${structuredDataVal.passed ?? 0}, failed=${structuredDataVal.failed ?? 0}`
+            : 'structured-data validation report missing',
+        ),
+        evidence(
           DEFAULT_CRAWL_HEALTH_JSON_PATH,
           Boolean(crawl),
           crawl
@@ -443,12 +491,21 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             : 'structured-data crawl sample missing',
         ),
       ],
-      verdict: crawl?.onPageSeoErrors?.length === 0 ? 'watch' : 'block',
-      rationale:
-        crawl?.onPageSeoErrors?.length === 0
-          ? 'The sampled crawl did not flag structured-data/on-page SEO errors, but Phase 66 should validate priority surfaces before edits.'
+      verdict: structuredDataValAvailable
+        ? structuredDataValPassed ? 'pass' : 'watch'
+        : crawl?.onPageSeoErrors?.length === 0 ? 'watch' : 'block',
+      rationale: structuredDataValAvailable
+        ? structuredDataValPassed
+          ? 'All P0 authority surfaces pass structured-data validation; JSON-LD schema blocks are present and complete.'
+          : 'Some P0 authority surfaces have structured-data validation failures; schema blocks are missing or have empty/missing required fields.'
+        : crawl?.onPageSeoErrors?.length === 0
+          ? 'The sampled crawl did not flag structured-data/on-page SEO errors, but dedicated P0 surface validation has not been run.'
           : 'Structured-data or on-page SEO errors exist in the sampled crawl.',
-      nextAction: 'Validate structured data on the Phase 66 priority surfaces before adding or changing schema markup.',
+      nextAction: structuredDataValAvailable
+        ? structuredDataValPassed
+          ? 'Continue daily P0 structured-data validation in CI to catch regressions.'
+          : 'Fix structured-data validation failures on the flagged P0 surfaces before adding or changing schema markup.'
+        : 'Run `npm run report:seo:structured-data-validate` to produce the validation report, then rerun the compliance matrix.',
     },
     {
       id: 'ai-search-and-indexnow-evidence',
@@ -549,6 +606,12 @@ export function buildSearchComplianceMatrixReportFromFiles(
     ),
     urlInspectionSweep: readJsonFile<UrlInspectionSweepJson>(
       options.urlInspectionSweepJsonPath || DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH,
+    ),
+    structuredDataValidation: readJsonFile<StructuredDataValidationJson>(
+      options.structuredDataValidationJsonPath || DEFAULT_STRUCTURED_DATA_VALIDATION_JSON_PATH,
+    ),
+    opportunityBoard: readJsonFile<GscOpportunityBoardJson>(
+      options.opportunityBoardJsonPath || DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH,
     ),
     guidelineResearchExists: existsSync(toAbsolutePath(guidelineResearchPath)),
   });

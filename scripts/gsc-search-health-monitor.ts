@@ -14,7 +14,10 @@ export type SearchHealthAlertCode =
   | 'gsc_unexpected_cluster_spike'
   | 'gsc_unexpected_cluster_warning'
   | 'gsc_index_shrink_critical'
-  | 'gsc_index_shrink_warning';
+  | 'gsc_index_shrink_warning'
+  | 'gsc_credential_missing'
+  | 'gsc_blocklisted_urls_in_index'
+  | 'gsc_blocklisted_urls_warning';
 
 export type SearchHealthAlert = {
   code: SearchHealthAlertCode;
@@ -34,10 +37,16 @@ export type SearchHealthAnalysisResult = {
     clicksDropRate: number;
     crawlErrorsCount: number;
     unexpectedClusterCount: number;
+    blocklistedInGscCount: number;
   };
 };
 
-export function analyzeSearchHealth(ctrData: any, coverageData: any, sweepData?: any): SearchHealthAnalysisResult {
+export function analyzeSearchHealth(
+  ctrData: any,
+  coverageData: any,
+  sweepData?: any,
+  options?: { credentialsPresent?: boolean; blocklistedInGscCount?: number },
+): SearchHealthAnalysisResult {
   const alerts: SearchHealthAlert[] = [];
 
   // Compute sweep freshness
@@ -196,6 +205,36 @@ export function analyzeSearchHealth(ctrData: any, coverageData: any, sweepData?:
     });
   }
 
+  // 6. Credential presence check — alert when GSC API secrets are missing
+  const credentialsPresent = options?.credentialsPresent !== false;
+  if (!credentialsPresent) {
+    alerts.push({
+      code: 'gsc_credential_missing',
+      severity: 'critical',
+      title: 'GSC API Credentials Missing',
+      message:
+        'One or more GSC API secrets (GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, GSC_SITE_URL) are not configured. The URL Inspection sweep and GSC data fetch are silently skipped. Check GitHub Actions secrets for rotation or expiry.',
+    });
+  }
+
+  // 7. Blocklisted URL detection — alert when blocklisted skill URLs still appear in GSC
+  const blocklistedInGscCount = options?.blocklistedInGscCount ?? 0;
+  if (blocklistedInGscCount > 50) {
+    alerts.push({
+      code: 'gsc_blocklisted_urls_in_index',
+      severity: 'critical',
+      title: 'Blocklisted URLs in GSC Index — Critical',
+      message: `Detected ${blocklistedInGscCount} sitemap-blocklisted skill URLs still appearing in GSC page data, breaching the 50-URL critical threshold. These URLs should be removed from GSC via the removal tool and confirmed as de-indexed.`,
+    });
+  } else if (blocklistedInGscCount > 10) {
+    alerts.push({
+      code: 'gsc_blocklisted_urls_warning',
+      severity: 'warning',
+      title: 'Blocklisted URLs in GSC Index — Warning',
+      message: `Detected ${blocklistedInGscCount} sitemap-blocklisted skill URLs still appearing in GSC page data, exceeding the 10-URL warning threshold. Continue REMOV-01 submission to reduce blocklisted URL count.`,
+    });
+  }
+
   // Overall status resolve
   const hasCritical = alerts.some((a) => a.severity === 'critical');
   const hasWarning = alerts.some((a) => a.severity === 'warning');
@@ -212,6 +251,7 @@ export function analyzeSearchHealth(ctrData: any, coverageData: any, sweepData?:
       clicksDropRate,
       crawlErrorsCount,
       unexpectedClusterCount,
+      blocklistedInGscCount,
     },
   };
 }
@@ -233,6 +273,7 @@ export function renderMarkdownReport(result: SearchHealthAnalysisResult): string
     `- Week-over-week Clicks Drop: \`${(result.metrics.clicksDropRate * 100).toFixed(1)}%\``,
     `- Server (5xx) Crawl Errors: \`${result.metrics.crawlErrorsCount}\` pages`,
     `- Unexpected "Other" Cluster Count: \`${result.metrics.unexpectedClusterCount.toFixed(1)}\` pages`,
+    `- Blocklisted URLs in GSC: \`${result.metrics.blocklistedInGscCount}\` URLs`,
     '',
     '## Active Alerts',
   ];
@@ -297,7 +338,32 @@ async function main() {
     console.warn(`[GSC-Monitor] Warning: Could not read URL Inspection sweep report: ${(err as Error).message}`);
   }
 
-  const result = analyzeSearchHealth(ctrData, coverageData, sweepData);
+  // Resolve credential presence from CI environment variable
+  const credentialsPresent = process.env.CREDENTIALS_PRESENT !== 'false';
+
+  // Count blocklisted skill URLs from GSC opportunity board (canonicalization lane)
+  let blocklistedInGscCount = 0;
+  const opportunityBoardPath = resolve(process.cwd(), 'reports/seo/latest-gsc-opportunity-board.json');
+  try {
+    if (existsSync(opportunityBoardPath)) {
+      const board = JSON.parse(readFileSync(opportunityBoardPath, 'utf8'));
+      if (Array.isArray(board?.items)) {
+        blocklistedInGscCount = board.items.filter(
+          (item: any) =>
+            item.lane === 'canonicalization' &&
+            Array.isArray(item.actions) &&
+            item.actions.some((a: string) => a.toLowerCase().includes('blocklisted')),
+        ).length;
+      }
+    }
+  } catch (err) {
+    console.warn(`[GSC-Monitor] Warning: Could not read GSC opportunity board: ${(err as Error).message}`);
+  }
+
+  const result = analyzeSearchHealth(ctrData, coverageData, sweepData, {
+    credentialsPresent,
+    blocklistedInGscCount,
+  });
   const mdReport = renderMarkdownReport(result);
 
   const outDir = resolve(process.cwd(), 'reports/gsc');

@@ -171,4 +171,111 @@ describe('buildSearchComplianceMatrixReport', () => {
     const coverageItem = report.items.find((item) => item.id === 'coverage-freshness-before-claims')!;
     expect(coverageItem.verdict).toBe('block');
   });
+
+  // --- Structured data validity lane tests (D4) ---
+
+  it('passes structured-data-validity when validation report shows 0 failures', () => {
+    const report = buildSearchComplianceMatrixReport({
+      crawlHealth: {
+        totals: { pageUrlsChecked: 100 },
+        statusSummary: { status2xx: 100 },
+        sitemapErrors: [],
+        onPageSeoErrors: [],
+      },
+      structuredDataValidation: {
+        generatedAt: new Date().toISOString(),
+        totalSurfaces: 8,
+        passed: 8,
+        failed: 0,
+      },
+    });
+
+    const sdItem = report.items.find((item) => item.id === 'structured-data-validity')!;
+    expect(sdItem.verdict).toBe('pass');
+    expect(sdItem.rationale).toContain('pass');
+    expect(sdItem.projectEvidence.length).toBe(2);
+    expect(sdItem.projectEvidence[0].path).toContain('structured-data-validation');
+  });
+
+  it('watches structured-data-validity when validation report shows failures', () => {
+    const report = buildSearchComplianceMatrixReport({
+      crawlHealth: {
+        onPageSeoErrors: [],
+      },
+      structuredDataValidation: {
+        generatedAt: new Date().toISOString(),
+        totalSurfaces: 8,
+        passed: 6,
+        failed: 2,
+      },
+    });
+
+    const sdItem = report.items.find((item) => item.id === 'structured-data-validity')!;
+    expect(sdItem.verdict).toBe('watch');
+    expect(sdItem.rationale).toContain('validation failures');
+  });
+
+  it('watches structured-data-validity when no validation report exists but crawl is clean', () => {
+    const report = buildSearchComplianceMatrixReport({
+      crawlHealth: {
+        onPageSeoErrors: [],
+      },
+    });
+
+    const sdItem = report.items.find((item) => item.id === 'structured-data-validity')!;
+    expect(sdItem.verdict).toBe('watch');
+    expect(sdItem.projectEvidence[0].summary).toContain('missing');
+  });
+
+  // --- CTR search appearance lane tests (D4) ---
+
+  it('passes ctr-search-appearance when no priority CTR opportunities exist', () => {
+    const report = buildSearchComplianceMatrixReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-06-01', end: '2026-06-28' },
+        queryRows: 30,
+        pageRows: 500,
+        priorityQueryOpportunities: 0,
+        priorityPageOpportunities: 0,
+      },
+      opportunityBoard: {
+        status: 'active',
+        items: [
+          { priority: 'P2', lane: 'metadata', actions: [] },
+          { priority: 'P3', lane: 'query-intent', actions: [] },
+        ],
+      },
+    });
+
+    const ctrItem = report.items.find((item) => item.id === 'ctr-search-appearance')!;
+    expect(ctrItem.verdict).toBe('pass');
+    expect(ctrItem.rationale).toContain('no priority CTR opportunities');
+  });
+
+  it('watches ctr-search-appearance when priority opportunities exist', () => {
+    const report = buildSearchComplianceMatrixReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-06-01', end: '2026-06-28' },
+        queryRows: 30,
+        pageRows: 500,
+        priorityQueryOpportunities: 3,
+        priorityPageOpportunities: 1,
+      },
+      opportunityBoard: {
+        status: 'active',
+        items: [
+          { priority: 'P0', lane: 'canonicalization', actions: ['Sitemap-blocklisted skill URL appears in GSC.'] },
+          { priority: 'P1', lane: 'metadata', actions: [] },
+        ],
+      },
+    });
+
+    const ctrItem = report.items.find((item) => item.id === 'ctr-search-appearance')!;
+    expect(ctrItem.verdict).toBe('watch');
+    expect(ctrItem.rationale).toContain('priority CTR opportunities');
+  });
 });
