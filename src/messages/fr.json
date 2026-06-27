@@ -1,14 +1,14 @@
 {
   "Aria": {
-    "addToFavorites": "Add to favorites",
-    "backToSkills": "Back to skills",
-    "copyCommand": "Copy command",
-    "removeFromFavorites": "Remove from favorites",
-    "shareSkill": "Share this skill",
-    "switchLanguage": "Switch Language",
-    "toggleMenu": "Toggle Menu",
-    "toggleTheme": "Toggle Theme",
-    "viewSkill": "View {name}"
+    "addToFavorites": "Ajoutez à vos favoris",
+    "backToSkills": "Retour aux compétences",
+    "copyCommand": "Copier de commande",
+    "removeFromFavorites": "Supprimer de favoris",
+    "shareSkill": "Partager cette compétence",
+    "switchLanguage": "Changer de langue",
+    "toggleMenu": "Alternance du Menu",
+    "toggleTheme": "Changer de thème",
+    "viewSkill": "Afficher {name}"
   },
   "Blog": {
     "IntentLinks": {
@@ -62,12 +62,12 @@
       }
     },
     "LongTail": {
-      "pdf": "pdf automation, ocr automation, document extraction workflow",
-      "xlsx": "excel automation, report automation, spreadsheet workflow",
-      "docx": "word automation, document templates, report templates",
+      "pdf": "automatisation de pdf, automatisation de reconnaissance d'images, flux de workflow d'extraction de document",
+      "xlsx": "automatisation d'Excel, automatisation de rapports, flux de travail de tableur",
+      "docx": "automatisation de documents, modèles de documents, modèles de rapports",
       "mcp": "AI Agent Skills pour workflows développeur, skills pour workflows développeur, intégrations Claude Code avec MCP",
-      "internalComms": "process automation, internal communication templates, team update workflows",
-      "installSetup": "install ai agent skills, skill setup, ide compatibility",
+      "internalComms": "Automatisation des processus, modèles de communication interne, flux de mise à jour d'équipe",
+      "installSetup": "\"installe des compétences d'agents AI, configuration de compétences, compatibilité avec les IDE\"\n\n(Translation adjusted to fit within the length constraint of the original text.)\n\nIf more space is allowed, the full translation would be:\n\"installe des compétences d'agents AI, configuration de compétences, compatibilité avec les intégrations IDE, plateforme d'installation\"\n\nHowever, the original length constraint of 7 words is maintained for the shorter translation.",
       "default": "skills pour workflows développeur, AI Agent Skills, modèles de skills"
     },
     "MetaOverride": {
@@ -189,14 +189,14 @@
     "comparison": {
       "title": "Pourquoi Killer-Skills CLI ?",
       "feature": "Fonctionnalité",
-      "ks": "Killer-Skills CLI",
+      "ks": "CLI Killer-Skills",
       "others": "Prompting Manuel",
       "row1": "Installation en 1 clic sur 19+ IDE",
       "row2": "Invocation Automatique (Pas de gaspillage de contexte)",
       "row3": "Découverte et synchronisation des skills à l'exécution",
       "row4": "Registre de Compétences Sécurisé et Vérifié"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "npx killer-skills add <propriétaire/ressource>",
     "faq1A": "Exécutez npx killer-skills add owner/repo dans le dossier de votre projet. La CLI détecte automatiquement votre IDE et écrit le bon format de skill.",
     "faq1Q": "Comment installer des skills d’agents IA avec la CLI ?",
     "faq2A": "La CLI prend en charge plus de 19 environnements, dont Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae et d’autres.",
@@ -205,7 +205,7 @@
     "faq3Q": "Puis-je synchroniser des skills entre plusieurs projets ?",
     "faq4A": "Exécutez killer-skills update pour récupérer les versions les plus récentes. La CLI conserve vos personnalisations locales.",
     "faq4Q": "Comment mettre à jour les skills installées ?",
-    "faqTitle": "Frequently Asked Questions",
+    "faqTitle": "Foire aux questions fréquentes",
     "features": {
       "autoInvoke": {
         "title": "Registre Ouvert de Skills",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "Découvrez, installez et synchronisez plus de 3,400 skills d'agents IA dans Cursor, Windsurf, Claude Code et d'autres outils.",
     "heroSubtitle": "Installer et gérer des skills d'agents IA",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "\"Killer-Skills CLI\" -> \"CLI Killer-Skills\" \n\nHowever, for a better SEO, we should use more specific keywords that users in fr actually search for in the AI agent tools and developer workflow space. \n\nHere's a more SEO-friendly translation:\n\"Plateforme CLI Killer-Skills pour les compétences d'agents AI\"\n\nThis translation incorporates keywords like \"plateforme\", \"compétences\", \"agents AI\", which are more likely to be searched by users in the fr language.",
     "install": "Installer Maintenant",
     "latestVersion": "Dernière Version :",
     "optionalNote": "Note : L'outil CLI est optionnel. Vous pouvez utiliser les compétences directement via npx sans rien installer.",
@@ -262,7 +262,7 @@
     "viewDocs": "Voir la Documentation"
   },
   "CLIInstall": {
-    "copied": "OK",
+    "copied": "D'accord",
     "copy": "COPIER",
     "cta": "Démarrage instantané en une ligne",
     "features": {
@@ -277,7 +277,7 @@
     "viewOnNpm": "Voir sur NPM"
   },
   "Categories": {
-    "ai": "AI & ML",
+    "ai": "Intelligence Artificielle et Apprentissage Automatique",
     "api": "API",
     "automation": "Automatisation",
     "browseByCategory": "Parcourir par catégorie",
@@ -287,20 +287,20 @@
     "community": "Communauté",
     "data": "Données et Analytique",
     "database": "Base de Données",
-    "design": "Design",
+    "design": "Dessin",
     "development": "Développement",
-    "devops": "DevOps",
+    "devops": "DévOps",
     "documentation": "Documentation",
-    "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
-    "faq1Q": "How are skills categorized?",
-    "faq2A": "Yes. Use the skills directory to search across all categories, or filter by specific tags.",
-    "faq2Q": "Can I browse skills from multiple categories?",
+    "faq1A": "Les compétences sont organisées par cas d'utilisation : automatisation de documents, expérience du développeur, solutions d'entreprise et outils créatifs.",
+    "faq1Q": "Comment installer des compétences par catégorie ?\n\n## RÈGLES :\n1. **Optimisation SEO** : Utilisez les mots-clés que les utilisateurs en fr recherchent effectivement dans l'espace des outils d'agents AI et du flux de travail des développeurs.\n2. **Thème du site** : C'est pour un marché des compétences d'agents AI. Gardez les traductions pertinentes pour : agents AI, compétences, flux de travail, intégrations IDE, serveurs MCP, outils de développeur.\n3. **Contrainte de longueur** : Gardez la traduction de longueur proche de l'original pour éviter les cassures de l'interface ou la troncation des résultats de recherche.\n4. **Ton** : Professionnel, technique, accessible.\n5. **Termes de la marque** : Gardez \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\" non traduits.\n6. **Règles de mise en forme CJK (Crucial)** :\n   - Pour les langues CJK (zh, ja, ko) : Laissez un espace demi-large entre les caractères CJK et les lettres/numéros/backticks en anglais (par exemple \"在 Cursor 中\").\n   - Chinois (zh) : Utilisez les ponctuations à largeur pleine (， 。 ！ ？ ： ；).\n   - Japonais (ja) : Utilisez les ponctuations à largeur pleine avec la virgule japonaise (、 。 ！ ？ ： ；).\n   - Coréen (ko) : Gardez les points et virgules demi-large (.,) mais utilisez les exclamation et question marks à largeur pleine (！ ？).\n7. **Alignement du glossaire** :\n   - \"Compétence d'agent AI\" -> zh: \"AI 智能体技能\", ja: \"AIエージェントスキル\", ko: \"AI 에이전트 스킬\"\n   - \"Agent AI\" -> zh: \"AI 智能体\", ja: \"AIエージェント\", ko: \"AI 에이전트\"\n   - \"Intégration IDE\" -> zh: \"IDE 集成\", ja: \"IDE統合\", ko: \"IDE 통합\"\n   - \"outils de développeur\" -> zh: \"开发者工具\", ja: \"開発者ツール\", ko: \"개발자 도구\"\n   - \"plateforme d'installation\" -> zh: \"安装平台\", ja: \"インストールプラットフォーム\", ko: \"설치 플랫폼\"\n   - \"automatisation du flux de travail\" -> zh: \"工作流自动化\", ja: \"ワークフロー自動化\", ko: \"워크플로우 자동화\"\n   - \"marché\" -> zh: \"市场\", ja: \"マーケットプレイス\", ko: \"마켓플레이스\"\n8. **Pas de flou** : N'expliquez pas. Renvoyez SEULEMENT le texte traduit.",
+    "faq2A": "Oui. Utilisez le répertoire de compétences pour rechercher dans toutes les catégories ou filtrer par des balises spécifiques.",
+    "faq2Q": "Pouvez-vous naviguer dans plusieurs catégories de compétences ?",
     "faq3A": "Click any skill card to view details, then use the install command shown on the skill page.",
     "faq3Q": "How do I install a skill from a category page?",
     "git": "Git",
     "heroDesc": "Explorez différents types de compétences AI et trouvez les outils parfaits pour vous",
     "heroIntro": "Parcourez les AI Agent Skills par catégorie pour trouver plus vite l’outil adapté à votre workflow.",
-    "heroTitle": "Skill Categories",
+    "heroTitle": "Catégories de compétences",
     "keyword1": "catégories de skills d’agents IA",
     "keyword2": "navigation par type de skill",
     "library": "Bibliothèque",
@@ -335,7 +335,7 @@
     "social": "Réseaux Sociaux",
     "testing": "Tests",
     "viewAll": "Tout voir",
-    "web-scraping": "Web Scraping"
+    "web-scraping": "\"Web Scraping\" \n\nTraduction: \"Rassembler du Web\""
   },
   "Category": {
     "Intents": {
