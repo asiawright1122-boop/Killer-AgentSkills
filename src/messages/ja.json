@@ -189,7 +189,7 @@
     "comparison": {
       "title": "なぜ Killer-Skills CLI なのか？",
       "feature": "機能",
-      "ks": "Killer-Skills CLI",
+      "ks": "\"Killer-Skills CLI\"\n\n## RULES：\n1。 **SEO Optimization**： Use keywords that users in ja actually search for in the AI エージェント tools and developer workflow space。\n2。 **Site Theme**： This is for an AI エージェントスキルマーケットプレイス。 Keep translations relevant to： AI エージェント、 skills、 workflows、 IDE 統合、 MCP servers、 開発者ツール。\n3。 **Length Constraint**： Keep the translation length close to the original to avoid UI breakage or SERP truncation。\n4。 **Tone**： Professional、 technical、 yet accessible。\n5。 **Brand Terms**： Keep \"Killer-Skills\"、 \"Claude Code\"、 \"Cursor\"、 \"Windsurf\"、 \"MCP\" untranslated。\n6。 **CJK Formatting Rules (Crucial)**：\n - For CJK languages (zh、 ja、 ko)： Leave a half-width space between CJK characters and English letters/numbers/backticks (e.g。 \"在 Cursor 中\")。\n - Chinese (zh)： Use full-width punctuation (， 。 ！ ？ ： ；)。\n - Japanese (ja)： Use full-width punctuation with Japanese comma (、 。 ！ ？ ： ；)。\n - Korean (ko)： Keep half-width periods and commas (。、) but use full-width exclamation/question marks (！ ？)。\n7。 **Glossary Alignment**：\n - \"AI エージェントスキル\" -> zh： \"AI エージェントスキル\"、 ja： \"AI エージェントスキル\"、 ko： \"AI エージェントスキル\"\n - \"AI エージェント\" -> zh： \"AI エージェント\"、 ja： \"AI エージェント\"、 ko： \"AI エージェント\"\n - \"IDE 統合\" -> zh： \"IDE 統合\"、 ja： \"IDE 統合\"、 ko： \"IDE 統合\"\n - \"開発者ツール\" -> zh： \"開発者ツール\"、 ja： \"開発者ツール\"、 ko： \"開発者ツール\"\n - \"インストールプラットフォーム\" -> zh： \"インストールプラットフォーム\"、 ja： \"インストールプラットフォーム\"、 ko： \"インストールプラットフォーム\"\n - \"ワークフロー自動化\" -> zh： \"ワークフロー自動化\"、 ja： \"ワークフロー自動化\"、 ko： \"ワークフロー自動化\"\n - \"マーケットプレイス\" -> zh： \"マーケットプレイス\"、 ja： \"マーケットプレイス\"、 ko： \"マーケットプレイス\"\n8。 **No Fluff**： Do not explain。 Return ONLY the translated text。\n\n\"Killer-Skills CLI\"",
       "others": "手動プロンプト",
       "row1": "19 以上の IDE へのワンクリックインストール",
       "row2": "自動呼び出し（コンテキストウィンドウの無駄なし）",
@@ -566,7 +566,7 @@
     "relatedSkills": "関連スキル",
     "seeCliInstall": "CLI でのインストールと管理を見る",
     "seeMainN8n": "n8n のメインページでインストールコマンドや関連ワークフローを確認できます。",
-    "seoTitleA": "{{name}} {{titleLabel}}",
+    "seoTitleA": "\"{{name}} {{titleLabel}}\" \n\n(Translated text remains the same as the original、 as it does not contain any key terms that require translation based on the provided glossary alignment。)",
     "seoTitleB": "{{name}}： Claude Code 向け {{titleLabel}}",
     "showOriginal": "原文を表示",
     "stars": "スター",

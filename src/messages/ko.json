@@ -205,7 +205,7 @@
     "faq3Q": "여러 프로젝트에서 스킬을 동기화할 수 있나요？",
     "faq4A": "killer-skills update 를 실행하면 최신 버전을 가져옵니다. CLI는 로컬 사용자 정의를 유지합니다.",
     "faq4Q": "설치한 스킬은 어떻게 업데이트하나요？",
-    "faqTitle": "Frequently Asked Questions",
+    "faqTitle": "requently Asked Questions",
     "features": {
       "autoInvoke": {
         "title": "오픈 스킬 레지스트리",
@@ -289,7 +289,7 @@
     "database": "데이터베이스",
     "design": "디자인",
     "development": "개발",
-    "devops": "DevOps",
+    "devops": "\"DevOps\" \n\n 번역: \"개발 운영\"",
     "documentation": "문서화",
     "faq1A": "AI 에이전트 스킬은 다음과 같은 범주에 따라 분류됩니다: 문서 자동화, 개발자 경험, 기업 솔루션, 창의 도구.",
     "faq1Q": "How are skills categorized？",
@@ -467,7 +467,7 @@
         "desc": "실시간 채팅과 지원."
       },
       "news": {
-        "title": "Twitter",
+        "title": "트위터",
         "desc": "최신 뉴스와 업데이트."
       }
     },
@@ -659,7 +659,7 @@
     "overview": "개요",
     "platformOverview": "스킬 개요",
     "quickStart": "빠른 시작",
-    "restApi": "REST API",
+    "restApi": "\"REST API\" \n\n## RULES:\n1. **SEO Optimization**: AI 에이전트 도구와 개발자 워크플로우 공간에서 실제로 검색하는 키워드를 사용하세요.\n2. **Site Theme**: AI 에이전트 스킬 마켓플레이스입니다. AI 에이전트, 스킬, 워크플로우, IDE 통합, MCP 서버, 개발자 도구와 관련된 번역을 유지하세요.\n3. **Length Constraint**: 원래 텍스트와 유사한 길이를 유지하여 UI 깨짐이나 SERP 자르기 방지.\n4. **Tone**: 전문적이고 기술적인 동시에 접근성이 좋은 언어를 사용하세요.\n5. **Brand Terms**: \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\"을 번역하지 않습니다.\n6. **CJK Formatting Rules (Crucial)**:\n   - CJK 언어 (zh, ja, ko): 한글자간에 반드시 반드시 반간격을 유지하세요 (e.g. \"在 Cursor 中\").\n   - 중국어 (zh): 전체 너비 점 (， 。 ！ ？ ： ；) 사용.\n   - 일본어 (ja): 전체 너비 점 (、 。 ！ ？ ： ；) 사용.\n   - 한국어 (ko): 반간격 점 (.,) 사용, 전체 너비 느낌표/물음표 (！ ？) 사용.\n7. **Glossary Alignment**:\n   - \"AI 에이전트 스킬\" -> zh: \"AI 에이전트 스킬\", ja: \"AI 에이전트 스킬\", ko: \"AI 에이전트 스킬\"\n   - \"AI 에이전트\" -> zh: \"AI 에이전트\", ja: \"AI 에이전트\", ko: \"AI 에이전트\"\n   - \"IDE 통합\" -> zh: \"IDE 통합\", ja: \"IDE 통합\", ko: \"IDE 통합\"\n   - \"개발자 도구\" -> zh: \"개발자 도구\", ja: \"개발자 도구\", ko: \"개발자 도구\"\n   - \"설치 플랫폼\" -> zh: \"설치 플랫폼\", ja: \"설치 플랫폼\", ko: \"설치 플랫폼\"\n   - \"워크플로우 자동화\" -> zh: \"워크플로우 자동화\", ja: \"워크플로우 자동화\", ko: \"워크플로우 자동화\"\n   - \"마켓플레이스\" -> zh: \"마켓플레이스\", ja: \"마켓플레이스\", ko: \"마켓플레이스\"\n8. **No Fluff**: 설명은 없습니다. 번역된 텍스트만 반환.",
     "security": "보안",
     "skills": "스킬 (Skills)",
     "tools": "도구 (Tools)",
