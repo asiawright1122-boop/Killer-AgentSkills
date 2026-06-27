@@ -155,7 +155,7 @@ if (!docTitle) {
 const pageTitle = isIndex
   ? tr('Docs.indexTitle', 'AI Agent Skills Docs for Install, Setup & Workflow Templates')
   : isInstallationPage
-    ? `${docTitle} | Cursor, Claude Code & VS Code Setup`
+    ? `${docTitle} | Step-by-Step Setup for Cursor, Claude Code & Windsurf`
     : `${docTitle} | ${tr('Docs.titleSuffix', 'AI Agent Skills Docs')}`;
 const pageDescription = isIndex
   ? tr(
@@ -164,8 +164,8 @@ const pageDescription = isIndex
     )
   : isInstallationPage
     ? isZhCopy
-      ? '用 npx 安装 AI Agent Skills，检查 Cursor、Claude Code、VS Code 等环境中的原生文件写入，并继续进入可信合集与工作流方案页。'
-      : 'Install AI agent skills with npx, verify IDE-native files for Cursor, Claude Code, VS Code, and move into trusted collections and workflow solutions.'
+      ? '用一条 npx 命令安装 AI Agent Skills，检查 Cursor、Claude Code、Windsurf 等环境中的原生文件写入，然后继续进入精选合集和工作流方案。'
+      : 'Install AI agent skills with a single npx command, verify IDE-native setup for Cursor, Claude Code, Windsurf, and move into curated collections and workflow guides.'
     : isCliDoc
       ? `${docTitle}: ${tr('Docs.cliDesc', 'learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.')}`
       : isInstallDoc

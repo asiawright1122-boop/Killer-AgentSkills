@@ -140,7 +140,7 @@
         "description": "Explore practical MCP tools, integrations, and workflow patterns for Claude Code, Cursor, and Windsurf across GitHub, SQLite, browser automation, and docs."
       },
       "official-ai-agent-skills-guide": {
-        "title": "Official AI Agent Skills to Install First for Real Workflows",
+        "title": "Official AI Agent Skills to Install First — PDF, UI, SEO & MCP Workflows",
         "description": "See which official AI agent skills are worth installing first for PDFs, UI, SEO, MCP, and automation workflows in Claude Code, Cursor, and Windsurf."
       },
       "what-are-ai-agent-skills": {
@@ -152,8 +152,8 @@
         "description": "Compare AI agent skills for Claude Code, Cursor, and Windsurf in 2026, from document automation and UI to MCP and workflows."
       },
       "claude-code-vs-cursor-vs-windsurf": {
-        "title": "Claude Code vs Cursor vs Windsurf for AI Agent Skills",
-        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills, including setup differences, skill loading, context limits, and IDE-native formats."
+        "title": "Claude Code vs Cursor vs Windsurf: Which IDE Runs AI Skills Best?",
+        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills — setup, skill loading, context limits, and IDE-native formats so you can pick the right editor fast."
       }
     }
   },
@@ -380,8 +380,8 @@
     "collectionsSubtitle": "Discover install-ready collections for trusted tools, workflows, and IDE setups",
     "viewAllCollections": "View All Collections",
     "relatedCollections": "Related Collections",
-    "seoTitle": "Curated AI Agent Skill Collections — Killer-Skills",
-    "seoDescription": "Compare curated collections of official, trusted, and workflow-specific AI agent skills for Claude Code, Cursor, and Windsurf to accelerate development.",
+    "seoTitle": "Browse AI Agent Skill Collections — Official & Trusted Tools",
+    "seoDescription": "Browse curated collections of official, trusted, and workflow-specific AI agent skills. Compare setup quality and IDE fit for Claude Code, Cursor, and Windsurf.",
     "seoKeyword1": "AI agent skill collections",
     "seoKeyword2": "developer workflow skill collections",
     "heroTitle": "Curated Collections",
@@ -572,7 +572,7 @@
     "titleSuffix": "AI Agent Skills Docs",
     "indexDescription": "Read install, CLI, IDE compatibility, and workflow docs for AI agent skills, then move from setup into trusted collections and real workflows.",
     "cliDesc": "See AI agent skill CLI commands, sync behavior, and setup options for automation workflows.",
-    "installDesc": "Follow the installation flow for AI agent skills in Cursor, Claude Code, VS Code, and more.",
+    "installDesc": "Step-by-step installation for AI agent skills in Cursor, Claude Code, Windsurf, VS Code, and 19+ IDEs using one CLI command.",
     "workflowDesc": "Explore reusable AI agent skill patterns for automation, repeatable tasks, and templates.",
     "apiDesc": "Understand MCP, API integrations, and scalable ways to build agent workflows.",
     "securityDesc": "Review skill security, risk controls, and production-ready practices.",
@@ -714,8 +714,8 @@
         "desc": "Transparent, secure, and community-driven."
       }
     },
-    "seoTitle": "Killer-Skills: 3,400+ AI Agent Skills & MCP Servers",
-    "seoDescription": "Discover, compare, and install 3,400+ verified AI agent skills and Model Context Protocol (MCP) servers for Claude Code, Cursor, Windsurf, and 19+ IDEs.",
+    "seoTitle": "Install 3,400+ AI Agent Skills & MCP Servers — Killer-Skills",
+    "seoDescription": "Discover, compare, and install verified AI agent skills and MCP servers for Claude Code, Cursor, and Windsurf. Browse curated collections and setup guides.",
     "editorialTitle": "Why Reusable MCP Skills Matter & Our Testing Standards",
     "editorialSubtitle": "A developer-first directory ensuring safety, compatibility, and execution precision.",
     "editorialParagraph1": "As AI coding assistants like Claude Code, Cursor, and Windsurf transform the engineering landscape, Model Context Protocol (MCP) has emerged as the standard bridge between LLMs and external systems. However, browsing raw, unvetted repositories on GitHub presents significant challenges: fragmented configuration instructions, silent execution failures, and severe security risks from arbitrary local system access. Killer-Skills was built to bridge this gap.",
@@ -787,8 +787,8 @@
     "availableSkills": "Available Skills",
     "viewSkills": "View Skills",
     "popular": "Popular",
-    "seoTitle": "AI Agent Skills for Claude Code, Cursor & Windsurf",
-    "seoDescription": "Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.",
+    "seoTitle": "AI Agent Skills — Browse & Install for Claude Code, Cursor",
+    "seoDescription": "Search and install AI agent skills for Claude Code, Cursor, Windsurf, and 19+ IDEs. Filter by category, topic, or official source.",
     "searchSeoTitle": "{query} AI Agent Skills Search Results",
     "searchSeoDesc": "Search results for \"{query}\" across AI agent skills for Claude Code, Cursor, and Windsurf.",
     "categorySeoTitle": "{category} AI Agent Skills",

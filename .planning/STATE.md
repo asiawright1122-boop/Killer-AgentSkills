@@ -3,20 +3,20 @@ gsd_state_version: 1.0
 milestone: v5.0
 milestone_name: Traffic Activation & Index Health Closure
 status: in_progress
-last_updated: "2026-06-26T15:00:00.000Z"
-last_activity: 2026-06-26
+last_updated: "2026-06-27T06:18:00.000Z"
+last_activity: 2026-06-27
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Current Position
 
-Phase: 156 (automation delivered — verification pending operator REMOV-01 submission)
-Plan: Complete (1/1 plans)
-Status: Phase 156 automation delivered. Verification blocked on operator submitting 975-URL REMOV-01 batch (GitHub issue #19). Cross-ref shows ~9,177 anomalies addressed by REMOV-01. V2 batch (191 URLs) built for residual source_file_path + trailing_slash. Projection: 10,783 → ~1,415 residual (< 2,000 target achievable).
+Phase: 157 (automation delivered — Traffic Activation)
+Plan: Complete (2/3 plans)
+Status: Phase 157 automation delivered. P0 titles/descriptions optimized across 8 surfaces. HowTo JSON-LD already exists on skill detail pages. IndexNow extended to ping P0 surface URLs. relatedCollections populated on skill detail pages. Structured data validation script built. 0 regressions.
 Last activity: 2026-06-27
 
 ## v5.0 Context: Traffic Activation & Index Health Closure
@@ -34,14 +34,21 @@ v5.0 shifts from structural readiness to measurable traffic and index growth.
 ## Phase Plan
 
 ### Phase 156: Index Health Closure
-- **Status:** Planned
+- **Status:** Automation delivered (verification pending operator REMOV-01 submission)
 - **Scope:** Coverage anomaly re-analysis, post-submission verification automation, second-pass batch builder
 - **Depends on:** Phase 155 automation (complete)
 
 ### Phase 157: Traffic Activation
-- **Status:** Planned
-- **Scope:** P0 title/description audit + rewrite, structured data, IndexNow, internal link reinforcement
+- **Status:** Automation delivered
+- **Scope:** P0 title/description audit + rewrite, IndexNow P0 extension, relatedCollections population, structured data validation
 - **Depends on:** Phase 153 editorial uplift (complete)
+- **Delivered:**
+  - P0 titles/descriptions optimized across 8 surfaces (en + removed duplicate brand suffixes in 9 other locales)
+  - HowTo JSON-LD already existed on skill detail pages (no change needed)
+  - IndexNow extended to ping 80 P0 surface URLs (8 paths × 10 locales) on deploy
+  - `relatedCollections` populated via `data/skill-collection-lookup.json` (117 skill refs mapped across 38 collections)
+  - `scripts/seo-structured-data-validate.ts` + 17 tests
+  - `npm run report:seo:structured-data-validate` npm script wired
 
 ### Phase 158: Coverage Freshness Automation
 - **Status:** Planned

@@ -76,6 +76,8 @@
     "report:seo:gsc-removal-verification": "npx tsx scripts/seo-gsc-removal-verification.ts",
     "report:seo:coverage-delta": "npx tsx scripts/seo-gsc-removal-verification.ts delta",
     "report:seo:gsc-removal-batch-v2": "npx tsx scripts/seo-gsc-removal-batch-v2.ts",
+    "report:seo:structured-data-validate": "npx tsx scripts/seo-structured-data-validate.ts",
+    "build:skill-collection-lookup": "npx tsx scripts/build-skill-collection-lookup.ts",
     "report:seo:recovery-scorecard": "npx tsx scripts/seo-recovery-scorecard.ts",
     "report:seo:recovery-control-board": "npx tsx scripts/seo-recovery-control-board.ts",
     "report:seo:recovery-execution-queue": "npx tsx scripts/seo-recovery-execution-queue.ts",

@@ -9,6 +9,20 @@ const INDEXNOW_KEY = '89cc8ad09dc64e58b25ccb5632573e78';
 const INDEXNOW_KEY_LOCATION = `https://killer-skills.com/${INDEXNOW_KEY}.txt`;
 const HOST = 'killer-skills.com';
 
+// P0 authority surface paths (without locale prefix) to always include
+// in IndexNow submissions. These are the 8 highest-priority pages that
+// need search engine discovery.
+const P0_SURFACE_PATHS = [
+  '',                                                                     // homepage
+  '/collections',                                                         // collections hub
+  '/collections/top-official-ai-skills-trusted-tools',                     // official collection
+  '/collections/top-agent-workflow-building-tools',                        // workflow collection
+  '/collections/top-cursor-compatible-skills-workflow-integrations',       // cursor collection
+  '/docs/installation',                                                   // installation docs
+  '/blog/official-ai-agent-skills-guide',                                 // official skills guide
+  '/blog/claude-code-vs-cursor-vs-windsurf',                              // IDE comparison
+];
+
 interface SkillRow {
   id: string;
   owner: string;
@@ -61,6 +75,15 @@ async function submitIndexNow() {
 
   console.log(`📋 Found ${targetSkills.length} target skills to submit.`);
 
+  // Build P0 surface URLs (8 paths × 10 locales = 80 URLs)
+  const p0Urls: string[] = [];
+  for (const p0Path of P0_SURFACE_PATHS) {
+    for (const locale of SUPPORTED_LOCALES) {
+      p0Urls.push(`https://${HOST}/${locale}${p0Path}`);
+    }
+  }
+  console.log(`🏛️  Added ${p0Urls.length} P0 surface URLs to submission.`);
+
   const urlList: string[] = [];
   for (const skill of targetSkills) {
     const routePath = getSkillRoutePath({
@@ -77,12 +100,15 @@ async function submitIndexNow() {
     }
   }
 
+  // Prepend P0 surface URLs so search engines discover them first
+  urlList.push(...p0Urls);
+
   if (urlList.length === 0) {
-    console.log('⚠️ No valid localized skill URLs generated. Aborting.');
+    console.log('⚠️ No valid URLs generated. Aborting.');
     return;
   }
 
-  console.log(`🚀 Formatted ${urlList.length} URLs for IndexNow submission.`);
+  console.log(`🚀 Formatted ${urlList.length} URLs for IndexNow submission (${p0Urls.length} P0 + ${urlList.length - p0Urls.length} skills).`);
 
   const payload = {
     host: HOST,

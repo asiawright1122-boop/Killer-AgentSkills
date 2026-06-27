@@ -22,7 +22,7 @@
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
 | IND-01 | Phase 156 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-gsc-removal-batch-v2.md, reports/seo/latest-remov01-coverage-crossref.md, reports/seo/latest-coverage-anomaly-projection.md | [ ] automation delivered, verification pending operator submission |
-| TRAF-01 | Phase 157 | P0 surface titles/descriptions, structured data validation, reports/seo/latest-indexnow-ping-log.json | [ ] |
+| TRAF-01 | Phase 157 | P0 surface titles/descriptions, reports/seo/latest-structured-data-validation.md, data/skill-collection-lookup.json, scripts/submit-indexnow.ts | [ ] automation delivered, validation pending prod run |
 | FRESH-01 | Phase 158 | reports/seo/latest-gsc-api-coverage.json, reports/seo/latest-traffic-proof.md, reports/seo/latest-search-compliance-matrix.json | [ ] |
 
 ## 4. Carry-Forward from v4.9

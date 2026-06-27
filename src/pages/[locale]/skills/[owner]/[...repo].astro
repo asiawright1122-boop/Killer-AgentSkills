@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
 import {
   getSkillById,
@@ -13,6 +14,7 @@ import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skil
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
 import relatedSkillsLookup from '../../../../../data/related-skills-lookup.json';
+import skillCollectionLookup from '../../../../../data/skill-collection-lookup.json';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -296,7 +298,28 @@ if (renderRepoDirectory) {
   trackDirectoryView(Astro.locals, Astro.request, locale, owner, repo);
 }
 
-const relatedCollections: any[] = [];
+// Build related collections from the skill-collection lookup
+const allCollections = await getCollection('collections');
+const skillRefKey = `${owner}/${repo}`;
+const skillPathRefKey = canonicalRoutePath ? `${owner}/${canonicalRoutePath}` : skillRefKey;
+const collectionSlugs =
+  (skillCollectionLookup as Record<string, string[]>)[skillPathRefKey] ||
+  (skillCollectionLookup as Record<string, string[]>)[skillRefKey] ||
+  [];
+const relatedCollections = collectionSlugs
+  .map((slug) =>
+    allCollections.find((c) => {
+      const cSlug =
+        (c.data as any).canonicalSlug ||
+        c.id
+          .split('/')
+          .pop()
+          ?.replace(/\.json$/, '');
+      return cSlug === slug;
+    }),
+  )
+  .filter((c): c is NonNullable<typeof c> => Boolean(c))
+  .slice(0, 5);
 
 // Determine verified status (mirrors SkillCard.astro logic)
 const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
