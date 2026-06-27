@@ -21,7 +21,7 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| IND-01 | Phase 156 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-gsc-removal-batch-v2.md | [ ] |
+| IND-01 | Phase 156 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-gsc-removal-batch-v2.md, reports/seo/latest-remov01-coverage-crossref.md, reports/seo/latest-coverage-anomaly-projection.md | [ ] automation delivered, verification pending operator submission |
 | TRAF-01 | Phase 157 | P0 surface titles/descriptions, structured data validation, reports/seo/latest-indexnow-ping-log.json | [ ] |
 | FRESH-01 | Phase 158 | reports/seo/latest-gsc-api-coverage.json, reports/seo/latest-traffic-proof.md, reports/seo/latest-search-compliance-matrix.json | [ ] |
 

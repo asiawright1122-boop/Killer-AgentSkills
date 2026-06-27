@@ -6,7 +6,8 @@ Milestone v5.0 Traffic Activation & Index Health Closure is active. Phases 156-1
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 156: Index Health Closure — Verify & Extend REMOV-01.
+- [x] Plan Phase 156: Index Health Closure — Verify & Extend REMOV-01. ✅ Automation delivered
+- [ ] Phase 156 verification: Operator submits REMOV-01 batch (GitHub issue #19), then run verification + delta
 - [ ] Plan Phase 157: Traffic Activation — Title/Description/Structured-Data Optimization on P0 Surfaces.
 - [ ] Plan Phase 158: Coverage Freshness Automation & Demand Measurement.
 
@@ -24,12 +25,19 @@ Milestone v5.0 Traffic Activation & Index Health Closure is active. Phases 156-1
 
 - **Requirements:** IND-01
 - **Scope:** Cross-reference the 975-URL removal batch against the coverage anomaly clusters, build post-submission verification automation, and generate a second-pass removal batch for remaining high-priority clusters.
-- **Status:** Planned
-- **Plans:** 0/1 plans complete
+- **Status:** Automation delivered (3 scripts, verification pending operator REMOV-01 submission)
+- **Plans:** 1/1 plans complete
+- **Automation delivered:**
+  - `scripts/seo-gsc-removal-verification.ts` — verify + delta commands
+  - `scripts/seo-gsc-removal-batch-v2.ts` — second-pass batch builder with cross-ref
+  - `reports/seo/latest-gsc-removal-batch-v2.{csv,json,md}` — 191 URL second-pass batch
+  - `reports/seo/latest-remov01-coverage-crossref.md` — REMOV-01 × coverage cross-ref
+  - `reports/seo/latest-coverage-anomaly-projection.md` — projection: 10,783 → ~1,415 residual
 - **Success Criteria:**
-  - Second-pass removal batch generated (target: top 3 remaining clusters).
-  - Post-submission verification emits automated delta report.
-  - Coverage anomaly reduction estimate documented (how much the first + second batch should remove).
+  - ✅ Second-pass removal batch generated (191 URLs across source_file_path + trailing_slash)
+  - ✅ Post-submission verification automation built (verify + delta commands)
+  - ✅ Coverage anomaly reduction estimate documented (~9,177 by REMOV-01, ~191 by v2 → ~1,415 residual < 2,000 target)
+  - ⬜ Post-submission verification executed (blocked on operator REMOV-01 submission)
 
 ### Phase 157: Traffic Activation — Title/Description/Structured-Data Optimization
 
@@ -75,7 +83,7 @@ Milestone v5.0 Traffic Activation & Index Health Closure is active. Phases 156-1
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v5.0 Traffic Activation & Index Health Closure | 156-158 | 0/3 | Planned | Active |
+| v5.0 Traffic Activation & Index Health Closure | 156-158 | 1/3 | In progress | Active |
 | v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 3/3 | Complete | 2026-06-26 |
 | v4.8 Crawl Remediation & Discovery Expansion | 151-152 | 2/2 | Complete | 2026-06-26 |
 | v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 3/3 | Complete | 2026-06-24 |
