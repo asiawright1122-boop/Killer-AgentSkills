@@ -1,34 +1,38 @@
-# Milestone v5.0 Requirements — Traffic Activation & Index Health Closure
+# Milestone v5.1 Requirements — First Impression & Coverage Closure
 
 ## 1. Active Requirements
 
-### Index Health Closure (IND)
-- [ ] **IND-01**: Close the coverage anomaly gap by verifying the 975-URL REMOV-01 removal batch impact (operator submission tracked via GitHub issue #19), building post-submission verification automation with before/after delta reporting, and generating a second-pass removal batch for the top 3 remaining high-priority clusters not covered by the first batch. Target: reduce coverage anomalies from 10,783 to <2,000.
+### Coverage Closure (COV)
+- [ ] **COV-01**: Complete the REMOV-01 submission cycle (975 URLs, tracked via GitHub issue #19), run post-submission verification and delta reporting, and submit the 191-URL second-pass batch. Target: reduce coverage affected pages from 10,783 to below 5,000.
 
-### Traffic Activation (TRAF)
-- [ ] **TRAF-01**: Earn measurable impressions on P0 authority surfaces within 4 weeks by optimizing title tags, meta descriptions, and structured data (`FAQPage`/`SoftwareApplication`) on the 8 P0 authority surfaces; wiring IndexNow ping-on-deploy for the 436 Tier 1 URLs; and reinforcing internal cross-links to ensure ≥3 inbound links per P0 surface. Current baseline: 0 impressions, 0 clicks across all 34 promote surfaces.
+### First Impression Earners (IMPR)
+- [ ] **IMPR-01**: Earn first measurable organic impressions and clicks on at least 2 P0 primary authority surfaces. Target: ≥3 impressions and ≥1 click per surface within the milestone window. Resolve GitHub issue #20 (takedown for scraped content at `/en/skills/atondwal/config` — the highest-scoring GSC opportunity at 1415.9). Execute the 5 editorial queue items from the authority operator queue. Run structured data production validation.
 
-### Coverage Freshness Automation (FRESH)
-- [x] **FRESH-01**: Establish automated GSC data freshness so coverage source age stays ≤7 days without manual CSV export. Build a scheduled GSC API coverage pipeline for the 436 Tier 1 URLs, refactor the Coverage Drilldown report to accept API data as an input source, add a freshness SLA alert to the compliance matrix, and create a weekly traffic proof dashboard. This closes REC-24 (unresolved since April v1.7).
+### Pipeline & Compliance Hardening (PIPE)
+- [ ] **PIPE-01**: Wire structured data validation into the daily SEO monitoring CI workflow. Add GSC API credential rotation alerting so credential failures surface as issues instead of being silently skipped. Add automated detection for blocklisted URLs appearing in GSC crawl data. Address trailing-slash canonicalization opportunities from the GSC opportunity board. Target: move 2+ compliance matrix lanes from "watch" to "pass".
 
 ## 2. Out of Scope
 
-- **Bulk skill-detail re-expansion**: stays off until TRAF-01 shows measurable impressions on P0 surfaces.
+- **Bulk skill-detail re-expansion**: stays off until IMPR-01 shows measurable impressions on P0 surfaces.
 - **Paid AI provider expansion**: SiliconFlow/OpenRouter re-enablement is a separate budget decision.
-- **Experiment ladder automation promotion**: 0 candidates; wait for TRAF-01 evidence before promoting automation candidates.
+- **Experiment ladder automation promotion**: 0 candidates; wait for IMPR-01 evidence before promoting automation candidates.
 
 ## 3. Traceability Matrix
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| IND-01 | Phase 156 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-gsc-removal-batch-v2.md, reports/seo/latest-remov01-coverage-crossref.md, reports/seo/latest-coverage-anomaly-projection.md | [ ] automation delivered, verification pending operator submission |
-| TRAF-01 | Phase 157 | P0 surface titles/descriptions, reports/seo/latest-structured-data-validation.md, data/skill-collection-lookup.json, scripts/submit-indexnow.ts | [ ] automation delivered, validation pending prod run |
-| FRESH-01 | Phase 158 | reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-traffic-proof.md, reports/seo/latest-search-compliance-matrix.json, db/schema.sql | [x] automation delivered |
+| COV-01 | Phase 159 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-gsc-removal-verification.json, reports/seo/latest-coverage-delta.json, reports/seo/latest-gsc-removal-batch-v2.md | [ ] |
+| IMPR-01 | Phase 160 | reports/gsc/latest-ctr-report.json, reports/seo/latest-authority-uplift-scorecard.json, reports/seo/latest-structured-data-validation.md, reports/seo/latest-gsc-opportunity-board.json | [ ] |
+| PIPE-01 | Phase 161 | .github/workflows/seo-monitoring.yml, reports/seo/latest-search-compliance-matrix.json | [ ] |
 
-## 4. Carry-Forward from v4.9
+## 4. Carry-Forward from v5.0
 
-| Carry Item | v5.0 Mapping |
+| Carry Item | v5.1 Mapping |
 |---|---|
-| REMOV-01 manual GSC removal submission (0/975 URLs) | IND-01 verification + second-pass batch |
-| Zero impressions on 34 promote surfaces | TRAF-01 traffic activation |
-| Coverage Drilldown freshness gap (21+ days, REC-24) | FRESH-01 automation pipeline ✅ |
+| REMOV-01 manual GSC removal submission (0/975 URLs, GitHub issue #19) | COV-01 submission + verification |
+| Second-pass batch (191 URLs ready) | COV-01 second-pass submission |
+| Zero impressions on 34 promote surfaces | IMPR-01 traffic activation |
+| Structured data production validation pending | IMPR-01 production run |
+| GSC API credential rotation silently skips sweep step | PIPE-01 credential alerting |
+| Structured data validation not in CI | PIPE-01 CI wiring |
+| Blocklisted URLs still in GSC index (issue #20) | IMPR-01 takedown resolution |
