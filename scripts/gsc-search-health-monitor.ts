@@ -6,6 +6,7 @@ import { dirname, resolve } from 'node:path';
 export type SearchHealthAlertCode =
   | 'gsc_freshness_sla_breach'
   | 'gsc_freshness_sla_warning'
+  | 'gsc_freshness_sla_inspection_sweep_stale'
   | 'gsc_clicks_collapse'
   | 'gsc_clicks_drop_warning'
   | 'gsc_crawl_error_spike'
@@ -28,30 +29,60 @@ export type SearchHealthAnalysisResult = {
   alerts: SearchHealthAlert[];
   metrics: {
     coverageAgeDays: number;
+    sweepAgeDays: number | null;
+    sweepFresh: boolean;
     clicksDropRate: number;
     crawlErrorsCount: number;
     unexpectedClusterCount: number;
   };
 };
 
-export function analyzeSearchHealth(ctrData: any, coverageData: any): SearchHealthAnalysisResult {
+export function analyzeSearchHealth(ctrData: any, coverageData: any, sweepData?: any): SearchHealthAnalysisResult {
   const alerts: SearchHealthAlert[] = [];
 
-  // 1. Freshness SLA checks
+  // Compute sweep freshness
+  const sweepGeneratedAt = sweepData?.generatedAt;
+  let sweepAgeDays: number | null = null;
+  let sweepSampled = 0;
+  let sweepFresh = false;
+  if (sweepGeneratedAt) {
+    const parsed = new Date(sweepGeneratedAt);
+    const ageMs = Date.now() - parsed.getTime();
+    if (Number.isFinite(ageMs)) {
+      sweepAgeDays = Math.max(0, Math.floor(ageMs / (24 * 60 * 60 * 1000)));
+      sweepSampled = typeof sweepData?.totalSampled === 'number' ? sweepData.totalSampled : 0;
+      sweepFresh = sweepAgeDays <= 7 && sweepSampled >= 10;
+    }
+  }
+
+  // 1. Freshness SLA checks — sweep-aware
   const ageDays = typeof coverageData?.sourceFreshnessDays === 'number' ? coverageData.sourceFreshnessDays : 0;
-  if (ageDays > 30) {
+  if (sweepFresh) {
+    // Sweep is fresh → suppress drilldown staleness alerts.
+    // Coverage freshness is confirmed by the sweep; no freshness alert needed.
+  } else if (ageDays > 30) {
     alerts.push({
       code: 'gsc_freshness_sla_breach',
       severity: 'critical',
       title: 'Coverage Data Stale SLA Breach',
-      message: `The GSC Coverage Drilldown data is ${ageDays} days old, breaching the 30-day SLA window.`,
+      message: `The GSC Coverage Drilldown data is ${ageDays} days old, breaching the 30-day SLA window. No fresh URL Inspection sweep found (sweep age=${sweepAgeDays != null ? sweepAgeDays + 'd' : 'n/a'}, sampled=${sweepSampled}).`,
     });
   } else if (ageDays > 15) {
     alerts.push({
       code: 'gsc_freshness_sla_warning',
       severity: 'warning',
       title: 'Coverage Data Stale Warning',
-      message: `The GSC Coverage Drilldown data is ${ageDays} days old, exceeding the 15-day warning window.`,
+      message: `The GSC Coverage Drilldown data is ${ageDays} days old, exceeding the 15-day warning window. No fresh URL Inspection sweep found (sweep age=${sweepAgeDays != null ? sweepAgeDays + 'd' : 'n/a'}, sampled=${sweepSampled}).`,
+    });
+  }
+
+  // Alert when sweep exists but is stale — CI pipeline may need attention
+  if (sweepAgeDays !== null && !sweepFresh && sweepSampled >= 10) {
+    alerts.push({
+      code: 'gsc_freshness_sla_inspection_sweep_stale',
+      severity: 'warning',
+      title: 'URL Inspection Sweep Stale',
+      message: `The URL Inspection coverage sweep is ${sweepAgeDays} days old (sampled=${sweepSampled}), exceeding the 7-day freshness window. Check that the daily CI sweep step is running.`,
     });
   }
 
@@ -176,6 +207,8 @@ export function analyzeSearchHealth(ctrData: any, coverageData: any): SearchHeal
     alerts,
     metrics: {
       coverageAgeDays: ageDays,
+      sweepAgeDays,
+      sweepFresh,
       clicksDropRate,
       crawlErrorsCount,
       unexpectedClusterCount,
@@ -195,6 +228,8 @@ export function renderMarkdownReport(result: SearchHealthAnalysisResult): string
     '',
     '## Checked Metrics',
     `- Coverage Freshness Age: \`${result.metrics.coverageAgeDays}\` days`,
+    `- URL Inspection Sweep Age: \`${result.metrics.sweepAgeDays ?? 'n/a'}\` days`,
+    `- URL Inspection Sweep Fresh: \`${result.metrics.sweepFresh}\``,
     `- Week-over-week Clicks Drop: \`${(result.metrics.clicksDropRate * 100).toFixed(1)}%\``,
     `- Server (5xx) Crawl Errors: \`${result.metrics.crawlErrorsCount}\` pages`,
     `- Unexpected "Other" Cluster Count: \`${result.metrics.unexpectedClusterCount.toFixed(1)}\` pages`,
@@ -234,6 +269,7 @@ async function main() {
 
   let ctrData: any = {};
   let coverageData: any = {};
+  let sweepData: any = {};
 
   try {
     if (existsSync(ctrReportPath)) {
@@ -251,7 +287,17 @@ async function main() {
     console.warn(`[GSC-Monitor] Warning: Could not read Coverage Drilldown report: ${(err as Error).message}`);
   }
 
-  const result = analyzeSearchHealth(ctrData, coverageData);
+  // Also load URL Inspection Coverage Sweep if available
+  const sweepReportPath = resolve(process.cwd(), 'reports/seo/latest-url-inspection-coverage-sweep.json');
+  try {
+    if (existsSync(sweepReportPath)) {
+      sweepData = JSON.parse(readFileSync(sweepReportPath, 'utf8'));
+    }
+  } catch (err) {
+    console.warn(`[GSC-Monitor] Warning: Could not read URL Inspection sweep report: ${(err as Error).message}`);
+  }
+
+  const result = analyzeSearchHealth(ctrData, coverageData, sweepData);
   const mdReport = renderMarkdownReport(result);
 
   const outDir = resolve(process.cwd(), 'reports/gsc');

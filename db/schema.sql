@@ -81,3 +81,21 @@ CREATE TABLE IF NOT EXISTS gsc_coverage_drilldown (
     ingested_at TEXT
 );
 
+-- GSC URL Inspection results for FRESH-01 automated freshness pipeline
+CREATE TABLE IF NOT EXISTS gsc_url_inspection (
+    url TEXT PRIMARY KEY,
+    verdict TEXT,
+    coverage_state TEXT,
+    indexing_state TEXT,
+    last_crawl_time TEXT,
+    page_fetch_state TEXT,
+    google_canonical TEXT,
+    robots_txt_state TEXT,
+    cluster TEXT,
+    inspected_at TEXT,
+    ingested_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_gsc_url_inspection_verdict ON gsc_url_inspection(verdict);
+CREATE INDEX IF NOT EXISTS idx_gsc_url_inspection_cluster ON gsc_url_inspection(cluster);
+

@@ -2,20 +2,27 @@
 /**
  * SEO URL Inspection Coverage Sweep
  *
- * Samples URLs from the latest GSC removal batch and inspects each via the
- * Google Search Console URL Inspection API. Produces a coverage evidence
- * report that the authority-uplift scorecard can use as an alternative to
- * the stale Coverage Drilldown CSV export (which requires manual GSC UI
- * export). When this sweep report is ≤7 days old, the scorecard's
- * `coverageReady` gate passes even if the drilldown export is old.
+ * Inspects URLs via the Google Search Console URL Inspection API to produce
+ * a coverage evidence report. The authority-uplift scorecard and the search
+ * compliance matrix accept this report as an alternative to the stale
+ * Coverage Drilldown CSV export (which requires manual GSC UI export).
+ * When this report is ≤7 days old, the coverage-freshness gates pass
+ * even if the drilldown export is old.
  *
  * Usage:
- *   npx tsx scripts/seo-url-inspection-coverage-sweep.ts [--max-per-cluster 50] [--dry-run]
+ *   npx tsx scripts/seo-url-inspection-coverage-sweep.ts [options]
+ *
+ * Options:
+ *   --tier1            Inspect P0 surface paths across all 10 locales (80 URLs)
+ *   --p0-only          Inspect only 8 English P0 surface URLs (fast ~4s sweep)
+ *   --urls <path>      Load URLs from a JSON file (same format as removal batch)
+ *   --max-per-cluster  Max URLs per cluster when sampling from removal batch (default 50)
+ *   --dry-run          Show what would be inspected without making API calls
  *
  * Environment:
  *   GSC_CLIENT_EMAIL   — service account email
  *   GSC_PRIVATE_KEY    — service account private key
- *   GSC_SITE_URL       — site URL (e.g. https://killer-skills.com)
+ *   GSC_SITE_URL       — site URL (e.g. sc-domain:killer-skills.com)
  *
  * Output:
  *   - reports/seo/latest-url-inspection-coverage-sweep.json
@@ -33,12 +40,36 @@ if (existsSync(localEnv)) {
 }
 
 // ---------------------------------------------------------------------------
+// P0 Surface Paths & Locales (aligned with scripts/submit-indexnow.ts)
+// ---------------------------------------------------------------------------
+export const P0_SURFACE_PATHS = [
+  '',
+  '/collections',
+  '/collections/top-official-ai-skills-trusted-tools',
+  '/collections/top-agent-workflow-building-tools',
+  '/collections/top-cursor-compatible-skills-workflow-integrations',
+  '/docs/installation',
+  '/blog/official-ai-agent-skills-guide',
+  '/blog/claude-code-vs-cursor-vs-windsurf',
+];
+
+export const SUPPORTED_LOCALES = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+
+const DEFAULT_HOST = 'killer-skills.com';
+
+// ---------------------------------------------------------------------------
 // CLI args
 // ---------------------------------------------------------------------------
 const args = new Set(process.argv.slice(2));
 const dryRun = args.has('--dry-run');
+const tier1Mode = args.has('--tier1');
+const p0OnlyMode = args.has('--p0-only');
+const urlsArg = process.argv.find((a) => a.startsWith('--urls='));
+const urlsPath = urlsArg ? urlsArg.split('=')[1] : null;
 const maxPerClusterArg = process.argv.find((a) => a.startsWith('--max-per-cluster='));
 const MAX_PER_CLUSTER = maxPerClusterArg ? parseInt(maxPerClusterArg.split('=')[1], 10) : 50;
+
+export type SweepSourceMode = 'removal-batch' | 'tier1' | 'p0-only' | 'custom-urls';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -62,7 +93,7 @@ type UrlInspectionResult = {
   };
 };
 
-type InspectionRecord = {
+export type InspectionRecord = {
   url: string;
   cluster: string;
   verdict: string;
@@ -76,7 +107,7 @@ type InspectionRecord = {
   error?: string;
 };
 
-type ClusterSummary = {
+export type ClusterSummary = {
   cluster: string;
   sampleSize: number;
   passCount: number;
@@ -85,10 +116,11 @@ type ClusterSummary = {
   errorCount: number;
 };
 
-type CoverageSweepReport = {
+export type CoverageSweepReport = {
   generatedAt: string;
-  sourceRemovalBatch: string;
-  totalBatchUrls: number;
+  sourceMode: SweepSourceMode;
+  sourceDescription: string;
+  totalInputUrls: number;
   totalSampled: number;
   clustersInspected: number;
   overallPassRate: number;
@@ -97,6 +129,29 @@ type CoverageSweepReport = {
   coverageStateBreakdown: Record<string, number>;
   records: InspectionRecord[];
 };
+
+// ---------------------------------------------------------------------------
+// URL source builders
+// ---------------------------------------------------------------------------
+export function buildTier1Urls(host: string = DEFAULT_HOST): Array<{ url: string; cluster: string }> {
+  const urls: Array<{ url: string; cluster: string }> = [];
+  for (const p0Path of P0_SURFACE_PATHS) {
+    for (const locale of SUPPORTED_LOCALES) {
+      urls.push({
+        url: `https://${host}/${locale}${p0Path}`,
+        cluster: `p0_surface${p0Path || '/homepage'}`,
+      });
+    }
+  }
+  return urls;
+}
+
+export function buildP0OnlyUrls(host: string = DEFAULT_HOST): Array<{ url: string; cluster: string }> {
+  return P0_SURFACE_PATHS.map((p0Path) => ({
+    url: `https://${host}/en${p0Path}`,
+    cluster: `p0_surface${p0Path || '/homepage'}`,
+  }));
+}
 
 // ---------------------------------------------------------------------------
 // Auth helpers (same pattern as gsc-url-inspection-verify.ts)
@@ -116,7 +171,7 @@ function getConfig() {
   return { clientEmail, privateKey, siteUrl };
 }
 
-function base64UrlEncode(value: string | Buffer): string {
+export function base64UrlEncode(value: string | Buffer): string {
   return Buffer.from(value)
     .toString('base64')
     .replace(/\+/g, '-')
@@ -124,7 +179,7 @@ function base64UrlEncode(value: string | Buffer): string {
     .replace(/=+$/g, '');
 }
 
-async function fetchAccessToken(clientEmail: string, privateKey: string): Promise<string> {
+export async function fetchAccessToken(clientEmail: string, privateKey: string): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
   const header = base64UrlEncode(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
   const payload = base64UrlEncode(
@@ -173,7 +228,7 @@ async function fetchAccessToken(clientEmail: string, privateKey: string): Promis
   return data.access_token;
 }
 
-async function inspectUrl(
+export async function inspectUrl(
   url: string,
   siteUrl: string,
   accessToken: string,
@@ -202,7 +257,7 @@ async function inspectUrl(
 }
 
 // ---------------------------------------------------------------------------
-// Removal batch parsing
+// URL source loading
 // ---------------------------------------------------------------------------
 function loadRemovalBatch(): {
   urls: Array<{ url: string; cluster: string }>;
@@ -223,12 +278,79 @@ function loadRemovalBatch(): {
   return { urls: batch.urls, source: batchJsonPath };
 }
 
+function loadCustomUrls(jsonPath: string): {
+  urls: Array<{ url: string; cluster: string }>;
+  source: string;
+} {
+  const absPath = resolve(process.cwd(), jsonPath);
+  if (!existsSync(absPath)) {
+    console.error(`Custom URL file not found: ${absPath}`);
+    process.exit(1);
+  }
+
+  const data = JSON.parse(readFileSync(absPath, 'utf-8')) as {
+    urls: Array<{ url: string; cluster: string }>;
+  };
+
+  return { urls: data.urls || [], source: absPath };
+}
+
+/**
+ * Resolve URL list based on CLI flags. Returns URLs and metadata about the source.
+ */
+function resolveUrls(): {
+  urls: Array<{ url: string; cluster: string }>;
+  sourceMode: SweepSourceMode;
+  sourceDescription: string;
+  totalInputUrls: number;
+} {
+  if (tier1Mode) {
+    const urls = buildTier1Urls();
+    return {
+      urls,
+      sourceMode: 'tier1',
+      sourceDescription: `P0 surfaces × ${SUPPORTED_LOCALES.length} locales (${P0_SURFACE_PATHS.length} paths)`,
+      totalInputUrls: urls.length,
+    };
+  }
+
+  if (p0OnlyMode) {
+    const urls = buildP0OnlyUrls();
+    return {
+      urls,
+      sourceMode: 'p0-only',
+      sourceDescription: `P0 surfaces, English only (${P0_SURFACE_PATHS.length} paths)`,
+      totalInputUrls: urls.length,
+    };
+  }
+
+  if (urlsPath) {
+    const { urls, source } = loadCustomUrls(urlsPath);
+    return {
+      urls,
+      sourceMode: 'custom-urls',
+      sourceDescription: `Custom URL list: ${source}`,
+      totalInputUrls: urls.length,
+    };
+  }
+
+  // Default: removal batch
+  const { urls, source } = loadRemovalBatch();
+  return {
+    urls,
+    sourceMode: 'removal-batch',
+    sourceDescription: `Removal batch: ${source}`,
+    totalInputUrls: urls.length,
+  };
+}
+
 /**
  * Sample up to MAX_PER_CLUSTER URLs per cluster, preserving priority order
  * (the batch is already sorted by priority).
  */
-function sampleByCluster(
+export function sampleByCluster(
   urls: Array<{ url: string; cluster: string }>,
+  maxPerCluster: number = MAX_PER_CLUSTER,
 ): Array<{ url: string; cluster: string }> {
   const byCluster = new Map<string, Array<{ url: string; cluster: string }>>();
   for (const entry of urls) {
@@ -238,8 +360,8 @@ function sampleByCluster(
   }
 
   const sampled: Array<{ url: string; cluster: string }> = [];
-  for (const [cluster, entries] of byCluster) {
-    const count = Math.min(MAX_PER_CLUSTER, entries.length);
+  for (const [, entries] of byCluster) {
+    const count = Math.min(maxPerCluster, entries.length);
     sampled.push(...entries.slice(0, count));
   }
 
@@ -262,12 +384,18 @@ async function main() {
   const reportDir = resolve(process.cwd(), 'reports/seo');
   mkdirSync(reportDir, { recursive: true });
 
-  // Load and sample
-  const { urls: batchUrls, source: batchSource } = loadRemovalBatch();
-  const sampled = sampleByCluster(batchUrls);
+  // Resolve URL source
+  const { urls: inputUrls, sourceMode, sourceDescription, totalInputUrls } = resolveUrls();
 
-  console.log(`Total batch URLs: ${batchUrls.length}`);
-  console.log(`Sampled for inspection: ${sampled.length} (max ${MAX_PER_CLUSTER}/cluster)`);
+  // For tier1/p0-only/custom-urls, inspect all URLs (no sampling needed)
+  // For removal-batch, sample per cluster
+  const needsSampling = sourceMode === 'removal-batch';
+  const sampled = needsSampling ? sampleByCluster(inputUrls) : inputUrls;
+
+  console.log(`Source mode: ${sourceMode}`);
+  console.log(`Source: ${sourceDescription}`);
+  console.log(`Total input URLs: ${totalInputUrls}`);
+  console.log(`Sampled for inspection: ${sampled.length}${needsSampling ? ` (max ${MAX_PER_CLUSTER}/cluster)` : ''}`);
   console.log(`Clusters: ${new Set(sampled.map((s) => s.cluster)).size}`);
 
   if (dryRun) {
@@ -385,8 +513,9 @@ async function main() {
 
   const report: CoverageSweepReport = {
     generatedAt: new Date().toISOString(),
-    sourceRemovalBatch: batchSource,
-    totalBatchUrls: batchUrls.length,
+    sourceMode,
+    sourceDescription,
+    totalInputUrls,
     totalSampled,
     clustersInspected: clusterSummaries.size,
     overallPassRate,
@@ -405,8 +534,9 @@ async function main() {
     `# URL Inspection Coverage Sweep`,
     ``,
     `**Generated:** ${report.generatedAt}`,
-    `**Source:** ${report.sourceRemovalBatch}`,
-    `**Total batch URLs:** ${report.totalBatchUrls}`,
+    `**Source mode:** ${report.sourceMode}`,
+    `**Source:** ${report.sourceDescription}`,
+    `**Total input URLs:** ${report.totalInputUrls}`,
     `**Sampled for inspection:** ${report.totalSampled}`,
     `**Clusters inspected:** ${report.clustersInspected}`,
     `**Overall pass rate:** ${(report.overallPassRate * 100).toFixed(1)}%`,
@@ -438,8 +568,12 @@ async function main() {
     ``,
     `This sweep provides same-day coverage evidence as an alternative to the`,
     `manually-exported GSC Coverage Drilldown CSV. When this report is ≤7 days`,
-    `old, the authority-uplift scorecard's coverage-freshness gate accepts it as`,
-    `sufficient evidence to open the discovery expansion boundary.`,
+    `old, the authority-uplift scorecard's coverage-freshness gate and the`,
+    `search compliance matrix's coverage-freshness-before-claims lane accept it`,
+    `as sufficient evidence.`,
+    ``,
+    `Run with \`--tier1\` to sweep 80 URLs (8 P0 paths × 10 locales), or`,
+    `\`--p0-only\` for a fast 8-URL sweep (English P0 surfaces only).`,
     ``,
   ];
 
@@ -447,7 +581,7 @@ async function main() {
   writeFileSync(mdPath, mdLines.join('\n'), 'utf8');
 
   console.log(`\nCoverage sweep complete.`);
-  console.log(`Sampled: ${totalSampled} | PASS: ${totalPass} | Pass rate: ${(overallPassRate * 100).toFixed(1)}%`);
+  console.log(`Source: ${sourceMode} | Sampled: ${totalSampled} | PASS: ${totalPass} | Pass rate: ${(overallPassRate * 100).toFixed(1)}%`);
   console.log(`JSON: ${jsonPath}`);
   console.log(`Markdown: ${mdPath}`);
 }

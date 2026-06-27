@@ -9,6 +9,7 @@ export const DEFAULT_TRAFFIC_JSON_PATH = 'reports/gsc/latest-ctr-report.json';
 export const DEFAULT_RECOVERY_PROOF_WINDOW_JSON_PATH = 'reports/seo/latest-recovery-proof-window.json';
 export const DEFAULT_AUTHORITY_UPLIFT_JSON_PATH = 'reports/seo/latest-authority-uplift-scorecard.json';
 export const DEFAULT_RECOVERY_EXPERIMENT_LADDER_JSON_PATH = 'reports/seo/latest-recovery-experiment-ladder.json';
+export const DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH = 'reports/seo/latest-url-inspection-coverage-sweep.json';
 export const DEFAULT_GUIDELINES_RESEARCH_PATH = '.planning/research/v1.9-search-guidelines.md';
 
 export type SearchComplianceVerdict = 'pass' | 'watch' | 'block' | 'unavailable';
@@ -122,6 +123,15 @@ type ExperimentLadderJson = {
   };
 };
 
+type UrlInspectionSweepJson = {
+  generatedAt?: string;
+  sourceMode?: string;
+  totalSampled?: number;
+  overallPassRate?: number;
+  clustersInspected?: number;
+  clusters?: Array<{ cluster: string; sampleSize: number; passCount: number }>;
+};
+
 type SearchComplianceInputs = {
   generatedAt?: string;
   crawlHealth?: CrawlHealthJson | null;
@@ -130,6 +140,7 @@ type SearchComplianceInputs = {
   proofWindow?: RecoveryProofJson | null;
   authority?: AuthorityUpliftJson | null;
   experimentLadder?: ExperimentLadderJson | null;
+  urlInspectionSweep?: UrlInspectionSweepJson | null;
   guidelineResearchExists?: boolean;
 };
 
@@ -140,6 +151,7 @@ type SearchComplianceFileOptions = {
   proofWindowJsonPath?: string;
   authorityJsonPath?: string;
   experimentLadderJsonPath?: string;
+  urlInspectionSweepJsonPath?: string;
   guidelineResearchPath?: string;
 };
 
@@ -222,6 +234,22 @@ function authorityCount(
   return authority?.counts?.[key] ?? authority?.summary?.[key];
 }
 
+/** Compute freshness of URL Inspection sweep. Returns {fresh, ageDays, sampled} */
+function computeSweepFreshness(sweep: UrlInspectionSweepJson | null | undefined): {
+  fresh: boolean;
+  ageDays: number | null;
+  sampled: number;
+} {
+  if (!sweep?.generatedAt) return { fresh: false, ageDays: null, sampled: 0 };
+  const sampled = sweep.totalSampled ?? 0;
+  if (sampled < 10) return { fresh: false, ageDays: null, sampled };
+  const generatedAt = new Date(sweep.generatedAt);
+  const ageMs = Date.now() - generatedAt.getTime();
+  if (!Number.isFinite(ageMs)) return { fresh: false, ageDays: null, sampled };
+  const ageDays = Math.max(0, Math.floor(ageMs / (24 * 60 * 60 * 1000)));
+  return { fresh: ageDays <= 7, ageDays, sampled };
+}
+
 function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const crawl = input.crawlHealth;
   const coverage = input.coverage;
@@ -229,6 +257,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const proof = input.proofWindow;
   const authority = input.authority;
   const experiment = input.experimentLadder;
+  const sweep = input.urlInspectionSweep;
 
   const sitemapFetchErrors = crawl?.sitemapErrors?.length ?? null;
   const checkedUrls = crawl?.totals?.pageUrlsChecked ?? null;
@@ -244,7 +273,10 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
     sitemapFetchErrors === 0;
 
   const coverageFreshness = coverage?.sourceFreshnessStatus || 'missing';
-  const coverageFresh = coverageFreshness === 'fresh' || coverageFreshness === 'warning';
+  const coverageDrilldownFresh = coverageFreshness === 'fresh' || coverageFreshness === 'warning';
+  const sweepFreshness = computeSweepFreshness(sweep);
+  const coverageFresh = coverageDrilldownFresh || sweepFreshness.fresh;
+  const coverageFreshSource = coverageDrilldownFresh ? 'drilldown-export' : sweepFreshness.fresh ? 'inspection-sweep' : 'none';
   const proofTrust = proof?.trustVerdict || 'missing';
   const trafficClear = traffic?.status === 'clear' && traffic?.sourceMode === 'live-api';
   const expansionBoundaryStatus = statusFromStringOrObject(authority?.expansionBoundary);
@@ -286,7 +318,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
       id: 'coverage-freshness-before-claims',
       category: 'Measurement Freshness',
       requirement:
-        'Coverage Drilldown evidence must be fresh enough before cluster-level attribution, promotion, or rollout claims depend on it.',
+        'Coverage Drilldown or URL Inspection sweep evidence must be fresh enough before cluster-level attribution, promotion, or rollout claims depend on it.',
       primarySources: ['Google Search Essentials', 'Bing Webmaster Guidelines'],
       projectEvidence: [
         evidence(
@@ -296,14 +328,21 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             ? `freshness=${coverageFreshness}, sourceDate=${coverage.sourceFreshnessDate || 'missing'}, age=${formatNumber(coverage.sourceFreshnessDays)} day(s), hardSla=${formatNumber(coverage.sourceMaxWindowDays)} day(s), topCluster=${topCoverageCluster(coverage)}`
             : 'latest Coverage Drilldown report missing',
         ),
+        evidence(
+          DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH,
+          Boolean(sweep),
+          sweep
+            ? `mode=${sweep.sourceMode || 'unknown'}, sampled=${sweepFreshness.sampled}, age=${formatNumber(sweepFreshness.ageDays)} day(s), fresh=${sweepFreshness.fresh}, passRate=${sweep.overallPassRate != null ? (sweep.overallPassRate * 100).toFixed(1) + '%' : 'n/a'}`
+            : 'URL Inspection sweep report missing',
+        ),
       ],
-      verdict: coverageFresh ? 'watch' : 'block',
+      verdict: coverageFresh ? 'pass' : 'block',
       rationale: coverageFresh
-        ? 'Coverage evidence exists but should still be watched until it is inside the preferred freshness window.'
-        : 'Coverage evidence is stale or missing, so cluster-level recovery attribution remains blocked.',
+        ? `Coverage freshness confirmed via ${coverageFreshSource}.`
+        : 'Coverage evidence is stale or missing from both drilldown export and URL Inspection sweep, so cluster-level recovery attribution remains blocked.',
       nextAction: coverageFresh
-        ? 'Proceed with intervention ranking but continue to refresh Coverage before proof-window claims.'
-        : 'Import a fresh Coverage Drilldown export and rerun `npm run report:seo:coverage-drilldown`.',
+        ? 'Continue daily sweep runs to maintain freshness; the automated pipeline closes REC-24.'
+        : 'Run `npm run report:seo:coverage-sweep:p0` to generate a fresh URL Inspection sweep, or import a fresh Coverage Drilldown export and rerun `npm run report:seo:coverage-drilldown`.',
     },
     {
       id: 'canonical-redirect-signal-consistency',
@@ -507,6 +546,9 @@ export function buildSearchComplianceMatrixReportFromFiles(
     authority: readJsonFile<AuthorityUpliftJson>(options.authorityJsonPath || DEFAULT_AUTHORITY_UPLIFT_JSON_PATH),
     experimentLadder: readJsonFile<ExperimentLadderJson>(
       options.experimentLadderJsonPath || DEFAULT_RECOVERY_EXPERIMENT_LADDER_JSON_PATH,
+    ),
+    urlInspectionSweep: readJsonFile<UrlInspectionSweepJson>(
+      options.urlInspectionSweepJsonPath || DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH,
     ),
     guidelineResearchExists: existsSync(toAbsolutePath(guidelineResearchPath)),
   });

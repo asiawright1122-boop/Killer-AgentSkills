@@ -120,6 +120,14 @@ jobs:
           echo "configured=true" >> "$GITHUB_OUTPUT"
           npm run report:gsc:fetch
 
+      - name: Run URL Inspection Coverage Sweep
+        if: ${{ steps.gsc.outputs.configured == 'true' }}
+        env:
+          GSC_CLIENT_EMAIL: ${{ secrets.GSC_CLIENT_EMAIL }}
+          GSC_PRIVATE_KEY: ${{ secrets.GSC_PRIVATE_KEY }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: npm run report:seo:coverage-sweep:p0
+
       - name: Build GSC Opportunity Board
         if: always()
         run: |
@@ -169,6 +177,10 @@ jobs:
           else
             echo "Skip sitemap blocklist generation: crawl health reports not found"
           fi
+
+      - name: Build Traffic Proof Dashboard
+        if: always()
+        run: npm run report:seo:traffic-proof
 
       - name: Upload GSC Monitoring Artifact
         if: always()

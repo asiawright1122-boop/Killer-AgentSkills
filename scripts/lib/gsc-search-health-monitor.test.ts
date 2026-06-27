@@ -94,4 +94,106 @@ describe('GSC Search Health Monitor Tests', () => {
     expect(result.metrics.crawlErrorsCount).toBe(35);
     expect(result.metrics.unexpectedClusterCount).toBe(45);
   });
+
+  // --- Sweep-aware freshness tests ---
+
+  it('should suppress drilldown freshness alerts when sweep is fresh', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 31 }; // 31 days → would be critical without sweep
+    const freshSweep = {
+      generatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+      totalSampled: 80,
+    };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, freshSweep);
+
+    expect(result.status).toBe('clear');
+    expect(result.metrics.sweepFresh).toBe(true);
+    expect(result.metrics.sweepAgeDays).toBe(2);
+    // No freshness SLA breach alert should fire because sweep is fresh
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_breach')).toBeUndefined();
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_warning')).toBeUndefined();
+  });
+
+  it('should emit freshness breach when both drilldown and sweep are stale', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 40 };
+    const staleSweep = {
+      generatedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days ago
+      totalSampled: 80,
+    };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, staleSweep);
+
+    expect(result.metrics.sweepFresh).toBe(false);
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_breach')).toBeDefined();
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_inspection_sweep_stale')).toBeDefined();
+  });
+
+  it('should suppress drilldown freshness warning when sweep is fresh (drilldown 20 days)', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 20 }; // 20 days → would be warning without sweep
+    const freshSweep = {
+      generatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+      totalSampled: 50,
+    };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, freshSweep);
+
+    expect(result.status).toBe('clear');
+    expect(result.metrics.sweepFresh).toBe(true);
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_warning')).toBeUndefined();
+  });
+
+  it('should emit inspection sweep stale alert when sweep exists but is >7 days old', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+    const staleSweep = {
+      generatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
+      totalSampled: 80,
+    };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, staleSweep);
+
+    expect(result.metrics.sweepFresh).toBe(false);
+    expect(result.metrics.sweepAgeDays).toBe(10);
+    const sweepAlert = result.alerts.find((a) => a.code === 'gsc_freshness_sla_inspection_sweep_stale');
+    expect(sweepAlert).toBeDefined();
+    expect(sweepAlert?.severity).toBe('warning');
+  });
+
+  it('should not consider sweep fresh when sampled < 10 URLs', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 40 }; // stale drilldown
+    const smallSweep = {
+      generatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+      totalSampled: 5, // below threshold
+    };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, smallSweep);
+
+    expect(result.metrics.sweepFresh).toBe(false);
+    // Drilldown staleness alert should NOT be suppressed
+    expect(result.alerts.find((a) => a.code === 'gsc_freshness_sla_breach')).toBeDefined();
+  });
+
+  it('should handle missing sweep data gracefully', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage); // no sweep arg
+    expect(result.metrics.sweepAgeDays).toBeNull();
+    expect(result.metrics.sweepFresh).toBe(false);
+    expect(result.status).toBe('clear');
+  });
+
+  it('should handle malformed sweep data gracefully', () => {
+    const mockCtr = { clicksDropRate: 0 };
+    const mockCoverage = { sourceFreshnessDays: 5 };
+    const badSweep = { generatedAt: 'not-a-date' }; // invalid date
+
+    const result = analyzeSearchHealth(mockCtr, mockCoverage, badSweep);
+    expect(result.metrics.sweepFresh).toBe(false);
+    expect(result.status).toBe('clear');
+  });
 });
