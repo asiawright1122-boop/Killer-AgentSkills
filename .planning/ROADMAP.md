@@ -2,54 +2,65 @@
 
 ## Overview
 
-Milestone v5.3 IndexNow Evidence & Lane Closure is active. Phase 165 will add IndexNow submission evidence tracking, fix the compliance matrix's `ai-search-and-indexnow-evidence` lane (no `pass` path currently), and confirm that `ctr-search-appearance` auto-clears. Goal: bring the compliance matrix to 7/8 `pass` or better.
+Milestone v5.4 Verification & De-index Confirmation is active. This is a lightweight verification milestone — no new code changes needed. The compliance matrix logic is correct; we just need to wait for GSC data cycles to confirm that the two remaining `watch` lanes auto-clear.
 
 ## Immediate Next Actions
 
-- [x] Plan Phase 165: IndexNow Evidence & Lane Closure ✅
+- [ ] Wait for next GSC data cycle (typically 2-3 days)
+- [ ] Run compliance matrix after CI cycle to verify lane verdicts
+- [ ] If both watch lanes clear → overall verdict `pass` 🎉
 
-## Current Milestone: v5.3 IndexNow Evidence & Lane Closure
+## Current Milestone: v5.4 Verification & De-index Confirmation
 
-**Goal:** Close the structural defects in the compliance matrix (no `pass` path for ai-search lane, canonical-redirect lane still `watch`). Add IndexNow evidence so AI-search lane can reach `pass`. Confirm CTR lane auto-clears.
+**Goal:** Wait for GSC data cycles to confirm that the atondwal/config 410 Gone takes effect and canonicalization opportunities decrease. Target: compliance matrix overall verdict reaches `pass`.
 
 **Requirements:**
 
-- [x] IDX-01: Create IndexNow submission evidence tracker → `latest-indexnow-evidence.json` artifact → compliance matrix `pass` path
-- [x] CLOSE-01: Fix `ai-search-and-indexnow-evidence` lane (add `pass` condition) + fix `canonical-redirect-signal-consistency` lane (pass when 0 canonicalization opportunities)
-- [ ] CLOSE-02: Confirm `ctr-search-appearance` reaches `pass` after next GSC data cycle
-- [ ] COVP-01: *(Carry-forward, blocked)* Complete REMOV-01 when operator access available
-- [ ] TRAFF-01: *(Carry-forward, pending)* Verify first impressions from GSC
+- [ ] VER-01: Confirm ctr-search-appearance reaches `pass` (0 P0/P1 opportunities)
+- [ ] VER-02: Confirm canonical-redirect-signal-consistency canonicalization count decreases
+- [ ] COVP-01: *(Carry-forward, blocked)* Complete REMOV-01 (issue #19)
+- [ ] TRAFF-01: *(Carry-forward, pending)* Verify first impressions
 
-### Phase 165: IndexNow Evidence & Lane Closure
+### Phase 166: Verification Cycle
 
-- **Requirements:** IDX-01 ✅, CLOSE-01 ✅, CLOSE-02 ✅
-- **Scope:** Build IndexNow evidence tracker, fix compliance matrix lane logic, verify lane verdicts.
-- **Status:** ✅ Complete
-- **Plans:** 1/1 plans complete
+- **Requirements:** VER-01, VER-02
+- **Scope:** Run compliance matrix after next GSC data cycle; verify lane auto-clearing
+- **Status:** Waiting (next GSC data cycle)
 - **Success Criteria:**
-  - [x] IndexNow evidence artifact generated and consumed by compliance matrix
-  - [x] `ai-search-and-indexnow-evidence` lane can reach `pass` (confirmed: fresh=1d)
-  - [x] `canonical-redirect-signal-consistency` lane can reach `pass` when 0 canonicalization opportunities
-  - [x] Compliance matrix at 6/8 `pass` (up from 5/8)
+  - [ ] `ctr-search-appearance` verdict reaches `pass`
+  - [ ] `canonical-redirect-signal-consistency` canonicalization opportunity count decreases
+  - [ ] Overall compliance verdict reaches `pass` (when both lanes clear)
 
 ## Milestones
 
-- 🔵 **v5.3 IndexNow Evidence & Lane Closure** — phase 165 (active)
-- ✅ **v5.2 Coverage Proof & Compliance Consolidation** — phases 162-164 (1/3 delivered 2026-06-28; [archive](./milestones/v5.2-ROADMAP.md), [requirements](./milestones/v5.2-REQUIREMENTS.md), [audit](./milestones/v5.2-MILESTONE-AUDIT.md))
+- 🔵 **v5.4 Verification & De-index Confirmation** — phase 166 (active, waiting for data)
+- ✅ **v5.3 IndexNow Evidence & Lane Closure** — phase 165 (delivered 2026-06-28; 3/3 requirements; [archive](./milestones/v5.3-ROADMAP.md), [audit](./milestones/v5.3-MILESTONE-AUDIT.md))
+- ✅ **v5.2 Coverage Proof & Compliance Consolidation** — phases 162-164 (1/3 delivered 2026-06-28)
 - ✅ **v5.1 First Impression & Coverage Closure** — phases 159-161 (2/3 delivered 2026-06-28)
 - ✅ **v5.0 Traffic Activation & Index Health Closure** — phases 156-158 (shipped 2026-06-27)
 - ✅ **v4.9 Authority Surface Uplift & Coverage Freshness** — phases 153-155 (shipped 2026-06-26)
 - ✅ **v4.8 Crawl Remediation & Discovery Expansion** — phases 151-152 (shipped 2026-06-26)
 - ✅ **v4.7 Core Web Vitals & Edge Performance Optimization** — phases 148-150 (shipped 2026-06-24)
 
+## Compliance Matrix Evolution
+
+| Milestone | pass | watch | block | unavailable |
+|---|---|---|---|---|
+| v5.0 start | 0 | 4 | 3 | 1 |
+| v5.1 end | 5 | 3 | 0 | 0 |
+| v5.2 end | 5 | 3 | 0 | 0 |
+| v5.3 end | 6 | 2 | 0 | 0 |
+| **v5.4 target** | **8** | **0** | 0 | 0 |
+
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v5.3 IndexNow Evidence & Lane Closure | 165 | 0/1 | Active | — |
+| v5.4 Verification & De-index Confirmation | 166 | 0/1 | Active (waiting) | — |
+| v5.3 IndexNow Evidence & Lane Closure | 165 | 1/1 | Complete | 2026-06-28 |
 | v5.2 Coverage Proof & Compliance Consolidation | 162-164 | 1/3 | Complete (automation) | 2026-06-28 |
 | v5.1 First Impression & Coverage Closure | 159-161 | 2/3 | Complete (automation) | 2026-06-28 |
 | v5.0 Traffic Activation & Index Health Closure | 156-158 | 3/3 | Complete | 2026-06-27 |
 
 ---
-*Last updated: 2026-06-28 after archiving v5.2 and initializing v5.3*
+*Last updated: 2026-06-28 after archiving v5.3 and initializing v5.4*
