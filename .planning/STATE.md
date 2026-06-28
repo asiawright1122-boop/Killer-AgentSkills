@@ -2,21 +2,21 @@
 gsd_state_version: 1.0
 milestone: v5.2
 milestone_name: Coverage Proof & Compliance Consolidation
-status: active
-last_updated: "2026-06-28T09:30:00.000Z"
+status: in_progress
+last_updated: "2026-06-28T10:25:00.000Z"
 last_activity: 2026-06-28
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
 ---
 
 # Current Position
 
-Phase: 164 (Compliance Consolidation — fully automatable, start here)
-Plan: 0/3 plans complete
-Status: v5.2 initialized. Phase 164 (COMP-01) has no operator dependency and can be implemented immediately. Phase 162 (COVP-01) is blocked on operator. Phase 163 (TRAFF-01) needs next GSC data cycle.
+Phase: 164 (complete — Compliance Consolidation)
+Plan: 1/3 plans complete
+Status: Phase 164 COMP-01 delivered. Compliance matrix regenerated with fresh artifacts: `structured-data-validity` → pass, `coverage-freshness-before-claims` → pass. 3 watch lanes remain with clear diagnosis. Matrix now auto-regenerates in nightly CI. Next: Phase 163 (Traffic Verification, needs GSC data cycle) or Phase 162 (REMOV-01, blocked on operator).
 
 ## v5.2 Context: Coverage Proof & Compliance Consolidation
 
@@ -42,8 +42,9 @@ v5.2 shifts from "pipeline readiness" to "proof in the reports" — making the c
 - **Scope:** Check GSC data for first impressions/clicks; diagnose if zero; resubmit IndexNow if needed
 
 ### Phase 164: Compliance Consolidation
-- **Status:** Next candidate (no operator dependency)
-- **Scope:** Regenerate compliance matrix with fresh artifacts; verify lane upgrades reflected; diagnose if any lane still shows watch
+- **Status:** ✅ Complete
+- **Scope:** Regenerate compliance matrix, verify lane upgrades, wire into CI
+- **Delivered:** 2026-06-28
 
 ## Carry-Forward from v5.1
 

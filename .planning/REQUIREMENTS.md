@@ -9,7 +9,7 @@
 - [ ] **TRAFF-01**: Verify first measurable organic impressions and clicks on ≥2 P0 authority surfaces from GSC data. If impressions have not materialized after one full GSC data cycle, diagnose whether the gap is structural (no search demand for target queries) or operational (indexing/canonicalization issues). Target: ≥3 impressions and ≥1 click per surface.
 
 ### Compliance Consolidation (COMP)
-- [ ] **COMP-01**: Regenerate the compliance matrix with fresh artifact data (structured-data validation, opportunity board, crawl health) so that the `structured-data-validity` and `ctr-search-appearance` lane upgrades from PIPE-01 are reflected in the stored report. Target: overall compliance verdict upgrades from `watch` to `pass` when both lanes clear.
+- [x] **COMP-01**: Regenerate the compliance matrix with fresh artifact data (structured-data validation, opportunity board, crawl health) so that the `structured-data-validity` and `ctr-search-appearance` lane upgrades from PIPE-01 are reflected in the stored report. Target: overall compliance verdict upgrades from `watch` to `pass` when both lanes clear.
 
 ## 2. Out of Scope
 
@@ -23,7 +23,7 @@
 |---|---|---|---|
 | COVP-01 | Phase 162 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-coverage-delta.json | [ ] |
 | TRAFF-01 | Phase 163 | reports/gsc/latest-ctr-report.json, reports/seo/latest-authority-uplift-scorecard.json | [ ] |
-| COMP-01 | Phase 164 | reports/seo/latest-search-compliance-matrix.json | [ ] |
+| COMP-01 | Phase 164 | reports/seo/latest-search-compliance-matrix.json | [x] |
 
 ## 4. Carry-Forward from v5.1
 

@@ -182,6 +182,10 @@ jobs:
             echo "Skip sitemap blocklist generation: crawl health reports not found"
           fi
 
+      - name: Build Search Compliance Matrix
+        if: always()
+        run: npm run report:seo:compliance-matrix
+
       - name: Build Traffic Proof Dashboard
         if: always()
         env:
