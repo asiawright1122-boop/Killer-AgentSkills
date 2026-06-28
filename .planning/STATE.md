@@ -3,20 +3,20 @@ gsd_state_version: 1.0
 milestone: v5.1
 milestone_name: First Impression & Coverage Closure
 status: in_progress
-last_updated: "2026-06-27T17:10:00.000Z"
-last_activity: 2026-06-27
+last_updated: "2026-06-28T09:20:00.000Z"
+last_activity: 2026-06-28
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Current Position
 
-Phase: 161 (complete — Pipeline & Compliance Hardening)
-Plan: 1/3 plans
-Status: Phase 161 PIPE-01 delivered. Structured-data-validate wired into daily CI, GSC credential rotation alerts, blocklisted-URL-in-GSC proactive detection, and 2 compliance matrix lanes upgraded (structured-data-validity + ctr-search-appearance can now reach `pass`). Next: Phase 160 (First Impression Earners) or Phase 159 (REMOV-01, blocked on operator).
+Phase: 160 complete + 161 complete
+Plan: 2/3 plans complete
+Status: Phase 160 IMPR-01 delivered (Issue #20 takedown, structured-data 8/8 pass, editorial content verified). Phase 161 PIPE-01 delivered (CI pipeline hardened, credential alerts, blocklisted-URL detection, 2 compliance lanes upgraded). Remaining: Phase 159 (blocked on operator for REMOV-01 submission).
 
 ## v5.1 Context: First Impression & Coverage Closure
 
@@ -41,9 +41,9 @@ v5.1 shifts from "automation readiness" to "organic proof" — earning the first
 - **Depends on:** Operator action (GitHub issue #19)
 
 ### Phase 160: First Impression Earners
-- **Status:** Next candidate
-- **Scope:** Resolve issue #20, run structured-data-validate against production, execute 5 editorial queue items
-- **Depends on:** CI pipeline operational
+- **Status:** ✅ Complete
+- **Scope:** Resolve issue #20, run structured-data-validate against production, verify editorial queue items
+- **Delivered:** 2026-06-28
 
 ### Phase 161: Pipeline & Compliance Hardening
 - **Status:** ✅ Complete

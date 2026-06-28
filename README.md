@@ -168,3 +168,9 @@ Supported locales: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`.
 ## 📄 License
 
 MIT © Killer-Skills Inc.
+
+---
+
+## 🚫 Content Removal
+
+If your GitHub repository content appears on Killer-Skills and you wish to have it removed, see our [Takedown Policy](/.github/TAKEDOWN-POLICY.md) for instructions. You can also opt out by adding the `killer-skills-ignore` topic to your repository.

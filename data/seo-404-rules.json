@@ -5,14 +5,14 @@
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 495,
+    "gone410": 505,
     "ignored": 19,
     "redirect301CandidateTotal": 157,
     "redirect301CoveredByMiddleware": 156,
     "redirect301Materialized": 1,
     "gone410CandidateTotal": 824,
     "gone410CoveredByMiddleware": 329,
-    "gone410Materialized": 495,
+    "gone410Materialized": 505,
     "manualReviewCandidateTotal": 12,
     "observeCandidateTotal": 7,
     "skippedInvalidOrProtected": 0
@@ -26,6 +26,46 @@
       }
     ],
     "gone410": [
+      {
+        "path": "/en/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/zh/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/ja/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/ko/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/es/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/fr/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/de/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/pt/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/ru/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
+      {
+        "path": "/ar/skills/atondwal/config",
+        "reason": "takedown_request_atondwal"
+      },
       {
         "path": "/ar/skills/AbdullahMalik17/Digital-FTE",
         "reason": "missing_from_sitemap_and_cache"

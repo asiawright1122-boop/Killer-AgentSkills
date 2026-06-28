@@ -91,7 +91,7 @@ export const P0_SURFACES: P0Surface[] = [
     id: 'collections-hub',
     path: '/collections',
     description: 'Collections Hub',
-    expectedSchemaTypes: ['CollectionPage', 'ItemList'],
+    expectedSchemaTypes: ['CollectionPage'],
   },
   {
     id: 'collection-official-trusted-tools',

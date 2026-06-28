@@ -908,6 +908,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const isSitemapSuppressedSkill =
       ownerSegment && routeSegment ? isSitemapSkillBlocked(ownerSegment, routeSegment, sitemapBlocklist) : false;
 
+    // If the skill is blocklisted AND has an explicit 410 Gone rule, return 410 immediately.
+    // This covers takedown requests and other forced-removal cases where noindex is insufficient.
+    if (isSitemapSuppressedSkill && seoGonePathSet.has(pathname)) {
+      return new Response(null, {
+        status: 410,
+        statusText: 'Gone',
+        headers: {
+          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      });
+    }
+
     if (routeSegment.includes('/')) {
       if (!directCanonical && !isSitemapSuppressedSkill) {
         return new Response(null, {

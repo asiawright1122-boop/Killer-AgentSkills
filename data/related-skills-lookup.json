@@ -16814,25 +16814,6 @@
       }
     },
     {
-      "id": "atondwal/config/taiga-api",
-      "name": "taiga-api",
-      "skillName": "taiga-api",
-      "owner": "atondwal",
-      "repo": "config",
-      "category": "community",
-      "stars": 0,
-      "forks": 0,
-      "description": {
-        "en": "The taiga-api skill enables developers to query the Taiga API for job results, transcripts, and evaluations, simplifying workflow automation with AI coding assistance.",
-        "zh": "本地化技能摘要： Query the hosted Taiga API at taiga.ant.dev for job results, passrates, transcripts, and run evaluations. This AI agent skill supports Claude Code, Cursor, and Windsurf workflows."
-      },
-      "seo": {
-        "definition": {
-          "en": "taiga-api is a skill that queries the hosted Taiga evaluation platform API for job results, transcripts, and problem runs."
-        }
-      }
-    },
-    {
       "id": "WILLOSCAR/research-units-pipeline-skills/opener-variator",
       "name": "opener-variator",
       "skillName": "opener-variator",
@@ -70763,12 +70744,6 @@
       670
     ],
     "yeohj0710/wellnessbox/capacitor-ci-cd": [
-      273,
-      300,
-      303,
-      745
-    ],
-    "atondwal/config/taiga-api": [
       273,
       300,
       303,
