@@ -76,6 +76,7 @@
     "report:seo:coverage-sweep:tier1": "npx tsx scripts/seo-url-inspection-coverage-sweep.ts --tier1",
     "report:seo:traffic-proof": "npx tsx scripts/seo-traffic-proof-dashboard.ts",
     "report:seo:compliance-matrix": "npx tsx scripts/seo-search-compliance-matrix.ts",
+    "report:seo:indexnow-evidence": "npx tsx scripts/seo-indexnow-evidence.ts",
     "ingest:url-inspection": "npx tsx scripts/ingest-url-inspection-results.ts --remote",
     "report:seo:gsc-removal-tracker": "npx tsx scripts/seo-gsc-removal-tracker.ts",
     "report:seo:gsc-removal-verification": "npx tsx scripts/seo-gsc-removal-verification.ts",

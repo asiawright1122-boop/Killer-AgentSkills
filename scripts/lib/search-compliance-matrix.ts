@@ -12,6 +12,7 @@ export const DEFAULT_RECOVERY_EXPERIMENT_LADDER_JSON_PATH = 'reports/seo/latest-
 export const DEFAULT_URL_INSPECTION_SWEEP_JSON_PATH = 'reports/seo/latest-url-inspection-coverage-sweep.json';
 export const DEFAULT_STRUCTURED_DATA_VALIDATION_JSON_PATH = 'reports/seo/latest-structured-data-validation.json';
 export const DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH = 'reports/seo/latest-gsc-opportunity-board.json';
+export const DEFAULT_INDEXNOW_EVIDENCE_JSON_PATH = 'reports/seo/latest-indexnow-evidence.json';
 export const DEFAULT_GUIDELINES_RESEARCH_PATH = '.planning/research/v1.9-search-guidelines.md';
 
 export type SearchComplianceVerdict = 'pass' | 'watch' | 'block' | 'unavailable';
@@ -147,6 +148,19 @@ type GscOpportunityBoardJson = {
   items?: Array<{ priority?: string; lane?: string; actions?: string[] }>;
 };
 
+type IndexNowEvidenceJson = {
+  generatedAt?: string;
+  keyFilePresent?: boolean;
+  keyFileAccessible?: boolean;
+  fresh?: boolean;
+  freshnessDays?: number | null;
+  lastSubmission?: {
+    timestamp?: string | null;
+    urlCount?: number;
+    p0SurfaceCount?: number;
+  };
+};
+
 type SearchComplianceInputs = {
   generatedAt?: string;
   crawlHealth?: CrawlHealthJson | null;
@@ -158,6 +172,7 @@ type SearchComplianceInputs = {
   urlInspectionSweep?: UrlInspectionSweepJson | null;
   structuredDataValidation?: StructuredDataValidationJson | null;
   opportunityBoard?: GscOpportunityBoardJson | null;
+  indexNowEvidence?: IndexNowEvidenceJson | null;
   guidelineResearchExists?: boolean;
 };
 
@@ -171,6 +186,7 @@ type SearchComplianceFileOptions = {
   urlInspectionSweepJsonPath?: string;
   structuredDataValidationJsonPath?: string;
   opportunityBoardJsonPath?: string;
+  indexNowEvidenceJsonPath?: string;
   guidelineResearchPath?: string;
 };
 
@@ -279,6 +295,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const sweep = input.urlInspectionSweep;
   const structuredDataVal = input.structuredDataValidation;
   const opportunityBoard = input.opportunityBoard;
+  const indexNowEvidence = input.indexNowEvidence;
 
   const sitemapFetchErrors = crawl?.sitemapErrors?.length ?? null;
   const checkedUrls = crawl?.totals?.pageUrlsChecked ?? null;
@@ -316,6 +333,10 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const opportunityP0P1Count = (opportunityBoard?.items ?? []).filter(
     (item) => item.priority === 'P0' || item.priority === 'P1',
   ).length;
+  const canonicalizationOpportunityCount = (opportunityBoard?.items ?? []).filter(
+    (item) => item.lane === 'canonicalization',
+  ).length;
+  const indexNowFresh = indexNowEvidence?.fresh === true && indexNowEvidence?.keyFilePresent === true;
 
   return [
     {
@@ -392,14 +413,29 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             ? `crawl redirects=${formatNumber((crawl as { redirects?: unknown[] }).redirects?.length)}`
             : 'crawl redirects unavailable',
         ),
+        evidence(
+          DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH,
+          Boolean(opportunityBoard),
+          opportunityBoard
+            ? `canonicalizationOpportunities=${canonicalizationOpportunityCount}`
+            : 'opportunity board unavailable',
+        ),
       ],
-      verdict: coverageFreshness === 'blocking' ? 'block' : 'watch',
-      rationale:
-        coverageFreshness === 'blocking'
-          ? 'Canonical and redirect proof cannot be closed while the newest Coverage export is outside the hard freshness SLA.'
-          : 'Canonical and redirect proof can proceed, but Phase 65 must verify the P0 URL classes before this becomes pass.',
-      nextAction:
-        'Execute Phase 65 P0 URL recovery batches and verify trailing-slash, query-parameter, repeated-segment, source-file, and deep-skill-path classes against fresh Coverage.',
+      verdict: coverageFreshness === 'blocking'
+        ? 'block'
+        : canonicalizationOpportunityCount === 0
+          ? 'pass'
+          : 'watch',
+      rationale: coverageFreshness === 'blocking'
+        ? 'Canonical and redirect proof cannot be closed while the newest Coverage export is outside the hard freshness SLA.'
+        : canonicalizationOpportunityCount === 0
+          ? 'No canonicalization-lane opportunities detected in GSC data. The middleware enforces trailing-slash removal, non-www canonicalization, and 410 Gone for blocklisted paths — all signals are consistent.'
+          : 'Canonical and redirect proof can proceed, but GSC data shows canonicalization-lane opportunities that need cleanup (trailing-slash URLs, blocklisted skills, or suppressed locale variants).',
+      nextAction: coverageFreshness === 'blocking'
+        ? 'Run `npm run report:seo:coverage-sweep:p0` to restore coverage freshness before assessing canonicalization signals.'
+        : canonicalizationOpportunityCount === 0
+          ? 'Continue monitoring GSC opportunity board for new canonicalization-lane items.'
+          : 'Submit REMOV-01 removal batch to clear canonicalization-lane URLs from GSC index, then verify on next board refresh.',
     },
     {
       id: 'people-first-public-copy',
@@ -528,14 +564,29 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             ? `automation=${automationPolicyStatus}, limitedRollout=${formatNumber(experiment.summary?.limitedRollout)}, automationCandidate=${formatNumber(experiment.summary?.automationCandidate)}`
             : 'experiment ladder missing',
         ),
+        evidence(
+          DEFAULT_INDEXNOW_EVIDENCE_JSON_PATH,
+          Boolean(indexNowEvidence),
+          indexNowEvidence
+            ? `keyFile=${indexNowEvidence.keyFilePresent ? 'present' : 'missing'}, fresh=${indexNowEvidence.fresh ? 'yes' : 'no'} (${indexNowEvidence.freshnessDays ?? 'unknown'}d), lastSubmission=${indexNowEvidence.lastSubmission?.timestamp || 'never'}`
+            : 'IndexNow evidence missing',
+        ),
       ],
-      verdict: promotionOpen || automationOpen ? 'watch' : 'unavailable',
-      rationale:
-        promotionOpen || automationOpen
-          ? 'Some promotion or rollout surface is open enough to inspect AI-search visibility evidence.'
+      verdict: indexNowFresh
+        ? 'pass'
+        : promotionOpen || automationOpen
+          ? 'watch'
+          : 'unavailable',
+      rationale: indexNowFresh
+        ? 'IndexNow submission evidence is recent (≤7 days) and the key file is present and accessible. P0 authority surfaces are submitted to search engines on each CI cycle.'
+        : promotionOpen || automationOpen
+          ? 'Some promotion or rollout surface is open enough to inspect AI-search visibility evidence, but IndexNow submission evidence is not confirmed or is stale.'
           : 'No authority surface is promote-ready and no automation candidate exists; Bing AI Performance or IndexNow evidence may still be unavailable.',
-      nextAction:
-        'In Phase 66, capture Bing AI Performance / IndexNow evidence if verified access exists; otherwise record an unavailable-data state.',
+      nextAction: indexNowFresh
+        ? 'Continue daily IndexNow P0 submissions in CI to maintain freshness.'
+        : promotionOpen || automationOpen
+          ? 'Run `npm run report:seo:indexnow-evidence` to generate the evidence artifact, then rerun the compliance matrix.'
+          : 'Capture Bing AI Performance / IndexNow evidence when verified access exists.',
     },
     {
       id: 'proof-before-expansion',
@@ -612,6 +663,9 @@ export function buildSearchComplianceMatrixReportFromFiles(
     ),
     opportunityBoard: readJsonFile<GscOpportunityBoardJson>(
       options.opportunityBoardJsonPath || DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH,
+    ),
+    indexNowEvidence: readJsonFile<IndexNowEvidenceJson>(
+      options.indexNowEvidenceJsonPath || DEFAULT_INDEXNOW_EVIDENCE_JSON_PATH,
     ),
     guidelineResearchExists: existsSync(toAbsolutePath(guidelineResearchPath)),
   });

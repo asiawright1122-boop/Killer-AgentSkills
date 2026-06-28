@@ -1,54 +1,40 @@
 ---
 gsd_state_version: 1.0
-milestone: v5.2
-milestone_name: Coverage Proof & Compliance Consolidation
+milestone: v5.3
+milestone_name: IndexNow Evidence & Lane Closure
 status: in_progress
-last_updated: "2026-06-28T10:25:00.000Z"
+last_updated: "2026-06-28T12:30:00.000Z"
 last_activity: 2026-06-28
 progress:
-  total_phases: 3
+  total_phases: 1
   completed_phases: 1
-  total_plans: 3
+  total_plans: 1
   completed_plans: 1
 ---
 
 # Current Position
 
-Phase: 164 (complete — Compliance Consolidation)
-Plan: 1/3 plans complete
-Status: Phase 164 COMP-01 delivered. Compliance matrix regenerated with fresh artifacts: `structured-data-validity` → pass, `coverage-freshness-before-claims` → pass. 3 watch lanes remain with clear diagnosis. Matrix now auto-regenerates in nightly CI. Next: Phase 163 (Traffic Verification, needs GSC data cycle) or Phase 162 (REMOV-01, blocked on operator).
+Phase: 165 (complete — IndexNow Evidence & Lane Closure)
+Plan: 1/1 plans complete
+Status: Phase 165 delivered. IndexNow evidence tracker created, ai-search lane now reaches `pass`, canonical-redirect lane has `pass` path when 0 canonicalization opportunities. Compliance matrix: **6 pass, 2 watch, 0 block**. Ready for v5.3 archive.
 
-## v5.2 Context: Coverage Proof & Compliance Consolidation
+## v5.3 Context: IndexNow Evidence & Lane Closure
 
-v5.1 delivered the takedown infrastructure (Issue #20 resolved, TAKEDOWN-POLICY.md), production structured-data validation (8/8 P0 pass), and pipeline hardening (credential alerts, blocklisted-URL detection, 2 compliance lane upgrades in code). However, the compliance matrix report is stale (not re-generated with the new artifacts), REMOV-01 is still unsubmitted, and organic traffic verification is pending.
+v5.2 confirmed that the compliance matrix reflects pipeline improvements (structured-data-validity → pass, coverage-freshness → pass). But the matrix still has 3 `watch` lanes, and one of them — `ai-search-and-indexnow-evidence` — has a structural defect: its logic can only produce `watch` or `unavailable`, never `pass`. This means even if we had perfect IndexNow evidence, the lane could never reflect that.
 
-v5.2 shifts from "pipeline readiness" to "proof in the reports" — making the compliance matrix reflect actual pipeline state, completing the coverage closure when operator access is available, and verifying first organic impressions.
+v5.3 fixes this structural defect by: (1) creating an IndexNow submission evidence tracker, (2) adding a `pass` path to the ai-search lane when evidence is recent, and (3) adding a `pass` path to the canonical-redirect lane when zero canonicalization opportunities exist.
 
 ## Active Requirements
 
-- **COVP-01**: Complete REMOV-01 submission cycle + second-pass batch → coverage affected pages < 5,000 (blocked on operator, issue #19)
-- **TRAFF-01**: Verify ≥3 impressions + ≥1 click on ≥2 P0 surfaces; diagnose if zero (needs next GSC data cycle)
-- **COMP-01**: Regenerate compliance matrix with fresh artifacts → 2 lane upgrades reflected → overall verdict upgrade
+- **IDX-01**: Create IndexNow evidence tracker → `latest-indexnow-evidence.json` → compliance matrix pass path
+- **CLOSE-01**: Fix ai-search-and-indexnow-evidence lane (add `pass` condition) + fix canonical-redirect-signal-consistency lane (pass when 0 canonicalization opportunities)
+- **CLOSE-02**: Confirm ctr-search-appearance reaches `pass` after next GSC data cycle removes atondwal/config P0 item
+- **COVP-01**: *(Carry-forward, blocked on operator)* Complete REMOV-01 submission
+- **TRAFF-01**: *(Carry-forward, pending)* Verify first impressions
 
-## Phase Plan
+## Carry-Forward from v5.2
 
-### Phase 162: REMOV-01 Completion & Second-Pass Submission
-- **Status:** Blocked (operator action required)
-- **Scope:** Operator submits REMOV-01 batch, run verification + delta, submit second-pass batch
-- **Depends on:** GitHub issue #19
-
-### Phase 163: Traffic Verification & Diagnosis
-- **Status:** Planned (needs next GSC data cycle)
-- **Scope:** Check GSC data for first impressions/clicks; diagnose if zero; resubmit IndexNow if needed
-
-### Phase 164: Compliance Consolidation
-- **Status:** ✅ Complete
-- **Scope:** Regenerate compliance matrix, verify lane upgrades, wire into CI
-- **Delivered:** 2026-06-28
-
-## Carry-Forward from v5.1
-
-- REMOV-01: 975-URL GSC removal batch (0/975 submitted, GitHub issue #19) → COVP-01
-- Second-pass batch: 191 URLs ready → COVP-01
-- GSC impressions/clicks verification → TRAFF-01
-- Compliance matrix stale (not re-run) → COMP-01
+- REMOV-01 submission (0/975 URLs) → COVP-01
+- GSC impressions verification → TRAFF-01
+- ai-search-and-indexnow-evidence lane has no `pass` path → CLOSE-01
+- ctr-search-appearance pending atondwal/config GSC clearance → CLOSE-02

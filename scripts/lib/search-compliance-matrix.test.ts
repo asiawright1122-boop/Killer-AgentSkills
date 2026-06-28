@@ -278,4 +278,103 @@ describe('buildSearchComplianceMatrixReport', () => {
     expect(ctrItem.verdict).toBe('watch');
     expect(ctrItem.rationale).toContain('priority CTR opportunities');
   });
+
+  // --- ai-search-and-indexnow-evidence lane tests (Phase 165) ---
+
+  it('passes ai-search-and-indexnow-evidence when IndexNow evidence is fresh', () => {
+    const report = buildSearchComplianceMatrixReport({
+      authority: { summary: { promote: 34, hold: 0, stop: 1 } },
+      experimentLadder: { summary: { limitedRollout: 34, automationCandidate: 0 } },
+      indexNowEvidence: {
+        generatedAt: new Date().toISOString(),
+        keyFilePresent: true,
+        keyFileAccessible: true,
+        fresh: true,
+        freshnessDays: 1,
+        lastSubmission: {
+          timestamp: new Date().toISOString(),
+          urlCount: 80,
+          p0SurfaceCount: 80,
+        },
+      },
+    });
+
+    const aiItem = report.items.find((item) => item.id === 'ai-search-and-indexnow-evidence')!;
+    expect(aiItem.verdict).toBe('pass');
+    expect(aiItem.rationale).toContain('recent');
+    expect(aiItem.projectEvidence.length).toBe(3);
+    expect(aiItem.projectEvidence[2].path).toContain('indexnow-evidence');
+  });
+
+  it('watches ai-search-and-indexnow-evidence when IndexNow evidence is stale', () => {
+    const report = buildSearchComplianceMatrixReport({
+      authority: { summary: { promote: 34, hold: 0, stop: 1 } },
+      indexNowEvidence: {
+        generatedAt: new Date().toISOString(),
+        keyFilePresent: true,
+        fresh: false,
+        freshnessDays: 14,
+      },
+    });
+
+    const aiItem = report.items.find((item) => item.id === 'ai-search-and-indexnow-evidence')!;
+    expect(aiItem.verdict).toBe('watch');
+  });
+
+  it('marks ai-search-and-indexnow-evidence unavailable when no promotion and no evidence and automation locked', () => {
+    const report = buildSearchComplianceMatrixReport({
+      authority: { summary: { promote: 0, hold: 0, stop: 34 } },
+      experimentLadder: { summary: { limitedRollout: 0, automationCandidate: 0 }, automationPolicy: 'locked' },
+    });
+
+    const aiItem = report.items.find((item) => item.id === 'ai-search-and-indexnow-evidence')!;
+    expect(aiItem.verdict).toBe('unavailable');
+  });
+
+  // --- canonical-redirect-signal-consistency lane tests (Phase 165) ---
+
+  it('passes canonical-redirect-signal-consistency when zero canonicalization opportunities', () => {
+    const report = buildSearchComplianceMatrixReport({
+      coverage: {
+        sourceFreshnessDays: 5,
+        sourceMaxWindowDays: 30,
+        issueCount: 100,
+        totalAffectedPages: 5000,
+        clusterPriorities: [],
+      },
+      opportunityBoard: {
+        status: 'active',
+        items: [
+          { priority: 'P2', lane: 'metadata', actions: [] },
+          { priority: 'P3', lane: 'query-intent', actions: [] },
+        ],
+      },
+    });
+
+    const crItem = report.items.find((item) => item.id === 'canonical-redirect-signal-consistency')!;
+    expect(crItem.verdict).toBe('pass');
+    expect(crItem.rationale).toContain('No canonicalization-lane opportunities');
+  });
+
+  it('watches canonical-redirect-signal-consistency when canonicalization opportunities exist', () => {
+    const report = buildSearchComplianceMatrixReport({
+      coverage: {
+        sourceFreshnessDays: 5,
+        sourceMaxWindowDays: 30,
+        issueCount: 100,
+        totalAffectedPages: 5000,
+        clusterPriorities: [],
+      },
+      opportunityBoard: {
+        status: 'active',
+        items: [
+          { priority: 'P0', lane: 'canonicalization', actions: ['blocklisted'] },
+          { priority: 'P2', lane: 'metadata', actions: [] },
+        ],
+      },
+    });
+
+    const crItem = report.items.find((item) => item.id === 'canonical-redirect-signal-consistency')!;
+    expect(crItem.verdict).toBe('watch');
+  });
 });
