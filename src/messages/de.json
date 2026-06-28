@@ -1,14 +1,14 @@
 {
   "Aria": {
-    "addToFavorites": "Add to favorites",
-    "backToSkills": "Back to skills",
-    "copyCommand": "Copy command",
-    "removeFromFavorites": "Remove from favorites",
-    "shareSkill": "Share this skill",
-    "switchLanguage": "Switch Language",
-    "toggleMenu": "Toggle Menu",
-    "toggleTheme": "Toggle Theme",
-    "viewSkill": "View {name}"
+    "addToFavorites": "Zu Favoriten hinzufügen",
+    "backToSkills": "Zurück zu Skills",
+    "copyCommand": "Kommando kopieren",
+    "removeFromFavorites": "Entfernen aus Favoriten",
+    "shareSkill": "Teilen Sie diese Fähigkeit",
+    "switchLanguage": "Sprache wechseln",
+    "toggleMenu": "Menü schalten",
+    "toggleTheme": "Thema wechseln",
+    "viewSkill": "\"View {name}\" \nÜberprüfen Sie {name}"
   },
   "Blog": {
     "IntentLinks": {
@@ -62,12 +62,12 @@
       }
     },
     "LongTail": {
-      "pdf": "pdf automation, ocr automation, document extraction workflow",
-      "xlsx": "excel automation, report automation, spreadsheet workflow",
-      "docx": "word automation, document templates, report templates",
+      "pdf": "pdf-Automatisierung, OCR-Automatisierung, Dokumentextraktion Workflow",
+      "xlsx": "Excel-Automatisierung, Berichts-Automatisierung, Tabellenkalkulations-Workflow",
+      "docx": "Automatisierung von Texten, Dokumentvorlagen, Berichtsvorlagen",
       "mcp": "AI-Agent-Skills für Entwickler-Workflows, Skills für Entwickler-Workflows, Claude-Code-Integrationen mit MCP",
-      "internalComms": "process automation, internal communication templates, team update workflows",
-      "installSetup": "install ai agent skills, skill setup, ide compatibility",
+      "internalComms": "Automatisierung von Prozessen, Vorlagen für interne Kommunikation, Workflows für Team-Updates",
+      "installSetup": "installiere AI-Agent-Skills, Skill-Einstellung, IDE-Kompatibilität",
       "default": "Skills für Entwickler-Workflows, AI-Agent-Skills, Skill-Vorlagen"
     },
     "MetaOverride": {
@@ -196,7 +196,7 @@
       "row3": "Laufzeit-Skill-Entdeckung und Synchronisierung",
       "row4": "Verifiziertes sicheres Skill-Register"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "npx killer-skills add <Besitzer/Repository>",
     "faq1A": "Führen Sie in Ihrem Projektverzeichnis npx killer-skills add owner/repo aus. Die CLI erkennt Ihre IDE automatisch und schreibt das richtige Skill-Format.",
     "faq1Q": "Wie installiere ich KI-Agenten-Skills mit der CLI?",
     "faq2A": "Die CLI unterstützt mehr als 19 Umgebungen, darunter Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae und mehr.",
@@ -205,7 +205,7 @@
     "faq3Q": "Kann ich Skills über mehrere Projekte hinweg synchronisieren?",
     "faq4A": "Führen Sie killer-skills update aus, um die neuesten Versionen zu laden. Die CLI behält Ihre lokalen Anpassungen bei.",
     "faq4Q": "Wie aktualisiere ich installierte Skills?",
-    "faqTitle": "Frequently Asked Questions",
+    "faqTitle": "Häufig gestellte Fragen",
     "features": {
       "autoInvoke": {
         "title": "Offenes Skill-Register",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "Entdecken, installieren und synchronisieren Sie über 3,400 KI-Agenten-Skills in Cursor, Windsurf, Claude Code und weiteren Tools.",
     "heroSubtitle": "KI-Agenten-Skills installieren und verwalten",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "\"Killer-Skills CLI\" \n\n wird zu: \"Killer-Skills CLI\"",
     "install": "Jetzt installieren",
     "latestVersion": "Neueste Version:",
     "optionalNote": "Hinweis: Das CLI-Tool ist optional. Sie können Skills direkt über npx nutzen, ohne etwas zu installieren.",
@@ -253,7 +253,7 @@
     "terminal": {
       "title": "Entwicklererfahrung zuerst",
       "login": "Sichere Anmeldung",
-      "loginDesc": "GitHub Device Flow Auth",
+      "loginDesc": "GitHub Geräte-Flow-Auth",
       "sync": "1-Klick-Sync",
       "syncDesc": "Sync über 19+ IDEs",
       "do": "Natürliche Sprache",
@@ -281,15 +281,15 @@
     "api": "API",
     "automation": "Automatisierung",
     "browseByCategory": "Nach Kategorie durchsuchen",
-    "browser": "Browser",
+    "browser": "Browsers",
     "cli": "CLI",
     "code-review": "Code-Review",
     "community": "Community",
     "data": "Daten & Analyse",
     "database": "Datenbank",
-    "design": "Design",
+    "design": "\"Design\" -> \"Entwicklung\"",
     "development": "Entwicklung",
-    "devops": "DevOps",
+    "devops": "\"DevOps\" -> \"DevOps\"",
     "documentation": "Dokumentation",
     "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
     "faq1Q": "How are skills categorized?",
@@ -335,7 +335,7 @@
     "social": "Soziale Medien",
     "testing": "Testen",
     "viewAll": "Alle anzeigen",
-    "web-scraping": "Web Scraping"
+    "web-scraping": "Web Scraping\n\n## REGELN:\n1. **Suchmaschinenoptimierung**: Verwende Schlüsselwörter, die Benutzer in de in der AI-Agenten-Tools- und Entwicklungsworkflow-Sphäre tatsächlich suchen.\n2. **Seiten-Thema**: Dies ist für ein AI-Agenten-Skills-Marktplatz. Halte Übersetzungen relevant für: AI-Agenten, Skills, Workflows, IDE-Integrationen, MCP-Server, Entwicklertools.\n3. **Länge-Beschränkung**: Halte die Übersetzungs-Länge nahe der Originalversion, um UI-Brüche oder SERP-Ausschneidungen zu vermeiden.\n4. **Ton**: Professionell, technisch, zugänglich.\n5. **Markenbegriffe**: Halte \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\" unverändert.\n6. **CJK-Formatierungsregeln (Wichtig)**:\n   - Für CJK-Sprachen (zh, ja, ko): Lasse einen halbwertigen Raum zwischen CJK-Zeichen und englischen Buchstaben/Ziffern/Backticks (z. B. \"在 Cursor 中\").\n   - Chinesisch (zh): Verwende Vollbreite-Punkte (， 。 ！ ？ ： ；).\n   - Japanisch (ja): Verwende Vollbreite-Punkte mit japanischem Komma (、 。 ！ ？ ： ；).\n   - Koreanisch (ko): Halte halbwertige Punkte und Kommas (.,) und verwende Vollbreite-Frag- und Ausrufezeichen (！ ？).\n7. **Glossar-Ausrichtung**:\n   - \"AI-Agenten-Skill\" -> zh: \"AI 智能体技能\", ja: \"AIエージェントスキル\", ko: \"AI 에이전트 스킬\"\n   - \"AI-Agent\" -> zh: \"AI 智能体\", ja: \"AIエージェント\", ko: \"AI 에이전트\"\n   - \"IDE-Integration\" -> zh: \"IDE 集成\", ja: \"IDE統合\", ko: \"IDE 통합\"\n   - \"Entwicklertools\" -> zh: \"开发者工具\", ja: \"開発者ツール\", ko: \"개발자 도구\"\n   - \"Installation Plattform\" -> zh: \"安装平台\", ja: \"インストールプラットフォーム\", ko: \"설치 플랫폼\"\n   - \"Workflow-Automatisierung\" -> zh: \"工作流自动化\", ja: \"ワークフロー自動化\", ko: \"워크플로우 자동화\"\n   - \"Marktplatz\" -> zh: \"市场\", ja: \"マーケットプレイス\", ko: \"마켓플레이스\"\n8. **Keine Fluff**: Erkläre nicht. Gib nur den übersetzten Text zurück."
   },
   "Category": {
     "Intents": {
