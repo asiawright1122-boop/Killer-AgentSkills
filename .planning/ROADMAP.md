@@ -2,29 +2,29 @@
 
 ## Overview
 
-Milestone v5.1 First Impression & Coverage Closure is active. Phases 159-161 will complete the REMOV-01 submission cycle, earn the first measurable organic impressions on P0 authority surfaces, and harden the SEO pipeline so compliance gaps surface automatically.
+Milestone v5.2 Coverage Proof & Compliance Consolidation is active. Phases 162-164 will complete the REMOV-01 submission cycle when operator access becomes available, verify first measurable organic impressions from GSC data, and consolidate the compliance matrix to reflect the pipeline improvements from v5.1.
 
 ## Immediate Next Actions
 
-- [x] Plan Phase 161: Pipeline & Compliance Hardening ✅
-- [x] Plan Phase 160: First Impression Earners ✅
-- [ ] Plan Phase 159: REMOV-01 Completion & Second-Pass Submission (blocked on operator)
+- [ ] Plan Phase 164: Compliance Consolidation (COMP-01) — fully automatable, no operator dependency
+- [ ] Plan Phase 163: Traffic Verification (TRAFF-01) — needs next GSC data cycle
+- [ ] Plan Phase 162: REMOV-01 Completion (COVP-01) — blocked on operator (issue #19)
 
-## Current Milestone: v5.1 First Impression & Coverage Closure
+## Current Milestone: v5.2 Coverage Proof & Compliance Consolidation
 
-**Goal:** Close the REMOV-01 submission cycle (reduce coverage affected pages below 5,000), earn the first measurable organic impressions and clicks on at least 2 P0 authority surfaces, and harden the SEO CI pipeline so compliance gaps surface automatically.
+**Goal:** Close the REMOV-01 submission cycle, verify first organic impressions/clicks, and regenerate the compliance matrix to reflect v5.1 pipeline improvements.
 
 **Requirements:**
 
-- [ ] COV-01: **Coverage Closure**: Complete REMOV-01 submission and second-pass batch to reduce coverage affected pages below 5,000.
-- [x] IMPR-01: **First Impression Earners**: Earn first measurable impressions and clicks on at least 2 primary authority surfaces (target: ≥3 impressions, ≥1 click each).
-- [x] PIPE-01: **Pipeline & Compliance Hardening**: Wire structured data validation into daily CI, add API credential rotation alerting, and add blocklisted-URL-in-GSC detection so pipeline gaps surface automatically.
+- [ ] COVP-01: **Coverage Proof**: Complete REMOV-01 submission and second-pass batch to reduce coverage affected pages below 5,000.
+- [ ] TRAFF-01: **Traffic Verification**: Verify first measurable organic impressions and clicks on ≥2 P0 authority surfaces. Diagnose if impressions have not materialized.
+- [ ] COMP-01: **Compliance Consolidation**: Regenerate compliance matrix with fresh artifacts. Target: overall verdict reaches `pass` when `structured-data-validity` and `ctr-search-appearance` lanes clear.
 
-### Phase 159: REMOV-01 Completion & Second-Pass Submission
+### Phase 162: REMOV-01 Completion & Second-Pass Submission
 
-- **Requirements:** COV-01
+- **Requirements:** COVP-01
 - **Scope:** Operator submits 975-URL REMOV-01 batch (GitHub issue #19), run post-submission verification + delta, submit 191-URL second-pass batch, measure coverage reduction.
-- **Status:** Planned
+- **Status:** Blocked (operator action required)
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
   - REMOV-01 submission completed (975/975 URLs submitted in GSC UI)
@@ -32,62 +32,54 @@ Milestone v5.1 First Impression & Coverage Closure is active. Phases 159-161 wil
   - Second-pass batch submitted (191 URLs)
   - Coverage affected pages reduced from 10,783 toward <5,000
 
-### Phase 160: First Impression Earners
+### Phase 163: Traffic Verification & Diagnosis
 
-- **Requirements:** IMPR-01 ✅
-- **Scope:** Resolve GitHub issue #20 (takedown for scraped content at `/en/skills/atondwal/config`), run structured data production validation, verify editorial content on P0 surfaces.
-- **Status:** ✅ Complete
-- **Plans:** 1/1 plans complete
+- **Requirements:** TRAFF-01
+- **Scope:** Check GSC data for first organic impressions/clicks on P0 surfaces. If no impressions yet, diagnose whether the gap is structural (no search demand) or operational (indexing/canonicalization blocking discovery). Run crawl-health audit + IndexNow resubmission if needed.
+- **Status:** Planned (needs next GSC data cycle)
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - [x] GitHub issue #20 takedown resolved (410 Gone for atondwal/config, data purged, takedown policy documented)
-  - [x] Structured data validation run against production (8/8 P0 surfaces pass)
-  - [x] 5 editorial queue items verified for P0 surfaces
-  - [ ] At least 2 primary authority surfaces earn ≥3 impressions and ≥1 click in GSC (needs next data cycle)
+  - ≥2 P0 surfaces show ≥3 impressions + ≥1 click in GSC
+  - If impressions are zero, root-cause diagnosis is documented
 
-### Phase 161: Pipeline & Compliance Hardening
+### Phase 164: Compliance Consolidation
 
-- **Requirements:** PIPE-01 ✅
-- **Scope:** Wire structured-data-validate into SEO monitoring CI, add GSC API credential rotation alert, add blocklisted-URL-in-GSC detection, upgrade 2 compliance matrix lanes.
-- **Status:** ✅ Complete
-- **Plans:** 1/1 plans complete
+- **Requirements:** COMP-01
+- **Scope:** Regenerate compliance matrix with fresh artifact data (structured-data validation, opportunity board, crawl health). Verify `structured-data-validity` and `ctr-search-appearance` lanes reach `pass` with current artifact data. If lanes still show `watch`, diagnose and fix.
+- **Status:** Planned
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - [x] Structured data validation runs daily in CI
-  - [x] GSC API credential rotation creates an alert/issue (not silently skipped)
-  - [x] Blocklisted URLs detected proactively in GSC crawl data
-  - [x] 2+ compliance matrix lanes move from watch → pass (structured-data-validity and ctr-search-appearance)
+  - Compliance matrix regenerated with all fresh artifacts
+  - `structured-data-validity` lane verdict reflects validation report (pass when failed=0)
+  - `ctr-search-appearance` lane verdict reflects opportunity board (pass when no P0/P1 opportunities)
+  - Overall compliance verdict moves toward `pass`
 
 ## Milestones
 
-- 🟩 **v5.1 First Impression & Coverage Closure** — phases 159-161 (active)
-- ✅ **v5.0 Traffic Activation & Index Health Closure** — phases 156-158 (shipped 2026-06-27; [archive](./milestones/v5.0-ROADMAP.md), [requirements](./milestones/v5.0-REQUIREMENTS.md), [audit](./milestones/v5.0-MILESTONE-AUDIT.md))
-- ✅ **v4.9 Authority Surface Uplift & Coverage Freshness** — phases 153-155 (shipped 2026-06-26; [archive](./milestones/v4.9-ROADMAP.md), [requirements](./milestones/v4.9-REQUIREMENTS.md), [audit](./milestones/v4.9-MILESTONE-AUDIT.md))
-- ✅ **v4.8 Crawl Remediation & Discovery Expansion** — phases 151-152 (shipped 2026-06-26; [archive](./milestones/v4.8-ROADMAP.md), [requirements](./milestones/v4.8-REQUIREMENTS.md), [audit](./milestones/v4.8-MILESTONE-AUDIT.md))
-- ✅ **v4.7 Core Web Vitals & Edge Performance Optimization** — phases 148-150 (shipped 2026-06-24; [archive](./milestones/v4.7-ROADMAP.md), [requirements](./milestones/v4.7-REQUIREMENTS.md), [audit](./milestones/v4.7-MILESTONE-AUDIT.md))
+- 🟩 **v5.2 Coverage Proof & Compliance Consolidation** — phases 162-164 (active)
+- ✅ **v5.1 First Impression & Coverage Closure** — phases 159-161 (2/3 automation-delivered 2026-06-28; [archive](./milestones/v5.1-ROADMAP.md), [requirements](./milestones/v5.1-REQUIREMENTS.md), [audit](./milestones/v5.1-MILESTONE-AUDIT.md))
+- ✅ **v5.0 Traffic Activation & Index Health Closure** — phases 156-158 (shipped 2026-06-27)
+- ✅ **v4.9 Authority Surface Uplift & Coverage Freshness** — phases 153-155 (shipped 2026-06-26)
+- ✅ **v4.8 Crawl Remediation & Discovery Expansion** — phases 151-152 (shipped 2026-06-26)
+- ✅ **v4.7 Core Web Vitals & Edge Performance Optimization** — phases 148-150 (shipped 2026-06-24)
 
 ## Carry-Forward Themes
 
-- **REMOV-01 completion is the single biggest coverage lever:** 9,177 of 10,783 coverage anomalies are addressed by the first-pass batch. Without submission, the gap persists indefinitely.
-- **Zero impressions on all 34 promote surfaces:** Authority surfaces are structurally ready but no organic demand has been activated. Title/description and structured data optimizations are deployed but need time and measurement.
-- **Pipeline gaps surface silently:** GSC API credential rotation, structured-data-validate, and blocklisted-URL-in-GSC detection are not yet in CI. These gaps only surface when manually checked.
-- **Promotion proof before expansion:** discovery expansion stays open until at least two primary authority surfaces earn measurable impressions.
-- **Public boundary is a release gate:** internal reasoning, operator-only process notes, raw provider diagnostics, and caught exception internals must never become frontend or public API copy.
+- **REMOV-01 is the single biggest coverage lever:** 9,177 of 10,783 coverage anomalies are addressed by the first-pass batch. Without submission, the gap persists indefinitely.
+- **Traffic verification needs time:** Authority surfaces are structurally ready. Whether Google sends impressions depends on indexing state, query match, and search demand — none of which are fully controllable from code.
+- **Compliance matrix reflects pipeline quality:** The v5.1 pipeline improvements (structured-data-validate in CI, credential alerts, blocklisted-URL detection, lane upgrades) are in the code but not yet reflected in stored compliance reports. Regeneration will surface these improvements.
+- **Promotion proof before expansion:** Discovery expansion stays open until TRAFF-01 confirms measurable impressions.
 
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v5.1 First Impression & Coverage Closure | 159-161 | 0/3 | In progress | Active |
+| v5.2 Coverage Proof & Compliance Consolidation | 162-164 | 0/3 | Active | — |
+| v5.1 First Impression & Coverage Closure | 159-161 | 2/3 | Complete (automation) | 2026-06-28 |
 | v5.0 Traffic Activation & Index Health Closure | 156-158 | 3/3 | Complete | 2026-06-27 |
 | v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 3/3 | Complete | 2026-06-26 |
 | v4.8 Crawl Remediation & Discovery Expansion | 151-152 | 2/2 | Complete | 2026-06-26 |
 | v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 3/3 | Complete | 2026-06-24 |
-| v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
-| v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 4/4 | Complete | 2026-06-23 |
-| v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |
-| v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 4/4 | Complete | 2026-06-23 |
-| v4.2 Repository Size Reduction & Locale Configuration Normalization | 130-132 | 3/3 | Complete | 2026-06-23 |
-| v4.1 Multi-language Indexability Restructuring & SEO Acceleration | 126-129 | 4/4 | Complete | 2026-06-23 |
-| v4.0 Authority Proof Remediation & Public Trust Hardening | 122-125 | 4/4 | Complete | 2026-06-22 |
 
 ---
-*Last updated: 2026-06-27 after archiving v5.0 and initializing v5.1*
+*Last updated: 2026-06-28 after archiving v5.1 and initializing v5.2*
