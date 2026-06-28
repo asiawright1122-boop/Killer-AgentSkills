@@ -262,7 +262,7 @@
     "viewDocs": "ドキュメントを見る"
   },
   "CLIInstall": {
-    "copied": "OK",
+    "copied": "「OK」",
     "copy": "コピー",
     "cta": "1 行で即座に開始",
     "features": {
@@ -272,7 +272,7 @@
     },
     "headline": "AI スキルライブラリを構築",
     "install": "インストール",
-    "product": "Killer CLI",
+    "product": "Killer-Skills CLI",
     "subheadline": "エージェントにプロレベルのコードを即座に書かせる",
     "viewOnNpm": "NPM で見る"
   },
@@ -396,6 +396,7 @@
     "collectionsTitle": "注目のコレクション",
     "copied": "コピー済",
     "copy": "コピー",
+    "curationCriteriaBody": "Every collection on Killer-Skills is hand-curated、 not auto-generated。 We group skills by real workflow patterns — document automation、 agent orchestration、 IDE-specific integrations — so you can evaluate related tools side-by-side instead of scrolling a raw directory。 Skills that pass our quality review floor (verified schemas、 single-command install、 no unauthorized data egress) appear in collections and search listings。 Those that don't still have installable detail pages but are excluded from sitemap and index — so what Google shows always carries editorial judgment、 not raw repository imports。",
     "curationCriteriaTitle": "AI エージェントスキルがどのように選択されるか",
     "editorPicks": "編集者のおすすめ",
     "faq1A": "ワークフロー自動化、プロセス自動化、ドキュメント操作、データワークフロー、再利用可能なスキルスタックを中心に構成されています。",
