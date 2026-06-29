@@ -1,17 +1,13 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
-import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
-import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
-
-// @ts-ignore -- JSON import without type declaration
-import docsCache from '../../data/docs-cache.json';
+import { getDocsCache } from '../lib/docs-cache-runtime';
+import { getSitemapBlocklist } from '../lib/sitemap-blocklist-runtime';
 
 export const prerender = false;
 
 const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 function buildHreflangLinks(pagePath: string): string {
   return (
@@ -27,14 +23,19 @@ function formatDate(date: Date | string): string {
   return d.toISOString().split('T')[0];
 }
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ locals }) => {
   const today = formatDate(new Date());
   const urls: string[] = [];
 
-  if (docsCache?.pages) {
-    for (const page of (docsCache as any).pages) {
+  const { getRuntimeEnv } = await import('../lib/runtime-env');
+  const env = (await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(locals)) as { SKILLS_CACHE?: KVNamespace };
+  const docsPages = await getDocsCache(env);
+  const blocklist = await getSitemapBlocklist(env);
+
+  if (docsPages.length > 0) {
+    for (const page of docsPages) {
       const slugKey = page.slug === 'index' ? 'docs' : `docs/${page.slug}`;
-      if (sitemapBlocklist.exactKeys.has(slugKey.toLowerCase())) {
+      if (blocklist.exactKeys.has(slugKey.toLowerCase())) {
         continue;
       }
 

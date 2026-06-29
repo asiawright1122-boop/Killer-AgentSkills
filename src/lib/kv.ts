@@ -1,6 +1,7 @@
 import { getNonTargetSkillReason } from './shared/validation';
 import { buildSkillIndexabilityAssessment } from './skill-indexability';
 import { normalizeSitemapSkillEntry, type SitemapSkillEntry } from './skill-route-paths';
+import { getLocalSkillsFallback } from './local-skills-fallback';
 
 export interface Env {
   TRANSLATIONS: KVNamespace;
@@ -94,12 +95,9 @@ export interface SkillsCategorySummary {
   categories: SkillsCategoryCountItem[];
 }
 
-type TrackedSkillRow = Record<string, unknown>;
 type D1Row = Record<string, unknown>;
 type TimedCacheEntry<T> = { value: T; ts: number };
 
-let _localSkillsCache: SkillListingItem[] | null = null;
-let _localSkillsCacheTime = 0;
 let _sitemapSkillsCache: SitemapSkillEntry[] | null = null;
 let _sitemapSkillsCacheTime = 0;
 let _skillsTotalCountCache: TimedCacheEntry<number> | null = null;
@@ -186,66 +184,7 @@ function cloneCategorySummary(summary: SkillsCategorySummary): SkillsCategorySum
   };
 }
 
-function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
-  if (!row || typeof row !== 'object') return null;
-
-  const owner = typeof row.owner === 'string' ? row.owner.trim() : '';
-  const repo = typeof row.repo === 'string' ? row.repo.trim() : '';
-  if (!owner || !repo) return null;
-
-  const repoPath = `${owner}/${repo}`;
-  const name = typeof row.name === 'string' && row.name.trim().length > 0 ? row.name.trim() : repo;
-  const descriptionText = typeof row.description === 'string' ? row.description.trim() : '';
-  const updatedAt = typeof row.updatedAt === 'string' ? row.updatedAt : '';
-  const bodyPreview = descriptionText ? `# ${name}\n\n${descriptionText}` : `# ${name}`;
-
-  return {
-    id: repoPath,
-    name,
-    skillName: name,
-    description: descriptionText ? { en: descriptionText } : { en: `${name} AI agent skill.` },
-    owner,
-    repo,
-    repoPath,
-    stars: typeof row.stars === 'number' ? row.stars : 0,
-    forks: typeof row.forks === 'number' ? row.forks : 0,
-    updatedAt,
-    lastSynced: updatedAt,
-    topics: Array.isArray(row.topics) ? row.topics : [],
-    category: typeof row.category === 'string' ? row.category : '',
-    qualityScore: typeof row.qualityScore === 'number' ? row.qualityScore : 0,
-    filePath: typeof row.filePath === 'string' ? row.filePath : '',
-    source: 'cache' as const,
-    skillMd: {
-      name,
-      description: descriptionText || `${name} AI agent skill.`,
-      bodyPreview,
-      body: bodyPreview,
-    },
-  };
-}
-
-function parseInstalledSkillFrontmatter(raw: string): { name: string; description: string; body: string } | null {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
-  if (!match) return null;
-
-  const frontmatter = match[1];
-  const body = match[2]?.trim() || '';
-  const nameMatch = frontmatter.match(/^name:\s*(.+)$/m);
-  const descriptionMatch = frontmatter.match(/^description:\s*(.+)$/m);
-  const name = nameMatch?.[1]?.trim();
-  const description = descriptionMatch?.[1]?.trim();
-
-  if (!name) return null;
-
-  return {
-    name,
-    description: description || `${name} AI agent skill.`,
-    body: body || `# ${name}`,
-  };
-}
-
-async function getInstalledSkillsFallback(): Promise<any[]> {
+export async function getInstalledSkillsFallback(): Promise<any[]> {
   const fs = await import('node:fs');
   const path = await import('node:path');
 
@@ -316,47 +255,6 @@ async function getInstalledSkillsFallback(): Promise<any[]> {
   }
 
   return Array.from(collected.values());
-}
-
-export async function getLocalSkillsFallback(): Promise<any[]> {
-  if (_localSkillsCache && Date.now() - _localSkillsCacheTime < 30000) {
-    return _localSkillsCache || [];
-  }
-  try {
-    const fs = await import('node:fs');
-    const path = await import('node:path');
-
-    const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
-    if (fs.existsSync(mainCachePath)) {
-      const content = fs.readFileSync(mainCachePath, 'utf-8');
-      const data = JSON.parse(content);
-      _localSkillsCache = Array.isArray(data) ? data : data.skills || [];
-      _localSkillsCacheTime = Date.now();
-      return _localSkillsCache || [];
-    }
-
-    const installedSkills = await getInstalledSkillsFallback();
-    if (installedSkills.length > 0) {
-      _localSkillsCache = installedSkills;
-      _localSkillsCacheTime = Date.now();
-      return _localSkillsCache || [];
-    }
-
-    const trackedFallbackPath = path.resolve(process.cwd(), 'data/expanded-github-skills.json');
-    if (fs.existsSync(trackedFallbackPath)) {
-      const content = fs.readFileSync(trackedFallbackPath, 'utf-8');
-      const data = JSON.parse(content);
-      const normalized = (Array.isArray(data) ? data : [])
-        .map((row) => normalizeTrackedSkillFallback(row))
-        .filter((row): row is SkillListingItem => row !== null);
-      _localSkillsCache = normalized;
-      _localSkillsCacheTime = Date.now();
-      return _localSkillsCache || [];
-    }
-  } catch (_e) {
-    // ignore
-  }
-  return [];
 }
 
 /**

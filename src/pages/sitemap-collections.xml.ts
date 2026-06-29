@@ -1,16 +1,14 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../lib/collection-slugs';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../lib/seo-locales';
 import { SITE_URL } from '../lib/site-config';
 import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
-import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
+import { loadJsonDataAtBuildTime } from '../lib/build-time-loader';
 
-export const prerender = false;
+export const prerender = true;
 
 const SITE = SITE_URL;
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
@@ -27,8 +25,38 @@ function buildHreflangLinks(pagePath: string, locales: readonly string[]): strin
   );
 }
 
+// Load collections from local JSON files at build time
+async function loadCollectionsAtBuildTime() {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const dir = path.resolve(process.cwd(), 'src/content/collections');
+
+  if (!fs.existsSync(dir)) return [];
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'));
+  const entries = [];
+
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(path.join(dir, file), 'utf-8');
+      const data = JSON.parse(content);
+      const slug = file.replace(/\.json$/, '');
+      entries.push({
+        id: slug,
+        data,
+      });
+    } catch {
+      // Ignore malformed files
+    }
+  }
+
+  return entries;
+}
+
 export const GET: APIRoute = async () => {
   const today = new Date().toISOString().split('T')[0];
+  const sitemapBlocklistData = await loadJsonDataAtBuildTime('data/seo-sitemap-blocklist.json');
+  const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const urls: string[] = [];
 
   // 1. Collections index page (/collections)
@@ -44,7 +72,7 @@ ${buildHreflangLinks('/collections', SUPPORTED_LOCALES)}
 
   // 2. Individual collection pages (/collections/{slug})
   try {
-    const collectionsCol = getCanonicalCollections(await getCollection('collections'));
+    const collectionsCol = getCanonicalCollections(await loadCollectionsAtBuildTime());
     for (const col of collectionsCol) {
       const canonicalSlug = getCollectionCanonicalSlug(col);
       if (

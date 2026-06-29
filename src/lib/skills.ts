@@ -12,10 +12,10 @@ import {
   getSkillsListingByRefs,
   getSkillsListingPage,
   getSkillsListingTop,
-  getLocalSkillsFallback,
   type SkillsCategorySummary,
   type SkillsListingPageResult,
 } from './kv';
+import { getLocalSkillsFallback } from './skills-fallback';
 import { OFFICIAL_REPOS } from './skills-config';
 import { getNonTargetSkillReason } from './shared/validation';
 import { sanitizePublicAIOutput, sanitizePublicAIOutputValue } from './public-ai-output';

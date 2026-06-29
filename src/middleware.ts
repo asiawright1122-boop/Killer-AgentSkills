@@ -3,12 +3,12 @@ import { isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from
 import { logger, generateRequestId } from './lib/logger';
 import { SITE_DOMAIN } from './lib/site-config';
 import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from './lib/skill-route-paths';
-import { compileSitemapBlocklist, isSitemapSkillBlocked } from './lib/sitemap-blocklist';
-import sitemapSkillsData from '../data/sitemap-skills.json';
-import seo404RulesData from '../data/seo-404-rules.json';
-import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
-import skillLocaleGovernanceData from '../data/seo-skill-locale-governance.json';
+import { isSitemapSkillBlocked } from './lib/sitemap-blocklist';
 import { getRuntimeEnv } from './lib/runtime-env';
+import { skillLocaleGovernanceMap, loadSkillLocaleGovernance, isGovernanceLoaded } from './lib/skill-locale-governance';
+import { getSitemapSkills } from './lib/sitemap-skills-runtime';
+import { getSitemapBlocklist } from './lib/sitemap-blocklist-runtime';
+import { getSeo404Rules } from './lib/seo-404-rules-runtime';
 
 // Re-export for backward compatibility
 export {
@@ -25,19 +25,8 @@ type CanonicalSkillRoute = {
   routePath: string;
 };
 
-type SeoRedirectRule = {
-  fromPath: string;
-  toPath: string;
-};
-
-type SeoGoneRule = {
-  path: string;
-};
-
 const SKILL_SOURCE_FILE_EXT_RE =
   /\.(md|mdx|ts|tsx|js|jsx|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt|ini|csv|lock)$/i;
-
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 function normalizeSitemapSkillRecord(record: Partial<SitemapSkillEntry>): CanonicalSkillRoute | null {
   const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
@@ -62,22 +51,7 @@ function normalizeSitemapSkillRecord(record: Partial<SitemapSkillEntry>): Canoni
   };
 }
 
-const canonicalSkillRouteMap = (() => {
-  const map = new Map<string, CanonicalSkillRoute>();
-  const records = (
-    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
-  ) as Array<Partial<SitemapSkillEntry>>;
-
-  for (const record of records) {
-    const normalized = normalizeSitemapSkillRecord(record);
-    if (!normalized) continue;
-    const { owner, routePath } = normalized;
-    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, { owner, routePath });
-  }
-
-  return map;
-})();
+const canonicalSkillRouteMap = new Map<string, CanonicalSkillRoute>();
 
 type RepoFallbackRoute = {
   owner: string;
@@ -85,125 +59,120 @@ type RepoFallbackRoute = {
   routePath: string;
 };
 
-type SkillLocaleGovernanceRecord = {
-  owner: string;
-  routePath: string;
-  canonicalLocale: string | null;
-  publishedLocales: string[];
-};
+const repoFallbackRouteMap = new Map<string, RepoFallbackRoute>();
 
-const repoFallbackRouteMap = (() => {
-  const map = new Map<string, RepoFallbackRoute>();
-  const candidates = new Map<string, RepoFallbackRoute[]>();
-  const records = (
-    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
-  ) as Array<Partial<SitemapSkillEntry>>;
+const knownRepoKeySet = new Set<string>();
 
-  for (const record of records) {
-    const normalized = normalizeSitemapSkillRecord(record);
-    if (!normalized) continue;
-    const { owner, routePath } = normalized;
-    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
-    const parts = routePath.split('/').filter(Boolean);
-    if (parts.length < 2) continue;
-    const repo = parts[0];
-    if (!repo) continue;
-    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
-    const entry: RepoFallbackRoute = { owner, repo, routePath };
-    const list = candidates.get(key);
-    if (list) list.push(entry);
-    else candidates.set(key, [entry]);
+// Lazy-loaded data
+let _sitemapBlocklist: Awaited<ReturnType<typeof getSitemapBlocklist>> | null = null;
+let _seo404Rules: Awaited<ReturnType<typeof getSeo404Rules>> | null = null;
+let _seoRedirectPathMap: Map<string, string> | null = null;
+let _seoGonePathSet: Set<string> | null = null;
+
+async function ensureMiddlewareDataLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
+  // Load sitemap blocklist
+  if (!_sitemapBlocklist) {
+    _sitemapBlocklist = await getSitemapBlocklist(env);
   }
-
-  for (const [key, list] of candidates.entries()) {
-    if (list.length === 1) {
-      map.set(key, list[0]);
+  // Load 404 rules
+  if (!_seo404Rules) {
+    _seo404Rules = await getSeo404Rules(env);
+    _seoRedirectPathMap = new Map<string, string>();
+    _seoGonePathSet = new Set<string>();
+    const redirectRules = ((_seo404Rules as any)?.rules?.redirect301 ?? []) as Array<{
+      fromPath?: string;
+      toPath?: string;
+    }>;
+    for (const rule of redirectRules) {
+      const fromPath = typeof rule.fromPath === 'string' ? rule.fromPath.trim() : '';
+      const toPath = typeof rule.toPath === 'string' ? rule.toPath.trim() : '';
+      if (fromPath && toPath && fromPath !== toPath) {
+        _seoRedirectPathMap.set(fromPath, toPath);
+      }
+    }
+    const goneRules = ((_seo404Rules as any)?.rules?.gone410 ?? []) as Array<{ path?: string }>;
+    for (const rule of goneRules) {
+      const gonePath = typeof rule.path === 'string' ? rule.path.trim() : '';
+      if (gonePath) {
+        _seoGonePathSet.add(gonePath);
+      }
     }
   }
+}
 
-  return map;
-})();
+let _sitemapSkillsLoaded = false;
+let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 
-const knownRepoKeySet = (() => {
-  const set = new Set<string>();
-  const records = (
-    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
-  ) as Array<Partial<SitemapSkillEntry>>;
+async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
+  if (_sitemapSkillsLoaded) return;
+  if (_sitemapSkillsLoadPromise) return _sitemapSkillsLoadPromise;
 
-  for (const record of records) {
-    const normalized = normalizeSitemapSkillRecord(record);
-    if (!normalized) continue;
-    const { owner, routePath } = normalized;
-    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
-    const repo = routePath.split('/').filter(Boolean)[0];
-    if (!repo) continue;
-    set.add(`${owner.toLowerCase()}/${repo.toLowerCase()}`);
-  }
+  _sitemapSkillsLoadPromise = (async () => {
+    try {
+      const sitemapSkillsData = await getSitemapSkills(env);
+      const records = (
+        Array.isArray(sitemapSkillsData)
+          ? sitemapSkillsData
+          : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
+      ) as Array<Partial<SitemapSkillEntry>>;
 
-  return set;
-})();
+      // Populate canonicalSkillRouteMap
+      const fallbackCandidates = new Map<string, RepoFallbackRoute[]>();
+      for (const record of records) {
+        const normalized = normalizeSitemapSkillRecord(record);
+        if (!normalized) continue;
+        const { owner, routePath } = normalized;
+        const blocklist = _sitemapBlocklist || (await getSitemapBlocklist(env));
+        if (isSitemapSkillBlocked(owner, routePath, blocklist)) continue;
 
-const skillLocaleGovernanceMap = (() => {
-  const map = new Map<string, SkillLocaleGovernanceRecord>();
-  const records = ((skillLocaleGovernanceData as { skills?: unknown[]; records?: unknown[] }).skills ??
-    (skillLocaleGovernanceData as { records?: unknown[] }).records ??
-    []) as unknown[];
+        canonicalSkillRouteMap.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, { owner, routePath });
 
-  for (const record of records) {
-    const typedRecord = record as Partial<SkillLocaleGovernanceRecord>;
-    const owner = typeof typedRecord.owner === 'string' ? typedRecord.owner.trim() : '';
-    const routePath = typeof typedRecord.routePath === 'string' ? typedRecord.routePath.trim() : '';
-    if (!owner || !routePath) continue;
+        const parts = routePath.split('/').filter(Boolean);
+        if (parts.length >= 2) {
+          const repo = parts[0];
+          if (repo) {
+            const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+            const entry: RepoFallbackRoute = { owner, repo, routePath };
+            const list = fallbackCandidates.get(key);
+            if (list) list.push(entry);
+            else fallbackCandidates.set(key, [entry]);
+          }
+        }
 
-    const canonicalLocale =
-      typeof typedRecord.canonicalLocale === 'string' && typedRecord.canonicalLocale.trim().length > 0
-        ? typedRecord.canonicalLocale.trim().toLowerCase()
-        : null;
-    const publishedLocales = Array.isArray(typedRecord.publishedLocales)
-      ? typedRecord.publishedLocales
-          .filter((locale): locale is string => typeof locale === 'string' && locale.trim().length > 0)
-          .map((locale) => locale.trim().toLowerCase())
-      : [];
+        const repo = routePath.split('/').filter(Boolean)[0];
+        if (repo) knownRepoKeySet.add(`${owner.toLowerCase()}/${repo.toLowerCase()}`);
+      }
 
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, {
-      owner,
-      routePath,
-      canonicalLocale,
-      publishedLocales,
-    });
-  }
+      for (const [key, list] of fallbackCandidates.entries()) {
+        if (list.length === 1) {
+          repoFallbackRouteMap.set(key, list[0]);
+        }
+      }
+    } catch (e) {
+      console.error('[Middleware] Failed to load sitemap skills:', e);
+    } finally {
+      _sitemapSkillsLoaded = true;
+    }
+  })();
 
-  return map;
-})();
+  return _sitemapSkillsLoadPromise;
+}
 
-const seoRedirectPathMap = (() => {
-  const map = new Map<string, string>();
-  const records = ((seo404RulesData as { rules?: { redirect301?: unknown[] } }).rules?.redirect301 ?? []) as unknown[];
+// seoRedirectPathMap and seoGonePathSet are now built lazily by
+// ensureMiddlewareDataLoaded() using the _seoRedirectPathMap and
+// _seoGonePathSet variables. Access via getter functions below.
 
-  for (const record of records) {
-    const typedRecord = record as Partial<SeoRedirectRule>;
-    const fromPath = typeof typedRecord.fromPath === 'string' ? typedRecord.fromPath.trim() : '';
-    const toPath = typeof typedRecord.toPath === 'string' ? typedRecord.toPath.trim() : '';
-    if (!fromPath || !toPath || fromPath === toPath) continue;
-    map.set(fromPath, toPath);
-  }
+function getSeoRedirectPathMap(): Map<string, string> {
+  return _seoRedirectPathMap || new Map();
+}
 
-  return map;
-})();
+function getSeoGonePathSet(): Set<string> {
+  return _seoGonePathSet || new Set();
+}
 
-const seoGonePathSet = (() => {
-  const set = new Set<string>();
-  const records = ((seo404RulesData as { rules?: { gone410?: unknown[] } }).rules?.gone410 ?? []) as unknown[];
-
-  for (const record of records) {
-    const typedRecord = record as Partial<SeoGoneRule>;
-    const path = typeof typedRecord.path === 'string' ? typedRecord.path.trim() : '';
-    if (!path) continue;
-    set.add(path);
-  }
-
-  return set;
-})();
+function getMiddlewareBlocklist() {
+  return _sitemapBlocklist || { exactKeys: new Set(), prefixKeys: new Set(), regexKeys: [] };
+}
 
 const LEGACY_DOC_PATH_REDIRECTS = new Map<string, string>([['development/create-skill', 'creating-skills']]);
 
@@ -484,6 +453,15 @@ async function logSystemAlert(db: any, alertType: string, message: string, detai
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
+
+  // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
+  if (!isGovernanceLoaded() || !_sitemapSkillsLoaded || !_seoRedirectPathMap) {
+    const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
+    if (!isGovernanceLoaded()) await loadSkillLocaleGovernance(env || {});
+    if (!_sitemapSkillsLoaded) await ensureSitemapSkillsLoaded(env || {});
+    if (!_seoRedirectPathMap) await ensureMiddlewareDataLoaded(env || {});
+  }
+
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
 
@@ -671,7 +649,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   // 2.5. Apply explicit SEO remediation overrides generated from coverage reports.
-  const explicitRedirectTarget = seoRedirectPathMap.get(pathname);
+  const explicitRedirectTarget = getSeoRedirectPathMap().get(pathname);
   if (explicitRedirectTarget) {
     return new Response(null, {
       status: 301,
@@ -682,7 +660,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
-  if (seoGonePathSet.has(pathname)) {
+  if (getSeoGonePathSet().has(pathname)) {
     return new Response(null, {
       status: 410,
       headers: {
@@ -906,11 +884,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const directCanonical =
       ownerSegment && routeSegment ? resolveCanonicalSkillRoute(ownerSegment, routeSegment) : null;
     const isSitemapSuppressedSkill =
-      ownerSegment && routeSegment ? isSitemapSkillBlocked(ownerSegment, routeSegment, sitemapBlocklist) : false;
+      ownerSegment && routeSegment
+        ? isSitemapSkillBlocked(ownerSegment, routeSegment, getMiddlewareBlocklist())
+        : false;
 
     // If the skill is blocklisted AND has an explicit 410 Gone rule, return 410 immediately.
     // This covers takedown requests and other forced-removal cases where noindex is insufficient.
-    if (isSitemapSuppressedSkill && seoGonePathSet.has(pathname)) {
+    if (isSitemapSuppressedSkill && getSeoGonePathSet().has(pathname)) {
       return new Response(null, {
         status: 410,
         statusText: 'Gone',

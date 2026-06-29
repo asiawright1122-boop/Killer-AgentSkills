@@ -193,12 +193,14 @@ async function main() {
   console.log('🚀 开始同步数据到 Cloudflare KV...\n');
 
   // ══════════════════════════════════════════════════════════
-  // KV 职责划分 (2026-02 优化):
-  //   SKILLS_CACHE KV 仅存储:
-  //     - doc:{lang}:{slug}  → 文档页面内容
-  //     - sitemap-skills     → 站点地图
-  //     - submission:{id}    → 用户提交 (由 API 写入)
-  //     - crawled-skills     → 爬取结果 (由 API 写入)
+  // KV 职责划分 (2026-06 优化):
+  //   SKILLS_CACHE KV 存储:
+  //     - doc:{lang}:{slug}        → 文档页面内容
+  //     - sitemap-skills           → 站点地图
+  //     - skill-collection-lookup  → skill→collection 反查 (18K)
+  //     - related-skills-lookup    → related skills 查询表 (3.4M)
+  //     - submission:{id}          → 用户提交 (由 API 写入)
+  //     - crawled-skills           → 爬取结果 (由 API 写入)
   //   技能数据 (skill:*) 不再写入 KV — 前端已全部从 D1 读取
   // ══════════════════════════════════════════════════════════
 
@@ -215,6 +217,8 @@ async function main() {
 
   // 2. Sitemap key (will be written in syncSitemapData)
   activeKeys.add('sitemap-skills');
+  activeKeys.add('skill-collection-lookup');
+  activeKeys.add('related-skills-lookup');
 
   // 3. 清理遗留的 skill:* 和 all-skills:* 键 (一次性迁移清理)
   console.log('\n🧹 清理遗留的 skill:* KV 键 (已迁移到 D1)...');
@@ -341,5 +345,42 @@ async function syncSitemapData() {
     }
   } else {
     console.warn('⚠️  sitemap-skills.json not found');
+  }
+
+  // ── skill-collection-lookup (18 KiB) ──
+  // Used at runtime by skill detail pages (relatedCollections).
+  // The frontend reads from SKILLS_CACHE KV; this script ensures the key is populated.
+  console.log('\n🔗 Syncing skill-collection-lookup...');
+  const collectionLookupPath = path.join(process.cwd(), 'data/skill-collection-lookup.json');
+  if (fs.existsSync(collectionLookupPath)) {
+    const data = fs.readFileSync(collectionLookupPath, 'utf-8');
+    const success = await writeToKVBulk([{ key: 'skill-collection-lookup', value: data }]);
+    if (success) {
+      console.log('✅ skill-collection-lookup synced to KV');
+    } else {
+      console.error('❌ Failed to sync skill-collection-lookup');
+      hadSyncError = true;
+    }
+  } else {
+    console.warn('⚠️  skill-collection-lookup.json not found');
+  }
+
+  // ── related-skills-lookup (3.4 MiB) ──
+  // Used at runtime by skill detail pages (relatedSkills).
+  // The frontend reads from SKILLS_CACHE KV; this script ensures the key is populated.
+  console.log('\n🔀 Syncing related-skills-lookup...');
+  const relatedSkillsPath = path.join(process.cwd(), 'data/related-skills-lookup.json');
+  if (fs.existsSync(relatedSkillsPath)) {
+    const data = fs.readFileSync(relatedSkillsPath, 'utf-8');
+    // ~3.4 MiB — still within single KV write limit (25 MiB), but use bulk for consistency
+    const success = await writeToKVBulk([{ key: 'related-skills-lookup', value: data }]);
+    if (success) {
+      console.log('✅ related-skills-lookup synced to KV');
+    } else {
+      console.error('❌ Failed to sync related-skills-lookup');
+      hadSyncError = true;
+    }
+  } else {
+    console.warn('⚠️  related-skills-lookup.json not found');
   }
 }

@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import CardOverlayLink from '../../../components/CardOverlayLink.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
@@ -11,6 +10,9 @@ import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { polishCollectionPublicText } from '../../../lib/collection-public-text';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
+import { getCollectionsFromRuntime } from '../../../lib/collections-runtime';
+import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -27,8 +29,10 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-// Load all collections
-const collectionsCol = getCanonicalCollections(await getCollection('collections'));
+const env = await getRuntimeEnv<Env>(Astro.locals);
+
+// Load all collections from runtime
+const collectionsCol = getCanonicalCollections(await getCollectionsFromRuntime(env));
 
 // Extract localized text safely
 const resolveLocalized = (field: string | Record<string, string> | undefined, fallback: string = '') => {

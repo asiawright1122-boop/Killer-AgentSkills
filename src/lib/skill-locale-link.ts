@@ -1,42 +1,5 @@
 import { DEFAULT_LOCALE } from '../i18n';
-import skillLocaleGovernanceData from '../../data/seo-skill-locale-governance.json';
-
-type SkillLocaleGovernanceRecord = {
-  owner?: string;
-  routePath?: string;
-  eligibleLocales?: string[];
-  canonicalLocale?: string | null;
-};
-
-const skillLocaleGovernanceMap = (() => {
-  const map = new Map<string, { eligibleLocales: string[]; canonicalLocale: string | null }>();
-  const records = ((skillLocaleGovernanceData as { skills?: unknown[]; records?: unknown[] }).skills ??
-    (skillLocaleGovernanceData as { records?: unknown[] }).records ??
-    []) as SkillLocaleGovernanceRecord[];
-
-  for (const record of records) {
-    const owner = String(record.owner || '').trim();
-    const routePath = String(record.routePath || '').trim();
-    if (!owner || !routePath) continue;
-
-    const eligibleLocales = Array.isArray(record.eligibleLocales)
-      ? record.eligibleLocales
-          .filter((locale): locale is string => typeof locale === 'string' && locale.trim().length > 0)
-          .map((locale) => locale.trim().toLowerCase())
-      : [];
-    const canonicalLocale =
-      typeof record.canonicalLocale === 'string' && record.canonicalLocale.trim().length > 0
-        ? record.canonicalLocale.trim().toLowerCase()
-        : null;
-
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, {
-      eligibleLocales,
-      canonicalLocale,
-    });
-  }
-
-  return map;
-})();
+import { skillLocaleGovernanceMap } from './skill-locale-governance';
 
 export function selectSkillDetailLocale(
   requestedLocale: string,
@@ -75,5 +38,18 @@ export function resolveSkillDetailLocale(owner: string, routePath: string, reque
     .toLowerCase()}/${String(routePath || '')
     .trim()
     .toLowerCase()}`;
-  return selectSkillDetailLocale(requestedLocale, skillLocaleGovernanceMap.get(key));
+  const governance = skillLocaleGovernanceMap.get(key);
+
+  if (!governance) {
+    return selectSkillDetailLocale(requestedLocale, null);
+  }
+
+  // Transform the shared governance record to the format expected by selectSkillDetailLocale
+  return selectSkillDetailLocale(requestedLocale, {
+    eligibleLocales:
+      governance.publishedLocales.length > 0
+        ? governance.publishedLocales
+        : ([governance.canonicalLocale].filter(Boolean) as string[]),
+    canonicalLocale: governance.canonicalLocale,
+  });
 }

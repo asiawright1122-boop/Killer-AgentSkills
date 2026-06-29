@@ -1,6 +1,5 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
 import {
   getSkillById,
@@ -12,9 +11,9 @@ import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
-import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
-import relatedSkillsLookup from '../../../../../data/related-skills-lookup.json';
-import skillCollectionLookup from '../../../../../data/skill-collection-lookup.json';
+import { getSitemapSkills } from '../../../../lib/sitemap-skills-runtime';
+import { getRelatedSkillsLookup } from '../../../../lib/related-skills-runtime';
+import { getSkillCollectionLookup } from '../../../../lib/skill-collection-lookup-runtime';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -37,8 +36,8 @@ import {
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexability';
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
-import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
-import sitemapBlocklistData from '../../../../../data/seo-sitemap-blocklist.json';
+import { isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
+import { getSitemapBlocklist } from '../../../../lib/sitemap-blocklist-runtime';
 import {
   sanitizePublicSkillCopy,
   sanitizePublicSkillCopyList,
@@ -54,8 +53,7 @@ import SkillCard from '../../../../components/SkillCard.astro';
 import { Star, GitFork, Calendar, CheckCircle2, Zap, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
 import { trackDirectoryView } from '../../../../lib/analytics';
-export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
+import { getCollectionsFromRuntime } from '../../../../lib/collections-runtime';
 
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -81,7 +79,7 @@ if (!canonicalRoutePath) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
+const sitemapBlocklist = await getSitemapBlocklist(env);
 const isBlocked = isSitemapSkillBlocked(owner, canonicalRoutePath, sitemapBlocklist);
 
 const requestedSkillPath = buildLocalizedSkillPath(locale, owner, canonicalRoutePath);
@@ -157,9 +155,10 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
-const rawSitemapSkills = Array.isArray(sitemapSkillsData)
-  ? (sitemapSkillsData as Array<{ owner?: string; routePath?: string; updatedAt?: string }>)
-  : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
+const rawSitemapSkillsData = await getSitemapSkills(env);
+const rawSitemapSkills = Array.isArray(rawSitemapSkillsData)
+  ? (rawSitemapSkillsData as Array<{ owner?: string; routePath?: string; updatedAt?: string }>)
+  : ((rawSitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
     []);
 const exactSitemapSkill =
   !skillResult && (subSkillName || useStaticFallback)
@@ -299,7 +298,7 @@ if (renderRepoDirectory) {
 }
 
 // Build related collections from the skill-collection lookup
-const allCollections = await getCollection('collections');
+const allCollections = await getCollectionsFromRuntime(env);
 const skillRefKey = `${owner}/${repo}`;
 const skillPathRefKey = canonicalRoutePath ? `${owner}/${canonicalRoutePath}` : skillRefKey;
 const collectionSlugs =
@@ -924,12 +923,15 @@ if (readmeRenderBudget.truncated) {
   );
 }
 
-// ⚡ Related skills resolved statically from pre-rendered lookup to prevent runtime DB queries
+// ⚡ Related skills resolved from runtime lookup to prevent static bundle bloat
 let relatedSkillsSource: any[] = [];
 if (!renderRepoDirectory) {
   const skillId = skill.id || fullId;
-  const indices = (relatedSkillsLookup as any).lookup[skillId] || [];
-  relatedSkillsSource = indices.map((idx: number) => (relatedSkillsLookup as any).skills[idx]).filter(Boolean);
+  const relatedSkillsLookup = await getRelatedSkillsLookup(env);
+  if (relatedSkillsLookup) {
+    const indices = relatedSkillsLookup.lookup[skillId] || [];
+    relatedSkillsSource = indices.map((idx: number) => relatedSkillsLookup.skills[idx]).filter(Boolean);
+  }
 }
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---

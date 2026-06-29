@@ -1,28 +1,16 @@
 import type { APIRoute } from 'astro';
-import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
 import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from '../lib/skill-route-paths';
-import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
+import { isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
+import { getSitemapSkills } from '../lib/sitemap-skills-runtime';
+import { skillLocaleGovernanceMap, loadSkillLocaleGovernance } from '../lib/skill-locale-governance';
+import { getSitemapBlocklist } from '../lib/sitemap-blocklist-runtime';
 
+// SSR page — uses runtime KV for data instead of static imports
 export const prerender = false;
 
 const SITE = SITE_URL;
-
-// Pre-built sitemap data — avoids D1 query and CPU timeout (1102)
-import sitemapSkillsData from '../../data/sitemap-skills.json';
-import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
-import skillLocaleGovernanceData from '../../data/seo-skill-locale-governance.json';
-
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
-
-type SkillLocaleGovernanceEntry = {
-  owner?: string;
-  routePath?: string;
-  eligibleLocales?: string[];
-  canonicalLocale?: string;
-};
 
 type SkillIndexabilityEntry = {
   owner?: string;
@@ -39,84 +27,25 @@ const parseDateMs = (value?: string) => {
   return Number.isFinite(ms) ? ms : 0;
 };
 
-function loadSkillIndexabilityReport(): unknown {
-  const reportPath = resolve(process.cwd(), 'reports/seo/latest-skill-indexability.json');
-  if (!existsSync(reportPath)) return null;
-
-  try {
-    return JSON.parse(readFileSync(reportPath, 'utf-8'));
-  } catch {
-    return null;
-  }
-}
-
-function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
+function dedupeSitemapSkills(
+  skills: SitemapSkillEntry[],
+  blocklist: Awaited<ReturnType<typeof getSitemapBlocklist>>,
+): SitemapSkillEntry[] {
   const deduped = new Map<string, SitemapSkillEntry>();
-
   for (const skill of skills) {
     const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
     const repo = typeof skill.repo === 'string' ? skill.repo.trim() : '';
     const routePath = getSkillRoutePath(skill);
     if (!owner || !repo || !routePath) continue;
-    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
-
+    if (isSitemapSkillBlocked(owner, routePath, blocklist)) continue;
     const key = `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
     const current = deduped.get(key);
     if (!current || parseDateMs(skill.updatedAt) > parseDateMs(current.updatedAt)) {
       deduped.set(key, { owner, repo, routePath, ...(skill.updatedAt ? { updatedAt: skill.updatedAt } : {}) });
     }
   }
-
   return Array.from(deduped.values());
 }
-
-const skillLocaleGovernanceRecords = (
-  Array.isArray(skillLocaleGovernanceData)
-    ? skillLocaleGovernanceData
-    : ((skillLocaleGovernanceData as { skills?: unknown[] }).skills ?? [])
-) as SkillLocaleGovernanceEntry[];
-
-const skillLocaleGovernanceMap = (() => {
-  const map = new Map<string, SkillLocaleGovernanceEntry>();
-
-  for (const record of skillLocaleGovernanceRecords) {
-    const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
-    const routePath = typeof record.routePath === 'string' ? record.routePath.trim() : '';
-    if (!owner || !routePath) continue;
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, record);
-  }
-
-  return map;
-})();
-
-const skillIndexabilityReportData = loadSkillIndexabilityReport();
-
-const skillIndexabilityRecords = (
-  typeof skillIndexabilityReportData === 'object' &&
-  skillIndexabilityReportData &&
-  'skills' in skillIndexabilityReportData &&
-  Array.isArray((skillIndexabilityReportData as { skills?: unknown[] }).skills)
-    ? (skillIndexabilityReportData as { skills: unknown[] }).skills
-    : skillLocaleGovernanceRecords.map((record) => ({
-        owner: record.owner,
-        routePath: record.routePath,
-        canonicalLocale: record.canonicalLocale,
-        isIndexable: Array.isArray(record.eligibleLocales) ? record.eligibleLocales.length > 0 : true,
-      }))
-) as SkillIndexabilityEntry[];
-
-const skillIndexabilityMap = (() => {
-  const map = new Map<string, SkillIndexabilityEntry>();
-
-  for (const record of skillIndexabilityRecords) {
-    const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
-    const routePath = typeof record.routePath === 'string' ? record.routePath.trim() : '';
-    if (!owner || !routePath) continue;
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, record);
-  }
-
-  return map;
-})();
 
 function buildHreflangLinks(owner: string, routePath: string, locales: string[], xDefaultLocale: string): string {
   return (
@@ -137,10 +66,10 @@ function formatDate(date: Date | string): string {
   return d.toISOString().split('T')[0];
 }
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, locals }) => {
   const pageParam = params.page || '1';
   const page = parseInt(pageParam, 10);
-  const LIMIT = 200; // Skills per sitemap file
+  const LIMIT = 200;
 
   if (isNaN(page) || page < 1) {
     return new Response('Invalid page', { status: 404 });
@@ -148,12 +77,32 @@ export const GET: APIRoute = async ({ params }) => {
 
   const today = formatDate(new Date());
 
-  // Use pre-built static data instead of D1 query to avoid CPU timeout (1102)
+  // Get env from Cloudflare runtime
+  const { getRuntimeEnv } = await import('../lib/runtime-env');
+  const env = (await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(locals)) as { SKILLS_CACHE?: KVNamespace };
+
+  // Load data from runtime KV (production) or local fallback (dev)
+  const sitemapSkillsData = await getSitemapSkills(env);
+  await loadSkillLocaleGovernance(env || {});
+  const blocklist = await getSitemapBlocklist(env);
+
   const skills: SitemapSkillEntry[] = dedupeSitemapSkills(
-    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : (sitemapSkillsData as any).skills || [],
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : [],
+    blocklist,
   );
 
-  // Pagination Logic
+  // Build indexability map from governance map (fallback)
+  const skillIndexabilityMap = new Map<string, SkillIndexabilityEntry>();
+  for (const [key, governance] of skillLocaleGovernanceMap.entries()) {
+    skillIndexabilityMap.set(key, {
+      owner: governance.owner,
+      routePath: governance.routePath,
+      canonicalLocale: governance.canonicalLocale,
+      isIndexable: (governance as any).publishedLocales ? (governance as any).publishedLocales.length > 0 : true,
+    });
+  }
+
+  // Pagination
   const start = (page - 1) * LIMIT;
   const end = start + LIMIT;
   const paginatedSkills = skills.slice(start, end);
@@ -173,18 +122,18 @@ export const GET: APIRoute = async ({ params }) => {
     if (!indexability || indexability.isIndexable !== true) continue;
 
     const governance = skillLocaleGovernanceMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`);
-    const eligibleLocales = (governance?.eligibleLocales || []).filter((locale) =>
-      SUPPORTED_LOCALES.includes(locale as any),
-    );
+    const eligibleLocales: string[] = (governance as any)?.eligibleLocales
+      ? ((governance as any).eligibleLocales as string[]).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
+      : [];
     if (governance && eligibleLocales.length === 0) continue;
 
     const canonicalLocale =
       typeof indexability.canonicalLocale === 'string' &&
       SUPPORTED_LOCALES.includes(indexability.canonicalLocale as any)
         ? indexability.canonicalLocale
-        : typeof governance?.canonicalLocale === 'string' &&
-            SUPPORTED_LOCALES.includes(governance.canonicalLocale as any)
-          ? governance.canonicalLocale
+        : typeof (governance as any)?.canonicalLocale === 'string' &&
+            SUPPORTED_LOCALES.includes((governance as any).canonicalLocale as any)
+          ? (governance as any).canonicalLocale
           : eligibleLocales.includes('en')
             ? 'en'
             : eligibleLocales[0] || 'en';

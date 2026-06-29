@@ -8,7 +8,7 @@ import { getFeaturedSkillsDirect } from '../../lib/public-skill-catalog';
 import { buildKeywordString } from '../../lib/seo-keywords';
 import { getAuthoritySurfaceEntries } from '../../lib/authority-surfaces';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
-import { getCollection } from 'astro:content';
+import { getCollectionsFromRuntime } from '../../lib/collections-runtime';
 import type { Env } from '../../lib/kv';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
@@ -72,7 +72,7 @@ const homeFeaturedCollectionIds = [
 ];
 
 // Load collections for Featured Collections section
-const allCollections = getCanonicalCollections(await getCollection('collections'));
+const allCollections = getCanonicalCollections(await getCollectionsFromRuntime(env));
 const homeFeaturedCollectionPriority = new Map(
   getAuthoritySurfaceEntries(typedLocale, { ids: homeFeaturedCollectionIds })
     .filter((surface) => surface.surfaceClass === 'collection')

@@ -7,7 +7,12 @@ import { buildKeywordString, type KeywordClusterId } from '../../../../lib/seo-k
 import { getBlogIntentLinks } from '../../../../lib/blog-seo-intent';
 import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
-export const prerender = false;
+export const prerender = true;
+
+export function getStaticPaths() {
+  const BLOG_CATEGORIES = ['document-automation', 'developer-experience', 'enterprise-solutions', 'creative-tools'];
+  return SUPPORTED_LOCALES.flatMap((locale) => BLOG_CATEGORIES.map((category) => ({ params: { locale, category } })));
+}
 
 const categoryIcons = {
   'creative-tools': Palette,

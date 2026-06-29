@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../lib/site-config';
 import type { SitemapSkillEntry } from '../lib/skill-route-paths';
-import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
+import { isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
+import { loadJsonDataAtBuildTime } from '../lib/build-time-loader';
 
 // The sitemap index is derived from build-time content snapshots, so shipping a
 // static asset gives crawlers the most stable entrypoint.
@@ -9,19 +10,16 @@ export const prerender = true;
 
 const SITE = SITE_URL;
 
-// Pre-built sitemap data — avoids D1 query and CPU timeout (1102)
-import sitemapSkillsData from '../../data/sitemap-skills.json';
-import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
-
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
-
 const parseDateMs = (value?: string) => {
   if (!value) return 0;
   const ms = Date.parse(value);
   return Number.isFinite(ms) ? ms : 0;
 };
 
-function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
+function dedupeSitemapSkills(
+  skills: SitemapSkillEntry[],
+  blocklist: ReturnType<typeof compileSitemapBlocklist>,
+): SitemapSkillEntry[] {
   const deduped = new Map<string, SitemapSkillEntry>();
 
   for (const skill of skills) {
@@ -29,7 +27,7 @@ function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
     const repo = typeof skill.repo === 'string' ? skill.repo.trim() : '';
     const routePath = typeof skill.routePath === 'string' ? skill.routePath.trim() : '';
     if (!owner || !repo || !routePath) continue;
-    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
+    if (isSitemapSkillBlocked(owner, routePath, blocklist)) continue;
 
     const key = `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
     const current = deduped.get(key);
@@ -41,22 +39,16 @@ function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
   return Array.from(deduped.values());
 }
 
-/**
- * Sitemap Index — Splits the sitemap into logical sub-sitemaps for better
- * crawl efficiency. Google recommends max 50,000 URLs / 50MB per sitemap.
- *
- * Structure:
- *   /sitemap.xml          → This file (Sitemap Index)
- *   /sitemap-static.xml   → Static pages (home, categories, cli, etc.)
- *   /sitemap-docs.xml     → Documentation pages
- *   /sitemap-blog.xml     → Blog pages
- *   /sitemap-collections.xml → Collection pages
- *   /sitemap-skills.xml   → Skill detail pages
- */
 export const GET: APIRoute = async () => {
-  // Use pre-built static data instead of D1 query to avoid CPU timeout (1102)
+  // Load sitemap skills data at build time via dynamic node:fs
+  const sitemapSkillsData = await loadJsonDataAtBuildTime('data/sitemap-skills.json');
+  const sitemapBlocklistData = await loadJsonDataAtBuildTime('data/seo-sitemap-blocklist.json');
+  const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const skills: SitemapSkillEntry[] = dedupeSitemapSkills(
-    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : (sitemapSkillsData as any).skills || [],
+    Array.isArray(sitemapSkillsData)
+      ? (sitemapSkillsData as SitemapSkillEntry[])
+      : (sitemapSkillsData as any)?.skills || [],
+    sitemapBlocklist,
   );
 
   // Get last modification date for skills

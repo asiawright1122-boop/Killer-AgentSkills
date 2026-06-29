@@ -3,13 +3,12 @@ import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
 import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
-import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
+import { loadJsonDataAtBuildTime } from '../lib/build-time-loader';
 
-export const prerender = false;
+export const prerender = true;
 
 const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 const SUPPORTED_LOCALE_SET = new Set<string>(SUPPORTED_LOCALES as readonly string[]);
 
 const BLOG_CATEGORIES = ['document-automation', 'developer-experience', 'enterprise-solutions', 'creative-tools'];
@@ -37,6 +36,8 @@ function formatDate(date: Date | string): string {
 
 export const GET: APIRoute = async () => {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const sitemapBlocklistData = await loadJsonDataAtBuildTime('data/seo-sitemap-blocklist.json');
+  const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const urls: string[] = [];
 
   // Group posts by slug and keep per-locale variants.

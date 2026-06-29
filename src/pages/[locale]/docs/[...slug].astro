@@ -7,7 +7,7 @@ import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
-import docsCache from '../../../../data/docs-cache.json';
+import { getDocsCache } from '../../../lib/docs-cache-runtime';
 
 type DocPage = {
   slug: string;
@@ -22,8 +22,10 @@ type DocsCache = {
   sidebar: Record<string, { title: Record<string, string>; items: string[] }>;
 };
 
-// Type assertion for imported JSON
-const localDocsCache = docsCache as DocsCache;
+// Type assertion for loaded cache
+const docsEnv = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const docsCacheData = { pages: await getDocsCache(docsEnv) } as DocsCache;
+const localDocsCache = docsCacheData;
 import { FileText, Book, Menu, X, Rocket } from 'lucide-react';
 
 export const prerender = false;

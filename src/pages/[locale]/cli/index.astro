@@ -2,8 +2,11 @@
 import Layout from '../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import docsCache from '../../../../data/docs-cache.json';
+import { getDocsCache } from '../../../lib/docs-cache-runtime';
 import { Sparkles, RefreshCw, Bot, Shield, Check, X, Minus } from 'lucide-react';
+
+import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -14,6 +17,9 @@ const typedLocale = locale as Locale;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
+
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const docsCache = { pages: await getDocsCache(env) };
 
 const canonicalUrl = `https://killer-skills.com/${locale}/cli`;
 
