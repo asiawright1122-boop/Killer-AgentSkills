@@ -189,7 +189,7 @@
     "comparison": {
       "title": "Warum Killer-Skills CLI?",
       "feature": "Funktion",
-      "ks": "Killer-Skills CLI",
+      "ks": "\"Killer-Skills CLI\" \n\nÜBERSETZUNGSREGELN:\n1. **Suchmaschinenoptimierung**: Verwende Schlüsselwörter, die Benutzer in de in der AI-Agent-Tools- und Entwickler-Ablaufplanung suchen.\n2. **Seitenthema**: Dies ist für einen AI-Agent-Skills-Marktplatz. Halte Übersetzungen relevant für: AI-Agenten, Skills, Abläufe, IDE-Integrationen, MCP-Server, Entwickler-Tools.\n3. **Längebeschränkung**: Halte die Übersetzungs-Länge nahe bei der Originalversion, um UI-Brechungen oder SERP-Auslagerungen zu vermeiden.\n4. **Ton**: Professionell, technisch, zugänglich.\n5. **Markenbegriffe**: Halte \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\" unverändert.\n6. **CJK-Formatierungsregeln (wichtig)**:\n   - Für CJK-Sprachen (zh, ja, ko): Lasse eine halbwertige Leerzeichen zwischen CJK-Zeichen und englischen Buchstaben/Zeichen/Ziffern (z.B. \"在 Cursor 中\").\n   - Chinesisch (zh): Verwende volle Punktation (，。！？：；).\n   - Japanisch (ja): Verwende volle Punktation mit japanischer Komma (、。！？：；).\n   - Koreanisch (ko): Halte halbwertige Punkte und Kommas (.,) und verwende volle Exklamations-/Fragezeichen (！？).\n7. **Glossar-Anpassung**:\n   - \"AI-Agent-Skill\" -> zh: \"AI 智能体技能\", ja: \"AIエージェントスキル\", ko: \"AI 에이전트 스킬\"\n   - \"AI-Agent\" -> zh: \"AI 智能体\", ja: \"AIエージェント\", ko: \"AI 에이전트\"\n   - \"IDE-Integration\" -> zh: \"IDE 集成\", ja: \"IDE統合\", ko: \"IDE 통합\"\n   - \"Entwickler-Tools\" -> zh: \"开发者工具\", ja: \"開発者ツール\", ko: \"개발자 도구\"\n   - \"Installation-Plattform\" -> zh: \"安装平台\", ja: \"インストールプラットフォーム\", ko: \"설치 플랫폼\"\n   - \"Ablaufautomatisierung\" -> zh: \"工作流自动化\", ja: \"ワークフロー自動化\", ko: \"워크플로우 자동화\"\n   - \"Marktplatz\" -> zh: \"市场\", ja: \"マーケットプレイス\", ko: \"마켓플레이스\"\n8. **Keine Leerzeichen**: Erkläre nichts. Gibt nur die Übersetzungen zurück.",
       "others": "Manuelles Prompting",
       "row1": "1-Klick-Installation in 19+ IDEs",
       "row2": "Automatischer Aufruf (Kein Kontext-Fenster verschwendet)",
@@ -667,7 +667,7 @@
     "workflows": "Arbeitsabläufe"
   },
   "Footer": {
-    "blog": "Blog",
+    "blog": "\"Blog\" \n\nTranslated: \"Blog\"",
     "browse": "Skills durchsuchen",
     "categories": "Kategorien",
     "cli": "CLI-Tool",
@@ -682,7 +682,7 @@
     "product": "Produkt",
     "resources": "Ressourcen",
     "rights": "Alle Rechte vorbehalten.",
-    "showcase": "Showcase",
+    "showcase": "Anzeige",
     "stayUpdated": "Bleiben Sie auf dem Laufenden",
     "subscribeDesc": "Erhalten Sie die neuesten Skills und Updates per E-Mail.",
     "terms": "Nutzungsbedingungen"
@@ -697,7 +697,7 @@
       "PDF",
       "Bildgenerator",
       "Datenanalyse",
-      "Browser",
+      "Bildschirm",
       "Code-Review",
       "Dokumente"
     ],
@@ -868,8 +868,8 @@
     "featuredSeoTitle": "Hervorhebte AI-Agenten-Skills",
     "latest": "Neueste Entdeckungen",
     "latestDesc": "Erkunden Sie die neuesten AI Agent Skills und Innovationen",
-    "latestSeoDesc": "Review the latest AI Agent skills added to the directory and keep up with new workflow, automation, and developer-tool capabilities.",
-    "latestSeoTitle": "Latest AI Agent Skills",
+    "latestSeoDesc": "Aktualisieren Sie sich über die neuesten AI-Agent-Skills, die in der Directory hinzugefügt wurden, und bleiben Sie auf dem Laufenden, was neue Workflows, Automatisierungen und Entwicklerwerkzeuge angeht.",
+    "latestSeoTitle": "Neueste AI-Agent-Skills",
     "latestSkills": "Neueste Skills",
     "noSkills": "Keine Skills gefunden",
     "noSkillsHint": "Versuchen Sie andere Suchbegriffe oder durchsuchen Sie nach Kategorie",
@@ -877,8 +877,8 @@
     "officialDesc": "Hochwertige zertifizierte Skills, gepflegt von offiziellen Teams",
     "officialSeoDesc": "Browsen Sie offizielle AI-Agent-Skills, die von vertrauenswürdigen Teams gepflegt werden, und überprüfen Sie hochverlässige, installfertige Workflow-Fähigkeiten.",
     "officialSeoTitle": "Offizielle AI-Agenten-Skills",
-    "ownerSeoDesc": "Browse AI agent skills published by {owner} for Claude Code, Cursor, and Windsurf.",
-    "ownerSeoTitle": "AI Agent Skills by {owner}",
+    "ownerSeoDesc": "Browsen Sie AI-Agent-Skills von {owner}, die für Claude Code, Cursor und Windsurf veröffentlicht wurden.",
+    "ownerSeoTitle": "AI-Agenten-Fähigkeiten von {owner}",
     "popular": "Beliebt",
     "searchPrefix": "Suche: {query}",
     "searchSeoDesc": "Sucheergebnisse für \"{query}\" in AI-Agent-Skills für Claude Code, Cursor und Windsurf.",
@@ -886,8 +886,8 @@
     "seoDescription": "Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.",
     "seoTitle": "AI Agent Skills for Claude Code, Cursor & Windsurf",
     "title": "Alle Fähigkeiten",
-    "topicSeoDesc": "Browse AI agent skills related to {topic} for Claude Code, Cursor, and Windsurf workflows.",
-    "topicSeoTitle": "{topic} AI Agent Skills",
+    "topicSeoDesc": "Themen-ähnliche AI-Agenten-Skills für Claude Code, Cursor und Windsurf-Workflows durchsuchen.",
+    "topicSeoTitle": "{Thema} AI-Agent-Skills",
     "viewAll": "Alle Skills anzeigen",
     "viewSkills": "Skills anzeigen"
   },
@@ -897,12 +897,12 @@
       "description": "Durchsuchen und installieren Sie Tausende KI-Agenten-Skills im Killer-Skills-Verzeichnis. Unterstützt Claude Code, Windsurf, Cursor und mehr."
     },
     "description": "Entdecken, installieren und verwalten Sie KI-Agenten-Skills. Unterstützung für Claude Code, Cursor, Windsurf, Antigravity und mehr. Schnelle Installation für stärkere Coding-Workflows mit Ihrem Agenten.",
-    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
-    "template": "%s | Killer-Skills",
+    "keywords": "Agenten-Skills, Claude Code, AI-Agent, Cursor, Windsurf, Antigravitation, AI-Skills, Coding-Skills, AI-Assistent, Code-Generierung",
+    "template": "Killer-Skills | %s",
     "title": "Killer-Skills - Verzeichnis für AI-Agentenfähigkeiten"
   },
   "Navigation": {
-    "blog": "Blog",
+    "blog": "\"Blog\" -> \"Blog\"",
     "categories": "Kategorien",
     "docs": "Dokumentation",
     "favorites": "Favoriten",
@@ -974,7 +974,7 @@
         "description": "Erkunden Sie Vorlagen, Automatisierungs-Starter und wiederverwendbare Playbooks für wiederkehrende KI-Aufgaben."
       },
       "ai-agent-skills": {
-        "label": "AI Agent Skills",
+        "label": "Künstliche Agenten-Skills",
         "description": "Durchsuchen Sie hochwertige AI Agent Skills für Coding, Automatisierung, Daten und Produktivität in wichtigen IDEs."
       },
       "claude-code-skills": {
@@ -1015,20 +1015,20 @@
     "categories": {
       "title": "Kategorien",
       "all": "Alle",
-      "browser": "Browser",
+      "browser": "\"Browser\" -> \"Browser\"",
       "finance": "Finanzen",
       "productivity": "Produktivität",
       "developer": "Entwickler",
       "data": "Daten",
       "ai": "Künstliche Intelligenz",
-      "design": "Design",
+      "design": "\"Design\" -> \"Gestaltung\"",
       "documentation": "Dokumentation",
-      "devops": "DevOps & Cloud",
+      "devops": "\"DevOps & Cloud\" \n\nÜbersetzt auf Deutsch: \"DevOps & Cloud\"",
       "security": "Sicherheit",
       "communication": "Kommunikation"
     },
     "discover": "Entdecken",
-    "frameworks": "Frameworks",
+    "frameworks": "Framemworks",
     "views": {
       "official": "Offiziell",
       "featured": "Vorgestellt",
@@ -1039,9 +1039,9 @@
     "copied": "Kopiert!",
     "copy": "Kopieren",
     "creators": "Aktive Ersteller",
-    "downloads": "Downloads",
+    "downloads": "Herunterladen",
     "featured": "Vorgestellte Skills",
-    "forks": "Forks",
+    "forks": "Forken",
     "install": "Installationscode",
     "noResults": "Keine Skills gefunden",
     "noResultsHint": "Versuchen Sie andere Suchbegriffe",
@@ -1062,7 +1062,7 @@
     "cta": "Manager öffnen",
     "description": "Entfesseln Sie unendliche Möglichkeiten. Entdecken, installieren und erweitern Sie Ihren AI-Agenten sofort mit über 3,400 Funktionen.",
     "subtitle": "Ökosystem-Gateway",
-    "title": "Skills Manager"
+    "title": "Fähigkeit Manager"
   },
   "Solutions": {
     "backToSolutions": "Zurück zu Lösungen",
@@ -1090,7 +1090,7 @@
     "activeUsers": "Aktive Nutzer",
     "dailyInstalls": "Tägliche Installs",
     "ecosystemGrowth": "Ökosystem-Wachstum",
-    "skills": "Skills",
+    "skills": "Fähigkeiten",
     "supportedIDEs": "Unterstützte IDEs",
     "totalDownloads": "Gesamtdownloads",
     "totalSkills": "Gesamtzahl Skills"
