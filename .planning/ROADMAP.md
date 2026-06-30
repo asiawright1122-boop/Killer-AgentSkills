@@ -2,12 +2,15 @@
 
 ## Overview
 
-Milestone v5.4 Verification & De-index Confirmation is active. This is a lightweight verification milestone — no new code changes needed. The compliance matrix logic is correct; we just need to wait for GSC data cycles to confirm that the two remaining `watch` lanes auto-clear.
+Milestone v5.4 Verification & De-index Confirmation is active. The canonical drift audit (2026-06-30) shows dramatic improvement: 179 → 21 GSC rows (−88%), canonicalization URLs from 56 → 3 (−95%). The remaining 2 `watch` lanes are driven by stale opportunity board data; we expect auto-clearing within 1–2 GSC data cycles after IndexNow de-index submissions take effect.
 
 ## Immediate Next Actions
 
-- [ ] Wait for next GSC data cycle (typically 2-3 days)
-- [ ] Run compliance matrix after CI cycle to verify lane verdicts
+- [x] Run canonical drift audit with latest GSC data → **179 → 21 rows, −88% improvement**
+- [x] Submit atondwal/config URLs to IndexNow for de-indexing → **200 OK from Bing + IndexNow**
+- [x] Sync KV data keys for bundle optimization → **skill-collection-lookup + related-skills-lookup synced**
+- [ ] Wait for next GSC data cycle (2–3 days) for opportunity board refresh
+- [ ] Re-run compliance matrix to verify watch lanes auto-clear
 - [ ] If both watch lanes clear → overall verdict `pass` 🎉
 
 ## Current Milestone: v5.4 Verification & De-index Confirmation
@@ -25,11 +28,15 @@ Milestone v5.4 Verification & De-index Confirmation is active. This is a lightwe
 
 - **Requirements:** VER-01, VER-02
 - **Scope:** Run compliance matrix after next GSC data cycle; verify lane auto-clearing
-- **Status:** Waiting (next GSC data cycle)
+- **Status:** In progress (canonical drift improved −88%, IndexNow de-index submitted, awaiting GSC cycle)
 - **Success Criteria:**
   - [ ] `ctr-search-appearance` verdict reaches `pass`
-  - [ ] `canonical-redirect-signal-consistency` canonicalization opportunity count decreases
+  - [x] `canonical-redirect-signal-consistency` canonicalization opportunity count decreases (179 → 21 rows, −88%)
   - [ ] Overall compliance verdict reaches `pass` (when both lanes clear)
+- **Progress (2026-06-30):**
+  - Canonical drift audit: 179 → 21 GSC pages (−88%), canonicalize 56 → 3 (−95%), impressions 266 → 72 (−73%)
+  - atondwal/config P0: submitted 11 locale variants to IndexNow (Bing 200, IndexNow 200)
+  - KV sync: skill-collection-lookup + related-skills-lookup populated in production
 
 ## Milestones
 
@@ -50,17 +57,18 @@ Milestone v5.4 Verification & De-index Confirmation is active. This is a lightwe
 | v5.1 end | 5 | 3 | 0 | 0 |
 | v5.2 end | 5 | 3 | 0 | 0 |
 | v5.3 end | 6 | 2 | 0 | 0 |
+| v5.4 mid (2026-06-30) | 6 | 2 | 0 | 0 |
 | **v5.4 target** | **8** | **0** | 0 | 0 |
 
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v5.4 Verification & De-index Confirmation | 166 | 0/1 | Active (waiting) | — |
+| v5.4 Verification & De-index Confirmation | 166 | 0/1 | Active (drift verified, awaiting GSC cycle) | — |
 | v5.3 IndexNow Evidence & Lane Closure | 165 | 1/1 | Complete | 2026-06-28 |
 | v5.2 Coverage Proof & Compliance Consolidation | 162-164 | 1/3 | Complete (automation) | 2026-06-28 |
 | v5.1 First Impression & Coverage Closure | 159-161 | 2/3 | Complete (automation) | 2026-06-28 |
 | v5.0 Traffic Activation & Index Health Closure | 156-158 | 3/3 | Complete | 2026-06-27 |
 
 ---
-*Last updated: 2026-06-28 after archiving v5.3 and initializing v5.4*
+*Last updated: 2026-06-30 after canonical drift audit and IndexNow de-index submission*
