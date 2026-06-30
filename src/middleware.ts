@@ -486,6 +486,35 @@ async function logSystemAlert(db: any, alertType: string, message: string, detai
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
+  // ═══════════════════════════════════════════════
+  // Edge Cache: serve from CF Cache API when possible.
+  // Workers don't auto-cache SSR HTML — we must explicitly
+  // check/populate caches.default. This cuts TTFB from
+  // ~2s (cold) to ~50ms (cached) for anonymous GETs.
+  // ═══════════════════════════════════════════════
+  const isCacheableRequest =
+    context.request.method === 'GET' &&
+    !pathname.startsWith('/api/') &&
+    !pathname.startsWith('/admin') &&
+    !context.isPrerendered;
+
+  if (isCacheableRequest && typeof caches !== 'undefined') {
+    try {
+      const cache = caches.default;
+      const cacheKey = new Request(context.url.toString(), context.request);
+      const cached = await cache.match(cacheKey);
+      if (cached) {
+        // Clone to allow multiple reads and add cache-hit marker
+        const response = new Response(cached.body, cached);
+        response.headers.set('X-Cache', 'HIT');
+        response.headers.set('X-Cache-TTL', response.headers.get('Cache-Control') || '');
+        return response;
+      }
+    } catch {
+      // Cache API unavailable (dev mode / miniflare) — proceed normally
+    }
+  }
+
   // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
   // Also re-check sitemap skills if map is empty (allows recovery from empty KV load)
   const sitemapSkillsStale =
@@ -494,9 +523,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
   if (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsStale || !_seoRedirectPathMap) {
     const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
-    if (!isGovernanceLoaded()) await loadSkillLocaleGovernance(env || {});
-    if (!_sitemapSkillsLoaded || sitemapSkillsStale) await ensureSitemapSkillsLoaded(env || {});
-    if (!_seoRedirectPathMap) await ensureMiddlewareDataLoaded(env || {});
+    // Run all three KV data loads in parallel — each reads from a different key
+    await Promise.all([
+      !isGovernanceLoaded() ? loadSkillLocaleGovernance(env || {}) : Promise.resolve(),
+      !_sitemapSkillsLoaded || sitemapSkillsStale ? ensureSitemapSkillsLoaded(env || {}) : Promise.resolve(),
+      !_seoRedirectPathMap ? ensureMiddlewareDataLoaded(env || {}) : Promise.resolve(),
+    ]);
   }
 
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
@@ -986,6 +1018,23 @@ export const onRequest = defineMiddleware(async (context, next) => {
       // Cache global read-only API endpoints at the Cloudflare Edge to prevent Worker billing overload.
       if (context.request.method === 'GET' && !pathname.startsWith('/api/admin/') && pathname !== '/api/health') {
         response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400');
+
+        // Store in CF Cache API for edge caching
+        if (typeof caches !== 'undefined') {
+          try {
+            const cache = caches.default;
+            const cacheKey = new Request(context.url.toString(), context.request);
+            response.headers.set('X-Cache', 'MISS');
+            const waitUntil = (context.locals.runtime as any)?.ctx?.waitUntil;
+            if (waitUntil) {
+              waitUntil(cache.put(cacheKey, response.clone()));
+            } else {
+              cache.put(cacheKey, response.clone()).catch(() => {});
+            }
+          } catch {
+            // Cache write failure is non-critical
+          }
+        }
       }
 
       logger.info('API request', {
@@ -1052,6 +1101,30 @@ export const onRequest = defineMiddleware(async (context, next) => {
             ? 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400'
             : 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
         response.headers.set('Cache-Control', htmlCacheControl);
+      }
+    }
+
+    // +++ EDGE CACHE: store HTML responses in CF Cache API +++
+    // This is what actually makes s-maxage work — CF Workers don't auto-cache SSR.
+    if (isCacheableRequest && typeof caches !== 'undefined' && response.status < 500) {
+      try {
+        const cc = response.headers.get('Cache-Control') || '';
+        // Only cache if the response explicitly opts in with s-maxage
+        if (cc.includes('s-maxage') && !cc.includes('private')) {
+          const cache = caches.default;
+          const cacheKey = new Request(context.url.toString(), context.request);
+          // Clone the response: one for cache, one for client
+          const cacheResponse = response.clone();
+          response.headers.set('X-Cache', 'MISS');
+          // Await the cache write to ensure it persists before the Worker exits
+          try {
+            await cache.put(cacheKey, cacheResponse);
+          } catch {
+            // Cache write failure is non-critical — continue serving
+          }
+        }
+      } catch {
+        // Cache write failure is non-critical
       }
     }
 

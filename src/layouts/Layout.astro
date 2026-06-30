@@ -79,7 +79,7 @@ const robotsContent =
 ---
 
 <!doctype html>
-<html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
+<html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} data-adsense={ADSENSE_SCRIPT_SRC}>
   <head>
     <meta charset="UTF-8" />
     {buildSha && <meta name="x-build-sha" content={buildSha} />}
@@ -193,8 +193,25 @@ const robotsContent =
       )
     }
 
-    <!-- Google AdSense site verification / Auto ads bootstrap -->
-    <script async src={ADSENSE_SCRIPT_SRC} crossorigin="anonymous"></script>
+    <!-- AdSense: deferred to reduce initial network contention -->
+    <script is:inline>
+      // Load AdSense only after first paint to avoid competing with critical resources
+      requestIdleCallback
+        ? requestIdleCallback(() => {
+            const s = document.createElement('script');
+            s.src = document.documentElement.dataset.adsense || '';
+            s.async = true;
+            s.crossOrigin = 'anonymous';
+            document.head.appendChild(s);
+          })
+        : setTimeout(() => {
+            const s = document.createElement('script');
+            s.src = document.documentElement.dataset.adsense || '';
+            s.async = true;
+            s.crossOrigin = 'anonymous';
+            document.head.appendChild(s);
+          }, 2000);
+    </script>
 
     <!-- Theme Toggle Script (No FOUC) -->
     <script>
@@ -368,6 +385,6 @@ const robotsContent =
         });
       });
     </script>
-    <CommandBar client:load locale={locale} />
+    <CommandBar client:idle locale={locale} />
   </body>
 </html>

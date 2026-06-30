@@ -50,6 +50,7 @@ import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
 import SkillCard from '../../../../components/SkillCard.astro';
+import '../../../../styles/prism-tokens.css';
 import { Star, GitFork, Calendar, CheckCircle2, Zap, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
 import { trackDirectoryView } from '../../../../lib/analytics';
@@ -97,8 +98,8 @@ if (repoParts.length > 2) {
 const typedLocale = locale as Locale;
 const isZhLocale = typedLocale.startsWith('zh');
 
-// env already resolved above for blocklist; reuse it here
-const runtimeEnv = (await getRuntimeEnv<Record<string, unknown>>(Astro.locals)) || {};
+// env already resolved above for blocklist; reuse it here (no second getRuntimeEnv call)
+const runtimeEnv = env as unknown as Record<string, unknown>;
 type RepoDirectorySkill = UnifiedSkill | SkillListingItem;
 
 const normalizeFlag = (value: unknown) =>
@@ -298,9 +299,11 @@ if (renderRepoDirectory) {
   trackDirectoryView(Astro.locals, Astro.request, locale, owner, repo);
 }
 
-// Build related collections from the skill-collection lookup
-const allCollections = await getCollectionsFromRuntime(env);
-const skillCollectionLookup = await getSkillCollectionLookup(env);
+// Build related collections from the skill-collection lookup (parallel KV reads)
+const [allCollections, skillCollectionLookup] = await Promise.all([
+  getCollectionsFromRuntime(env),
+  getSkillCollectionLookup(env),
+]);
 const skillRefKey = `${owner}/${repo}`;
 const skillPathRefKey = canonicalRoutePath ? `${owner}/${canonicalRoutePath}` : skillRefKey;
 const collectionSlugs =
