@@ -1,1731 +1,9 @@
 [
   {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/backend-code-review",
-    "updatedAt": "2026-06-26T07:45:17Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/frontend-code-review",
-    "updatedAt": "2026-06-26T07:45:17Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/frontend-testing",
-    "updatedAt": "2026-06-26T07:45:17Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/how-to-write-component",
-    "updatedAt": "2026-06-26T07:45:17Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/karpathy-guidelines",
-    "updatedAt": "2026-06-26T07:45:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/subagent-driven-development",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/writing-skills",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/dispatching-parallel-agents",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/systematic-debugging",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/test-driven-development",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/writing-plans",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/using-git-worktrees",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/receiving-code-review",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/using-superpowers",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/verification-before-completion",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/brainstorming",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/finishing-a-development-branch",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/requesting-code-review",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "obra",
-    "repo": "superpowers",
-    "routePath": "superpowers/executing-plans",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-llm-trainer",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-paper-publisher",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-vision-trainer",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/transformers-js",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-papers",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-trackio",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-community-evals",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hf-mem",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/trl-training",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-gradio",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-lora-space-builder",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-spaces",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-zerogpu",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-datasets",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/train-sentence-transformers",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/react-native-best-practices",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/react-navigation",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/github",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/upgrading-react-native",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/github-actions",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/create-react-native-library",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/react-native-brownfield-migration",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/algorithmic-art",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/docx",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/mcp-builder",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/pdf",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/xlsx",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/internal-comms",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/theme-factory",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/webapp-testing",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/pptx",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/slack-gif-creator",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/web-artifacts-builder",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/canvas-design",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/doc-coauthoring",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/frontend-design",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/brand-guidelines",
-    "updatedAt": "2026-06-26T07:34:39Z"
-  },
-  {
-    "owner": "vercel-labs",
-    "repo": "skills",
-    "routePath": "skills/find-skills",
-    "updatedAt": "2026-06-26T07:28:09Z"
-  },
-  {
-    "owner": "remotion-dev",
-    "repo": "skills",
-    "routePath": "skills/remotion",
-    "updatedAt": "2026-06-26T07:12:00Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/flags",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/extract-errors",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/fix",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/flow",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/verify",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/feature-flags",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "routePath": "react/test",
-    "updatedAt": "2026-06-26T07:09:39Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/sandbox-sdk",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/web-perf",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/durable-objects",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare-one",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/turnstile-spin",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/workers-best-practices",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/wrangler",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/agents-sdk",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare-one-migrations",
-    "updatedAt": "2026-06-26T05:45:50Z"
-  },
-  {
-    "owner": "supabase",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/supabase-postgres-best-practices",
-    "updatedAt": "2026-06-25T20:58:30Z"
-  },
-  {
-    "owner": "go-to-k",
-    "repo": "cdkd",
-    "routePath": "cdkd/pick-integ",
-    "updatedAt": "2026-06-22T05:42:42Z"
-  },
-  {
-    "owner": "kortix-ai",
-    "repo": "suna",
-    "routePath": "suna/testing",
-    "updatedAt": "2026-06-22T05:41:26Z"
-  },
-  {
-    "owner": "striderZA",
-    "repo": "OpenCodeGameStudios",
-    "routePath": "OpenCodeGameStudios/estimate",
-    "updatedAt": "2026-06-22T02:51:41Z"
-  },
-  {
-    "owner": "dathere",
-    "repo": "qsv",
-    "routePath": "qsv/data-validate",
-    "updatedAt": "2026-06-20T03:44:29Z"
-  },
-  {
-    "owner": "NVIDIA",
-    "repo": "TensorRT-LLM",
-    "routePath": "TensorRT-LLM/perf-workload-profiling",
-    "updatedAt": "2026-06-20T03:07:54Z"
-  },
-  {
-    "owner": "bitwarden",
-    "repo": "server",
-    "routePath": "server/writing-server-code",
-    "updatedAt": "2026-06-20T02:07:39Z"
-  },
-  {
-    "owner": "me2resh",
-    "repo": "apexyard",
-    "routePath": "apexyard/release-sync",
-    "updatedAt": "2026-06-19T23:10:53Z"
-  },
-  {
-    "owner": "idank",
-    "repo": "explainshell",
-    "routePath": "explainshell/mandoc-fix",
-    "updatedAt": "2026-06-19T21:05:42Z"
-  },
-  {
-    "owner": "noir-lang",
-    "repo": "noir",
-    "routePath": "noir/reduce-ssa-repro",
-    "updatedAt": "2026-06-19T19:22:00Z"
-  },
-  {
-    "owner": "epam",
-    "repo": "ai-dial-chat",
-    "routePath": "ai-dial-chat/chat-release-notes",
-    "updatedAt": "2026-06-19T18:45:30Z"
-  },
-  {
-    "owner": "wnzzer",
-    "repo": "rank-analysis",
-    "routePath": "rank-analysis/shipping-changes",
-    "updatedAt": "2026-06-19T16:31:08Z"
-  },
-  {
-    "owner": "estuary",
-    "repo": "connectors",
-    "routePath": "connectors/regenerate-flow-discovery",
-    "updatedAt": "2026-06-19T15:39:56Z"
-  },
-  {
-    "owner": "centminmod",
-    "repo": "my-claude-code-setup",
-    "routePath": "my-claude-code-setup/task-breakdown",
-    "updatedAt": "2026-06-19T14:19:25Z"
-  },
-  {
-    "owner": "DataDog",
-    "repo": "dd-trace-dotnet",
-    "routePath": "dd-trace-dotnet/analyze-azdo-build",
-    "updatedAt": "2026-06-19T11:31:30Z"
-  },
-  {
-    "owner": "Prorise-cool",
-    "repo": "Claude-Code-Multi-Agent",
-    "routePath": "Claude-Code-Multi-Agent/pdf",
-    "updatedAt": "2026-06-19T06:01:09Z"
-  },
-  {
-    "owner": "me2resh",
-    "repo": "apexyard",
-    "routePath": "apexyard/setup",
-    "updatedAt": "2026-06-19T05:19:43Z"
-  },
-  {
-    "owner": "curiositech",
-    "repo": "some_claude_skills",
-    "routePath": "some_claude_skills/pixel-art-scaler",
-    "updatedAt": "2026-06-19T02:24:57Z"
-  },
-  {
-    "owner": "gradusnikov",
-    "repo": "eclipse-chatgpt-plugin",
-    "routePath": "eclipse-chatgpt-plugin/eclipse-run",
-    "updatedAt": "2026-06-19T01:51:08Z"
-  },
-  {
-    "owner": "simstudioai",
-    "repo": "sim",
-    "routePath": "sim/add-hosted-key",
-    "updatedAt": "2026-06-18T15:55:20Z"
-  },
-  {
-    "owner": "msgbyte",
-    "repo": "cutia",
-    "routePath": "cutia/ai-seo",
-    "updatedAt": "2026-06-18T15:46:53Z"
-  },
-  {
-    "owner": "mui",
-    "repo": "mui-public",
-    "routePath": "mui-public/circleci-why-flaky",
-    "updatedAt": "2026-06-18T11:30:18Z"
-  },
-  {
-    "owner": "justrach",
-    "repo": "kuri",
-    "routePath": "kuri/kuri-ios",
-    "updatedAt": "2026-06-18T10:51:51Z"
-  },
-  {
-    "owner": "filipstrand",
-    "repo": "mflux",
-    "routePath": "mflux/mflux-model-porting",
-    "updatedAt": "2026-06-18T07:38:17Z"
-  },
-  {
-    "owner": "doccker",
-    "repo": "cc-use-exp",
-    "routePath": "cc-use-exp/rust-dev",
-    "updatedAt": "2026-06-18T06:53:40Z"
-  },
-  {
-    "owner": "chongdashu",
-    "repo": "vibejam-starter-pack",
-    "routePath": "vibejam-starter-pack/phaser-gamedev",
-    "updatedAt": "2026-06-18T06:07:36Z"
-  },
-  {
-    "owner": "cliftonc",
-    "repo": "drizzle-cube",
-    "routePath": "drizzle-cube/quality-gate",
-    "updatedAt": "2026-06-18T03:09:26Z"
-  },
-  {
-    "owner": "adamayoung",
-    "repo": "TMDb",
-    "routePath": "TMDb/deliver",
-    "updatedAt": "2026-06-17T23:50:55Z"
-  },
-  {
-    "owner": "boundless-xyz",
-    "repo": "boundless",
-    "routePath": "boundless/ops-infra-deploy",
-    "updatedAt": "2026-06-17T21:35:56Z"
-  },
-  {
-    "owner": "lidofinance",
-    "repo": "diffyscan",
-    "routePath": "diffyscan/debug-diff",
-    "updatedAt": "2026-06-17T21:13:29Z"
-  },
-  {
-    "owner": "mycelium-io",
-    "repo": "mycelium",
-    "routePath": "mycelium/troubleshooting",
-    "updatedAt": "2026-06-17T19:00:48Z"
-  },
-  {
-    "owner": "searlsco",
-    "repo": "prove_it",
-    "routePath": "prove_it/prove-feature",
-    "updatedAt": "2026-06-17T17:30:19Z"
-  },
-  {
-    "owner": "pavel-molyanov",
-    "repo": "molyanov-ai-dev",
-    "routePath": "molyanov-ai-dev/claude-command-init-project-knowledge",
-    "updatedAt": "2026-06-17T15:10:55Z"
-  },
-  {
-    "owner": "AliAkhtari78",
-    "repo": "SpotifyScraper",
-    "routePath": "SpotifyScraper/openspec-archive-change",
-    "updatedAt": "2026-06-17T14:27:41Z"
-  },
-  {
-    "owner": "ItamarZand88",
-    "repo": "CLI-Anything-WEB",
-    "routePath": "CLI-Anything-WEB/unsplash-cli",
-    "updatedAt": "2026-06-17T13:13:26Z"
-  },
-  {
-    "owner": "alexanderop",
-    "repo": "walkthrough",
-    "routePath": "walkthrough/publish-skill",
-    "updatedAt": "2026-06-17T10:22:41Z"
-  },
-  {
-    "owner": "withkynam",
-    "repo": "vibecode-pro-max-kit",
-    "routePath": "vibecode-pro-max-kit/vc-update",
-    "updatedAt": "2026-06-17T04:56:32Z"
-  },
-  {
-    "owner": "vellum-ai",
-    "repo": "vellum-assistant",
-    "routePath": "vellum-assistant/update",
-    "updatedAt": "2026-06-17T04:47:10Z"
-  },
-  {
-    "owner": "Significant-Gravitas",
-    "repo": "AutoGPT",
-    "routePath": "AutoGPT/setup-repo",
-    "updatedAt": "2026-06-17T04:31:41Z"
-  },
-  {
-    "owner": "1bananachicken",
-    "repo": "MaaNTE",
-    "routePath": "MaaNTE/python-action-guide",
-    "updatedAt": "2026-06-17T04:29:32Z"
-  },
-  {
-    "owner": "kagenti",
-    "repo": "kagenti",
-    "routePath": "kagenti/meta",
-    "updatedAt": "2026-06-17T04:26:21Z"
-  },
-  {
-    "owner": "Nagi-ovo",
-    "repo": "gemini-voyager",
-    "routePath": "gemini-voyager/release",
-    "updatedAt": "2026-06-17T04:04:27Z"
-  },
-  {
-    "owner": "silverstein",
-    "repo": "minutes",
-    "routePath": "minutes/minutes-video-review",
-    "updatedAt": "2026-06-17T03:37:26Z"
-  },
-  {
-    "owner": "bradtraversy",
-    "repo": "devstash",
-    "routePath": "devstash/research",
-    "updatedAt": "2026-06-17T03:36:00Z"
-  },
-  {
-    "owner": "shader-slang",
-    "repo": "slang",
-    "routePath": "slang/slang-review-clarity-workflow",
-    "updatedAt": "2026-06-17T03:15:38Z"
-  },
-  {
-    "owner": "madebyaris",
-    "repo": "advance-minimax-m3-cursor-rules",
-    "routePath": "advance-minimax-m3-cursor-rules/3d-web-experiences",
-    "updatedAt": "2026-06-17T01:41:40Z"
-  },
-  {
-    "owner": "getkyo",
-    "repo": "kyo",
-    "routePath": "kyo/readme-draft",
-    "updatedAt": "2026-06-17T00:52:37Z"
-  },
-  {
-    "owner": "davekilleen",
-    "repo": "Dex",
-    "routePath": "Dex/ai-setup",
-    "updatedAt": "2026-06-16T23:31:19Z"
-  },
-  {
-    "owner": "parcadei",
-    "repo": "Continuous-Claude-v3",
-    "routePath": "Continuous-Claude-v3/tldr-stats",
-    "updatedAt": "2026-06-16T20:56:08Z"
-  },
-  {
-    "owner": "linq2db",
-    "repo": "linq2db",
-    "routePath": "linq2db/verify-review",
-    "updatedAt": "2026-06-16T19:52:11Z"
-  },
-  {
-    "owner": "petrowsky",
-    "repo": "agentic-fm",
-    "routePath": "agentic-fm/fmlint",
-    "updatedAt": "2026-06-16T17:37:33Z"
-  },
-  {
-    "owner": "JetBrains",
-    "repo": "ideavim",
-    "routePath": "ideavim/changelog",
-    "updatedAt": "2026-06-16T17:35:45Z"
-  },
-  {
-    "owner": "3dollar-in-my-pocket",
-    "repo": "3dollars-in-my-pocket-ios",
-    "routePath": "3dollars-in-my-pocket-ios/feature-implementer",
-    "updatedAt": "2026-06-16T14:17:33Z"
-  },
-  {
-    "owner": "DexForce",
-    "repo": "EmbodiChain",
-    "routePath": "EmbodiChain/project-dev-context",
-    "updatedAt": "2026-06-16T13:10:35Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/component-refactoring",
-    "updatedAt": "2026-06-16T09:18:51Z"
-  },
-  {
-    "owner": "guqiong96",
-    "repo": "Lsglang",
-    "routePath": "Lsglang/sglang-sota-performance",
-    "updatedAt": "2026-06-16T04:43:24Z"
-  },
-  {
-    "owner": "mozilla",
-    "repo": "fx-private-relay",
-    "routePath": "fx-private-relay/ble",
-    "updatedAt": "2026-06-16T02:41:16Z"
-  },
-  {
-    "owner": "wp-media",
-    "repo": "imagify-plugin",
-    "routePath": "imagify-plugin/e2e",
-    "updatedAt": "2026-06-16T01:05:28Z"
-  },
-  {
-    "owner": "m98",
-    "repo": "fluent",
-    "routePath": "fluent/fluent-db-updater",
-    "updatedAt": "2026-06-15T22:05:00Z"
-  },
-  {
-    "owner": "jlifeng",
-    "repo": "JobPilot",
-    "routePath": "JobPilot/brainstorm",
-    "updatedAt": "2026-06-15T13:53:01Z"
-  },
-  {
-    "owner": "tranhieutt",
-    "repo": "software_development_department",
-    "routePath": "software_development_department/team-release",
-    "updatedAt": "2026-06-15T05:45:16Z"
-  },
-  {
-    "owner": "nulab",
-    "repo": "backlog-mcp-server",
-    "routePath": "backlog-mcp-server/implement-backlog-api-tool",
-    "updatedAt": "2026-06-15T03:41:04Z"
-  },
-  {
-    "owner": "benbrastmckie",
-    "repo": "nvim",
-    "routePath": "nvim/skill-latex-implementation",
-    "updatedAt": "2026-06-15T00:34:20Z"
-  },
-  {
-    "owner": "ArtemXTech",
-    "repo": "claude-code-obsidian-starter",
-    "routePath": "claude-code-obsidian-starter/client",
-    "updatedAt": "2026-06-14T23:13:13Z"
-  },
-  {
-    "owner": "Parallel-7",
-    "repo": "FlashForgeUI-Electron",
-    "routePath": "FlashForgeUI-Electron/readme-generator",
-    "updatedAt": "2026-06-14T23:03:48Z"
-  },
-  {
-    "owner": "alfredolopez80",
-    "repo": "multi-agent-ralph-loop",
-    "routePath": "multi-agent-ralph-loop/quality-gates-parallel",
-    "updatedAt": "2026-06-14T15:21:22Z"
-  },
-  {
-    "owner": "catlog22",
-    "repo": "maestro-flow",
-    "routePath": "maestro-flow/team-review",
-    "updatedAt": "2026-06-14T14:47:01Z"
-  },
-  {
-    "owner": "NodeJSmith",
-    "repo": "hassette",
-    "routePath": "hassette/doc-coverage-review",
-    "updatedAt": "2026-06-14T14:27:35Z"
-  },
-  {
-    "owner": "latitude-dev",
-    "repo": "latitude-llm",
-    "routePath": "latitude-llm/notifications",
-    "updatedAt": "2026-06-14T14:21:54Z"
-  },
-  {
-    "owner": "hatayama",
-    "repo": "unity-cli-loop",
-    "routePath": "unity-cli-loop/uloop-clear-console",
-    "updatedAt": "2026-06-14T14:21:25Z"
-  },
-  {
-    "owner": "vercel",
-    "repo": "next.js",
-    "routePath": "next.js/dce-edge",
-    "updatedAt": "2026-06-14T14:01:39Z"
-  },
-  {
-    "owner": "stickerdaniel",
-    "repo": "linkedin-mcp-server",
-    "routePath": "linkedin-mcp-server/3-verify-pr-fix",
-    "updatedAt": "2026-06-14T13:25:03Z"
-  },
-  {
-    "owner": "flet-dev",
-    "repo": "flet",
-    "routePath": "flet/flet-validation",
-    "updatedAt": "2026-06-14T12:49:34Z"
-  },
-  {
-    "owner": "udecode",
-    "repo": "plate",
-    "routePath": "plate/maintainability-reviewer",
-    "updatedAt": "2026-06-14T11:20:59Z"
-  },
-  {
-    "owner": "simstudioai",
-    "repo": "sim",
-    "routePath": "sim/add-integration",
-    "updatedAt": "2026-06-14T10:30:43Z"
-  },
-  {
-    "owner": "dotnet",
-    "repo": "efcore",
-    "routePath": "efcore/make-skill",
-    "updatedAt": "2026-06-14T08:20:34Z"
-  },
-  {
-    "owner": "owid",
-    "repo": "etl",
-    "routePath": "etl/map-explorer-to-mdim",
-    "updatedAt": "2026-06-14T06:28:55Z"
-  },
-  {
-    "owner": "nanocoai",
-    "repo": "nanoclaw",
-    "routePath": "nanoclaw/add-ollama-tool",
-    "updatedAt": "2026-06-14T04:53:51Z"
-  },
-  {
-    "owner": "sgl-project",
-    "repo": "sglang",
-    "routePath": "sglang/sglang-sota-performance",
-    "updatedAt": "2026-06-14T04:51:47Z"
-  },
-  {
-    "owner": "homeassistant-ai",
-    "repo": "ha-mcp",
-    "routePath": "ha-mcp/contrib-pr-review",
-    "updatedAt": "2026-06-14T04:22:33Z"
-  },
-  {
-    "owner": "rysweet",
-    "repo": "amplihack",
-    "routePath": "amplihack/session-replay",
-    "updatedAt": "2026-06-14T01:42:59Z"
-  },
-  {
-    "owner": "nyldn",
-    "repo": "claude-octopus",
-    "routePath": "claude-octopus/skill-rollback",
-    "updatedAt": "2026-06-13T23:56:27Z"
-  },
-  {
-    "owner": "parcadei",
-    "repo": "Continuous-Claude-v3",
-    "routePath": "Continuous-Claude-v3/repo-research-analyst",
-    "updatedAt": "2026-06-13T23:53:30Z"
-  },
-  {
-    "owner": "azerothcore",
-    "repo": "Keira3",
-    "routePath": "Keira3/angular-developer",
-    "updatedAt": "2026-06-13T22:14:03Z"
-  },
-  {
-    "owner": "ComplianceAsCode",
-    "repo": "content",
-    "routePath": "content/build-product",
-    "updatedAt": "2026-06-13T20:04:21Z"
-  },
-  {
-    "owner": "JetBrains",
-    "repo": "MPS",
-    "routePath": "MPS/mps-build-language",
-    "updatedAt": "2026-06-13T19:49:47Z"
-  },
-  {
-    "owner": "paiml",
-    "repo": "paiml-mcp-agent-toolkit",
-    "routePath": "paiml-mcp-agent-toolkit/Code Quality Analysis with PMAT",
-    "updatedAt": "2026-06-13T18:01:30Z"
-  },
-  {
-    "owner": "K-Dense-AI",
-    "repo": "claude-scientific-writer",
-    "routePath": "claude-scientific-writer/market-research-reports",
-    "updatedAt": "2026-06-13T15:33:04Z"
-  },
-  {
-    "owner": "marcus",
-    "repo": "sidecar",
-    "routePath": "sidecar/release-sidecar",
-    "updatedAt": "2026-06-13T14:02:57Z"
-  },
-  {
-    "owner": "umbraco",
-    "repo": "Umbraco-CMS",
-    "routePath": "Umbraco-CMS/umb-review",
-    "updatedAt": "2026-06-13T13:51:05Z"
-  },
-  {
-    "owner": "mckinsey",
-    "repo": "agents-at-scale-ark",
-    "routePath": "agents-at-scale-ark/slack-announcement",
-    "updatedAt": "2026-06-13T08:26:52Z"
-  },
-  {
-    "owner": "liangdabiao",
-    "repo": "amazon-sorftime-research-MCP-skill",
-    "routePath": "amazon-sorftime-research-MCP-skill/keyword-research",
-    "updatedAt": "2026-06-13T08:12:44Z"
-  },
-  {
-    "owner": "ng-forge",
-    "repo": "ng-forge",
-    "routePath": "ng-forge/mcp-builder",
-    "updatedAt": "2026-06-13T08:10:24Z"
-  },
-  {
-    "owner": "mikeyobrien",
-    "repo": "ralph-orchestrator",
-    "routePath": "ralph-orchestrator/code-assist",
-    "updatedAt": "2026-06-13T01:29:16Z"
-  },
-  {
-    "owner": "evolution-foundation",
-    "repo": "evo-nexus",
-    "routePath": "evo-nexus/fin-financial-statements",
-    "updatedAt": "2026-06-12T16:49:35Z"
-  },
-  {
-    "owner": "qdhenry",
-    "repo": "Claude-Command-Suite",
-    "routePath": "Claude-Command-Suite/audit-env-variables",
-    "updatedAt": "2026-06-12T14:55:53Z"
-  },
-  {
-    "owner": "Prorise-cool",
-    "repo": "Claude-Code-Multi-Agent",
-    "routePath": "Claude-Code-Multi-Agent/setup",
-    "updatedAt": "2026-06-12T14:20:22Z"
-  },
-  {
-    "owner": "neohaskell",
-    "repo": "NeoHaskell",
-    "routePath": "NeoHaskell/10-implementation",
-    "updatedAt": "2026-06-12T08:34:51Z"
-  },
-  {
-    "owner": "JetBrains",
-    "repo": "youtrackdb",
-    "routePath": "youtrackdb/migrate-workflow",
-    "updatedAt": "2026-06-12T08:28:31Z"
-  },
-  {
-    "owner": "coleam00",
-    "repo": "Archon",
-    "routePath": "Archon/archon",
-    "updatedAt": "2026-06-12T04:46:41Z"
-  },
-  {
-    "owner": "Kastalien-Research",
-    "repo": "thoughtbox",
-    "routePath": "thoughtbox/theseus-protocol",
-    "updatedAt": "2026-06-12T04:37:05Z"
-  },
-  {
-    "owner": "avabbbb",
-    "repo": "Flovart",
-    "routePath": "Flovart/flovart",
-    "updatedAt": "2026-06-12T03:18:39Z"
-  },
-  {
-    "owner": "coinbase",
-    "repo": "cds",
-    "routePath": "cds/git.backport",
-    "updatedAt": "2026-06-11T21:43:35Z"
-  },
-  {
-    "owner": "sillsdev",
-    "repo": "FieldWorks",
-    "routePath": "FieldWorks/openspec-ff-change",
-    "updatedAt": "2026-06-11T18:58:32Z"
-  },
-  {
-    "owner": "snyk",
-    "repo": "snyk-ls",
-    "routePath": "snyk-ls/verification",
-    "updatedAt": "2026-06-11T15:38:35Z"
-  },
-  {
-    "owner": "NVIDIA-AI-IOT",
-    "repo": "jetson-ai-lab",
-    "routePath": "jetson-ai-lab/jetson-ai-lab-verify-build",
-    "updatedAt": "2026-06-11T11:02:53Z"
-  },
-  {
-    "owner": "marcusgoll",
-    "repo": "Spec-Flow",
-    "routePath": "Spec-Flow/caching-strategy",
-    "updatedAt": "2026-06-11T09:11:18Z"
-  },
-  {
-    "owner": "TheQmaks",
-    "repo": "areclaw",
-    "routePath": "areclaw/register",
-    "updatedAt": "2026-06-11T08:07:05Z"
-  },
-  {
-    "owner": "samchon",
-    "repo": "typia",
-    "routePath": "typia/benchmark",
-    "updatedAt": "2026-06-11T03:10:16Z"
-  },
-  {
-    "owner": "tmobile",
-    "repo": "magentaA11y",
-    "routePath": "magentaA11y/webm-reencode-for-chrome-seek",
-    "updatedAt": "2026-06-10T20:31:26Z"
-  },
-  {
-    "owner": "pglejzer",
-    "repo": "timepicker-ui",
-    "routePath": "timepicker-ui/docs-a11y",
-    "updatedAt": "2026-06-10T15:35:33Z"
-  },
-  {
-    "owner": "mulesoft",
-    "repo": "api-console",
-    "routePath": "api-console/update-api-console-components",
-    "updatedAt": "2026-06-10T12:37:56Z"
-  },
-  {
-    "owner": "not-elm",
-    "repo": "desktop-homunculus",
-    "routePath": "desktop-homunculus/create-issue",
-    "updatedAt": "2026-06-10T09:59:40Z"
-  },
-  {
-    "owner": "AsiaOstrich",
-    "repo": "universal-dev-standards",
-    "routePath": "universal-dev-standards/ac-coverage",
-    "updatedAt": "2026-06-10T08:21:24Z"
-  },
-  {
-    "owner": "dakshaymehta",
-    "repo": "cardputer-claude-os",
-    "routePath": "cardputer-claude-os/cardputer-companion",
-    "updatedAt": "2026-06-09T04:12:27Z"
-  },
-  {
-    "owner": "justrach",
-    "repo": "kuri",
-    "routePath": "kuri/kuri-mobile",
-    "updatedAt": "2026-06-08T19:48:18Z"
-  },
-  {
-    "owner": "compozy",
-    "repo": "agh",
-    "routePath": "agh/assistant-ui",
-    "updatedAt": "2026-06-08T18:43:08Z"
-  },
-  {
-    "owner": "pigweed-project",
-    "repo": "pigweed",
-    "routePath": "pigweed/docs",
-    "updatedAt": "2026-06-08T14:57:47Z"
-  },
-  {
-    "owner": "bactopia",
-    "repo": "bactopia",
-    "routePath": "bactopia/review-groovydoc",
-    "updatedAt": "2026-06-08T14:11:49Z"
-  },
-  {
-    "owner": "bastani-inc",
-    "repo": "atomic",
-    "routePath": "atomic/prek",
-    "updatedAt": "2026-06-08T12:48:43Z"
-  },
-  {
-    "owner": "Sikao-Engine",
-    "repo": "Kimi-CLI-X",
-    "routePath": "Kimi-CLI-X/api",
-    "updatedAt": "2026-06-08T11:59:00Z"
-  },
-  {
-    "owner": "radixark",
-    "repo": "miles",
-    "routePath": "miles/manage-gh-runners",
-    "updatedAt": "2026-06-08T04:03:03Z"
-  },
-  {
-    "owner": "dartsim",
-    "repo": "dart",
-    "routePath": "dart/dart-ci",
-    "updatedAt": "2026-06-08T03:52:19Z"
-  },
-  {
-    "owner": "rocky-data",
-    "repo": "rocky",
-    "routePath": "rocky/rocky-codegen",
-    "updatedAt": "2026-06-07T23:37:24Z"
-  },
-  {
-    "owner": "inline-chat",
-    "repo": "inline",
-    "routePath": "inline/postgres",
-    "updatedAt": "2026-06-07T21:36:39Z"
-  },
-  {
-    "owner": "everruns",
-    "repo": "bashkit",
-    "routePath": "bashkit/ship",
-    "updatedAt": "2026-06-07T21:16:36Z"
-  },
-  {
-    "owner": "adam-s",
-    "repo": "intercept",
-    "routePath": "intercept/instruction-dashboard-tuning",
-    "updatedAt": "2026-06-07T20:45:02Z"
-  },
-  {
-    "owner": "dongbeixiaohuo",
-    "repo": "writing-agent",
-    "routePath": "writing-agent/workflow-producer",
-    "updatedAt": "2026-06-07T14:15:27Z"
-  },
-  {
-    "owner": "Insajin",
-    "repo": "autopus-adk",
-    "routePath": "autopus-adk/auto",
-    "updatedAt": "2026-06-07T10:32:11Z"
-  },
-  {
-    "owner": "curiositech",
-    "repo": "some_claude_skills",
-    "routePath": "some_claude_skills/prompt-engineer",
-    "updatedAt": "2026-06-07T08:39:00Z"
-  },
-  {
-    "owner": "bybren-llc",
-    "repo": "safe-agentic-workflow",
-    "routePath": "safe-agentic-workflow/linear-sop",
-    "updatedAt": "2026-06-07T05:08:52Z"
-  },
-  {
-    "owner": "PrefectHQ",
-    "repo": "fastmcp",
-    "routePath": "fastmcp/reviewing-code",
-    "updatedAt": "2026-06-07T03:51:54Z"
-  },
-  {
-    "owner": "gadievron",
-    "repo": "raptor",
-    "routePath": "raptor/code-understanding",
-    "updatedAt": "2026-06-07T03:50:44Z"
-  },
-  {
-    "owner": "compartmentdev",
-    "repo": "compartment",
-    "routePath": "compartment/audit-type-ownership",
-    "updatedAt": "2026-06-06T23:00:29Z"
-  },
-  {
-    "owner": "semantica-agi",
-    "repo": "semantica",
-    "routePath": "semantica/semantica",
-    "updatedAt": "2026-06-06T22:16:42Z"
-  },
-  {
-    "owner": "platformplatform",
-    "repo": "PlatformPlatform",
-    "routePath": "PlatformPlatform/team-interrupt",
-    "updatedAt": "2026-06-06T21:26:29Z"
-  },
-  {
-    "owner": "evolution-foundation",
-    "repo": "evo-nexus",
-    "routePath": "evo-nexus/discord-create-channel",
-    "updatedAt": "2026-06-06T21:22:09Z"
-  },
-  {
-    "owner": "cortex-tms",
-    "repo": "cortex-tms",
-    "routePath": "cortex-tms/validate",
-    "updatedAt": "2026-06-06T20:40:42Z"
-  },
-  {
-    "owner": "fabro-sh",
-    "repo": "fabro",
-    "routePath": "fabro/update-docs",
-    "updatedAt": "2026-06-06T17:52:39Z"
-  },
-  {
-    "owner": "jiangzhe",
-    "repo": "doradb",
-    "routePath": "doradb/task",
-    "updatedAt": "2026-06-06T16:36:50Z"
-  },
-  {
-    "owner": "rvdbreemen",
-    "repo": "OTGW-firmware",
-    "routePath": "OTGW-firmware/flash",
-    "updatedAt": "2026-06-06T16:12:55Z"
-  },
-  {
-    "owner": "dj-bolt",
-    "repo": "django-bolt",
-    "routePath": "django-bolt/django-bolt",
-    "updatedAt": "2026-06-06T15:32:48Z"
-  },
-  {
-    "owner": "IvanLi-CN",
-    "repo": "tavily-hikari",
-    "routePath": "tavily-hikari/ui-ux-pro-max",
-    "updatedAt": "2026-06-06T13:27:43Z"
-  },
-  {
-    "owner": "yusifeng",
-    "repo": "formax",
-    "routePath": "formax/formax-skill-capture",
-    "updatedAt": "2026-06-06T09:07:27Z"
-  },
-  {
-    "owner": "kubb-labs",
-    "repo": "kubb",
-    "routePath": "kubb/pr",
-    "updatedAt": "2026-06-06T03:59:30Z"
-  },
-  {
-    "owner": "yamadashy",
-    "repo": "repomix",
-    "routePath": "repomix/repomix",
-    "updatedAt": "2026-06-06T02:55:36Z"
-  },
-  {
-    "owner": "ReflexioAI",
-    "repo": "claude-smart",
-    "routePath": "claude-smart/prd",
-    "updatedAt": "2026-06-06T02:33:53Z"
-  },
-  {
-    "owner": "evennia",
-    "repo": "evennia",
-    "routePath": "evennia/ev",
-    "updatedAt": "2026-06-06T00:33:00Z"
-  },
-  {
-    "owner": "bastani-inc",
-    "repo": "atomic",
-    "routePath": "atomic/bun",
-    "updatedAt": "2026-06-06T00:01:02Z"
-  },
-  {
-    "owner": "kivo360",
-    "repo": "OmoiOS",
-    "routePath": "OmoiOS/oip-proposal",
-    "updatedAt": "2026-06-05T22:44:35Z"
-  },
-  {
-    "owner": "srid",
-    "repo": "emanote",
-    "routePath": "emanote/do",
-    "updatedAt": "2026-06-05T22:25:36Z"
-  },
-  {
-    "owner": "arcasilesgroup",
-    "repo": "ai-engineering",
-    "routePath": "ai-engineering/ai-security",
-    "updatedAt": "2026-06-05T21:53:05Z"
-  },
-  {
-    "owner": "VixenLights",
-    "repo": "Vixen",
-    "routePath": "Vixen/jira",
-    "updatedAt": "2026-06-05T20:37:17Z"
-  },
-  {
-    "owner": "gronxb",
-    "repo": "hot-updater",
-    "routePath": "hot-updater/e2e",
-    "updatedAt": "2026-06-05T20:34:29Z"
-  },
-  {
-    "owner": "udecode",
-    "repo": "plate",
-    "routePath": "plate/tdd",
-    "updatedAt": "2026-06-05T19:29:08Z"
-  },
-  {
-    "owner": "microsoft",
-    "repo": "powerplatform-build-tools",
-    "routePath": "powerplatform-build-tools/debug-agent",
-    "updatedAt": "2026-06-05T16:45:36Z"
-  },
-  {
-    "owner": "graphwork",
-    "repo": "wg",
-    "routePath": "wg/wg",
-    "updatedAt": "2026-06-05T16:19:43Z"
-  },
-  {
-    "owner": "gmickel",
-    "repo": "gno",
-    "routePath": "gno/gno",
-    "updatedAt": "2026-06-05T15:04:51Z"
-  },
-  {
-    "owner": "karanhudia",
-    "repo": "borg-ui",
-    "routePath": "borg-ui/land",
-    "updatedAt": "2026-06-05T14:36:43Z"
-  },
-  {
-    "owner": "OpenCoworkAI",
-    "repo": "open-cowork",
-    "routePath": "open-cowork/pdf",
-    "updatedAt": "2026-06-05T13:56:30Z"
-  },
-  {
-    "owner": "xlang-ai",
-    "repo": "CUA-Gym",
-    "routePath": "CUA-Gym/os",
-    "updatedAt": "2026-06-05T13:29:57Z"
-  },
-  {
-    "owner": "stacksjs",
-    "repo": "stacks",
-    "routePath": "stacks/stacks-buddy",
-    "updatedAt": "2026-06-05T13:22:22Z"
-  },
-  {
-    "owner": "SpectrAI-Initiative",
-    "repo": "InnoClaw",
-    "routePath": "InnoClaw/snp_functional_analysis",
-    "updatedAt": "2026-06-05T12:28:22Z"
-  },
-  {
-    "owner": "FlameskyDexive",
-    "repo": "Legends-Of-Heroes",
-    "routePath": "Legends-Of-Heroes/aibridge",
-    "updatedAt": "2026-06-05T08:14:35Z"
-  },
-  {
-    "owner": "Jamie-BitFlight",
-    "repo": "claude_skills",
-    "routePath": "claude_skills/linear-walkthrough",
-    "updatedAt": "2026-06-05T03:46:52Z"
-  },
-  {
-    "owner": "benchflow-ai",
-    "repo": "benchflow",
-    "routePath": "benchflow/branch-review",
-    "updatedAt": "2026-06-05T01:36:22Z"
-  },
-  {
-    "owner": "civitai",
-    "repo": "civitai",
-    "routePath": "civitai/add-prompt-enhancement-guide",
-    "updatedAt": "2026-06-05T00:49:15Z"
-  },
-  {
-    "owner": "microsoft",
-    "repo": "FluidFramework",
-    "routePath": "FluidFramework/trigger-pipelines-for-copilot-pr",
-    "updatedAt": "2026-06-05T00:39:04Z"
-  },
-  {
-    "owner": "govctl-org",
-    "repo": "govctl",
-    "routePath": "govctl/migrate",
-    "updatedAt": "2026-06-04T22:42:30Z"
-  },
-  {
-    "owner": "tddworks",
-    "repo": "ClaudeBar",
-    "routePath": "ClaudeBar/add-report",
-    "updatedAt": "2026-06-04T18:18:54Z"
-  },
-  {
-    "owner": "boundless-xyz",
-    "repo": "boundless",
-    "routePath": "boundless/pr",
-    "updatedAt": "2026-06-04T17:48:01Z"
-  },
-  {
-    "owner": "jlevy",
-    "repo": "markform",
-    "routePath": "markform/tbd",
-    "updatedAt": "2026-06-04T15:57:17Z"
-  },
-  {
-    "owner": "eric-tramel",
-    "repo": "slop-guard",
-    "routePath": "slop-guard/qa",
-    "updatedAt": "2026-06-04T14:34:38Z"
-  },
-  {
-    "owner": "SprocketLab",
-    "repo": "slop-code-bench",
-    "routePath": "slop-code-bench/validate-run",
-    "updatedAt": "2026-06-04T08:42:23Z"
-  },
-  {
-    "owner": "jpicklyk",
-    "repo": "task-orchestrator",
-    "routePath": "task-orchestrator/review-quality",
-    "updatedAt": "2026-06-04T02:39:44Z"
-  },
-  {
-    "owner": "evolution-foundation",
-    "repo": "evo-nexus",
-    "routePath": "evo-nexus/dev-release",
-    "updatedAt": "2026-06-03T22:48:47Z"
-  },
-  {
-    "owner": "benbrastmckie",
-    "repo": "nvim",
-    "routePath": "nvim/skill-slide-planning",
-    "updatedAt": "2026-06-03T21:58:51Z"
-  },
-  {
-    "owner": "iopsystems",
-    "repo": "rezolus",
-    "routePath": "rezolus/pr",
-    "updatedAt": "2026-06-03T21:30:43Z"
-  },
-  {
-    "owner": "proffesor-for-testing",
-    "repo": "agentic-qe",
-    "routePath": "agentic-qe/qe-coverage-analysis",
-    "updatedAt": "2026-06-03T14:04:40Z"
-  },
-  {
-    "owner": "robonuggets",
-    "repo": "design-system",
-    "routePath": "design-system/design-system",
-    "updatedAt": "2026-06-03T07:35:26Z"
-  },
-  {
-    "owner": "homebridge-plugins",
-    "repo": "homebridge-eufy-security",
-    "routePath": "homebridge-eufy-security/qa",
-    "updatedAt": "2026-06-03T02:51:41Z"
-  },
-  {
-    "owner": "vincentchan",
-    "repo": "AI-Content-Engine",
-    "routePath": "AI-Content-Engine/content-ideas-generator",
-    "updatedAt": "2026-06-03T02:39:29Z"
-  },
-  {
-    "owner": "choyiny",
-    "repo": "saasmail",
-    "routePath": "saasmail/use-saasmail",
-    "updatedAt": "2026-06-02T22:58:30Z"
-  },
-  {
-    "owner": "getkyo",
-    "repo": "kyo",
-    "routePath": "kyo/readme",
-    "updatedAt": "2026-06-02T22:18:16Z"
-  },
-  {
-    "owner": "obot-platform",
-    "repo": "obot",
-    "routePath": "obot/draft-release-blog",
-    "updatedAt": "2026-06-02T21:32:43Z"
-  },
-  {
-    "owner": "dcouple",
-    "repo": "Pane",
-    "routePath": "Pane/implement",
-    "updatedAt": "2026-06-02T15:16:35Z"
-  },
-  {
-    "owner": "SpectrAI-Initiative",
-    "repo": "InnoClaw",
-    "routePath": "InnoClaw/structural_pharmacogenomics",
-    "updatedAt": "2026-06-02T13:26:57Z"
-  },
-  {
-    "owner": "dralgorhythm",
-    "repo": "claude-agentic-framework",
-    "routePath": "claude-agentic-framework/bash",
-    "updatedAt": "2026-06-02T10:51:13Z"
-  },
-  {
-    "owner": "hylexus",
-    "repo": "xtream-codec",
-    "routePath": "xtream-codec/karpathy-guidelines",
-    "updatedAt": "2026-06-02T09:06:45Z"
-  },
-  {
-    "owner": "captainflasmr",
-    "repo": "ollama-buddy",
-    "routePath": "ollama-buddy/elisp-dev",
-    "updatedAt": "2026-06-02T06:56:52Z"
-  },
-  {
-    "owner": "Moffran",
-    "repo": "calibrated_explanations",
-    "routePath": "calibrated_explanations/ce-code-quality-auditor",
-    "updatedAt": "2026-06-02T02:19:37Z"
-  },
-  {
-    "owner": "subinium",
-    "repo": "SuperLightTUI",
-    "routePath": "SuperLightTUI/slt",
-    "updatedAt": "2026-06-02T00:58:44Z"
-  },
-  {
-    "owner": "brainqub3",
-    "repo": "claude_code_RLM",
-    "routePath": "claude_code_RLM/rlm",
-    "updatedAt": "2026-06-01T15:42:44Z"
-  },
-  {
-    "owner": "NikiforovAll",
-    "repo": "claude-code-rules",
-    "routePath": "claude-code-rules/version-bump",
-    "updatedAt": "2026-06-01T06:31:58Z"
-  },
-  {
-    "owner": "jlevy",
-    "repo": "simple-modern-uv",
-    "routePath": "simple-modern-uv/tbd",
-    "updatedAt": "2026-06-01T04:59:23Z"
-  },
-  {
-    "owner": "rochacbruno",
-    "repo": "marmite",
-    "routePath": "marmite/marmite-development",
-    "updatedAt": "2026-05-31T20:20:43Z"
-  },
-  {
-    "owner": "devtodollars",
-    "repo": "mvp-boilerplate",
-    "routePath": "mvp-boilerplate/browser",
-    "updatedAt": "2026-05-31T18:13:54Z"
-  },
-  {
-    "owner": "deepmodeling",
-    "repo": "Uni-Lab-OS",
-    "routePath": "Uni-Lab-OS/host-node",
-    "updatedAt": "2026-05-31T16:53:19Z"
-  },
-  {
-    "owner": "jlevy",
-    "repo": "flowmark",
-    "routePath": "flowmark/tbd",
-    "updatedAt": "2026-05-31T13:34:25Z"
-  },
-  {
-    "owner": "max-sixty",
-    "repo": "worktrunk",
-    "routePath": "worktrunk/release",
-    "updatedAt": "2026-05-31T04:44:25Z"
-  },
-  {
-    "owner": "kcsujeet",
-    "repo": "ilamy-calendar",
-    "routePath": "ilamy-calendar/code-review",
-    "updatedAt": "2026-05-30T22:31:41Z"
-  },
-  {
-    "owner": "mturac",
-    "repo": "everything-openai-codex",
-    "routePath": "everything-openai-codex/mcp-server-patterns",
-    "updatedAt": "2026-05-30T11:07:01Z"
-  },
-  {
-    "owner": "shinpr",
-    "repo": "ai-coding-project-boilerplate",
-    "routePath": "ai-coding-project-boilerplate/typescript-testing",
-    "updatedAt": "2026-05-30T09:28:20Z"
-  },
-  {
-    "owner": "TanStack",
-    "repo": "ai",
-    "routePath": "ai/gap-analysis",
-    "updatedAt": "2026-05-29T21:54:42Z"
-  },
-  {
-    "owner": "rvdbreemen",
-    "repo": "OTGW-firmware",
-    "routePath": "OTGW-firmware/caveman-compress",
-    "updatedAt": "2026-05-29T16:17:17Z"
-  },
-  {
-    "owner": "OutSystems",
-    "repo": "docs-product",
-    "routePath": "docs-product/summary-writer",
-    "updatedAt": "2026-05-29T04:34:21Z"
-  },
-  {
-    "owner": "get-convex",
-    "repo": "convex-evals",
-    "routePath": "convex-evals/add-eval",
-    "updatedAt": "2026-05-29T02:57:54Z"
-  },
-  {
-    "owner": "Kastalien-Research",
-    "repo": "thoughtbox",
-    "routePath": "thoughtbox/team",
-    "updatedAt": "2026-05-29T02:55:19Z"
-  },
-  {
-    "owner": "ai-dynamo",
-    "repo": "dynamo",
-    "routePath": "dynamo/pr-monitor",
-    "updatedAt": "2026-05-28T16:27:54Z"
-  },
-  {
-    "owner": "dagster-io",
-    "repo": "erk",
-    "routePath": "erk/gh",
-    "updatedAt": "2026-05-28T12:57:28Z"
-  },
-  {
-    "owner": "tautcony",
-    "repo": "ISTA-Patcher",
-    "routePath": "ISTA-Patcher/openspec-verify-change",
-    "updatedAt": "2026-05-28T08:32:14Z"
-  },
-  {
-    "owner": "srid",
-    "repo": "haskell-flake",
-    "routePath": "haskell-flake/do",
-    "updatedAt": "2026-05-27T10:41:50Z"
-  },
-  {
-    "owner": "albinotonnina",
-    "repo": "echos",
-    "routePath": "echos/review-pr-comments",
-    "updatedAt": "2026-05-27T05:25:01Z"
+    "updatedAt": "2026-03-31T01:09:34Z"
   },
   {
     "owner": "vercel",
@@ -1734,1342 +12,22 @@
     "updatedAt": "2026-05-26T16:02:37Z"
   },
   {
-    "owner": "google",
-    "repo": "adk-python",
-    "routePath": "adk-python/adk-setup",
-    "updatedAt": "2026-05-26T14:52:10Z"
-  },
-  {
-    "owner": "vinzenz",
-    "repo": "prd-breakdown-execute",
-    "routePath": "prd-breakdown-execute/breakdown",
-    "updatedAt": "2026-05-26T04:39:01Z"
-  },
-  {
-    "owner": "microbus-io",
-    "repo": "fabric",
-    "routePath": "fabric/add-metric",
-    "updatedAt": "2026-05-26T01:02:45Z"
-  },
-  {
-    "owner": "minicoohei",
-    "repo": "ai-agent-camp",
-    "routePath": "ai-agent-camp/plotly",
-    "updatedAt": "2026-05-25T13:45:09Z"
-  },
-  {
-    "owner": "pbakaus",
-    "repo": "impeccable",
-    "routePath": "impeccable/impeccable",
-    "updatedAt": "2026-05-24T14:14:15Z"
-  },
-  {
-    "owner": "JocysCom",
-    "repo": "FocusLogger",
-    "routePath": "FocusLogger/pr-review",
-    "updatedAt": "2026-05-24T14:08:57Z"
-  },
-  {
-    "owner": "OthmanAdi",
-    "repo": "planning-with-files",
-    "routePath": "planning-with-files/planning-with-files",
-    "updatedAt": "2026-05-24T13:41:48Z"
-  },
-  {
-    "owner": "agent-sh",
-    "repo": "agentsys",
-    "routePath": "agentsys/web-auth",
-    "updatedAt": "2026-05-24T09:40:12Z"
-  },
-  {
-    "owner": "proffesor-for-testing",
-    "repo": "agentic-qe",
-    "routePath": "agentic-qe/qcsd-production-swarm",
-    "updatedAt": "2026-05-24T07:31:44Z"
-  },
-  {
-    "owner": "UKGovernmentBEIS",
-    "repo": "inspect_evals",
-    "routePath": "inspect_evals/eval-report-workflow",
-    "updatedAt": "2026-05-24T07:12:15Z"
-  },
-  {
-    "owner": "one-ie",
-    "repo": "one",
-    "routePath": "one/ai-elements",
-    "updatedAt": "2026-05-24T06:50:27Z"
-  },
-  {
-    "owner": "hw-native-sys",
-    "repo": "pypto",
-    "routePath": "pypto/auto-pr",
-    "updatedAt": "2026-05-23T12:56:06Z"
-  },
-  {
-    "owner": "aws-amplify",
-    "repo": "amplify-cli",
-    "routePath": "amplify-cli/github",
-    "updatedAt": "2026-05-23T02:44:31Z"
-  },
-  {
-    "owner": "SeifBenayed",
-    "repo": "cloclo",
-    "routePath": "cloclo/docx",
-    "updatedAt": "2026-05-22T19:53:09Z"
-  },
-  {
-    "owner": "intel",
-    "repo": "auto-round",
-    "routePath": "auto-round/review-pr",
-    "updatedAt": "2026-05-22T07:54:20Z"
-  },
-  {
-    "owner": "benoror",
-    "repo": "obsidianos_work",
-    "routePath": "obsidianos_work/qmd",
-    "updatedAt": "2026-05-22T03:56:05Z"
-  },
-  {
-    "owner": "ucbepic",
-    "repo": "docetl",
-    "routePath": "docetl/docetl",
-    "updatedAt": "2026-05-22T03:30:04Z"
-  },
-  {
-    "owner": "JetBrains",
-    "repo": "Exposed",
-    "routePath": "Exposed/fix-bug",
-    "updatedAt": "2026-05-22T02:44:24Z"
-  },
-  {
-    "owner": "okteto",
-    "repo": "okteto",
-    "routePath": "okteto/lessons",
-    "updatedAt": "2026-05-22T01:46:27Z"
-  },
-  {
-    "owner": "remult",
-    "repo": "remult",
-    "routePath": "remult/remult",
-    "updatedAt": "2026-05-22T01:23:45Z"
-  },
-  {
-    "owner": "scality",
-    "repo": "metalk8s",
-    "routePath": "metalk8s/review-pr",
-    "updatedAt": "2026-05-21T23:23:15Z"
-  },
-  {
-    "owner": "mongodb",
-    "repo": "docs",
-    "routePath": "docs/open-pr",
-    "updatedAt": "2026-05-21T22:59:17Z"
-  },
-  {
-    "owner": "borgbase",
-    "repo": "vorta",
-    "routePath": "vorta/release",
-    "updatedAt": "2026-05-21T16:18:59Z"
-  },
-  {
-    "owner": "Lex-Inc",
-    "repo": "roughdraft",
-    "routePath": "roughdraft/slog",
-    "updatedAt": "2026-05-21T15:48:28Z"
-  },
-  {
-    "owner": "growilabs",
-    "repo": "growi",
-    "routePath": "growi/investigate-issue",
-    "updatedAt": "2026-05-21T14:40:53Z"
-  },
-  {
-    "owner": "webiny",
-    "repo": "webiny-js",
-    "routePath": "webiny-js/tester",
-    "updatedAt": "2026-05-21T12:45:49Z"
-  },
-  {
-    "owner": "felixrieseberg",
-    "repo": "windows95",
-    "routePath": "windows95/update-v86",
-    "updatedAt": "2026-05-21T12:30:56Z"
-  },
-  {
-    "owner": "idank",
-    "repo": "explainshell",
-    "routePath": "explainshell/eval-llm",
-    "updatedAt": "2026-05-21T11:13:21Z"
-  },
-  {
-    "owner": "atopile",
-    "repo": "atopile",
-    "routePath": "atopile/dev",
-    "updatedAt": "2026-05-21T10:54:24Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "sentry-mcp",
-    "routePath": "sentry-mcp/qa",
-    "updatedAt": "2026-05-21T08:56:49Z"
-  },
-  {
-    "owner": "DataDog",
-    "repo": "dd-trace-js",
-    "routePath": "dd-trace-js/llmobs-testing",
-    "updatedAt": "2026-05-21T04:43:42Z"
-  },
-  {
-    "owner": "jiangzhe",
-    "repo": "doradb",
-    "routePath": "doradb/backlog",
-    "updatedAt": "2026-05-21T04:28:25Z"
-  },
-  {
-    "owner": "mono",
-    "repo": "SkiaSharp",
-    "routePath": "SkiaSharp/issue-repro",
-    "updatedAt": "2026-05-21T04:03:51Z"
-  },
-  {
-    "owner": "nukeop",
-    "repo": "nuclear",
-    "routePath": "nuclear/writing-docs",
-    "updatedAt": "2026-05-21T03:51:57Z"
-  },
-  {
-    "owner": "natolambert",
-    "repo": "rlhf-book",
-    "routePath": "rlhf-book/push-to-pr",
-    "updatedAt": "2026-05-21T01:37:40Z"
-  },
-  {
-    "owner": "blokadaorg",
-    "repo": "blokada",
-    "routePath": "blokada/appium",
-    "updatedAt": "2026-05-20T23:37:27Z"
-  },
-  {
-    "owner": "Khan",
-    "repo": "perseus",
-    "routePath": "perseus/wonder-blocks",
-    "updatedAt": "2026-05-20T21:06:12Z"
-  },
-  {
-    "owner": "exceptionless",
-    "repo": "Exceptionless",
-    "routePath": "Exceptionless/foundatio",
-    "updatedAt": "2026-05-20T20:45:01Z"
-  },
-  {
-    "owner": "razorpay",
-    "repo": "blade",
-    "routePath": "blade/review-changes",
-    "updatedAt": "2026-05-20T19:15:45Z"
-  },
-  {
-    "owner": "mysticaltech",
-    "repo": "terraform-hcloud-kube-hetzner",
-    "routePath": "terraform-hcloud-kube-hetzner/fix-issue",
-    "updatedAt": "2026-05-20T18:49:26Z"
-  },
-  {
-    "owner": "promovaweb",
-    "repo": "setupvibe",
-    "routePath": "setupvibe/bash-pro",
-    "updatedAt": "2026-05-20T17:08:21Z"
-  },
-  {
-    "owner": "lowdefy",
-    "repo": "lowdefy",
-    "routePath": "lowdefy/l-commit",
-    "updatedAt": "2026-05-20T13:18:40Z"
-  },
-  {
-    "owner": "JetBrains",
-    "repo": "MPS",
-    "routePath": "MPS/mps-bugfix",
-    "updatedAt": "2026-05-20T13:04:55Z"
-  },
-  {
-    "owner": "pmndrs",
-    "repo": "uikit",
-    "routePath": "uikit/vitexec",
-    "updatedAt": "2026-05-20T10:05:02Z"
-  },
-  {
-    "owner": "sgl-project",
-    "repo": "sglang",
-    "routePath": "sglang/ci-workflow-guide",
-    "updatedAt": "2026-05-20T04:34:00Z"
-  },
-  {
-    "owner": "woocommerce",
-    "repo": "woocommerce-android",
-    "routePath": "woocommerce-android/pr",
-    "updatedAt": "2026-05-20T03:22:06Z"
-  },
-  {
-    "owner": "SAP",
-    "repo": "e-mobility-charging-stations-simulator",
-    "routePath": "e-mobility-charging-stations-simulator/qmd",
-    "updatedAt": "2026-05-19T13:13:08Z"
-  },
-  {
-    "owner": "didi",
-    "repo": "mpx",
-    "routePath": "mpx/mpx2rn",
-    "updatedAt": "2026-05-19T09:31:52Z"
-  },
-  {
-    "owner": "Dimon94",
-    "repo": "cc-devflow",
-    "routePath": "cc-devflow/cc-review",
-    "updatedAt": "2026-05-19T02:08:15Z"
-  },
-  {
-    "owner": "NarratorAI-Studio",
-    "repo": "narrator-ai-cli",
-    "routePath": "narrator-ai-cli/narrator-ai-cli",
-    "updatedAt": "2026-05-19T01:45:55Z"
-  },
-  {
-    "owner": "kdlbs",
-    "repo": "kandev",
-    "routePath": "kandev/pr",
-    "updatedAt": "2026-05-19T01:14:19Z"
-  },
-  {
-    "owner": "stella",
-    "repo": "stella",
-    "routePath": "stella/dev",
-    "updatedAt": "2026-05-18T20:35:34Z"
-  },
-  {
-    "owner": "dartsim",
-    "repo": "dart",
-    "routePath": "dart/dart-manage-pr",
-    "updatedAt": "2026-05-18T15:46:45Z"
-  },
-  {
-    "owner": "ag2ai",
-    "repo": "build-with-ag2",
-    "routePath": "build-with-ag2/ag2-ag-ui",
-    "updatedAt": "2026-05-18T08:08:22Z"
-  },
-  {
-    "owner": "npgsql",
-    "repo": "efcore.pg",
-    "routePath": "efcore.pg/triage",
-    "updatedAt": "2026-05-18T07:54:51Z"
-  },
-  {
-    "owner": "NVIDIA-Omniverse",
-    "repo": "content-agents",
-    "routePath": "content-agents/physics-agent-client",
-    "updatedAt": "2026-05-18T06:15:51Z"
-  },
-  {
-    "owner": "catlog22",
-    "repo": "maestro-flow",
-    "routePath": "maestro-flow/maestro-collab",
-    "updatedAt": "2026-05-18T04:51:23Z"
-  },
-  {
-    "owner": "Undertone0809",
-    "repo": "rudder",
-    "routePath": "rudder/agent-work-reviewer-maintainer",
-    "updatedAt": "2026-05-18T03:18:35Z"
-  },
-  {
-    "owner": "shepard-system",
-    "repo": "shepard-obs-stack",
-    "routePath": "shepard-obs-stack/obs-alerts",
-    "updatedAt": "2026-05-17T19:46:29Z"
-  },
-  {
-    "owner": "iancanderson",
-    "repo": "openscad-agent",
-    "routePath": "openscad-agent/preview-scad",
-    "updatedAt": "2026-05-17T13:44:12Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/tailwind-css-rules",
-    "updatedAt": "2026-05-16T06:08:41Z"
-  },
-  {
-    "owner": "NEventStore",
-    "repo": "NEventStore",
-    "routePath": "NEventStore/git-gh-pat-auth",
-    "updatedAt": "2026-05-15T22:57:02Z"
-  },
-  {
-    "owner": "prisma",
-    "repo": "prisma-next",
-    "routePath": "prisma-next/record-upgrade-instructions",
-    "updatedAt": "2026-05-15T20:37:22Z"
-  },
-  {
-    "owner": "yuyinws",
-    "repo": "oxc-inspector",
-    "routePath": "oxc-inspector/writing-vite-devtools-integrations",
-    "updatedAt": "2026-05-13T23:58:17Z"
-  },
-  {
-    "owner": "Debbl",
-    "repo": "shadcn-hooks",
-    "routePath": "shadcn-hooks/add-hook",
-    "updatedAt": "2026-05-13T23:58:06Z"
-  },
-  {
-    "owner": "viclafouch",
-    "repo": "mui-otp-input",
-    "routePath": "mui-otp-input/update-deps",
-    "updatedAt": "2026-05-13T17:05:15Z"
-  },
-  {
-    "owner": "Myriad-Dreamin",
-    "repo": "tinymist",
-    "routePath": "tinymist/gh-cli",
-    "updatedAt": "2026-05-13T12:42:00Z"
-  },
-  {
-    "owner": "NVIDIA-Omniverse",
-    "repo": "content-agents",
-    "routePath": "content-agents/vision",
-    "updatedAt": "2026-05-13T10:31:40Z"
-  },
-  {
-    "owner": "PacificStudio",
-    "repo": "openase",
-    "routePath": "openase/push",
-    "updatedAt": "2026-05-13T05:38:51Z"
-  },
-  {
-    "owner": "dcouple",
-    "repo": "Pane",
-    "routePath": "Pane/plan",
-    "updatedAt": "2026-05-13T03:20:30Z"
-  },
-  {
-    "owner": "ag2ai",
-    "repo": "build-with-ag2",
-    "routePath": "build-with-ag2/ag2-hitl",
-    "updatedAt": "2026-05-13T02:57:41Z"
-  },
-  {
-    "owner": "BayBreezy",
-    "repo": "ui-thing",
-    "routePath": "ui-thing/uithing",
-    "updatedAt": "2026-05-12T19:10:23Z"
-  },
-  {
-    "owner": "doccker",
-    "repo": "cc-use-exp",
-    "routePath": "cc-use-exp/go-dev",
-    "updatedAt": "2026-05-12T13:30:45Z"
-  },
-  {
-    "owner": "jiangzhe",
-    "repo": "doradb",
-    "routePath": "doradb/rfc",
-    "updatedAt": "2026-05-12T04:31:44Z"
-  },
-  {
-    "owner": "DaveSkender",
-    "repo": "Stock.Indicators",
-    "routePath": "Stock.Indicators/markdown",
-    "updatedAt": "2026-05-11T18:13:30Z"
-  },
-  {
-    "owner": "BintzGavin",
-    "repo": "helios",
-    "routePath": "helios/helios-studio",
-    "updatedAt": "2026-05-11T14:09:13Z"
-  },
-  {
-    "owner": "EpicenterHQ",
-    "repo": "epicenter",
-    "routePath": "epicenter/git",
-    "updatedAt": "2026-05-11T03:06:12Z"
-  },
-  {
-    "owner": "SocketDev",
-    "repo": "socket-cli",
-    "routePath": "socket-cli/reviewing-code",
-    "updatedAt": "2026-05-11T02:25:28Z"
-  },
-  {
-    "owner": "BintzGavin",
-    "repo": "helios",
-    "routePath": "helios/helios-core",
-    "updatedAt": "2026-05-11T00:33:28Z"
-  },
-  {
-    "owner": "elsa-workflows",
-    "repo": "elsa-core",
-    "routePath": "elsa-core/greploop",
-    "updatedAt": "2026-05-10T13:27:58Z"
-  },
-  {
-    "owner": "digitalsamba",
-    "repo": "claude-code-video-toolkit",
-    "routePath": "claude-code-video-toolkit/runpod",
-    "updatedAt": "2026-05-10T13:26:49Z"
-  },
-  {
-    "owner": "bytebase",
-    "repo": "dbhub",
-    "routePath": "dbhub/fix-bug",
-    "updatedAt": "2026-05-10T12:13:19Z"
-  },
-  {
-    "owner": "divinevideo",
-    "repo": "divine-mobile",
-    "routePath": "divine-mobile/art-direct",
-    "updatedAt": "2026-05-10T11:34:18Z"
-  },
-  {
-    "owner": "atopile",
-    "repo": "atopile",
-    "routePath": "atopile/fabll",
-    "updatedAt": "2026-05-10T07:26:36Z"
-  },
-  {
-    "owner": "rysweet",
-    "repo": "amplihack",
-    "routePath": "amplihack/fleet",
-    "updatedAt": "2026-05-10T02:46:06Z"
-  },
-  {
-    "owner": "compozy",
-    "repo": "compozy",
-    "routePath": "compozy/ubs",
-    "updatedAt": "2026-05-09T23:53:18Z"
-  },
-  {
-    "owner": "pabpereza",
-    "repo": "pabpereza",
-    "routePath": "pabpereza/neovim",
-    "updatedAt": "2026-05-09T20:19:40Z"
-  },
-  {
-    "owner": "iBz-04",
-    "repo": "gloamy",
-    "routePath": "gloamy/ucp",
-    "updatedAt": "2026-05-09T19:43:53Z"
-  },
-  {
-    "owner": "serithemage",
-    "repo": "serverless-openclaw",
-    "routePath": "serverless-openclaw/dev",
-    "updatedAt": "2026-05-09T18:33:57Z"
-  },
-  {
-    "owner": "proyecto26",
-    "repo": "projectx",
-    "routePath": "projectx/prisma",
-    "updatedAt": "2026-05-09T17:43:54Z"
-  },
-  {
-    "owner": "scunning1975",
-    "repo": "MixtapeTools",
-    "routePath": "MixtapeTools/tikz",
-    "updatedAt": "2026-05-09T08:37:25Z"
-  },
-  {
-    "owner": "pollinations",
-    "repo": "pollinations",
-    "routePath": "pollinations/provider-billing",
-    "updatedAt": "2026-05-09T03:28:55Z"
-  },
-  {
-    "owner": "byungjunjang",
-    "repo": "jangpm-meta-skills",
-    "routePath": "jangpm-meta-skills/reflect",
-    "updatedAt": "2026-05-08T13:52:52Z"
-  },
-  {
-    "owner": "QuantumNous",
-    "repo": "new-api",
-    "routePath": "new-api/shadcn",
-    "updatedAt": "2026-05-08T03:58:13Z"
-  },
-  {
-    "owner": "Context-Engine-AI",
-    "repo": "Context-Engine",
-    "routePath": "Context-Engine/context-engine",
-    "updatedAt": "2026-05-08T00:59:06Z"
-  },
-  {
-    "owner": "szymdzum",
-    "repo": "browser-debugger-cli",
-    "routePath": "browser-debugger-cli/bdg",
-    "updatedAt": "2026-05-07T22:01:40Z"
-  },
-  {
-    "owner": "ZenMux",
-    "repo": "zenmux-doc",
-    "routePath": "zenmux-doc/zenmux-setup",
-    "updatedAt": "2026-05-07T16:18:58Z"
-  },
-  {
-    "owner": "yuki-aigc",
-    "repo": "pomeloclaw",
-    "routePath": "pomeloclaw/skill-creator",
-    "updatedAt": "2026-05-07T14:49:01Z"
-  },
-  {
-    "owner": "catlog22",
-    "repo": "maestro-flow",
-    "routePath": "maestro-flow/manage-codebase-rebuild",
-    "updatedAt": "2026-05-07T13:09:57Z"
-  },
-  {
-    "owner": "theoden8",
-    "repo": "webspace_app",
-    "routePath": "webspace_app/openspec-verify-change",
-    "updatedAt": "2026-05-07T10:55:51Z"
-  },
-  {
-    "owner": "jixoai",
-    "repo": "openspecui",
-    "routePath": "openspecui/openspec-verify-change",
-    "updatedAt": "2026-05-07T01:36:12Z"
-  },
-  {
-    "owner": "decocms",
-    "repo": "studio",
-    "routePath": "studio/review-plan",
-    "updatedAt": "2026-05-06T14:53:21Z"
-  },
-  {
-    "owner": "linagora",
-    "repo": "twake-on-matrix",
-    "routePath": "twake-on-matrix/release",
-    "updatedAt": "2026-05-06T10:05:30Z"
-  },
-  {
-    "owner": "snyk",
-    "repo": "snyk-intellij-plugin",
-    "routePath": "snyk-intellij-plugin/verification",
-    "updatedAt": "2026-05-06T09:30:43Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/frontend-query-mutation",
-    "updatedAt": "2026-05-06T06:23:10Z"
-  },
-  {
-    "owner": "eternaljust",
-    "repo": "msea-compose",
-    "routePath": "msea-compose/jetpack-compose-audit",
-    "updatedAt": "2026-05-06T06:19:52Z"
-  },
-  {
-    "owner": "the-crypt-keeper",
-    "repo": "reasonscape",
-    "routePath": "reasonscape/import",
-    "updatedAt": "2026-05-05T14:29:57Z"
-  },
-  {
-    "owner": "minicoohei",
-    "repo": "ai-agent-camp",
-    "routePath": "ai-agent-camp/gcp-auth",
-    "updatedAt": "2026-05-05T05:25:14Z"
-  },
-  {
-    "owner": "Strategy11",
-    "repo": "formidable-forms",
-    "routePath": "formidable-forms/fix-bug",
-    "updatedAt": "2026-05-04T16:34:06Z"
-  },
-  {
-    "owner": "ampcode",
-    "repo": "amp-contrib",
-    "routePath": "amp-contrib/ui-preview",
-    "updatedAt": "2026-05-04T10:42:01Z"
-  },
-  {
-    "owner": "viclafouch",
-    "repo": "mui-color-input",
-    "routePath": "mui-color-input/update-deps",
-    "updatedAt": "2026-05-04T10:23:12Z"
-  },
-  {
-    "owner": "theexperiencecompany",
-    "repo": "gaia",
-    "routePath": "gaia/motion",
-    "updatedAt": "2026-05-03T16:33:15Z"
-  },
-  {
-    "owner": "f",
-    "repo": "check-ai",
-    "routePath": "check-ai/create-audit",
-    "updatedAt": "2026-05-02T22:20:30Z"
-  },
-  {
-    "owner": "LiangNiang",
-    "repo": "OpenMantis",
-    "routePath": "OpenMantis/specfusion",
-    "updatedAt": "2026-05-02T14:43:55Z"
-  },
-  {
-    "owner": "vide",
-    "repo": "matedroid",
-    "routePath": "matedroid/fix",
-    "updatedAt": "2026-04-30T09:29:40Z"
-  },
-  {
-    "owner": "ScrapingBee",
-    "repo": "scrapingbee-cli",
-    "routePath": "scrapingbee-cli/scrapingbee-cli",
-    "updatedAt": "2026-04-30T06:27:03Z"
-  },
-  {
-    "owner": "JimmyLv",
-    "repo": "BibiGPT-v1",
-    "routePath": "BibiGPT-v1/agent-browser",
-    "updatedAt": "2026-04-30T03:44:58Z"
-  },
-  {
-    "owner": "theodo-group",
-    "repo": "debug-that",
-    "routePath": "debug-that/dbg",
-    "updatedAt": "2026-04-28T11:22:12Z"
-  },
-  {
-    "owner": "growingio",
-    "repo": "growingio-sdk-ios-autotracker",
-    "routePath": "growingio-sdk-ios-autotracker/writing-skills",
-    "updatedAt": "2026-04-27T09:18:58Z"
-  },
-  {
-    "owner": "Nikolay-Shirokov",
-    "repo": "cc-1c-skills",
-    "routePath": "cc-1c-skills/erf-init",
-    "updatedAt": "2026-04-25T12:49:28Z"
-  },
-  {
-    "owner": "SwiftedMind",
-    "repo": "Tessera",
-    "routePath": "Tessera/flowdeck",
-    "updatedAt": "2026-04-24T17:24:03Z"
-  },
-  {
-    "owner": "Arman-Kudaibergenov",
-    "repo": "1c-ai-development-kit",
-    "routePath": "1c-ai-development-kit/db-run",
-    "updatedAt": "2026-04-20T07:14:54Z"
-  },
-  {
-    "owner": "weny911",
-    "repo": "AI-coding-almighty",
-    "routePath": "AI-coding-almighty/pencil-ui-design",
-    "updatedAt": "2026-04-18T06:29:44Z"
-  },
-  {
-    "owner": "quests-org",
-    "repo": "quests",
-    "routePath": "quests/changelog",
-    "updatedAt": "2026-04-18T04:06:09Z"
-  },
-  {
-    "owner": "Draculabo",
-    "repo": "AntigravityManager",
-    "routePath": "AntigravityManager/openspec-bulk-archive-change",
-    "updatedAt": "2026-04-18T02:42:45Z"
-  },
-  {
-    "owner": "jiahao-jayden",
-    "repo": "vibe-any-tanstack",
-    "routePath": "vibe-any-tanstack/ai-elements",
-    "updatedAt": "2026-04-16T01:40:02Z"
-  },
-  {
-    "owner": "sonofmagic",
-    "repo": "uni-app-vite-vue3-tailwind-vscode-template",
-    "routePath": "uni-app-vite-vue3-tailwind-vscode-template/uni-app",
-    "updatedAt": "2026-04-15T14:48:33Z"
-  },
-  {
-    "owner": "shangyankeji",
-    "repo": "super-dev",
-    "routePath": "super-dev/super-dev",
-    "updatedAt": "2026-04-12T12:34:18Z"
-  },
-  {
-    "owner": "microsoft",
-    "repo": "playwright-java",
-    "routePath": "playwright-java/playwright-roll",
-    "updatedAt": "2026-04-09T20:50:25Z"
-  },
-  {
-    "owner": "CKylinMC",
-    "repo": "UserJS",
-    "routePath": "UserJS/ckui",
-    "updatedAt": "2026-04-03T06:25:54Z"
-  },
-  {
-    "owner": "iOfficeAI",
-    "repo": "AionUi",
-    "routePath": "AionUi/pr-review",
-    "updatedAt": "2026-04-03T03:28:41Z"
-  },
-  {
-    "owner": "Yorick-Ryu",
-    "repo": "deep-share",
-    "routePath": "deep-share/md2docx",
-    "updatedAt": "2026-04-02T08:19:57Z"
-  },
-  {
-    "owner": "MaaEnd",
-    "repo": "MaaEnd",
-    "routePath": "MaaEnd/maaend-issue-log-analysis",
-    "updatedAt": "2026-03-29T03:19:19Z"
-  },
-  {
-    "owner": "tokoroten",
-    "repo": "prompt-review",
-    "routePath": "prompt-review/prompt-review",
-    "updatedAt": "2026-03-27T00:36:33Z"
-  },
-  {
-    "owner": "bear2u",
-    "repo": "my-skills",
-    "routePath": "my-skills/Prompt Coach",
-    "updatedAt": "2026-03-26T10:33:02Z"
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/algorithmic-art",
+    "updatedAt": "2026-03-30T01:32:59Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
-    "routePath": "skills/building-ai-agent-on-cloudflare",
-    "updatedAt": "2026-03-26T05:41:31Z"
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/building-mcp-server-on-cloudflare",
-    "updatedAt": "2026-03-26T05:41:31Z"
-  },
-  {
-    "owner": "pytorch",
-    "repo": "pytorch",
-    "routePath": "pytorch/pr-review",
-    "updatedAt": "2026-03-26T03:17:49Z"
+    "routePath": "skills/web-perf",
+    "updatedAt": "2026-03-31T04:46:57Z"
   },
   {
     "owner": "getsentry",
     "repo": "skills",
     "routePath": "skills/claude-settings-audit",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/security-review",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/skill-scanner",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/agents-md",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/pr-writer",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/commit",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/presentation-creator",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/code-simplifier",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/sred-project-organizer",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/brand-guidelines",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/gha-security-review",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/find-bugs",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/skill-writer",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/code-review",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/django-access-review",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/iterate-pr",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/sred-work-summary",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/create-branch",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/gh-review-requests",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/doc-coauthoring",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/blog-writing-guide",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/create-pr",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "getsentry",
-    "repo": "skills",
-    "routePath": "skills/skill-creator",
-    "updatedAt": "2026-03-25T18:03:02Z"
-  },
-  {
-    "owner": "OpenHands",
-    "repo": "OpenHands",
-    "routePath": "OpenHands/cross-repo-testing",
-    "updatedAt": "2026-03-24T13:42:38Z"
-  },
-  {
-    "owner": "flowglad",
-    "repo": "flowglad",
-    "routePath": "flowglad/pm",
-    "updatedAt": "2026-03-24T13:40:18Z"
-  },
-  {
-    "owner": "vercel",
-    "repo": "next.js",
-    "routePath": "next.js/flags",
-    "updatedAt": "2026-03-24T13:10:28Z"
-  },
-  {
-    "owner": "zoonk",
-    "repo": "zoonk",
-    "routePath": "zoonk/zoonk-issue-writer",
-    "updatedAt": "2026-03-24T12:51:26Z"
-  },
-  {
-    "owner": "muxinc",
-    "repo": "ai",
-    "routePath": "ai/develop-ai-functions-example",
-    "updatedAt": "2026-03-23T18:09:08Z"
-  },
-  {
-    "owner": "relytcloud",
-    "repo": "pg_ducklake",
-    "routePath": "pg_ducklake/coding-rules",
-    "updatedAt": "2026-03-23T10:38:20Z"
-  },
-  {
-    "owner": "webiny",
-    "repo": "webiny-js",
-    "routePath": "webiny-js/webiny-skill-generator",
-    "updatedAt": "2026-03-22T16:21:14Z"
-  },
-  {
-    "owner": "xiaolai",
-    "repo": "vmark",
-    "routePath": "vmark/tiptap-editor",
-    "updatedAt": "2026-03-22T12:35:28Z"
-  },
-  {
-    "owner": "stacksjs",
-    "repo": "stacks",
-    "routePath": "stacks/stacks-ai",
-    "updatedAt": "2026-03-22T11:08:21Z"
-  },
-  {
-    "owner": "gustavscirulis",
-    "repo": "snapgrid",
-    "routePath": "snapgrid/tdd-refactor-guard",
-    "updatedAt": "2026-03-22T11:08:08Z"
-  },
-  {
-    "owner": "MetaCubeX",
-    "repo": "metacubexd",
-    "routePath": "metacubexd/openspec-bulk-archive-change",
-    "updatedAt": "2026-03-22T09:10:28Z"
-  },
-  {
-    "owner": "seedprod",
-    "repo": "openclaw-prompts-and-skills",
-    "routePath": "openclaw-prompts-and-skills/weather",
-    "updatedAt": "2026-03-22T04:13:31Z"
-  },
-  {
-    "owner": "mtcute",
-    "repo": "mtcute",
-    "routePath": "mtcute/using-mtcute",
-    "updatedAt": "2026-03-21T20:27:54Z"
-  },
-  {
-    "owner": "parcadei",
-    "repo": "Continuous-Claude-v3",
-    "routePath": "Continuous-Claude-v3/slash-commands",
-    "updatedAt": "2026-03-21T17:53:26Z"
-  },
-  {
-    "owner": "studyzy",
-    "repo": "imewlconverter",
-    "routePath": "imewlconverter/openspec-continue-change",
-    "updatedAt": "2026-03-21T07:50:25Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-datasets",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-evaluation",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-model-trainer",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-paper-publisher",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-trackio",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-tool-builder",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-dataset-viewer",
-    "updatedAt": "2026-03-21T05:57:32Z"
-  },
-  {
-    "owner": "sherdotsh",
-    "repo": "sher",
-    "routePath": "sher/sher-deploy",
-    "updatedAt": "2026-03-20T08:05:30Z"
-  },
-  {
-    "owner": "DataRecce",
-    "repo": "recce",
-    "routePath": "recce/recce-mcp-e2e",
-    "updatedAt": "2026-03-19T02:56:53Z"
-  },
-  {
-    "owner": "dailydotdev",
-    "repo": "daily-api",
-    "routePath": "daily-api/local-env",
-    "updatedAt": "2026-03-18T22:56:38Z"
-  },
-  {
-    "owner": "Xe",
-    "repo": "site",
-    "routePath": "site/blogpost-creator",
-    "updatedAt": "2026-03-18T16:10:29Z"
-  },
-  {
-    "owner": "codeyousef",
-    "repo": "summon",
-    "routePath": "summon/summon",
-    "updatedAt": "2026-03-18T12:30:54Z"
-  },
-  {
-    "owner": "llama-farm",
-    "repo": "llamafarm",
-    "routePath": "llamafarm/generate-subsystem-skills",
-    "updatedAt": "2026-03-17T22:33:12Z"
-  },
-  {
-    "owner": "windmill-labs",
-    "repo": "windmill",
-    "routePath": "windmill/native-trigger",
-    "updatedAt": "2026-03-17T01:50:20Z"
-  },
-  {
-    "owner": "anam-org",
-    "repo": "metaxy",
-    "routePath": "metaxy/claude-improve-config",
-    "updatedAt": "2026-03-16T22:04:27Z"
-  },
-  {
-    "owner": "hyperlane-xyz",
-    "repo": "hyperlane-monorepo",
-    "routePath": "hyperlane-monorepo/investigate-stuck-messages",
-    "updatedAt": "2026-03-16T19:47:01Z"
-  },
-  {
-    "owner": "ArtemYurov",
-    "repo": "TomoBar",
-    "routePath": "TomoBar/aif-explore",
-    "updatedAt": "2026-03-16T14:21:48Z"
-  },
-  {
-    "owner": "K-Dense-AI",
-    "repo": "claude-scientific-writer",
-    "routePath": "claude-scientific-writer/research-lookup",
-    "updatedAt": "2026-03-13T13:32:09Z"
-  },
-  {
-    "owner": "pydantic",
-    "repo": "monty",
-    "routePath": "monty/python-playground",
-    "updatedAt": "2026-03-13T13:06:26Z"
-  },
-  {
-    "owner": "lablup",
-    "repo": "backend.ai-webui",
-    "routePath": "backend.ai-webui/create-relay-nodes-component",
-    "updatedAt": "2026-03-13T09:37:41Z"
-  },
-  {
-    "owner": "gadievron",
-    "repo": "raptor",
-    "routePath": "raptor/github-archive",
-    "updatedAt": "2026-03-13T09:24:35Z"
-  },
-  {
-    "owner": "nicepkg",
-    "repo": "ai-workflow",
-    "routePath": "ai-workflow/resource-scout",
-    "updatedAt": "2026-03-13T09:12:29Z"
-  },
-  {
-    "owner": "man-group",
-    "repo": "ArcticDB",
-    "routePath": "ArcticDB/review-pr",
-    "updatedAt": "2026-03-13T04:22:49Z"
-  },
-  {
-    "owner": "shepard-system",
-    "repo": "shepard-obs-stack",
-    "routePath": "shepard-obs-stack/obs-cost",
-    "updatedAt": "2026-03-12T22:53:03Z"
-  },
-  {
-    "owner": "pedrohcgs",
-    "repo": "claude-code-my-workflow",
-    "routePath": "claude-code-my-workflow/learn",
-    "updatedAt": "2026-03-12T12:57:18Z"
-  },
-  {
-    "owner": "pikkujs",
-    "repo": "pikku",
-    "routePath": "pikku/pikku-info",
-    "updatedAt": "2026-03-12T12:16:54Z"
-  },
-  {
-    "owner": "AgentWorkforce",
-    "repo": "relay",
-    "routePath": "relay/creating-skills",
-    "updatedAt": "2026-03-12T12:03:41Z"
-  },
-  {
-    "owner": "alex-ilgayev",
-    "repo": "MCPSpy",
-    "routePath": "MCPSpy/github-issue-creator",
-    "updatedAt": "2026-03-12T09:47:20Z"
-  },
-  {
-    "owner": "ruvnet",
-    "repo": "agentic-flow",
-    "routePath": "agentic-flow/V3 Core Implementation",
-    "updatedAt": "2026-03-12T05:17:21Z"
-  },
-  {
-    "owner": "lowdefy",
-    "repo": "lowdefy",
-    "routePath": "lowdefy/l-pr",
-    "updatedAt": "2026-03-11T13:17:40Z"
-  },
-  {
-    "owner": "straubt1",
-    "repo": "tfx",
-    "routePath": "tfx/reflection",
-    "updatedAt": "2026-03-11T13:01:12Z"
-  },
-  {
-    "owner": "ArtemYurov",
-    "repo": "TomoBar",
-    "routePath": "TomoBar/aif-fix",
-    "updatedAt": "2026-03-11T11:24:30Z"
-  },
-  {
-    "owner": "segmentio",
-    "repo": "action-destinations",
-    "routePath": "action-destinations/implement-destination",
-    "updatedAt": "2026-03-11T08:30:14Z"
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/orpc-contract-first",
-    "updatedAt": "2026-03-11T05:27:54Z"
-  },
-  {
-    "owner": "expo",
-    "repo": "skills",
-    "routePath": "skills/expo-ui-jetpack-compose",
-    "updatedAt": "2026-03-11T04:24:37Z"
-  },
-  {
-    "owner": "expo",
-    "repo": "skills",
-    "routePath": "skills/expo-ui-swift-ui",
-    "updatedAt": "2026-03-11T04:24:37Z"
-  },
-  {
-    "owner": "expo",
-    "repo": "skills",
-    "routePath": "skills/expo-dev-client",
-    "updatedAt": "2026-03-11T04:24:37Z"
-  },
-  {
-    "owner": "vercel",
-    "repo": "next.js",
-    "routePath": "next.js/update-docs",
-    "updatedAt": "2026-03-11T03:32:46Z"
-  },
-  {
-    "owner": "Moffran",
-    "repo": "calibrated_explanations",
-    "routePath": "calibrated_explanations/ce-plugin-audit",
-    "updatedAt": "2026-03-10T08:20:41Z"
-  },
-  {
-    "owner": "microbus-io",
-    "repo": "fabric",
-    "routePath": "fabric/Modifying a Feature of a Microservice",
-    "updatedAt": "2026-03-07T19:07:46Z"
-  },
-  {
-    "owner": "open-circle",
-    "repo": "formisch",
-    "routePath": "formisch/repo-website-api-review",
-    "updatedAt": "2026-03-07T01:12:38Z"
-  },
-  {
-    "owner": "Smana",
-    "repo": "cloud-native-ref",
-    "routePath": "cloud-native-ref/spec",
-    "updatedAt": "2026-03-06T22:40:25Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hugging-face-cli",
-    "updatedAt": "2026-03-06T05:28:53Z"
-  },
-  {
-    "owner": "Draculabo",
-    "repo": "AntigravityManager",
-    "routePath": "AntigravityManager/openspec-continue-change",
-    "updatedAt": "2026-03-05T11:34:38Z"
-  },
-  {
-    "owner": "piomin",
-    "repo": "course-spring-microservices",
-    "routePath": "course-spring-microservices/webapp-testing",
-    "updatedAt": "2026-03-03T15:52:19Z"
-  },
-  {
-    "owner": "indexnetwork",
-    "repo": "index",
-    "routePath": "index/update-pr",
-    "updatedAt": "2026-03-03T01:57:27Z"
-  },
-  {
-    "owner": "langwatch",
-    "repo": "langwatch",
-    "routePath": "langwatch/e2e",
-    "updatedAt": "2026-02-24T16:59:56Z"
+    "updatedAt": "2026-03-30T14:18:05Z"
   },
   {
     "owner": "getsentry",
@@ -3078,15 +36,2583 @@
     "updatedAt": "2026-02-22T20:43:50Z"
   },
   {
-    "owner": "microbus-io",
-    "repo": "fabric",
-    "routePath": "fabric/Adding an Outbound Event Endpoint",
-    "updatedAt": "2026-02-22T16:02:26Z"
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-paper-publisher",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-llm-trainer",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-paper-publisher",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-vision-trainer",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/component-refactoring",
+    "updatedAt": "2026-03-31T05:10:00Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/claude-api",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/security-review",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-datasets",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-evaluation",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-model-trainer",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/backend-code-review",
+    "updatedAt": "2026-03-31T05:10:00Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/writing-skills",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/skill-scanner",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "vercel-labs",
+    "repo": "skills",
+    "routePath": "skills/find-skills",
+    "updatedAt": "2026-03-30T02:15:44Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/building-mcp-server-on-cloudflare",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/sandbox-sdk",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/agents-md",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/pr-writer",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/building-ai-agent-on-cloudflare",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/commit",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/dispatching-parallel-agents",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/durable-objects",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/presentation-creator",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-trackio",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-papers",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-trackio",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/using-git-worktrees",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "expo",
+    "repo": "skills",
+    "routePath": "skills/expo-ui-jetpack-compose",
+    "updatedAt": "2026-03-06T04:04:30Z"
+  },
+  {
+    "owner": "expo",
+    "repo": "skills",
+    "routePath": "skills/expo-ui-swift-ui",
+    "updatedAt": "2026-03-06T04:04:30Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/code-simplifier",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/sred-project-organizer",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/subagent-driven-development",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/systematic-debugging",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-community-evals",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "OthmanAdi",
+    "repo": "planning-with-files",
+    "routePath": "planning-with-files/planning-with-files",
+    "updatedAt": "2026-05-24T13:41:48Z"
+  },
+  {
+    "owner": "elsa-workflows",
+    "repo": "elsa-core",
+    "routePath": "elsa-core/greploop",
+    "updatedAt": "2026-05-11T02:27:37Z"
+  },
+  {
+    "owner": "mozilla",
+    "repo": "fx-private-relay",
+    "routePath": "fx-private-relay/ble",
+    "updatedAt": "2026-06-16T02:41:16Z"
+  },
+  {
+    "owner": "proffesor-for-testing",
+    "repo": "agentic-qe",
+    "routePath": "agentic-qe/qcsd-production-swarm",
+    "updatedAt": "2026-05-24T07:31:44Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/react-native-best-practices",
+    "updatedAt": "2026-03-30T18:52:32Z"
+  },
+  {
+    "owner": "vercel",
+    "repo": "next.js",
+    "routePath": "next.js/dce-edge",
+    "updatedAt": "2026-06-14T14:01:39Z"
+  },
+  {
+    "owner": "mikeyobrien",
+    "repo": "ralph-orchestrator",
+    "routePath": "ralph-orchestrator/code-assist",
+    "updatedAt": "2026-06-13T01:29:16Z"
+  },
+  {
+    "owner": "withkynam",
+    "repo": "vibecode-pro-max-kit",
+    "routePath": "vibecode-pro-max-kit/vc-update",
+    "updatedAt": "2026-06-17T04:56:32Z"
+  },
+  {
+    "owner": "sonofmagic",
+    "repo": "uni-app-vite-vue3-tailwind-vscode-template",
+    "routePath": "uni-app-vite-vue3-tailwind-vscode-template/uni-app",
+    "updatedAt": "2026-04-15T14:48:33Z"
+  },
+  {
+    "owner": "madebyaris",
+    "repo": "advance-minimax-m3-cursor-rules",
+    "routePath": "advance-minimax-m3-cursor-rules/3d-web-experiences",
+    "updatedAt": "2026-06-17T01:41:40Z"
+  },
+  {
+    "owner": "alexanderop",
+    "repo": "walkthrough",
+    "routePath": "walkthrough/publish-skill",
+    "updatedAt": "2026-06-17T10:22:41Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/brand-guidelines",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/test-driven-development",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "sgl-project",
+    "repo": "sglang",
+    "routePath": "sglang/ci-workflow-guide",
+    "updatedAt": "2026-05-20T04:34:00Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "Exposed",
+    "routePath": "Exposed/fix-bug",
+    "updatedAt": "2026-05-22T02:44:24Z"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "routePath": "SkiaSharp/issue-repro",
+    "updatedAt": "2026-05-21T04:03:51Z"
+  },
+  {
+    "owner": "umbraco",
+    "repo": "Umbraco-CMS",
+    "routePath": "Umbraco-CMS/umb-review",
+    "updatedAt": "2026-06-13T13:51:05Z"
+  },
+  {
+    "owner": "ucbepic",
+    "repo": "docetl",
+    "routePath": "docetl/docetl",
+    "updatedAt": "2026-05-22T03:30:04Z"
+  },
+  {
+    "owner": "dathere",
+    "repo": "qsv",
+    "routePath": "qsv/data-validate",
+    "updatedAt": "2026-06-20T03:44:29Z"
+  },
+  {
+    "owner": "homeassistant-ai",
+    "repo": "ha-mcp",
+    "routePath": "ha-mcp/contrib-pr-review",
+    "updatedAt": "2026-06-14T04:22:33Z"
+  },
+  {
+    "owner": "Myriad-Dreamin",
+    "repo": "tinymist",
+    "routePath": "tinymist/gh-cli",
+    "updatedAt": "2026-05-13T12:42:00Z"
+  },
+  {
+    "owner": "centminmod",
+    "repo": "my-claude-code-setup",
+    "routePath": "my-claude-code-setup/task-breakdown",
+    "updatedAt": "2026-06-19T14:19:25Z"
+  },
+  {
+    "owner": "K-Dense-AI",
+    "repo": "claude-scientific-writer",
+    "routePath": "claude-scientific-writer/market-research-reports",
+    "updatedAt": "2026-06-13T15:33:04Z"
+  },
+  {
+    "owner": "NEventStore",
+    "repo": "NEventStore",
+    "routePath": "NEventStore/git-gh-pat-auth",
+    "updatedAt": "2026-05-15T22:57:02Z"
+  },
+  {
+    "owner": "DaveSkender",
+    "repo": "Stock.Indicators",
+    "routePath": "Stock.Indicators/markdown",
+    "updatedAt": "2026-05-11T18:13:30Z"
+  },
+  {
+    "owner": "dartsim",
+    "repo": "dart",
+    "routePath": "dart/dart-manage-pr",
+    "updatedAt": "2026-05-18T15:46:45Z"
+  },
+  {
+    "owner": "srid",
+    "repo": "emanote",
+    "routePath": "emanote/do",
+    "updatedAt": "2026-06-05T22:25:36Z"
+  },
+  {
+    "owner": "FlameskyDexive",
+    "repo": "Legends-Of-Heroes",
+    "routePath": "Legends-Of-Heroes/aibridge",
+    "updatedAt": "2026-06-05T08:14:35Z"
+  },
+  {
+    "owner": "getkyo",
+    "repo": "kyo",
+    "routePath": "kyo/readme",
+    "updatedAt": "2026-06-02T22:18:16Z"
+  },
+  {
+    "owner": "DataDog",
+    "repo": "dd-trace-dotnet",
+    "routePath": "dd-trace-dotnet/analyze-azdo-build",
+    "updatedAt": "2026-06-19T11:31:30Z"
+  },
+  {
+    "owner": "epam",
+    "repo": "ai-dial-chat",
+    "routePath": "ai-dial-chat/chat-release-notes",
+    "updatedAt": "2026-06-19T18:45:30Z"
+  },
+  {
+    "owner": "mckinsey",
+    "repo": "agents-at-scale-ark",
+    "routePath": "agents-at-scale-ark/slack-announcement",
+    "updatedAt": "2026-06-13T08:26:52Z"
+  },
+  {
+    "owner": "scality",
+    "repo": "metalk8s",
+    "routePath": "metalk8s/review-pr",
+    "updatedAt": "2026-05-21T23:23:15Z"
+  },
+  {
+    "owner": "IvanLi-CN",
+    "repo": "tavily-hikari",
+    "routePath": "tavily-hikari/ui-ux-pro-max",
+    "updatedAt": "2026-06-06T13:27:43Z"
+  },
+  {
+    "owner": "divinevideo",
+    "repo": "divine-mobile",
+    "routePath": "divine-mobile/art-direct",
+    "updatedAt": "2026-05-10T11:34:18Z"
+  },
+  {
+    "owner": "ag2ai",
+    "repo": "build-with-ag2",
+    "routePath": "build-with-ag2/ag2-ag-ui",
+    "updatedAt": "2026-05-18T08:08:22Z"
+  },
+  {
+    "owner": "srid",
+    "repo": "haskell-flake",
+    "routePath": "haskell-flake/do",
+    "updatedAt": "2026-05-27T10:41:50Z"
+  },
+  {
+    "owner": "searlsco",
+    "repo": "prove_it",
+    "routePath": "prove_it/prove-feature",
+    "updatedAt": "2026-06-17T17:30:19Z"
+  },
+  {
+    "owner": "theexperiencecompany",
+    "repo": "gaia",
+    "routePath": "gaia/motion",
+    "updatedAt": "2026-05-03T16:33:15Z"
+  },
+  {
+    "owner": "yusifeng",
+    "repo": "formax",
+    "routePath": "formax/formax-skill-capture",
+    "updatedAt": "2026-06-06T09:07:27Z"
+  },
+  {
+    "owner": "everruns",
+    "repo": "bashkit",
+    "routePath": "bashkit/ship",
+    "updatedAt": "2026-06-07T21:16:36Z"
+  },
+  {
+    "owner": "paiml",
+    "repo": "paiml-mcp-agent-toolkit",
+    "routePath": "paiml-mcp-agent-toolkit/Code Quality Analysis with PMAT",
+    "updatedAt": "2026-06-13T18:01:30Z"
+  },
+  {
+    "owner": "viclafouch",
+    "repo": "mui-otp-input",
+    "routePath": "mui-otp-input/update-deps",
+    "updatedAt": "2026-05-13T17:05:15Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "youtrackdb",
+    "routePath": "youtrackdb/migrate-workflow",
+    "updatedAt": "2026-06-12T08:28:31Z"
+  },
+  {
+    "owner": "alfredolopez80",
+    "repo": "multi-agent-ralph-loop",
+    "routePath": "multi-agent-ralph-loop/quality-gates-parallel",
+    "updatedAt": "2026-06-14T15:21:22Z"
+  },
+  {
+    "owner": "xlang-ai",
+    "repo": "CUA-Gym",
+    "routePath": "CUA-Gym/os",
+    "updatedAt": "2026-06-05T13:29:57Z"
+  },
+  {
+    "owner": "one-ie",
+    "repo": "one",
+    "routePath": "one/ai-elements",
+    "updatedAt": "2026-05-24T06:50:27Z"
+  },
+  {
+    "owner": "get-convex",
+    "repo": "convex-evals",
+    "routePath": "convex-evals/add-eval",
+    "updatedAt": "2026-05-29T02:57:54Z"
+  },
+  {
+    "owner": "jiangzhe",
+    "repo": "doradb",
+    "routePath": "doradb/rfc",
+    "updatedAt": "2026-05-12T04:31:44Z"
+  },
+  {
+    "owner": "Insajin",
+    "repo": "autopus-adk",
+    "routePath": "autopus-adk/auto",
+    "updatedAt": "2026-06-07T10:32:11Z"
+  },
+  {
+    "owner": "mui",
+    "repo": "mui-public",
+    "routePath": "mui-public/circleci-why-flaky",
+    "updatedAt": "2026-06-18T11:30:18Z"
+  },
+  {
+    "owner": "rysweet",
+    "repo": "amplihack",
+    "routePath": "amplihack/session-replay",
+    "updatedAt": "2026-06-14T01:42:59Z"
+  },
+  {
+    "owner": "getkyo",
+    "repo": "kyo",
+    "routePath": "kyo/readme-draft",
+    "updatedAt": "2026-06-17T00:52:37Z"
+  },
+  {
+    "owner": "jiangzhe",
+    "repo": "doradb",
+    "routePath": "doradb/task",
+    "updatedAt": "2026-06-06T16:36:50Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/wrangler",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/docx",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/pdf",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-tool-builder",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/frontend-testing",
+    "updatedAt": "2026-03-31T05:10:00Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/orpc-contract-first",
+    "updatedAt": "2026-03-06T06:00:48Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/mcp-builder",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/workers-best-practices",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/gha-security-review",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-gradio",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/writing-plans",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "linagora",
+    "repo": "twake-on-matrix",
+    "routePath": "twake-on-matrix/release",
+    "updatedAt": "2026-05-06T10:05:30Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/skill-writer",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/find-bugs",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "supabase",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/supabase-postgres-best-practices",
+    "updatedAt": "2026-03-31T01:14:42Z"
+  },
+  {
+    "owner": "idank",
+    "repo": "explainshell",
+    "routePath": "explainshell/eval-llm",
+    "updatedAt": "2026-05-21T11:13:21Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "ideavim",
+    "routePath": "ideavim/changelog",
+    "updatedAt": "2026-06-16T17:35:45Z"
+  },
+  {
+    "owner": "civitai",
+    "repo": "civitai",
+    "routePath": "civitai/add-prompt-enhancement-guide",
+    "updatedAt": "2026-06-05T00:49:15Z"
+  },
+  {
+    "owner": "parcadei",
+    "repo": "Continuous-Claude-v3",
+    "routePath": "Continuous-Claude-v3/tldr-stats",
+    "updatedAt": "2026-06-16T20:56:08Z"
+  },
+  {
+    "owner": "dj-bolt",
+    "repo": "django-bolt",
+    "routePath": "django-bolt/django-bolt",
+    "updatedAt": "2026-06-06T15:32:48Z"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "playwright-java",
+    "routePath": "playwright-java/playwright-roll",
+    "updatedAt": "2026-04-09T20:50:25Z"
+  },
+  {
+    "owner": "growilabs",
+    "repo": "growi",
+    "routePath": "growi/investigate-issue",
+    "updatedAt": "2026-05-21T14:40:53Z"
+  },
+  {
+    "owner": "silverstein",
+    "repo": "minutes",
+    "routePath": "minutes/minutes-video-review",
+    "updatedAt": "2026-06-17T03:37:26Z"
+  },
+  {
+    "owner": "tddworks",
+    "repo": "ClaudeBar",
+    "routePath": "ClaudeBar/add-report",
+    "updatedAt": "2026-06-04T18:18:54Z"
+  },
+  {
+    "owner": "mulesoft",
+    "repo": "api-console",
+    "routePath": "api-console/update-api-console-components",
+    "updatedAt": "2026-06-10T12:37:56Z"
+  },
+  {
+    "owner": "brainqub3",
+    "repo": "claude_code_RLM",
+    "routePath": "claude_code_RLM/rlm",
+    "updatedAt": "2026-06-01T15:42:44Z"
+  },
+  {
+    "owner": "wnzzer",
+    "repo": "rank-analysis",
+    "routePath": "rank-analysis/shipping-changes",
+    "updatedAt": "2026-06-19T16:31:08Z"
+  },
+  {
+    "owner": "decocms",
+    "repo": "studio",
+    "routePath": "studio/review-plan",
+    "updatedAt": "2026-05-06T14:53:21Z"
+  },
+  {
+    "owner": "rocky-data",
+    "repo": "rocky",
+    "routePath": "rocky/rocky-codegen",
+    "updatedAt": "2026-06-07T23:37:24Z"
+  },
+  {
+    "owner": "pavel-molyanov",
+    "repo": "molyanov-ai-dev",
+    "routePath": "molyanov-ai-dev/claude-command-init-project-knowledge",
+    "updatedAt": "2026-06-17T15:10:55Z"
+  },
+  {
+    "owner": "3dollar-in-my-pocket",
+    "repo": "3dollars-in-my-pocket-ios",
+    "routePath": "3dollars-in-my-pocket-ios/feature-implementer",
+    "updatedAt": "2026-06-16T14:17:33Z"
+  },
+  {
+    "owner": "homebridge-plugins",
+    "repo": "homebridge-eufy-security",
+    "routePath": "homebridge-eufy-security/qa",
+    "updatedAt": "2026-06-03T02:51:41Z"
+  },
+  {
+    "owner": "deepmodeling",
+    "repo": "Uni-Lab-OS",
+    "routePath": "Uni-Lab-OS/host-node",
+    "updatedAt": "2026-05-31T16:53:19Z"
+  },
+  {
+    "owner": "idank",
+    "repo": "explainshell",
+    "routePath": "explainshell/mandoc-fix",
+    "updatedAt": "2026-06-19T21:05:42Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/xlsx",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/cloudflare",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/code-review",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/django-access-review",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "compozy",
+    "repo": "agh",
+    "routePath": "agh/assistant-ui",
+    "updatedAt": "2026-06-08T18:43:08Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/github",
+    "updatedAt": "2026-03-30T18:52:32Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/upgrading-react-native",
+    "updatedAt": "2026-03-30T18:52:32Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/flags",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/internal-comms",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/theme-factory",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "pedrohcgs",
+    "repo": "claude-code-my-workflow",
+    "routePath": "claude-code-my-workflow/learn",
+    "updatedAt": "2026-03-12T12:57:18Z"
+  },
+  {
+    "owner": "quests-org",
+    "repo": "quests",
+    "routePath": "quests/changelog",
+    "updatedAt": "2026-04-18T04:06:09Z"
+  },
+  {
+    "owner": "snyk",
+    "repo": "snyk-ls",
+    "routePath": "snyk-ls/verification",
+    "updatedAt": "2026-06-11T15:38:35Z"
+  },
+  {
+    "owner": "jlifeng",
+    "repo": "JobPilot",
+    "routePath": "JobPilot/brainstorm",
+    "updatedAt": "2026-06-15T13:53:01Z"
+  },
+  {
+    "owner": "Sikao-Engine",
+    "repo": "Kimi-CLI-X",
+    "routePath": "Kimi-CLI-X/api",
+    "updatedAt": "2026-06-08T11:59:00Z"
+  },
+  {
+    "owner": "viclafouch",
+    "repo": "mui-color-input",
+    "routePath": "mui-color-input/update-deps",
+    "updatedAt": "2026-05-04T10:23:12Z"
+  },
+  {
+    "owner": "NodeJSmith",
+    "repo": "hassette",
+    "routePath": "hassette/doc-coverage-review",
+    "updatedAt": "2026-06-14T14:27:35Z"
+  },
+  {
+    "owner": "bybren-llc",
+    "repo": "safe-agentic-workflow",
+    "routePath": "safe-agentic-workflow/linear-sop",
+    "updatedAt": "2026-06-07T05:08:52Z"
+  },
+  {
+    "owner": "mturac",
+    "repo": "everything-openai-codex",
+    "routePath": "everything-openai-codex/mcp-server-patterns",
+    "updatedAt": "2026-05-30T11:07:01Z"
+  },
+  {
+    "owner": "Kastalien-Research",
+    "repo": "thoughtbox",
+    "routePath": "thoughtbox/theseus-protocol",
+    "updatedAt": "2026-06-12T04:37:05Z"
+  },
+  {
+    "owner": "eternaljust",
+    "repo": "msea-compose",
+    "routePath": "msea-compose/jetpack-compose-audit",
+    "updatedAt": "2026-05-06T06:19:52Z"
+  },
+  {
+    "owner": "go-to-k",
+    "repo": "cdkd",
+    "routePath": "cdkd/pick-integ",
+    "updatedAt": "2026-06-22T05:42:42Z"
+  },
+  {
+    "owner": "iBz-04",
+    "repo": "gloamy",
+    "routePath": "gloamy/ucp",
+    "updatedAt": "2026-05-09T19:43:53Z"
+  },
+  {
+    "owner": "vinzenz",
+    "repo": "prd-breakdown-execute",
+    "routePath": "prd-breakdown-execute/breakdown",
+    "updatedAt": "2026-05-26T04:39:01Z"
+  },
+  {
+    "owner": "albinotonnina",
+    "repo": "echos",
+    "routePath": "echos/review-pr-comments",
+    "updatedAt": "2026-05-27T05:25:01Z"
+  },
+  {
+    "owner": "Undertone0809",
+    "repo": "rudder",
+    "routePath": "rudder/agent-work-reviewer-maintainer",
+    "updatedAt": "2026-05-18T03:18:35Z"
+  },
+  {
+    "owner": "OutSystems",
+    "repo": "docs-product",
+    "routePath": "docs-product/summary-writer",
+    "updatedAt": "2026-05-29T04:34:21Z"
+  },
+  {
+    "owner": "graphwork",
+    "repo": "wg",
+    "routePath": "wg/wg",
+    "updatedAt": "2026-06-05T16:19:43Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/github-actions",
+    "updatedAt": "2026-03-30T18:52:32Z"
+  },
+  {
+    "owner": "bitwarden",
+    "repo": "server",
+    "routePath": "server/writing-server-code",
+    "updatedAt": "2026-06-20T02:07:39Z"
+  },
+  {
+    "owner": "udecode",
+    "repo": "plate",
+    "routePath": "plate/maintainability-reviewer",
+    "updatedAt": "2026-06-14T11:20:59Z"
+  },
+  {
+    "owner": "mysticaltech",
+    "repo": "terraform-hcloud-kube-hetzner",
+    "routePath": "terraform-hcloud-kube-hetzner/fix-issue",
+    "updatedAt": "2026-05-20T18:49:26Z"
+  },
+  {
+    "owner": "natolambert",
+    "repo": "rlhf-book",
+    "routePath": "rlhf-book/push-to-pr",
+    "updatedAt": "2026-05-21T01:37:40Z"
+  },
+  {
+    "owner": "compozy",
+    "repo": "compozy",
+    "routePath": "compozy/ubs",
+    "updatedAt": "2026-05-09T23:53:18Z"
+  },
+  {
+    "owner": "ReflexioAI",
+    "repo": "claude-smart",
+    "routePath": "claude-smart/prd",
+    "updatedAt": "2026-06-06T02:33:53Z"
+  },
+  {
+    "owner": "SpectrAI-Initiative",
+    "repo": "InnoClaw",
+    "routePath": "InnoClaw/snp_functional_analysis",
+    "updatedAt": "2026-06-05T12:28:22Z"
+  },
+  {
+    "owner": "scunning1975",
+    "repo": "MixtapeTools",
+    "routePath": "MixtapeTools/tikz",
+    "updatedAt": "2026-05-09T08:37:25Z"
+  },
+  {
+    "owner": "ItamarZand88",
+    "repo": "CLI-Anything-WEB",
+    "routePath": "CLI-Anything-WEB/unsplash-cli",
+    "updatedAt": "2026-06-17T13:13:26Z"
+  },
+  {
+    "owner": "gradusnikov",
+    "repo": "eclipse-chatgpt-plugin",
+    "routePath": "eclipse-chatgpt-plugin/eclipse-run",
+    "updatedAt": "2026-06-19T01:51:08Z"
+  },
+  {
+    "owner": "owid",
+    "repo": "etl",
+    "routePath": "etl/map-explorer-to-mdim",
+    "updatedAt": "2026-06-14T06:28:55Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/iterate-pr",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/using-superpowers",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/verification-before-completion",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/webapp-testing",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/sred-work-summary",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/fix",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/verify",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "remotion-dev",
+    "repo": "skills",
+    "routePath": "skills/remotion",
+    "updatedAt": "2026-03-31T01:15:53Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/extract-errors",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/flow",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "yamadashy",
+    "repo": "repomix",
+    "routePath": "repomix/repomix",
+    "updatedAt": "2026-06-06T02:55:36Z"
+  },
+  {
+    "owner": "minicoohei",
+    "repo": "ai-agent-camp",
+    "routePath": "ai-agent-camp/seo-audit",
+    "updatedAt": "2026-06-07T21:59:05Z"
+  },
+  {
+    "owner": "gmickel",
+    "repo": "gno",
+    "routePath": "gno/gno",
+    "updatedAt": "2026-06-05T15:04:51Z"
+  },
+  {
+    "owner": "proyecto26",
+    "repo": "projectx",
+    "routePath": "projectx/prisma",
+    "updatedAt": "2026-05-09T17:43:54Z"
+  },
+  {
+    "owner": "wp-media",
+    "repo": "imagify-plugin",
+    "routePath": "imagify-plugin/e2e",
+    "updatedAt": "2026-06-16T01:05:28Z"
+  },
+  {
+    "owner": "estuary",
+    "repo": "connectors",
+    "routePath": "connectors/regenerate-flow-discovery",
+    "updatedAt": "2026-06-19T15:39:56Z"
+  },
+  {
+    "owner": "BintzGavin",
+    "repo": "helios",
+    "routePath": "helios/helios-core",
+    "updatedAt": "2026-05-11T00:33:28Z"
+  },
+  {
+    "owner": "TheQmaks",
+    "repo": "areclaw",
+    "routePath": "areclaw/register",
+    "updatedAt": "2026-06-11T08:07:05Z"
+  },
+  {
+    "owner": "cliftonc",
+    "repo": "drizzle-cube",
+    "routePath": "drizzle-cube/quality-gate",
+    "updatedAt": "2026-06-18T03:09:26Z"
+  },
+  {
+    "owner": "MaaEnd",
+    "repo": "MaaEnd",
+    "routePath": "MaaEnd/maaend-issue-log-analysis",
+    "updatedAt": "2026-03-29T03:19:19Z"
+  },
+  {
+    "owner": "hatayama",
+    "repo": "unity-cli-loop",
+    "routePath": "unity-cli-loop/uloop-clear-console",
+    "updatedAt": "2026-06-14T14:21:25Z"
+  },
+  {
+    "owner": "justrach",
+    "repo": "kuri",
+    "routePath": "kuri/kuri-ios",
+    "updatedAt": "2026-06-18T10:51:51Z"
+  },
+  {
+    "owner": "choyiny",
+    "repo": "saasmail",
+    "routePath": "saasmail/use-saasmail",
+    "updatedAt": "2026-06-02T22:58:30Z"
+  },
+  {
+    "owner": "m98",
+    "repo": "fluent",
+    "routePath": "fluent/fluent-db-updater",
+    "updatedAt": "2026-06-15T22:05:00Z"
+  },
+  {
+    "owner": "NikiforovAll",
+    "repo": "claude-code-rules",
+    "routePath": "claude-code-rules/version-bump",
+    "updatedAt": "2026-06-01T06:31:58Z"
+  },
+  {
+    "owner": "arcasilesgroup",
+    "repo": "ai-engineering",
+    "routePath": "ai-engineering/ai-security",
+    "updatedAt": "2026-06-05T21:53:05Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/feature-flags",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/create-branch",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-cli",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hugging-face-dataset-viewer",
+    "updatedAt": "2026-03-06T05:28:53Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/brainstorming",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/pptx",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/slack-gif-creator",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/web-artifacts-builder",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "expo",
+    "repo": "skills",
+    "routePath": "skills/expo-dev-client",
+    "updatedAt": "2026-03-06T04:04:30Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-datasets",
+    "updatedAt": "2026-03-31T01:09:34Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/receiving-code-review",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/gh-review-requests",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "pbakaus",
+    "repo": "impeccable",
+    "routePath": "impeccable/impeccable",
+    "updatedAt": "2026-05-24T14:14:15Z"
+  },
+  {
+    "owner": "Nagi-ovo",
+    "repo": "gemini-voyager",
+    "routePath": "gemini-voyager/release",
+    "updatedAt": "2026-06-17T04:04:27Z"
+  },
+  {
+    "owner": "Draculabo",
+    "repo": "AntigravityManager",
+    "routePath": "AntigravityManager/openspec-bulk-archive-change",
+    "updatedAt": "2026-04-18T02:42:45Z"
+  },
+  {
+    "owner": "semantica-agi",
+    "repo": "semantica",
+    "routePath": "semantica/semantica",
+    "updatedAt": "2026-06-06T22:16:42Z"
+  },
+  {
+    "owner": "AliAkhtari78",
+    "repo": "SpotifyScraper",
+    "routePath": "SpotifyScraper/openspec-archive-change",
+    "updatedAt": "2026-06-17T14:27:41Z"
+  },
+  {
+    "owner": "SwiftedMind",
+    "repo": "Tessera",
+    "routePath": "Tessera/flowdeck",
+    "updatedAt": "2026-04-24T17:24:03Z"
+  },
+  {
+    "owner": "sillsdev",
+    "repo": "FieldWorks",
+    "routePath": "FieldWorks/openspec-ff-change",
+    "updatedAt": "2026-06-11T18:58:32Z"
+  },
+  {
+    "owner": "ScrapingBee",
+    "repo": "scrapingbee-cli",
+    "routePath": "scrapingbee-cli/scrapingbee-cli",
+    "updatedAt": "2026-04-30T06:27:03Z"
+  },
+  {
+    "owner": "theoden8",
+    "repo": "webspace_app",
+    "routePath": "webspace_app/openspec-verify-change",
+    "updatedAt": "2026-05-07T10:55:51Z"
+  },
+  {
+    "owner": "vincentchan",
+    "repo": "AI-Content-Engine",
+    "routePath": "AI-Content-Engine/content-ideas-generator",
+    "updatedAt": "2026-06-03T02:39:29Z"
+  },
+  {
+    "owner": "benbrastmckie",
+    "repo": "nvim",
+    "routePath": "nvim/skill-latex-implementation",
+    "updatedAt": "2026-06-15T00:34:20Z"
+  },
+  {
+    "owner": "JimmyLv",
+    "repo": "BibiGPT-v1",
+    "routePath": "BibiGPT-v1/agent-browser",
+    "updatedAt": "2026-03-07T12:42:58Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/canvas-design",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "Dimon94",
+    "repo": "cc-devflow",
+    "routePath": "cc-devflow/cc-review",
+    "updatedAt": "2026-05-19T02:08:15Z"
+  },
+  {
+    "owner": "Moffran",
+    "repo": "calibrated_explanations",
+    "routePath": "calibrated_explanations/ce-code-quality-auditor",
+    "updatedAt": "2026-06-02T02:19:37Z"
+  },
+  {
+    "owner": "hw-native-sys",
+    "repo": "pypto",
+    "routePath": "pypto/auto-pr",
+    "updatedAt": "2026-05-23T12:56:06Z"
+  },
+  {
+    "owner": "shepard-system",
+    "repo": "shepard-obs-stack",
+    "routePath": "shepard-obs-stack/obs-alerts",
+    "updatedAt": "2026-05-17T19:46:29Z"
+  },
+  {
+    "owner": "jiahao-jayden",
+    "repo": "vibe-any-tanstack",
+    "routePath": "vibe-any-tanstack/ai-elements",
+    "updatedAt": "2026-04-16T01:40:02Z"
+  },
+  {
+    "owner": "f",
+    "repo": "check-ai",
+    "routePath": "check-ai/create-audit",
+    "updatedAt": "2026-05-02T22:20:30Z"
+  },
+  {
+    "owner": "Debbl",
+    "repo": "shadcn-hooks",
+    "routePath": "shadcn-hooks/add-hook",
+    "updatedAt": "2026-05-13T23:58:06Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/react-native-brownfield-migration",
+    "updatedAt": "2026-03-30T18:52:32Z"
+  },
+  {
+    "owner": "flet-dev",
+    "repo": "flet",
+    "routePath": "flet/flet-validation",
+    "updatedAt": "2026-06-14T12:49:34Z"
+  },
+  {
+    "owner": "lowdefy",
+    "repo": "lowdefy",
+    "routePath": "lowdefy/l-commit",
+    "updatedAt": "2026-05-20T13:18:40Z"
+  },
+  {
+    "owner": "kubb-labs",
+    "repo": "kubb",
+    "routePath": "kubb/pr",
+    "updatedAt": "2026-06-06T03:59:30Z"
+  },
+  {
+    "owner": "radixark",
+    "repo": "miles",
+    "routePath": "miles/manage-gh-runners",
+    "updatedAt": "2026-06-08T04:03:03Z"
+  },
+  {
+    "owner": "vellum-ai",
+    "repo": "vellum-assistant",
+    "routePath": "vellum-assistant/update",
+    "updatedAt": "2026-06-17T04:47:10Z"
+  },
+  {
+    "owner": "Nikolay-Shirokov",
+    "repo": "cc-1c-skills",
+    "routePath": "cc-1c-skills/erf-init",
+    "updatedAt": "2026-04-25T12:49:28Z"
+  },
+  {
+    "owner": "vercel",
+    "repo": "next.js",
+    "routePath": "next.js/update-docs",
+    "updatedAt": "2026-03-06T05:45:21Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/finishing-a-development-branch",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/agents-sdk",
+    "updatedAt": "2026-03-31T04:46:57Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/frontend-code-review",
+    "updatedAt": "2026-03-31T05:10:00Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/requesting-code-review",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "pydantic",
+    "repo": "monty",
+    "routePath": "monty/python-playground",
+    "updatedAt": "2026-03-13T13:06:26Z"
+  },
+  {
+    "owner": "llama-farm",
+    "repo": "llamafarm",
+    "routePath": "llamafarm/generate-subsystem-skills",
+    "updatedAt": "2026-03-17T22:33:12Z"
+  },
+  {
+    "owner": "shangyankeji",
+    "repo": "super-dev",
+    "routePath": "super-dev/super-dev",
+    "updatedAt": "2026-04-12T12:34:18Z"
+  },
+  {
+    "owner": "SAP",
+    "repo": "e-mobility-charging-stations-simulator",
+    "routePath": "e-mobility-charging-stations-simulator/qmd",
+    "updatedAt": "2026-05-19T13:13:08Z"
+  },
+  {
+    "owner": "lablup",
+    "repo": "backend.ai-webui",
+    "routePath": "backend.ai-webui/create-relay-nodes-component",
+    "updatedAt": "2026-03-13T09:37:41Z"
+  },
+  {
+    "owner": "zoonk",
+    "repo": "zoonk",
+    "routePath": "zoonk/zoonk-issue-writer",
+    "updatedAt": "2026-02-28T21:44:58Z"
+  },
+  {
+    "owner": "tmobile",
+    "repo": "magentaA11y",
+    "routePath": "magentaA11y/webm-reencode-for-chrome-seek",
+    "updatedAt": "2026-06-10T20:31:26Z"
+  },
+  {
+    "owner": "iancanderson",
+    "repo": "openscad-agent",
+    "routePath": "openscad-agent/preview-scad",
+    "updatedAt": "2026-05-17T13:44:12Z"
+  },
+  {
+    "owner": "striderZA",
+    "repo": "OpenCodeGameStudios",
+    "routePath": "OpenCodeGameStudios/estimate",
+    "updatedAt": "2026-06-22T02:51:41Z"
+  },
+  {
+    "owner": "QuantumNous",
+    "repo": "new-api",
+    "routePath": "new-api/shadcn",
+    "updatedAt": "2026-05-08T03:58:13Z"
+  },
+  {
+    "owner": "simstudioai",
+    "repo": "sim",
+    "routePath": "sim/add-hosted-key",
+    "updatedAt": "2026-06-18T15:55:20Z"
+  },
+  {
+    "owner": "coleam00",
+    "repo": "Archon",
+    "routePath": "Archon/archon",
+    "updatedAt": "2026-06-12T04:46:41Z"
+  },
+  {
+    "owner": "dotnet",
+    "repo": "efcore",
+    "routePath": "efcore/make-skill",
+    "updatedAt": "2026-06-14T08:20:34Z"
+  },
+  {
+    "owner": "ai-dynamo",
+    "repo": "dynamo",
+    "routePath": "dynamo/pr-monitor",
+    "updatedAt": "2026-05-28T16:27:54Z"
+  },
+  {
+    "owner": "max-sixty",
+    "repo": "worktrunk",
+    "routePath": "worktrunk/release",
+    "updatedAt": "2026-05-31T04:44:25Z"
+  },
+  {
+    "owner": "pollinations",
+    "repo": "pollinations",
+    "routePath": "pollinations/provider-billing",
+    "updatedAt": "2026-05-09T03:28:55Z"
+  },
+  {
+    "owner": "atopile",
+    "repo": "atopile",
+    "routePath": "atopile/dev",
+    "updatedAt": "2026-05-21T10:54:24Z"
+  },
+  {
+    "owner": "linq2db",
+    "repo": "linq2db",
+    "routePath": "linq2db/verify-review",
+    "updatedAt": "2026-06-16T19:52:11Z"
+  },
+  {
+    "owner": "bytebase",
+    "repo": "dbhub",
+    "routePath": "dbhub/fix-bug",
+    "updatedAt": "2026-05-10T12:13:19Z"
+  },
+  {
+    "owner": "borgbase",
+    "repo": "vorta",
+    "routePath": "vorta/release",
+    "updatedAt": "2026-05-21T16:18:59Z"
+  },
+  {
+    "owner": "filipstrand",
+    "repo": "mflux",
+    "routePath": "mflux/mflux-model-porting",
+    "updatedAt": "2026-06-18T07:38:17Z"
+  },
+  {
+    "owner": "OpenCoworkAI",
+    "repo": "open-cowork",
+    "routePath": "open-cowork/pdf",
+    "updatedAt": "2026-06-05T13:56:30Z"
+  },
+  {
+    "owner": "qdhenry",
+    "repo": "Claude-Command-Suite",
+    "routePath": "Claude-Command-Suite/audit-env-variables",
+    "updatedAt": "2026-06-12T14:55:53Z"
+  },
+  {
+    "owner": "digitalsamba",
+    "repo": "claude-code-video-toolkit",
+    "routePath": "claude-code-video-toolkit/runpod",
+    "updatedAt": "2026-05-10T13:26:49Z"
+  },
+  {
+    "owner": "marcus",
+    "repo": "sidecar",
+    "routePath": "sidecar/release-sidecar",
+    "updatedAt": "2026-06-13T14:02:57Z"
+  },
+  {
+    "owner": "obot-platform",
+    "repo": "obot",
+    "routePath": "obot/draft-release-blog",
+    "updatedAt": "2026-06-02T21:32:43Z"
+  },
+  {
+    "owner": "AgentWorkforce",
+    "repo": "relay",
+    "routePath": "relay/creating-skills",
+    "updatedAt": "2026-03-12T12:03:41Z"
+  },
+  {
+    "owner": "UKGovernmentBEIS",
+    "repo": "inspect_evals",
+    "routePath": "inspect_evals/eval-report-workflow",
+    "updatedAt": "2026-05-24T07:12:15Z"
+  },
+  {
+    "owner": "DataRecce",
+    "repo": "recce",
+    "routePath": "recce/recce-mcp-e2e",
+    "updatedAt": "2026-03-19T02:56:53Z"
+  },
+  {
+    "owner": "me2resh",
+    "repo": "apexyard",
+    "routePath": "apexyard/release-sync",
+    "updatedAt": "2026-06-19T23:10:53Z"
+  },
+  {
+    "owner": "davekilleen",
+    "repo": "Dex",
+    "routePath": "Dex/ai-setup",
+    "updatedAt": "2026-06-16T23:31:19Z"
+  },
+  {
+    "owner": "pabpereza",
+    "repo": "pabpereza",
+    "routePath": "pabpereza/neovim",
+    "updatedAt": "2026-05-09T20:19:40Z"
+  },
+  {
+    "owner": "catlog22",
+    "repo": "maestro-flow",
+    "routePath": "maestro-flow/team-review",
+    "updatedAt": "2026-06-14T14:47:01Z"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "powerplatform-build-tools",
+    "routePath": "powerplatform-build-tools/debug-agent",
+    "updatedAt": "2026-06-05T16:45:36Z"
+  },
+  {
+    "owner": "kcsujeet",
+    "repo": "ilamy-calendar",
+    "routePath": "ilamy-calendar/code-review",
+    "updatedAt": "2026-05-30T22:31:41Z"
+  },
+  {
+    "owner": "jlevy",
+    "repo": "simple-modern-uv",
+    "routePath": "simple-modern-uv/tbd",
+    "updatedAt": "2026-06-01T04:59:23Z"
+  },
+  {
+    "owner": "nulab",
+    "repo": "backlog-mcp-server",
+    "routePath": "backlog-mcp-server/implement-backlog-api-tool",
+    "updatedAt": "2026-06-15T03:41:04Z"
+  },
+  {
+    "owner": "JocysCom",
+    "repo": "FocusLogger",
+    "routePath": "FocusLogger/pr-review",
+    "updatedAt": "2026-05-24T14:08:57Z"
+  },
+  {
+    "owner": "rvdbreemen",
+    "repo": "OTGW-firmware",
+    "routePath": "OTGW-firmware/caveman-compress",
+    "updatedAt": "2026-05-29T16:17:17Z"
+  },
+  {
+    "owner": "Lex-Inc",
+    "repo": "roughdraft",
+    "routePath": "roughdraft/slog",
+    "updatedAt": "2026-05-21T15:48:28Z"
+  },
+  {
+    "owner": "subinium",
+    "repo": "SuperLightTUI",
+    "routePath": "SuperLightTUI/slt",
+    "updatedAt": "2026-06-02T00:58:44Z"
+  },
+  {
+    "owner": "lidofinance",
+    "repo": "diffyscan",
+    "routePath": "diffyscan/debug-diff",
+    "updatedAt": "2026-06-17T21:13:29Z"
+  },
+  {
+    "owner": "adam-s",
+    "repo": "intercept",
+    "routePath": "intercept/instruction-dashboard-tuning",
+    "updatedAt": "2026-06-07T20:45:02Z"
+  },
+  {
+    "owner": "szymdzum",
+    "repo": "browser-debugger-cli",
+    "routePath": "browser-debugger-cli/bdg",
+    "updatedAt": "2026-05-07T22:01:40Z"
+  },
+  {
+    "owner": "Arman-Kudaibergenov",
+    "repo": "1c-ai-development-kit",
+    "routePath": "1c-ai-development-kit/db-run",
+    "updatedAt": "2026-04-20T07:14:54Z"
+  },
+  {
+    "owner": "SeifBenayed",
+    "repo": "cloclo",
+    "routePath": "cloclo/docx",
+    "updatedAt": "2026-05-22T19:53:09Z"
+  },
+  {
+    "owner": "bradtraversy",
+    "repo": "devstash",
+    "routePath": "devstash/research",
+    "updatedAt": "2026-06-17T03:36:00Z"
+  },
+  {
+    "owner": "segmentio",
+    "repo": "action-destinations",
+    "routePath": "action-destinations/implement-destination",
+    "updatedAt": "2026-03-11T08:30:14Z"
+  },
+  {
+    "owner": "tautcony",
+    "repo": "ISTA-Patcher",
+    "routePath": "ISTA-Patcher/openspec-verify-change",
+    "updatedAt": "2026-05-28T08:32:14Z"
+  },
+  {
+    "owner": "jixoai",
+    "repo": "openspecui",
+    "routePath": "openspecui/openspec-verify-change",
+    "updatedAt": "2026-05-07T01:36:12Z"
+  },
+  {
+    "owner": "ArtemYurov",
+    "repo": "TomoBar",
+    "routePath": "TomoBar/aif-fix",
+    "updatedAt": "2026-03-05T21:55:11Z"
+  },
+  {
+    "owner": "promovaweb",
+    "repo": "setupvibe",
+    "routePath": "setupvibe/bash-pro",
+    "updatedAt": "2026-05-20T17:08:21Z"
+  },
+  {
+    "owner": "Prorise-cool",
+    "repo": "Claude-Code-Multi-Agent",
+    "routePath": "Claude-Code-Multi-Agent/pdf",
+    "updatedAt": "2026-06-19T06:01:09Z"
+  },
+  {
+    "owner": "iopsystems",
+    "repo": "rezolus",
+    "routePath": "rezolus/pr",
+    "updatedAt": "2026-06-03T21:30:43Z"
+  },
+  {
+    "owner": "kdlbs",
+    "repo": "kandev",
+    "routePath": "kandev/pr",
+    "updatedAt": "2026-05-19T01:14:19Z"
+  },
+  {
+    "owner": "eric-tramel",
+    "repo": "slop-guard",
+    "routePath": "slop-guard/qa",
+    "updatedAt": "2026-06-04T14:34:38Z"
+  },
+  {
+    "owner": "K-Dense-AI",
+    "repo": "claude-scientific-writer",
+    "routePath": "claude-scientific-writer/research-lookup",
+    "updatedAt": "2026-03-13T13:32:09Z"
+  },
+  {
+    "owner": "minicoohei",
+    "repo": "ai-agent-camp",
+    "routePath": "ai-agent-camp/gcp-auth",
+    "updatedAt": "2026-05-05T05:25:14Z"
+  },
+  {
+    "owner": "webiny",
+    "repo": "webiny-js",
+    "routePath": "webiny-js/webiny-skill-generator",
+    "updatedAt": "2026-03-22T16:21:14Z"
+  },
+  {
+    "owner": "msgbyte",
+    "repo": "cutia",
+    "routePath": "cutia/ai-seo",
+    "updatedAt": "2026-06-18T15:46:53Z"
+  },
+  {
+    "owner": "pigweed-project",
+    "repo": "pigweed",
+    "routePath": "pigweed/docs",
+    "updatedAt": "2026-06-08T14:57:47Z"
+  },
+  {
+    "owner": "neohaskell",
+    "repo": "NeoHaskell",
+    "routePath": "NeoHaskell/10-implementation",
+    "updatedAt": "2026-06-12T08:34:51Z"
+  },
+  {
+    "owner": "benoror",
+    "repo": "obsidianos_work",
+    "routePath": "obsidianos_work/qmd",
+    "updatedAt": "2026-05-22T03:56:05Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/doc-coauthoring",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/frontend-design",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/doc-coauthoring",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "gustavscirulis",
+    "repo": "snapgrid",
+    "routePath": "snapgrid/tdd-refactor-guard",
+    "updatedAt": "2026-03-22T11:08:08Z"
+  },
+  {
+    "owner": "langwatch",
+    "repo": "langwatch",
+    "routePath": "langwatch/e2e",
+    "updatedAt": "2026-02-24T16:59:56Z"
+  },
+  {
+    "owner": "facebook",
+    "repo": "react",
+    "routePath": "react/test",
+    "updatedAt": "2026-03-31T05:20:31Z"
+  },
+  {
+    "owner": "LiangNiang",
+    "repo": "OpenMantis",
+    "routePath": "OpenMantis/specfusion",
+    "updatedAt": "2026-05-02T14:43:55Z"
+  },
+  {
+    "owner": "growingio",
+    "repo": "growingio-sdk-ios-autotracker",
+    "routePath": "growingio-sdk-ios-autotracker/writing-skills",
+    "updatedAt": "2026-04-27T09:18:58Z"
+  },
+  {
+    "owner": "weny911",
+    "repo": "AI-coding-almighty",
+    "routePath": "AI-coding-almighty/pencil-ui-design",
+    "updatedAt": "2026-04-18T06:29:44Z"
+  },
+  {
+    "owner": "vide",
+    "repo": "matedroid",
+    "routePath": "matedroid/fix",
+    "updatedAt": "2026-04-30T09:29:40Z"
+  },
+  {
+    "owner": "nyldn",
+    "repo": "claude-octopus",
+    "routePath": "claude-octopus/skill-rollback",
+    "updatedAt": "2026-06-13T23:56:27Z"
+  },
+  {
+    "owner": "remult",
+    "repo": "remult",
+    "routePath": "remult/remult",
+    "updatedAt": "2026-05-22T01:23:45Z"
+  },
+  {
+    "owner": "stickerdaniel",
+    "repo": "linkedin-mcp-server",
+    "routePath": "linkedin-mcp-server/3-verify-pr-fix",
+    "updatedAt": "2026-06-14T13:25:03Z"
+  },
+  {
+    "owner": "evennia",
+    "repo": "evennia",
+    "routePath": "evennia/ev",
+    "updatedAt": "2026-06-06T00:33:00Z"
+  },
+  {
+    "owner": "Khan",
+    "repo": "perseus",
+    "routePath": "perseus/wonder-blocks",
+    "updatedAt": "2026-05-20T21:06:12Z"
+  },
+  {
+    "owner": "gronxb",
+    "repo": "hot-updater",
+    "routePath": "hot-updater/e2e",
+    "updatedAt": "2026-06-05T20:34:29Z"
+  },
+  {
+    "owner": "karanhudia",
+    "repo": "borg-ui",
+    "routePath": "borg-ui/land",
+    "updatedAt": "2026-06-05T14:36:43Z"
+  },
+  {
+    "owner": "noir-lang",
+    "repo": "noir",
+    "routePath": "noir/reduce-ssa-repro",
+    "updatedAt": "2026-06-19T19:22:00Z"
+  },
+  {
+    "owner": "DataDog",
+    "repo": "dd-trace-js",
+    "routePath": "dd-trace-js/llmobs-testing",
+    "updatedAt": "2026-05-21T04:43:42Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "sentry-mcp",
+    "routePath": "sentry-mcp/qa",
+    "updatedAt": "2026-05-21T08:56:49Z"
+  },
+  {
+    "owner": "BayBreezy",
+    "repo": "ui-thing",
+    "routePath": "ui-thing/uithing",
+    "updatedAt": "2026-05-12T19:10:23Z"
+  },
+  {
+    "owner": "Context-Engine-AI",
+    "repo": "Context-Engine",
+    "routePath": "Context-Engine/context-engine",
+    "updatedAt": "2026-05-08T00:59:06Z"
+  },
+  {
+    "owner": "dcouple",
+    "repo": "Pane",
+    "routePath": "Pane/implement",
+    "updatedAt": "2026-06-02T15:16:35Z"
+  },
+  {
+    "owner": "govctl-org",
+    "repo": "govctl",
+    "routePath": "govctl/migrate",
+    "updatedAt": "2026-06-04T22:42:30Z"
+  },
+  {
+    "owner": "VixenLights",
+    "repo": "Vixen",
+    "routePath": "Vixen/jira",
+    "updatedAt": "2026-06-05T20:37:17Z"
+  },
+  {
+    "owner": "avabbbb",
+    "repo": "Flovart",
+    "routePath": "Flovart/flovart",
+    "updatedAt": "2026-06-12T03:18:39Z"
+  },
+  {
+    "owner": "compartmentdev",
+    "repo": "compartment",
+    "routePath": "compartment/audit-type-ownership",
+    "updatedAt": "2026-06-06T23:00:29Z"
+  },
+  {
+    "owner": "pikkujs",
+    "repo": "pikku",
+    "routePath": "pikku/pikku-info",
+    "updatedAt": "2026-03-12T12:16:54Z"
+  },
+  {
+    "owner": "Geeksfino",
+    "repo": "openskills",
+    "routePath": "openskills/openskills-skill-authoring",
+    "updatedAt": "2026-04-23T15:16:45Z"
+  },
+  {
+    "owner": "NarratorAI-Studio",
+    "repo": "narrator-ai-cli",
+    "routePath": "narrator-ai-cli/narrator-ai-cli",
+    "updatedAt": "2026-05-19T01:45:55Z"
+  },
+  {
+    "owner": "xiaolai",
+    "repo": "vmark",
+    "routePath": "vmark/tiptap-editor",
+    "updatedAt": "2026-03-22T12:35:28Z"
+  },
+  {
+    "owner": "ArtemYurov",
+    "repo": "TomoBar",
+    "routePath": "TomoBar/aif-explore",
+    "updatedAt": "2026-03-16T14:21:48Z"
+  },
+  {
+    "owner": "PrefectHQ",
+    "repo": "fastmcp",
+    "routePath": "fastmcp/reviewing-code",
+    "updatedAt": "2026-06-07T03:51:54Z"
+  },
+  {
+    "owner": "piomin",
+    "repo": "course-spring-microservices",
+    "routePath": "course-spring-microservices/webapp-testing",
+    "updatedAt": "2026-03-03T15:52:19Z"
+  },
+  {
+    "owner": "sherdotsh",
+    "repo": "sher",
+    "routePath": "sher/sher-deploy",
+    "updatedAt": "2026-02-28T17:59:58Z"
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/frontend-query-mutation",
+    "updatedAt": "2026-03-31T05:10:00Z"
+  },
+  {
+    "owner": "MetaCubeX",
+    "repo": "metacubexd",
+    "routePath": "metacubexd/openspec-bulk-archive-change",
+    "updatedAt": "2026-03-22T09:10:28Z"
+  },
+  {
+    "owner": "inline-chat",
+    "repo": "inline",
+    "routePath": "inline/postgres",
+    "updatedAt": "2026-06-07T21:36:39Z"
+  },
+  {
+    "owner": "azerothcore",
+    "repo": "Keira3",
+    "routePath": "Keira3/angular-developer",
+    "updatedAt": "2026-06-13T22:14:03Z"
+  },
+  {
+    "owner": "mycelium-io",
+    "repo": "mycelium",
+    "routePath": "mycelium/troubleshooting",
+    "updatedAt": "2026-06-17T19:00:48Z"
+  },
+  {
+    "owner": "captainflasmr",
+    "repo": "ollama-buddy",
+    "routePath": "ollama-buddy/elisp-dev",
+    "updatedAt": "2026-06-02T06:56:52Z"
+  },
+  {
+    "owner": "marcusgoll",
+    "repo": "Spec-Flow",
+    "routePath": "Spec-Flow/caching-strategy",
+    "updatedAt": "2026-06-11T09:11:18Z"
+  },
+  {
+    "owner": "ng-forge",
+    "repo": "ng-forge",
+    "routePath": "ng-forge/mcp-builder",
+    "updatedAt": "2026-06-13T08:10:24Z"
+  },
+  {
+    "owner": "anam-org",
+    "repo": "metaxy",
+    "routePath": "metaxy/claude-improve-config",
+    "updatedAt": "2026-03-16T22:04:27Z"
+  },
+  {
+    "owner": "not-elm",
+    "repo": "desktop-homunculus",
+    "routePath": "desktop-homunculus/create-issue",
+    "updatedAt": "2026-06-10T09:59:40Z"
+  },
+  {
+    "owner": "SprocketLab",
+    "repo": "slop-code-bench",
+    "routePath": "slop-code-bench/validate-run",
+    "updatedAt": "2026-06-04T08:42:23Z"
+  },
+  {
+    "owner": "jlevy",
+    "repo": "flowmark",
+    "routePath": "flowmark/tbd",
+    "updatedAt": "2026-05-31T13:34:25Z"
+  },
+  {
+    "owner": "kivo360",
+    "repo": "OmoiOS",
+    "routePath": "OmoiOS/oip-proposal",
+    "updatedAt": "2026-06-05T22:44:35Z"
+  },
+  {
+    "owner": "Parallel-7",
+    "repo": "FlashForgeUI-Electron",
+    "routePath": "FlashForgeUI-Electron/readme-generator",
+    "updatedAt": "2026-06-14T23:03:48Z"
+  },
+  {
+    "owner": "yuki-aigc",
+    "repo": "pomeloclaw",
+    "routePath": "pomeloclaw/skill-creator",
+    "updatedAt": "2026-05-07T14:49:01Z"
+  },
+  {
+    "owner": "ZenMux",
+    "repo": "zenmux-doc",
+    "routePath": "zenmux-doc/zenmux-setup",
+    "updatedAt": "2026-05-07T16:18:58Z"
+  },
+  {
+    "owner": "hyperlane-xyz",
+    "repo": "hyperlane-monorepo",
+    "routePath": "hyperlane-monorepo/investigate-stuck-messages",
+    "updatedAt": "2026-03-16T19:47:01Z"
+  },
+  {
+    "owner": "jlevy",
+    "repo": "markform",
+    "routePath": "markform/tbd",
+    "updatedAt": "2026-06-04T15:57:17Z"
+  },
+  {
+    "owner": "rysweet",
+    "repo": "amplihack",
+    "routePath": "amplihack/fleet",
+    "updatedAt": "2026-05-10T02:46:06Z"
+  },
+  {
+    "owner": "Draculabo",
+    "repo": "AntigravityManager",
+    "routePath": "AntigravityManager/openspec-continue-change",
+    "updatedAt": "2026-03-05T11:34:38Z"
+  },
+  {
+    "owner": "nanocoai",
+    "repo": "nanoclaw",
+    "routePath": "nanoclaw/add-ollama-tool",
+    "updatedAt": "2026-06-14T04:53:51Z"
+  },
+  {
+    "owner": "felixrieseberg",
+    "repo": "windows95",
+    "routePath": "windows95/update-v86",
+    "updatedAt": "2026-05-21T12:30:56Z"
+  },
+  {
+    "owner": "nukeop",
+    "repo": "nuclear",
+    "routePath": "nuclear/writing-docs",
+    "updatedAt": "2026-05-21T03:51:57Z"
+  },
+  {
+    "owner": "NVIDIA",
+    "repo": "TensorRT-LLM",
+    "routePath": "TensorRT-LLM/perf-workload-profiling",
+    "updatedAt": "2026-06-20T03:07:54Z"
+  },
+  {
+    "owner": "samchon",
+    "repo": "typia",
+    "routePath": "typia/benchmark",
+    "updatedAt": "2026-06-11T03:10:16Z"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "FluidFramework",
+    "routePath": "FluidFramework/trigger-pipelines-for-copilot-pr",
+    "updatedAt": "2026-06-05T00:39:04Z"
+  },
+  {
+    "owner": "blokadaorg",
+    "repo": "blokada",
+    "routePath": "blokada/appium",
+    "updatedAt": "2026-05-20T23:37:27Z"
+  },
+  {
+    "owner": "pmndrs",
+    "repo": "uikit",
+    "routePath": "uikit/vitexec",
+    "updatedAt": "2026-05-20T10:05:02Z"
+  },
+  {
+    "owner": "aws-amplify",
+    "repo": "amplify-cli",
+    "routePath": "amplify-cli/github",
+    "updatedAt": "2026-05-23T02:44:31Z"
+  },
+  {
+    "owner": "ComplianceAsCode",
+    "repo": "content",
+    "routePath": "content/build-product",
+    "updatedAt": "2026-06-13T20:04:21Z"
+  },
+  {
+    "owner": "1bananachicken",
+    "repo": "MaaNTE",
+    "routePath": "MaaNTE/python-action-guide",
+    "updatedAt": "2026-06-17T04:29:32Z"
+  },
+  {
+    "owner": "npgsql",
+    "repo": "efcore.pg",
+    "routePath": "efcore.pg/triage",
+    "updatedAt": "2026-05-18T07:54:51Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "MPS",
+    "routePath": "MPS/mps-bugfix",
+    "updatedAt": "2026-05-20T13:04:55Z"
+  },
+  {
+    "owner": "intel",
+    "repo": "auto-round",
+    "routePath": "auto-round/review-pr",
+    "updatedAt": "2026-05-22T07:54:20Z"
+  },
+  {
+    "owner": "devtodollars",
+    "repo": "mvp-boilerplate",
+    "routePath": "mvp-boilerplate/browser",
+    "updatedAt": "2026-05-31T18:13:54Z"
+  },
+  {
+    "owner": "rochacbruno",
+    "repo": "marmite",
+    "routePath": "marmite/marmite-development",
+    "updatedAt": "2026-05-31T20:20:43Z"
+  },
+  {
+    "owner": "fabro-sh",
+    "repo": "fabro",
+    "routePath": "fabro/update-docs",
+    "updatedAt": "2026-06-06T17:52:39Z"
+  },
+  {
+    "owner": "mongodb",
+    "repo": "docs",
+    "routePath": "docs/open-pr",
+    "updatedAt": "2026-05-21T22:59:17Z"
+  },
+  {
+    "owner": "bactopia",
+    "repo": "bactopia",
+    "routePath": "bactopia/review-groovydoc",
+    "updatedAt": "2026-06-08T14:11:49Z"
+  },
+  {
+    "owner": "shinpr",
+    "repo": "ai-coding-project-boilerplate",
+    "routePath": "ai-coding-project-boilerplate/typescript-testing",
+    "updatedAt": "2026-05-30T09:28:20Z"
+  },
+  {
+    "owner": "boundless-xyz",
+    "repo": "boundless",
+    "routePath": "boundless/ops-infra-deploy",
+    "updatedAt": "2026-06-17T21:35:56Z"
+  },
+  {
+    "owner": "poteto",
+    "repo": "brainmaxxing",
+    "routePath": "brainmaxxing/meditate",
+    "updatedAt": "2026-04-19T13:44:14Z"
+  },
+  {
+    "owner": "yuyinws",
+    "repo": "oxc-inspector",
+    "routePath": "oxc-inspector/writing-vite-devtools-integrations",
+    "updatedAt": "2026-05-13T23:58:17Z"
+  },
+  {
+    "owner": "theodo-group",
+    "repo": "debug-that",
+    "routePath": "debug-that/dbg",
+    "updatedAt": "2026-04-28T11:22:12Z"
+  },
+  {
+    "owner": "hylexus",
+    "repo": "xtream-codec",
+    "routePath": "xtream-codec/karpathy-guidelines",
+    "updatedAt": "2026-06-02T09:06:45Z"
+  },
+  {
+    "owner": "CKylinMC",
+    "repo": "UserJS",
+    "routePath": "UserJS/ckui",
+    "updatedAt": "2026-04-03T06:25:54Z"
+  },
+  {
+    "owner": "pglejzer",
+    "repo": "timepicker-ui",
+    "routePath": "timepicker-ui/docs-a11y",
+    "updatedAt": "2026-06-10T15:35:33Z"
+  },
+  {
+    "owner": "webiny",
+    "repo": "webiny-js",
+    "routePath": "webiny-js/tester",
+    "updatedAt": "2026-05-21T12:45:49Z"
+  },
+  {
+    "owner": "latitude-dev",
+    "repo": "latitude-llm",
+    "routePath": "latitude-llm/notifications",
+    "updatedAt": "2026-06-14T14:21:54Z"
+  },
+  {
+    "owner": "woocommerce",
+    "repo": "woocommerce-android",
+    "routePath": "woocommerce-android/pr",
+    "updatedAt": "2026-05-20T03:22:06Z"
+  },
+  {
+    "owner": "didi",
+    "repo": "mpx",
+    "routePath": "mpx/mpx2rn",
+    "updatedAt": "2026-05-19T09:31:52Z"
+  },
+  {
+    "owner": "ruvnet",
+    "repo": "agentic-flow",
+    "routePath": "agentic-flow/V3 Core Implementation",
+    "updatedAt": "2026-03-12T05:17:21Z"
+  },
+  {
+    "owner": "kagenti",
+    "repo": "kagenti",
+    "routePath": "kagenti/meta",
+    "updatedAt": "2026-06-17T04:26:21Z"
+  },
+  {
+    "owner": "cortex-tms",
+    "repo": "cortex-tms",
+    "routePath": "cortex-tms/validate",
+    "updatedAt": "2026-06-06T20:40:42Z"
+  },
+  {
+    "owner": "lowdefy",
+    "repo": "lowdefy",
+    "routePath": "lowdefy/l-pr",
+    "updatedAt": "2026-03-11T13:17:40Z"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/brand-guidelines",
+    "updatedAt": "2026-03-30T01:32:59Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/blog-writing-guide",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "obra",
+    "repo": "superpowers",
+    "routePath": "superpowers/executing-plans",
+    "updatedAt": "2026-03-30T02:22:44Z"
+  },
+  {
+    "owner": "vercel",
+    "repo": "next.js",
+    "routePath": "next.js/flags",
+    "updatedAt": "2026-03-24T13:10:28Z"
+  },
+  {
+    "owner": "byungjunjang",
+    "repo": "jangpm-meta-skills",
+    "routePath": "jangpm-meta-skills/reflect",
+    "updatedAt": "2026-05-08T13:52:52Z"
+  },
+  {
+    "owner": "guqiong96",
+    "repo": "Lsglang",
+    "routePath": "Lsglang/sglang-sota-performance",
+    "updatedAt": "2026-06-16T04:43:24Z"
+  },
+  {
+    "owner": "petrowsky",
+    "repo": "agentic-fm",
+    "routePath": "agentic-fm/fmlint",
+    "updatedAt": "2026-06-16T17:37:33Z"
+  },
+  {
+    "owner": "the-crypt-keeper",
+    "repo": "reasonscape",
+    "routePath": "reasonscape/import",
+    "updatedAt": "2026-05-05T14:29:57Z"
+  },
+  {
+    "owner": "Jamie-BitFlight",
+    "repo": "claude_skills",
+    "routePath": "claude_skills/linear-walkthrough",
+    "updatedAt": "2026-06-05T03:46:52Z"
   },
   {
     "owner": "ParadeTo",
     "repo": "vue-tree-list",
     "routePath": "vue-tree-list/openspec-explore",
     "updatedAt": "2026-02-22T07:18:50Z"
+  },
+  {
+    "owner": "kortix-ai",
+    "repo": "suna",
+    "routePath": "suna/testing",
+    "updatedAt": "2026-06-22T05:41:26Z"
+  },
+  {
+    "owner": "google",
+    "repo": "adk-python",
+    "routePath": "adk-python/adk-setup",
+    "updatedAt": "2026-05-26T14:52:10Z"
+  },
+  {
+    "owner": "williamfiset",
+    "repo": "algorithms",
+    "routePath": "algorithms/algorithms-education",
+    "updatedAt": "2026-06-05T14:54:46Z"
+  },
+  {
+    "owner": "shader-slang",
+    "repo": "slang",
+    "routePath": "slang/slang-review-clarity-workflow",
+    "updatedAt": "2026-06-17T03:15:38Z"
+  },
+  {
+    "owner": "okteto",
+    "repo": "okteto",
+    "routePath": "okteto/lessons",
+    "updatedAt": "2026-05-22T01:46:27Z"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "routePath": "Exceptionless/foundatio",
+    "updatedAt": "2026-05-20T20:45:01Z"
+  },
+  {
+    "owner": "Xe",
+    "repo": "site",
+    "routePath": "site/blogpost-creator",
+    "updatedAt": "2026-03-18T16:10:29Z"
+  },
+  {
+    "owner": "coinbase",
+    "repo": "cds",
+    "routePath": "cds/git.backport",
+    "updatedAt": "2026-06-11T21:43:35Z"
+  },
+  {
+    "owner": "platformplatform",
+    "repo": "PlatformPlatform",
+    "routePath": "PlatformPlatform/team-interrupt",
+    "updatedAt": "2026-06-06T21:26:29Z"
+  },
+  {
+    "owner": "tokoroten",
+    "repo": "prompt-review",
+    "routePath": "prompt-review/prompt-review",
+    "updatedAt": "2026-03-27T00:36:33Z"
+  },
+  {
+    "owner": "liangdabiao",
+    "repo": "amazon-sorftime-research-MCP-skill",
+    "routePath": "amazon-sorftime-research-MCP-skill/keyword-research",
+    "updatedAt": "2026-06-13T08:12:44Z"
+  },
+  {
+    "owner": "dongbeixiaohuo",
+    "repo": "writing-agent",
+    "routePath": "writing-agent/workflow-producer",
+    "updatedAt": "2026-06-07T14:15:27Z"
+  },
+  {
+    "owner": "bastani-inc",
+    "repo": "atomic",
+    "routePath": "atomic/prek",
+    "updatedAt": "2026-06-08T12:48:43Z"
+  },
+  {
+    "owner": "PacificStudio",
+    "repo": "openase",
+    "routePath": "openase/push",
+    "updatedAt": "2026-05-13T05:38:51Z"
+  },
+  {
+    "owner": "serithemage",
+    "repo": "serverless-openclaw",
+    "routePath": "serverless-openclaw/dev",
+    "updatedAt": "2026-05-09T18:33:57Z"
+  },
+  {
+    "owner": "NVIDIA-AI-IOT",
+    "repo": "jetson-ai-lab",
+    "routePath": "jetson-ai-lab/jetson-ai-lab-verify-build",
+    "updatedAt": "2026-06-11T11:02:53Z"
+  },
+  {
+    "owner": "microbus-io",
+    "repo": "fabric",
+    "routePath": "fabric/add-metric",
+    "updatedAt": "2026-05-26T01:02:45Z"
+  },
+  {
+    "owner": "chongdashu",
+    "repo": "vibejam-starter-pack",
+    "routePath": "vibejam-starter-pack/phaser-gamedev",
+    "updatedAt": "2026-06-18T06:07:36Z"
+  },
+  {
+    "owner": "tranhieutt",
+    "repo": "software_development_department",
+    "routePath": "software_development_department/team-release",
+    "updatedAt": "2026-06-15T05:45:16Z"
+  },
+  {
+    "owner": "ArtemXTech",
+    "repo": "claude-code-obsidian-starter",
+    "routePath": "claude-code-obsidian-starter/client",
+    "updatedAt": "2026-06-14T23:13:13Z"
+  },
+  {
+    "owner": "rvdbreemen",
+    "repo": "OTGW-firmware",
+    "routePath": "OTGW-firmware/flash",
+    "updatedAt": "2026-06-06T16:12:55Z"
+  },
+  {
+    "owner": "indexnetwork",
+    "repo": "index",
+    "routePath": "index/update-pr",
+    "updatedAt": "2026-03-03T01:57:27Z"
+  },
+  {
+    "owner": "OpenHands",
+    "repo": "OpenHands",
+    "routePath": "OpenHands/cross-repo-testing",
+    "updatedAt": "2026-03-24T13:42:38Z"
+  },
+  {
+    "owner": "TanStack",
+    "repo": "ai",
+    "routePath": "ai/gap-analysis",
+    "updatedAt": "2026-05-29T21:54:42Z"
+  },
+  {
+    "owner": "man-group",
+    "repo": "ArcticDB",
+    "routePath": "ArcticDB/review-pr",
+    "updatedAt": "2026-03-13T04:22:49Z"
+  },
+  {
+    "owner": "stacksjs",
+    "repo": "stacks",
+    "routePath": "stacks/stacks-ai",
+    "updatedAt": "2026-03-22T11:08:21Z"
+  },
+  {
+    "owner": "mtcute",
+    "repo": "mtcute",
+    "routePath": "mtcute/using-mtcute",
+    "updatedAt": "2026-03-21T20:27:54Z"
+  },
+  {
+    "owner": "jpicklyk",
+    "repo": "task-orchestrator",
+    "routePath": "task-orchestrator/review-quality",
+    "updatedAt": "2026-06-04T02:39:44Z"
+  },
+  {
+    "owner": "DexForce",
+    "repo": "EmbodiChain",
+    "routePath": "EmbodiChain/project-dev-context",
+    "updatedAt": "2026-06-16T13:10:35Z"
+  },
+  {
+    "owner": "dakshaymehta",
+    "repo": "cardputer-claude-os",
+    "routePath": "cardputer-claude-os/cardputer-companion",
+    "updatedAt": "2026-06-09T04:12:27Z"
+  },
+  {
+    "owner": "ampcode",
+    "repo": "amp-contrib",
+    "routePath": "amp-contrib/ui-preview",
+    "updatedAt": "2026-05-04T10:42:01Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "MPS",
+    "routePath": "MPS/mps-build-language",
+    "updatedAt": "2026-06-13T19:49:47Z"
+  },
+  {
+    "owner": "microbus-io",
+    "repo": "fabric",
+    "routePath": "fabric/Adding an Outbound Event Endpoint",
+    "updatedAt": "2026-02-22T16:02:26Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/create-pr",
+    "updatedAt": "2026-03-30T14:18:05Z"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "skills",
+    "routePath": "skills/skill-creator",
+    "updatedAt": "2026-03-30T14:18:05Z"
   }
 ]
