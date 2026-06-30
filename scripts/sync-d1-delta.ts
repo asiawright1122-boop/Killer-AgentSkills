@@ -128,6 +128,14 @@ function normalizeContentHash(_skill: SkillCache, json: string): string {
 }
 
 function buildUpsertStatement(rawSkill: SkillCache): { sql: string; skipped: boolean } {
+  // Skip low-quality skills — they should not be synced to D1
+  // (quality_score <= 50 AND stars <= 10 are purged from search/sitemap)
+  const qScore = rawSkill.qualityScore ?? rawSkill.agentAnalysis?.qualityScore ?? 0;
+  const starCount = rawSkill.stars ?? 0;
+  if (qScore <= 50 && starCount <= 10) {
+    return { sql: '', skipped: true };
+  }
+
   const skill = toPublicSkill(rawSkill);
   const id = escapeSql(skill.id);
   const category = escapeSql(skill.category || 'developer');

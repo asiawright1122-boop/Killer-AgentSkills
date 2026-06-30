@@ -155,9 +155,20 @@ async function run() {
   });
 
   const commands: string[] = [];
+  let skippedLowQuality = 0;
 
   for (let i = 0; i < skills.length; i++) {
-    const skill = toPublicSkill(skills[i]);
+    // Skip low-quality skills — they should not be seeded to D1
+    // (quality_score <= 50 AND stars <= 10 are purged from search/sitemap)
+    const rawSkill = skills[i];
+    const qScore = rawSkill.qualityScore ?? rawSkill.agentAnalysis?.qualityScore ?? 0;
+    const starCount = rawSkill.stars ?? 0;
+    if (qScore <= 50 && starCount <= 10) {
+      skippedLowQuality += 1;
+      continue;
+    }
+
+    const skill = toPublicSkill(rawSkill);
     const id = escapeSql(skill.id);
     const category = escapeSql(skill.category || 'developer');
     const owner = escapeSql(skill.owner);
@@ -213,6 +224,10 @@ async function run() {
       currentChunkBytes = 0;
       chunkIndex++;
     }
+  }
+
+  if (skippedLowQuality > 0) {
+    console.warn(`⚠️ Skipped ${skippedLowQuality} low-quality skills (quality_score≤50, stars≤10)`);
   }
 
   console.log(`👉 您可以使用以下命令推送到线上 D1 数据库:`);
