@@ -631,6 +631,15 @@ const buildSkillItemUrl = (skill: UnifiedSkill) => {
           </div>
 
           <!-- Skills Grid -->
+          <h2 class="sr-only">
+            {
+              view === 'official' && !owner
+                ? t('Sidebar.views.official')
+                : category
+                  ? getCategoryLabel(category, t) || category
+                  : t('Marketplace.availableSkills')
+            }
+          </h2>
           <div class="mb-6 flex items-center justify-between md:hidden">
             <div class="text-sm text-slate-500">
               {totalSkills}

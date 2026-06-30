@@ -79,6 +79,8 @@ if (!canonicalRoutePath) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
+// Get env from Cloudflare runtime (needed for blocklist + skill data below)
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const sitemapBlocklist = await getSitemapBlocklist(env);
 const isBlocked = isSitemapSkillBlocked(owner, canonicalRoutePath, sitemapBlocklist);
 
@@ -95,8 +97,7 @@ if (repoParts.length > 2) {
 const typedLocale = locale as Locale;
 const isZhLocale = typedLocale.startsWith('zh');
 
-// Get env from Cloudflare runtime
-const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+// env already resolved above for blocklist; reuse it here
 const runtimeEnv = (await getRuntimeEnv<Record<string, unknown>>(Astro.locals)) || {};
 type RepoDirectorySkill = UnifiedSkill | SkillListingItem;
 
@@ -299,6 +300,7 @@ if (renderRepoDirectory) {
 
 // Build related collections from the skill-collection lookup
 const allCollections = await getCollectionsFromRuntime(env);
+const skillCollectionLookup = await getSkillCollectionLookup(env);
 const skillRefKey = `${owner}/${repo}`;
 const skillPathRefKey = canonicalRoutePath ? `${owner}/${canonicalRoutePath}` : skillRefKey;
 const collectionSlugs =

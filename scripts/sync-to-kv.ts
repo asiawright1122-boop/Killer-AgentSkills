@@ -199,6 +199,7 @@ async function main() {
   //     - sitemap-skills           → 站点地图
   //     - skill-collection-lookup  → skill→collection 反查 (18K)
   //     - related-skills-lookup    → related skills 查询表 (3.4M)
+  //     - seo-sitemap-blocklist    → 低质量 skill 屏蔽列表 (103K)
   //     - submission:{id}          → 用户提交 (由 API 写入)
   //     - crawled-skills           → 爬取结果 (由 API 写入)
   //   技能数据 (skill:*) 不再写入 KV — 前端已全部从 D1 读取
@@ -215,10 +216,13 @@ async function main() {
     return;
   }
 
-  // 2. Sitemap key (will be written in syncSitemapData)
+  // 2. Sitemap key and related runtime data keys (written in syncSitemapData)
   activeKeys.add('sitemap-skills');
   activeKeys.add('skill-collection-lookup');
   activeKeys.add('related-skills-lookup');
+  activeKeys.add('seo-sitemap-blocklist');
+  activeKeys.add('docs-cache');
+  activeKeys.add('docs:sidebar');
 
   // 3. 清理遗留的 skill:* 和 all-skills:* 键 (一次性迁移清理)
   console.log('\n🧹 清理遗留的 skill:* KV 键 (已迁移到 D1)...');
@@ -303,6 +307,14 @@ async function syncDocs(): Promise<string[]> {
     value: JSON.stringify(docsCache.sidebar),
   });
 
+  // 写入完整的 docs-cache (供 sitemap-docs.xml 和其他运行时端点使用)
+  // 包含 { version, lastUpdated, pages, sidebar } 结构
+  const docsCacheRaw = fs.readFileSync(docsCachePath, 'utf-8');
+  bulkItems.push({
+    key: 'docs-cache',
+    value: docsCacheRaw,
+  });
+
   if (bulkItems.length > 0) {
     console.log(`📡 批量写入文档数据 (${bulkItems.length} items)...`);
     const success = await writeToKVBulk(bulkItems);
@@ -382,5 +394,24 @@ async function syncSitemapData() {
     }
   } else {
     console.warn('⚠️  related-skills-lookup.json not found');
+  }
+
+  // ── seo-sitemap-blocklist (~103 KiB) ──
+  // Used at runtime by middleware and skill detail pages to suppress
+  // low-quality or removed skills from sitemap/search. Missing key causes
+  // `isSitemapSkillBlocked` to crash on `blocklist.repoKeys` being undefined.
+  console.log('\n🚫 Syncing seo-sitemap-blocklist...');
+  const blocklistPath = path.join(process.cwd(), 'data/seo-sitemap-blocklist.json');
+  if (fs.existsSync(blocklistPath)) {
+    const data = fs.readFileSync(blocklistPath, 'utf-8');
+    const success = await writeToKVBulk([{ key: 'seo-sitemap-blocklist', value: data }]);
+    if (success) {
+      console.log('✅ seo-sitemap-blocklist synced to KV');
+    } else {
+      console.error('❌ Failed to sync seo-sitemap-blocklist');
+      hadSyncError = true;
+    }
+  } else {
+    console.warn('⚠️  seo-sitemap-blocklist.json not found');
   }
 }

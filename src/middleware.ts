@@ -102,13 +102,34 @@ async function ensureMiddlewareDataLoaded(env: { SKILLS_CACHE?: KVNamespace }): 
 
 let _sitemapSkillsLoaded = false;
 let _sitemapSkillsLoadPromise: Promise<void> | null = null;
+let _sitemapSkillsLoadTime = 0;
+const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
-  if (_sitemapSkillsLoaded) return;
-  if (_sitemapSkillsLoadPromise) return _sitemapSkillsLoadPromise;
+  // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
+  // (allows recovery when KV was empty during initial load)
+  const isStaleEmpty =
+    canonicalSkillRouteMap.size === 0 && Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
+  const needsReload = !_sitemapSkillsLoaded || isStaleEmpty;
+  if (!needsReload) return;
+  // If a load is already in progress, wait for it
+  if (_sitemapSkillsLoadPromise) {
+    try {
+      await _sitemapSkillsLoadPromise;
+    } catch {
+      /* ignore */
+    }
+    if (canonicalSkillRouteMap.size > 0) return; // Load succeeded
+    if (!isStaleEmpty) return; // Not stale yet
+  }
 
   _sitemapSkillsLoadPromise = (async () => {
     try {
+      // Load blocklist BEFORE the loop to avoid per-iteration KV calls
+      // and prevent crashes from undefined blocklist (see GH-404-debug)
+      const blocklist = _sitemapBlocklist || (await getSitemapBlocklist(env));
+      if (!_sitemapBlocklist && blocklist) _sitemapBlocklist = blocklist;
+
       const sitemapSkillsData = await getSitemapSkills(env);
       const records = (
         Array.isArray(sitemapSkillsData)
@@ -122,7 +143,6 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
         const normalized = normalizeSitemapSkillRecord(record);
         if (!normalized) continue;
         const { owner, routePath } = normalized;
-        const blocklist = _sitemapBlocklist || (await getSitemapBlocklist(env));
         if (isSitemapSkillBlocked(owner, routePath, blocklist)) continue;
 
         canonicalSkillRouteMap.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, { owner, routePath });
@@ -148,10 +168,22 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
           repoFallbackRouteMap.set(key, list[0]);
         }
       }
+
+      if (canonicalSkillRouteMap.size === 0 && records.length > 0) {
+        console.warn(
+          '[Middleware] sitemap skills loaded but canonicalSkillRouteMap is still empty — possible blocklist/data mismatch',
+        );
+      }
     } catch (e) {
       console.error('[Middleware] Failed to load sitemap skills:', e);
+      // On failure, do NOT mark as loaded — allow retry on next request
+      _sitemapSkillsLoaded = false;
+      return;
     } finally {
-      _sitemapSkillsLoaded = true;
+      if (_sitemapSkillsLoaded !== false) {
+        _sitemapSkillsLoaded = true;
+      }
+      _sitemapSkillsLoadTime = Date.now();
     }
   })();
 
@@ -171,7 +203,7 @@ function getSeoGonePathSet(): Set<string> {
 }
 
 function getMiddlewareBlocklist() {
-  return _sitemapBlocklist || { exactKeys: new Set(), prefixKeys: new Set(), regexKeys: [] };
+  return _sitemapBlocklist || { exactKeys: new Set(), repoKeys: new Set() };
 }
 
 const LEGACY_DOC_PATH_REDIRECTS = new Map<string, string>([['development/create-skill', 'creating-skills']]);
@@ -455,10 +487,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
   // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
-  if (!isGovernanceLoaded() || !_sitemapSkillsLoaded || !_seoRedirectPathMap) {
+  // Also re-check sitemap skills if map is empty (allows recovery from empty KV load)
+  const sitemapSkillsStale =
+    _sitemapSkillsLoaded &&
+    canonicalSkillRouteMap.size === 0 &&
+    Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
+  if (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsStale || !_seoRedirectPathMap) {
     const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
     if (!isGovernanceLoaded()) await loadSkillLocaleGovernance(env || {});
-    if (!_sitemapSkillsLoaded) await ensureSitemapSkillsLoaded(env || {});
+    if (!_sitemapSkillsLoaded || sitemapSkillsStale) await ensureSitemapSkillsLoaded(env || {});
     if (!_seoRedirectPathMap) await ensureMiddlewareDataLoaded(env || {});
   }
 
@@ -907,7 +944,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
           status: 404,
           statusText: 'Not Found',
           headers: {
-            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
             'X-Robots-Tag': 'noindex, nofollow',
           },
         });
@@ -921,7 +958,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
           status: knownRepoKeySet.has(repoKey) ? 410 : 404,
           statusText: knownRepoKeySet.has(repoKey) ? 'Gone' : 'Not Found',
           headers: {
-            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
             'X-Robots-Tag': 'noindex, nofollow',
           },
         });
@@ -1042,14 +1079,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const redirectPath = pathname === '/' ? `/${targetLocale}` : `/${targetLocale}${pathname}`;
 
-  // Locale detection redirects depend on request headers/cookies.
-  // Use 302 to avoid cacheable permanent redirect conflicts in crawlers.
+  // SEO: Use 301 for the root path "/" redirect — Googlebot always sees the
+  // same destination, and a permanent redirect passes full PageRank.
+  // For non-root paths, keep 302 since the target locale varies by visitor.
+  const isRootRedirect = pathname === '/';
   return new Response(null, {
-    status: 302,
+    status: isRootRedirect ? 301 : 302,
     headers: {
       Location: redirectPath,
-      'Cache-Control': 'private, no-store',
-      Vary: 'Cookie, Accept-Language, CF-IPCountry',
+      'Cache-Control': isRootRedirect ? 'public, s-maxage=86400' : 'private, no-store',
+      Vary: isRootRedirect ? 'Accept-Language' : 'Cookie, Accept-Language, CF-IPCountry',
     },
   });
 });

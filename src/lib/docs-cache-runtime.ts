@@ -26,7 +26,10 @@ export async function getDocsCache(env?: { SKILLS_CACHE?: KVNamespace }): Promis
     try {
       const raw = await env.SKILLS_CACHE.get('docs-cache');
       if (raw) {
-        _docsCache = JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        // Data may be wrapped in { version, lastUpdated, pages, sidebar }
+        // or be a flat array of entries
+        _docsCache = Array.isArray(parsed) ? parsed : parsed.pages || [];
         _docsCacheTime = Date.now();
         return _docsCache;
       }
@@ -39,11 +42,12 @@ export async function getDocsCache(env?: { SKILLS_CACHE?: KVNamespace }): Promis
   if (import.meta.env.DEV) {
     try {
       const fs = await import('node:fs');
-      const path = await import('node:path');
-      const filePath = path.resolve(process.cwd(), 'data/docs-cache.json');
+      const pathMod = await import('node:path');
+      const filePath = pathMod.resolve(process.cwd(), 'data/docs-cache.json');
       if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        _docsCache = JSON.parse(content);
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const parsed = JSON.parse(raw);
+        _docsCache = Array.isArray(parsed) ? parsed : parsed.pages || [];
         _docsCacheTime = Date.now();
         return _docsCache;
       }

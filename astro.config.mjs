@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import process from 'node:process';
 
 import react from '@astrojs/react';
@@ -73,9 +73,9 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: 'prism',
   },
-  image: {
-    service: passthroughImageService(),
-  },
+  // Image optimization handled by Cloudflare Images binding (IMAGES).
+  // Previously used passthroughImageService which served unoptimized originals.
+  // The @astrojs/cloudflare adapter auto-detects the IMAGES binding.
   // Prefetch strategy: `hover` avoids the bandwidth/KV-read amplification that
   // `viewport`+`prefetchAll` caused on skill listing pages (hundreds of
   // in-viewport cards triggered hundreds of SSR fetches). `hover` preserves

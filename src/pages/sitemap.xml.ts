@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../lib/site-config';
 import type { SitemapSkillEntry } from '../lib/skill-route-paths';
-import { isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
+import { isSitemapSkillBlocked, compileSitemapBlocklist } from '../lib/sitemap-blocklist';
 import { loadJsonDataAtBuildTime } from '../lib/build-time-loader';
 
 // The sitemap index is derived from build-time content snapshots, so shipping a

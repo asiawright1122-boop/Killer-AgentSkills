@@ -1,0 +1,130 @@
+name: Lighthouse CI
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily 11:00 Asia/Shanghai (03:00 UTC) — after SEO monitoring
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.12.0'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: HUSKY=0 npm ci
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.14.x
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.url="https://killer-skills.com/en" \
+            --collect.url="https://killer-skills.com/en/skills" \
+            --collect.url="https://killer-skills.com/en/skills/obra/superpowers/subagent-driven-development" \
+            --collect.url="https://killer-skills.com/en/docs" \
+            --collect.url="https://killer-skills.com/en/blog" \
+            --collect.numberOfRuns=3 \
+            --assert.preset=lighthouse:recommended \
+            --assert.assertions.first-contentful-paint=warn \
+            --assert.assertions.interactive=warn \
+            --assert.assertions.total-blocking-time=warn \
+            --assert.assertions.cumulative-layout-shift=error \
+            --assert.assertions.crawlable-anchors=error \
+            --assert.assertions.font-display=error \
+            --assert.assertions.document-title=error \
+            --assert.assertions.meta-description=error \
+            --assert.assertions.hreflang=error \
+            --assert.assertions.robots-txt=error \
+            --assert.assertions.viewports=error \
+            --assert.assertions.is-on-https=error \
+            --assert.assertions.csp-xss=error \
+            --upload.target=filesystem \
+            --upload.outputDir=./lhci-report
+        env:
+          LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse Lighthouse Results
+        id: parse
+        run: |
+          # Extract scores from the LHCI report
+          REPORT_DIR="./lhci-report"
+          if [ -d "$REPORT_DIR" ]; then
+            echo "## Lighthouse CI Report" > lighthouse-summary.md
+            echo "" >> lighthouse-summary.md
+
+            for json_file in "$REPORT_DIR"/*.json; do
+              if [ -f "$json_file" ]; then
+                URL=$(python3 -c "import json; d=json.load(open('$json_file')); print(d.get('finalUrl',''))" 2>/dev/null || echo "unknown")
+                SCORES=$(python3 -c "
+          import json
+          d = json.load(open('$json_file'))
+          cats = d.get('categories', {})
+          perf = cats.get('performance', {}).get('score', 0)
+          a11y = cats.get('accessibility', {}).get('score', 0)
+          bp = cats.get('best-practices', {}).get('score', 0)
+          seo = cats.get('seo', {}).get('score', 0)
+          print(f'Performance: {perf*100:.0f} | Accessibility: {a11y*100:.0f} | Best Practices: {bp*100:.0f} | SEO: {seo*100:.0f}')
+          " 2>/dev/null || echo "parse error")
+                echo "- **${URL}**: ${SCORES}" >> lighthouse-summary.md
+              fi
+            done
+            cat lighthouse-summary.md
+          fi
+
+      - name: Create Issue on Low Scores
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('lighthouse-summary.md', 'utf8');
+            // Check for any SEO score below 90
+            const lowSeoMatch = summary.match(/SEO: (\d+)/g);
+            const hasLowScore = lowSeoMatch && lowSeoMatch.some(m => {
+              const score = parseInt(m.split(': ')[1]);
+              return score < 90;
+            });
+
+            if (hasLowScore) {
+              const title = `🔍 Lighthouse CI: Low SEO scores detected (${new Date().toISOString().split('T')[0]})`;
+              // Check for existing open issue
+              const issues = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                labels: 'lighthouse-ci',
+                per_page: 5
+              });
+              if (issues.data.length === 0) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: title,
+                  body: summary,
+                  labels: ['lighthouse-ci', 'seo', 'performance']
+                });
+              }
+            }
+
+      - name: Upload Lighthouse Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./lhci-report/
+          retention-days: 14

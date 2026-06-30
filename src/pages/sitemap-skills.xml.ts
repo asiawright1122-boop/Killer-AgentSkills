@@ -60,7 +60,11 @@ function dedupeSitemapSkills(skills: SitemapSkillEntry[], blocklist: CompiledSit
 
 function buildGovernanceMap(data: unknown): Map<string, SkillLocaleGovernanceEntry> {
   const records = (
-    Array.isArray(data) ? data : ((data as { skills?: unknown[] }).skills ?? [])
+    Array.isArray(data)
+      ? data
+      : data && typeof data === 'object' && 'skills' in data
+        ? (data as { skills?: unknown[] }).skills
+        : []
   ) as SkillLocaleGovernanceEntry[];
   const map = new Map<string, SkillLocaleGovernanceEntry>();
   for (const record of records) {

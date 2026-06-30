@@ -1,23 +1,35 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
-import {
-  Moon,
-  Sun,
-  Menu,
-  X,
-  Heart,
-  Globe,
-  ChevronDown,
-  Home,
-  Compass,
-  Grid3X3,
-  BookOpen,
-  Users,
-  Layers,
-  Rocket,
-  Search,
-} from 'lucide-react';
-import SubmitSkillModal from './SubmitSkillModal';
+import { Moon, Sun, Menu, X, Heart, Globe, ChevronDown, Search } from 'lucide-react';
+
+// Heavy components: lazy-loaded to reduce initial JS bundle.
+// SubmitSkillModal is only needed when the user clicks "Submit Skill".
+const SubmitSkillModal = lazy(() => import('./SubmitSkillModal'));
+
+// Lazy icon map — these 7 icons are used only in the mobile menu overlay.
+// Importing them individually lets the bundler tree-shake the ~300 other
+// lucide icons AND defer loading until the mobile menu is actually opened.
+const iconMap: Record<string, ReturnType<(typeof import('lucide-react'))['Home']>> = {};
+let iconsLoaded = false;
+
+async function loadNavIcons() {
+  if (iconsLoaded) return;
+  const icons = await import('lucide-react');
+  iconMap.home = icons.Home;
+  iconMap.compass = icons.Compass;
+  iconMap.layers = icons.Layers;
+  iconMap['grid3x3'] = icons.Grid3X3;
+  iconMap['book-open'] = icons.BookOpen;
+  iconMap.users = icons.Users;
+  iconMap.rocket = icons.Rocket;
+  iconsLoaded = true;
+}
+
+function MobileNavIcon({ name, className }: { name: string; className?: string }) {
+  const Icon = iconMap[name];
+  if (!Icon) return <span className={className} />;
+  return <Icon className={className} />;
+}
 
 interface HeaderActionsProps {
   locale: string;
@@ -93,9 +105,10 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     };
   }, []);
 
-  // Body scroll lock when mobile menu is open
+  // Body scroll lock when mobile menu is open + preload icons
   useEffect(() => {
     if (isMenuOpen) {
+      loadNavIcons();
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -139,12 +152,12 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
   };
 
   const navItems = [
-    { href: `/${locale}`, label: labels.home, icon: Home },
-    { href: `/${locale}/skills`, label: labels.skills, icon: Compass },
-    { href: `/${locale}/collections`, label: labels.collections || 'Collections', icon: Layers },
-    { href: `/${locale}/categories`, label: labels.categories, icon: Grid3X3 },
-    { href: `/${locale}/blog`, label: labels.blog, icon: BookOpen },
-    { href: `/${locale}/community`, label: labels.community, icon: Users },
+    { href: `/${locale}`, label: labels.home, icon: 'home' },
+    { href: `/${locale}/skills`, label: labels.skills, icon: 'compass' },
+    { href: `/${locale}/collections`, label: labels.collections || 'Collections', icon: 'layers' },
+    { href: `/${locale}/categories`, label: labels.categories, icon: 'grid3x3' },
+    { href: `/${locale}/blog`, label: labels.blog, icon: 'book-open' },
+    { href: `/${locale}/community`, label: labels.community, icon: 'users' },
   ];
 
   // Mobile overlay rendered via portal to escape header's stacking context
@@ -190,14 +203,14 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
             {/* Scrollable nav */}
             <div className="flex-1 overflow-y-auto bg-[var(--background)] flex flex-col">
               <nav className="flex flex-col border-b-[3px] border-[var(--border)]">
-                {navItems.map(({ href, label, icon: Icon }) => (
+                {navItems.map(({ href, label, icon }) => (
                   <a
                     key={href}
                     href={href}
                     onClick={closeMenu}
                     className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b last:border-b-0 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
                   >
-                    <Icon className="w-5 h-5 flex-shrink-0" />
+                    <MobileNavIcon name={icon} className="w-5 h-5 flex-shrink-0" />
                     {label}
                   </a>
                 ))}
@@ -212,7 +225,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                   }}
                   className="flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-widest text-[#000000] bg-emerald-400 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all m-4 mt-2"
                 >
-                  <Rocket className="w-5 h-5 flex-shrink-0" />
+                  <MobileNavIcon name="rocket" className="w-5 h-5 flex-shrink-0" />
                   {labels.submitSkill}
                 </button>
                 <button
@@ -335,7 +348,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
           className="hidden md:flex items-center gap-2 px-3 py-2 border-2 border-[var(--border)] bg-[#00ffcc] text-black hover:bg-emerald-400 transition-all font-black uppercase tracking-widest text-sm shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_var(--border)] whitespace-nowrap shrink-0"
           aria-label={labels.submitSkill}
         >
-          <Rocket className="w-4 h-4" />
+          <MobileNavIcon name="rocket" className="w-4 h-4" />
           <span>{labels.submitSkill}</span>
         </button>
 
@@ -373,7 +386,12 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
       {mobileOverlay}
 
       {/* Submit Skill Modal */}
-      <SubmitSkillModal isOpen={isSubmitOpen} onClose={() => setIsSubmitOpen(false)} locale={locale} />
+      {/* Submit Skill Modal (lazy-loaded) */}
+      {isSubmitOpen && (
+        <Suspense fallback={null}>
+          <SubmitSkillModal isOpen={isSubmitOpen} onClose={() => setIsSubmitOpen(false)} locale={locale} />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -11,12 +11,10 @@ const { items } = Astro.props;
 <nav aria-label="Breadcrumb" class="mb-6">
   <ol
     class="flex flex-wrap items-center gap-1 text-xs font-bold uppercase tracking-wide text-[var(--muted-foreground)]"
-    itemscope
-    itemtype="https://schema.org/BreadcrumbList"
   >
     {
       items.map((item, index) => (
-        <li class="flex items-center gap-1" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <li class="flex items-center gap-1">
           {index > 0 && (
             <span class="select-none opacity-40" aria-hidden="true">
               /
@@ -26,16 +24,14 @@ const { items } = Astro.props;
             <a
               href={item.href}
               class="hover:text-[var(--foreground)] hover:underline decoration-2 underline-offset-2 transition-colors"
-              itemprop="item"
             >
-              <span itemprop="name">{item.label}</span>
+              {item.label}
             </a>
           ) : (
-            <span class="text-[var(--foreground)]" itemprop="name" aria-current="page">
+            <span class="text-[var(--foreground)]" aria-current="page">
               {item.label}
             </span>
           )}
-          <meta itemprop="position" content={String(index + 1)} />
         </li>
       ))
     }

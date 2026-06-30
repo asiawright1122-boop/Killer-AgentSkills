@@ -6,12 +6,12 @@
  * ~103 KiB JSON file into the Worker bundle.
  */
 
-import { compileSitemapBlocklist, type SitemapBlocklist } from './sitemap-blocklist';
+import { compileSitemapBlocklist, type CompiledSitemapBlocklist } from './sitemap-blocklist';
 
-let _blocklistCache: SitemapBlocklist | null = null;
+let _blocklistCache: CompiledSitemapBlocklist | null = null;
 let _blocklistCacheTime = 0;
 
-export async function getSitemapBlocklist(env?: { SKILLS_CACHE?: KVNamespace }): Promise<SitemapBlocklist> {
+export async function getSitemapBlocklist(env?: { SKILLS_CACHE?: KVNamespace }): Promise<CompiledSitemapBlocklist> {
   if (_blocklistCache && Date.now() - _blocklistCacheTime < 60000) {
     return _blocklistCache;
   }
@@ -47,8 +47,8 @@ export async function getSitemapBlocklist(env?: { SKILLS_CACHE?: KVNamespace }):
     }
   }
 
-  // Return empty blocklist as fallback
-  return { exactKeys: new Set(), prefixKeys: new Set(), regexKeys: [] };
+  // Return empty blocklist as fallback (must match CompiledSitemapBlocklist shape)
+  return { exactKeys: new Set(), repoKeys: new Set() };
 }
 
 export function clearSitemapBlocklistCache(): void {
