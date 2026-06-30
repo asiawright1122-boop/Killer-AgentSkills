@@ -99,6 +99,56 @@ async function writeToKVBulk(items: Array<{ key: string; value: string }>): Prom
 }
 
 /**
+ * 写入单个 KV 键值 (Cloudflare Single-Key API)
+ * Uses separate PUT requests per key — works when bulk API quota is exhausted.
+ */
+async function writeToKVSingle(items: Array<{ key: string; value: string }>): Promise<boolean> {
+  if (kvNamespaceUnavailable) return false;
+  let anyFailed = false;
+  for (const item of items) {
+    const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/${encodeURIComponent(item.key)}`;
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${CF_API_TOKEN}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `value=${encodeURIComponent(item.value)}`,
+      });
+      if (!response.ok) {
+        const error = await response.text();
+        if (response.status === 429) {
+          console.warn(`⚠️ KV 写入配额已满 (${item.key}) — 停止写入`);
+          return false; // Quota exhausted — stop trying
+        }
+        console.warn(`⚠️ 写入 ${item.key} 失败: ${error.slice(0, 100)}`);
+        anyFailed = true;
+      } else {
+        console.log(`  ✅ ${item.key} 已写入`);
+      }
+    } catch (error) {
+      console.warn(`⚠️ 网络错误写入 ${item.key}:`, error);
+      anyFailed = true;
+    }
+  }
+  return !anyFailed;
+}
+
+/**
+ * 批量写入 KV，如果 bulk API 失败则 fallback 到逐个写入
+ */
+async function writeToKV(items: Array<{ key: string; value: string }>): Promise<boolean> {
+  // Try bulk first
+  const bulkOk = await writeToKVBulk(items);
+  if (bulkOk) return true;
+
+  // If bulk failed with quota error (429), try single key writes
+  console.log('🔄 Bulk API 失败，尝试逐个写入...');
+  return writeToKVSingle(items);
+}
+
+/**
  * 列出 KV 中所有键 (Pagination)
  */
 async function fetchAllKeys(): Promise<string[]> {
@@ -207,7 +257,12 @@ async function main() {
 
   const activeKeys = new Set<string>();
 
-  // 1. 同步文档缓存
+  // 1. Sync critical small keys FIRST (sitemap, collection lookup, blocklist)
+  //    These are small and essential — docs sync can consume the entire daily
+  //    free-tier quota (1000 writes), so we must prioritize.
+  await syncSitemapData();
+
+  // 2. Then sync docs (180+ keys, heavy on quota)
   const docKeys = await syncDocs();
   docKeys.forEach((k) => activeKeys.add(k));
 
@@ -317,7 +372,7 @@ async function syncDocs(): Promise<string[]> {
 
   if (bulkItems.length > 0) {
     console.log(`📡 批量写入文档数据 (${bulkItems.length} items)...`);
-    const success = await writeToKVBulk(bulkItems);
+    const success = await writeToKV(bulkItems);
     if (success) {
       console.log(`✅ 成功同步 ${bulkItems.length} 个文档缓存项`);
     }
@@ -328,7 +383,7 @@ async function syncDocs(): Promise<string[]> {
 
 main()
   .then(async () => {
-    await syncSitemapData();
+    // syncSitemapData already called inside main() before docs
     if (hadSyncError) {
       console.error('\n❌ Some KV sync tasks failed.');
       process.exitCode = 1;
@@ -348,7 +403,7 @@ async function syncSitemapData() {
   if (fs.existsSync(sitemapPath)) {
     const sitemapData = fs.readFileSync(sitemapPath, 'utf-8');
     // sitemap 数据通常不大，单次写入即可
-    const success = await writeToKVBulk([{ key: 'sitemap-skills', value: sitemapData }]);
+    const success = await writeToKV([{ key: 'sitemap-skills', value: sitemapData }]);
     if (success) {
       console.log('✅ Sitemap data synced to KV');
     } else {
@@ -366,7 +421,7 @@ async function syncSitemapData() {
   const collectionLookupPath = path.join(process.cwd(), 'data/skill-collection-lookup.json');
   if (fs.existsSync(collectionLookupPath)) {
     const data = fs.readFileSync(collectionLookupPath, 'utf-8');
-    const success = await writeToKVBulk([{ key: 'skill-collection-lookup', value: data }]);
+    const success = await writeToKV([{ key: 'skill-collection-lookup', value: data }]);
     if (success) {
       console.log('✅ skill-collection-lookup synced to KV');
     } else {
@@ -385,7 +440,7 @@ async function syncSitemapData() {
   if (fs.existsSync(relatedSkillsPath)) {
     const data = fs.readFileSync(relatedSkillsPath, 'utf-8');
     // ~3.4 MiB — still within single KV write limit (25 MiB), but use bulk for consistency
-    const success = await writeToKVBulk([{ key: 'related-skills-lookup', value: data }]);
+    const success = await writeToKV([{ key: 'related-skills-lookup', value: data }]);
     if (success) {
       console.log('✅ related-skills-lookup synced to KV');
     } else {
@@ -404,7 +459,7 @@ async function syncSitemapData() {
   const blocklistPath = path.join(process.cwd(), 'data/seo-sitemap-blocklist.json');
   if (fs.existsSync(blocklistPath)) {
     const data = fs.readFileSync(blocklistPath, 'utf-8');
-    const success = await writeToKVBulk([{ key: 'seo-sitemap-blocklist', value: data }]);
+    const success = await writeToKV([{ key: 'seo-sitemap-blocklist', value: data }]);
     if (success) {
       console.log('✅ seo-sitemap-blocklist synced to KV');
     } else {
