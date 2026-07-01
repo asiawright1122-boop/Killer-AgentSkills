@@ -6,8 +6,21 @@
  * All file I/O happens at runtime via dynamic imports.
  */
 
-import { SkillListingItem } from './kv';
-import type { TrackedSkillRow } from './skills';
+import type { SkillListingItem } from './kv';
+
+/** Shape of a tracked skill row from expanded-github-skills.json */
+export interface TrackedSkillFallbackRow {
+  owner?: unknown;
+  repo?: unknown;
+  routePath?: unknown;
+  name?: unknown;
+  description?: unknown;
+  category?: unknown;
+  topics?: unknown;
+  stars?: unknown;
+  updatedAt?: unknown;
+  source?: unknown;
+}
 
 function parseInstalledSkillFrontmatter(raw: string): { name: string; description: string; body: string } | null {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
@@ -29,7 +42,7 @@ function parseInstalledSkillFrontmatter(raw: string): { name: string; descriptio
   };
 }
 
-function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
+export function normalizeTrackedSkillFallback(row: TrackedSkillFallbackRow): SkillListingItem | null {
   const owner = typeof row.owner === 'string' ? row.owner.trim() : '';
   const repo = typeof row.repo === 'string' ? row.repo.trim() : '';
   const routePath = typeof row.routePath === 'string' ? row.routePath.trim() : '';
@@ -56,9 +69,10 @@ function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem |
     category,
     topics,
     stars,
-    source,
+    source: source as SkillListingItem['source'],
     updatedAt,
     lastSynced: updatedAt,
+    qualityScore: 0,
   };
 }
 
@@ -168,7 +182,7 @@ export async function getLocalSkillsFallback(): Promise<SkillListingItem[]> {
       const content = fs.readFileSync(trackedFallbackPath, 'utf-8');
       const data = JSON.parse(content);
       const normalized = (Array.isArray(data) ? data : [])
-        .map((row) => normalizeTrackedSkillFallback(row as TrackedSkillRow))
+        .map((row) => normalizeTrackedSkillFallback(row as TrackedSkillFallbackRow))
         .filter((row): row is SkillListingItem => row !== null);
       _localSkillsCache = normalized;
       _localSkillsCacheTime = Date.now();

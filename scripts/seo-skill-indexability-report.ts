@@ -229,7 +229,7 @@ const records: IndexabilityRecord[] = (
             qualityScore: 0,
             isIndexable,
             tier: (isIndexable ? 2 : 3) as 1 | 2 | 3,
-            mode: isIndexable ? ('support' as const) : ('reference_only' as const),
+            mode: (isIndexable ? 'support' : 'reference_only') as IndexabilityRecord['mode'],
             score: 0,
             threshold: 0,
             reasons: ['Derived from locale governance because data/skills-cache.json is unavailable.'],
@@ -239,7 +239,7 @@ const records: IndexabilityRecord[] = (
         .filter((record): record is IndexabilityRecord => Boolean(record))
 ).sort(
   (a, b) =>
-    Number(a.isIndexable) - Number(b.isIndexable) || a.qualityScore - b.qualityScore || a.id.localeCompare(b.id),
+    Number(a!.isIndexable) - Number(b!.isIndexable) || a!.qualityScore - b!.qualityScore || a!.id.localeCompare(b!.id),
 );
 
 const sitemapBlocklistPath = resolve(dataDir, 'seo-sitemap-blocklist.json');

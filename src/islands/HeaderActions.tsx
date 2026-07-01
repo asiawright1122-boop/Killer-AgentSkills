@@ -1,6 +1,7 @@
+import type { ComponentType } from 'react';
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
-import { Moon, Sun, Menu, X, Heart, Globe, ChevronDown, Search } from 'lucide-react';
+import { Moon, Sun, Menu, X, Heart, Globe, ChevronDown, Search, type LucideProps } from 'lucide-react';
 
 // Heavy components: lazy-loaded to reduce initial JS bundle.
 // SubmitSkillModal is only needed when the user clicks "Submit Skill".
@@ -9,7 +10,7 @@ const SubmitSkillModal = lazy(() => import('./SubmitSkillModal'));
 // Lazy icon map — these 7 icons are used only in the mobile menu overlay.
 // Importing them individually lets the bundler tree-shake the ~300 other
 // lucide icons AND defer loading until the mobile menu is actually opened.
-const iconMap: Record<string, ReturnType<(typeof import('lucide-react'))['Home']>> = {};
+const iconMap: Record<string, ComponentType<LucideProps>> = {};
 let iconsLoaded = false;
 
 async function loadNavIcons() {

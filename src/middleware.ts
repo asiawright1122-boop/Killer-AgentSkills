@@ -502,7 +502,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (isCacheableRequest && typeof caches !== 'undefined') {
     try {
-      const cache = caches.default;
+      const cache = (caches as unknown as { default: Cache }).default;
       const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
       const cached = await cache.match(cacheKey);
       if (cached) {
@@ -1024,7 +1024,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         // Store in CF Cache API for edge caching
         if (typeof caches !== 'undefined') {
           try {
-            const cache = caches.default;
+            const cache = (caches as unknown as { default: Cache }).default;
             const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
             response.headers.set('X-Cache', 'MISS');
             const waitUntil = (context.locals.runtime as any)?.ctx?.waitUntil;
@@ -1113,7 +1113,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         const cc = response.headers.get('Cache-Control') || '';
         // Only cache if the response explicitly opts in with s-maxage
         if (cc.includes('s-maxage') && !cc.includes('private')) {
-          const cache = caches.default;
+          const cache = (caches as unknown as { default: Cache }).default;
           const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
           // Clone the response: one for cache, one for client
           const cacheResponse = response.clone();

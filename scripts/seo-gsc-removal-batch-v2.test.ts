@@ -41,6 +41,7 @@ function makeDrilldown(clusterPriorities: Array<{ cluster: string; estimatedAffe
     totalAffectedPages: 10783,
     clusterPriorities: clusterPriorities.map((cp) => ({
       ...cp,
+      cluster: cp.cluster as any,
       topSamples: cp.topSamples || [],
     })),
   };

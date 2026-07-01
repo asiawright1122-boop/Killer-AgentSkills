@@ -52,7 +52,7 @@ export async function getSitemapSkills(env?: { SKILLS_CACHE?: KVNamespace }): Pr
     try {
       const raw = await env.SKILLS_CACHE.get('sitemap-skills');
       if (raw) {
-        _sitemapSkillsCache = JSON.parse(raw);
+        _sitemapSkillsCache = JSON.parse(raw) as SitemapSkillEntry[];
         _sitemapSkillsCacheTime = Date.now();
         return _sitemapSkillsCache;
       }

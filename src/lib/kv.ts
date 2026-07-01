@@ -184,6 +184,19 @@ function cloneCategorySummary(summary: SkillsCategorySummary): SkillsCategorySum
   };
 }
 
+function parseInstalledSkillFrontmatter(raw: string): { name: string; description: string; body: string } | null {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!match) return null;
+  const frontmatter = match[1];
+  const body = match[2]?.trim() || '';
+  const nameMatch = frontmatter.match(/^name:\s*(.+)$/m);
+  const descriptionMatch = frontmatter.match(/^description:\s*(.+)$/m);
+  const name = nameMatch?.[1]?.trim();
+  const description = descriptionMatch?.[1]?.trim();
+  if (!name) return null;
+  return { name, description: description || `${name} AI agent skill.`, body: body || `# ${name}` };
+}
+
 export async function getInstalledSkillsFallback(): Promise<any[]> {
   const fs = await import('node:fs');
   const path = await import('node:path');
@@ -357,8 +370,8 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
         topics: row.topics || [],
         stars: row.stars || 0,
         source: row.source || 'cache',
-        updatedAt: row.updatedAt || row.updated_at || '',
-        qualityScore: row.qualityScore || row.quality_score || 0,
+        updatedAt: row.updatedAt || '',
+        qualityScore: row.qualityScore || 0,
         filePath: row.filePath || '',
         seo: row.seo || undefined,
       }))
@@ -419,7 +432,9 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
 
   if (!env?.DB) {
     const all = await getLocalSkillsFallback();
-    const normalized = all.map((row) => mapLocalListingRow(row)).sort((a, b) => b.stars - a.stars);
+    const normalized = all
+      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
+      .sort((a, b) => b.stars - a.stars);
     const fallbackResult: SkillsListingPageResult = {
       items: normalized.slice(offset, offset + safePageSize),
       total: normalized.length,
@@ -491,7 +506,7 @@ export async function getSkillsListingTop(env: Env, limit: number): Promise<Skil
   if (!env?.DB) {
     const all = await getLocalSkillsFallback();
     const fallbackTop = all
-      .map((row) => mapLocalListingRow(row))
+      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
       .sort((a, b) => b.stars - a.stars)
       .slice(0, safeLimit);
     setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
@@ -547,7 +562,7 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
     const all = await getLocalSkillsFallback();
     const counts = new Map<string, number>();
     for (const row of all) {
-      const mapped = mapLocalListingRow(row);
+      const mapped = mapLocalListingRow(row as unknown as Record<string, unknown>);
       const category = String(mapped.category || '')
         .trim()
         .toLowerCase();
@@ -631,7 +646,7 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
     const all = await getLocalSkillsFallback();
     const fallbackRows = all
       .filter((row) => wanted.has(`${String(row.owner || '').toLowerCase()}/${String(row.repo || '').toLowerCase()}`))
-      .map((row) => mapLocalListingRow(row));
+      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>));
     setTimedMapValue(_skillsListingByRefsCache, refsCacheKey, fallbackRows, SKILLS_LISTING_BY_REFS_CACHE_MAX);
     return cloneListingItems(fallbackRows);
   }
@@ -717,8 +732,8 @@ export async function getRelatedSkillsFast(
         topics: row.topics || [],
         stars: row.stars || 0,
         source: row.source || 'cache',
-        updatedAt: row.updatedAt || row.updated_at || '',
-        qualityScore: row.qualityScore || row.quality_score || 0,
+        updatedAt: row.updatedAt || '',
+        qualityScore: row.qualityScore || 0,
         filePath: row.filePath || '',
         seo: row.seo || undefined,
       }),

@@ -97,7 +97,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
     skillIndexabilityMap.set(key, {
       owner: governance.owner,
       routePath: governance.routePath,
-      canonicalLocale: governance.canonicalLocale,
+      canonicalLocale: governance.canonicalLocale ?? undefined,
       isIndexable: (governance as any).publishedLocales ? (governance as any).publishedLocales.length > 0 : true,
     });
   }

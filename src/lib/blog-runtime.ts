@@ -155,7 +155,7 @@ export async function getBlogPosts(env?: { SKILLS_CACHE?: KVNamespace }): Promis
     try {
       const raw = await env.SKILLS_CACHE.get('blog-posts');
       if (raw) {
-        _blogCache = JSON.parse(raw);
+        _blogCache = JSON.parse(raw) as BlogPostEntry[];
         _blogCacheTime = Date.now();
         return _blogCache;
       }

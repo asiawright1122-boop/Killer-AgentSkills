@@ -67,7 +67,7 @@ type ClusterStats = {
   topSamples: string[];
 };
 
-type DrilldownReport = {
+export type DrilldownReport = {
   generatedAt: string;
   totalAffectedPages: number;
   clusterPriorities: ClusterStats[];
@@ -83,7 +83,7 @@ type RemediationAction = {
   runtimeCoverageSource: string;
 };
 
-type RemediationPlan = {
+export type RemediationPlan = {
   generatedAt: string;
   issueName: string;
   totalSamples: number;
@@ -91,7 +91,7 @@ type RemediationPlan = {
 };
 
 type V1BatchUrl = { url: string; cluster: string; priority: number };
-type V1Batch = {
+export type V1Batch = {
   generatedAt: string;
   totalUrls: number;
   byCluster: Record<string, { count: number; sample: string[] }>;

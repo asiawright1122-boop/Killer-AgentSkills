@@ -127,16 +127,13 @@ export async function getBlogPostFromGlob(
       return postSlug === slug && !p.data?.draft;
     });
 
-    const availableBlogLocales = Array.from(
-      new Set(
-        siblingPosts
-          .map((p: any) => {
-            const parts = (p.id || '').split('/');
-            return parts[0];
-          })
-          .filter((candidate): candidate is Locale => SUPPORTED_LOCALES.includes(candidate as Locale)),
-      ),
-    );
+    const localeCandidates = siblingPosts
+      .map((p: any) => {
+        const parts = (p.id || '').split('/');
+        return parts[0];
+      })
+      .filter((candidate: string): candidate is Locale => SUPPORTED_LOCALES.includes(candidate as Locale));
+    const availableBlogLocales = [...new Set<Locale>(localeCandidates)];
 
     return { post, Content, headings, availableBlogLocales };
   } catch (e) {

@@ -21,7 +21,7 @@ export async function getSkillCollectionLookup(env?: {
     try {
       const raw = await env.SKILLS_CACHE.get('skill-collection-lookup');
       if (raw) {
-        _skillCollectionLookup = JSON.parse(raw);
+        _skillCollectionLookup = JSON.parse(raw) as Record<string, string[]>;
         _cacheTime = Date.now();
         return _skillCollectionLookup;
       }
@@ -38,7 +38,7 @@ export async function getSkillCollectionLookup(env?: {
       const filePath = path.resolve(process.cwd(), 'data/skill-collection-lookup.json');
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8');
-        _skillCollectionLookup = JSON.parse(content);
+        _skillCollectionLookup = JSON.parse(content) as Record<string, string[]>;
         _cacheTime = Date.now();
         return _skillCollectionLookup;
       }

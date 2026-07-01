@@ -7,6 +7,7 @@
  */
 
 import type { SkillListingItem } from './kv';
+import type { TrackedSkillFallbackRow } from './skills-fallback';
 
 let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
@@ -56,9 +57,9 @@ export async function getLocalSkillsFallback(): Promise<SkillListingItem[]> {
   // Fallback to expanded-github-skills
   const trackedData = await readJsonFile<unknown[]>('expanded-github-skills.json');
   if (trackedData && Array.isArray(trackedData)) {
-    const { normalizeTrackedSkillFallback } = await import('./kv');
+    const { normalizeTrackedSkillFallback } = await import('./skills-fallback');
     const normalized = trackedData
-      .map((row) => normalizeTrackedSkillFallback(row))
+      .map((row) => normalizeTrackedSkillFallback(row as TrackedSkillFallbackRow))
       .filter((row): row is SkillListingItem => row !== null);
     _localSkillsCache = normalized;
     _localSkillsCacheTime = Date.now();

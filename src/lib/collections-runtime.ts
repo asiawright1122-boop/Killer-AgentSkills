@@ -107,7 +107,7 @@ export async function getCollections(env?: { SKILLS_CACHE?: KVNamespace }): Prom
     try {
       const raw = await env.SKILLS_CACHE.get('collections');
       if (raw) {
-        _collectionsCache = JSON.parse(raw);
+        _collectionsCache = JSON.parse(raw) as CollectionEntry[];
         _collectionsCacheTime = Date.now();
         return _collectionsCache;
       }

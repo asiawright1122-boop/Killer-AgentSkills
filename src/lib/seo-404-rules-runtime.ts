@@ -26,7 +26,7 @@ export async function getSeo404Rules(env?: { SKILLS_CACHE?: KVNamespace }): Prom
     try {
       const raw = await env.SKILLS_CACHE.get('seo-404-rules');
       if (raw) {
-        _rulesCache = JSON.parse(raw);
+        _rulesCache = JSON.parse(raw) as Seo404Rule[];
         _rulesCacheTime = Date.now();
         return _rulesCache;
       }
@@ -43,7 +43,7 @@ export async function getSeo404Rules(env?: { SKILLS_CACHE?: KVNamespace }): Prom
       const filePath = path.resolve(process.cwd(), 'data/seo-404-rules.json');
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8');
-        _rulesCache = JSON.parse(content);
+        _rulesCache = JSON.parse(content) as Seo404Rule[];
         _rulesCacheTime = Date.now();
         return _rulesCache;
       }

@@ -161,7 +161,7 @@ async function run() {
     // Skip low-quality skills — they should not be seeded to D1
     // (quality_score <= 50 AND stars <= 10 are purged from search/sitemap)
     const rawSkill = skills[i];
-    const qScore = rawSkill.qualityScore ?? rawSkill.agentAnalysis?.qualityScore ?? 0;
+    const qScore = rawSkill.qualityScore ?? 0;
     const starCount = rawSkill.stars ?? 0;
     if (qScore <= 50 && starCount <= 10) {
       skippedLowQuality += 1;

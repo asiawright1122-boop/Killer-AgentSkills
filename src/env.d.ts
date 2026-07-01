@@ -2,6 +2,14 @@
 /// <reference types="astro/client" />
 /// <reference types="@cloudflare/workers-types" />
 
+// Cloudflare Workers CacheStorage has a .default property (the global edge cache)
+// that is not in the standard TypeScript CacheStorage interface.
+declare global {
+  interface CacheStorage {
+    default: Cache;
+  }
+}
+
 type KVNamespace = import('@cloudflare/workers-types').KVNamespace;
 type D1Database = import('@cloudflare/workers-types').D1Database;
 type Fetcher = import('@cloudflare/workers-types').Fetcher;

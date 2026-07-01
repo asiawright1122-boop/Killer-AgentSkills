@@ -11,6 +11,8 @@ export interface DocsCacheEntry {
   title: Record<string, string>;
   section?: string;
   content?: Record<string, string>;
+  updatedAt?: string;
+  pubDate?: string;
 }
 
 let _docsCache: DocsCacheEntry[] | null = null;
@@ -29,7 +31,7 @@ export async function getDocsCache(env?: { SKILLS_CACHE?: KVNamespace }): Promis
         const parsed = JSON.parse(raw);
         // Data may be wrapped in { version, lastUpdated, pages, sidebar }
         // or be a flat array of entries
-        _docsCache = Array.isArray(parsed) ? parsed : parsed.pages || [];
+        _docsCache = (Array.isArray(parsed) ? parsed : parsed.pages || []) as DocsCacheEntry[];
         _docsCacheTime = Date.now();
         return _docsCache;
       }
@@ -47,7 +49,7 @@ export async function getDocsCache(env?: { SKILLS_CACHE?: KVNamespace }): Promis
       if (fs.existsSync(filePath)) {
         const raw = fs.readFileSync(filePath, 'utf-8');
         const parsed = JSON.parse(raw);
-        _docsCache = Array.isArray(parsed) ? parsed : parsed.pages || [];
+        _docsCache = (Array.isArray(parsed) ? parsed : parsed.pages || []) as DocsCacheEntry[];
         _docsCacheTime = Date.now();
         return _docsCache;
       }
