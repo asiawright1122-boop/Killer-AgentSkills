@@ -1,6 +1,29 @@
 import { describe, expect, it } from 'vitest';
 import { buildRecoveryExecutionQueueReport } from './recovery-execution-queue';
 
+/** Minimal stubs for scorecard signals added in v3.3 that tests don't directly assert */
+const INDEX_QUALITY_STUB = {
+  label: 'Index Quality',
+  status: 'clear' as const,
+  summary: 'Index quality OK.',
+  target: 'Stay clear.',
+  observed: 'ratio=1.0',
+  notes: [],
+  source: { path: 'indexability.json', exists: true, generatedAt: null, ageDays: null, freshness: 'missing' as const },
+  metrics: { tier1Count: 0, totalCanonicalSkills: 0, ratio: 1 },
+};
+
+const LANGUAGE_ALIGNMENT_STUB = {
+  label: 'Language Alignment',
+  status: 'clear' as const,
+  summary: 'Language alignment OK.',
+  target: 'Stay clear.',
+  observed: 'ratio=1.0',
+  notes: [],
+  source: { path: 'locale-governance.json', exists: true, generatedAt: null, ageDays: null, freshness: 'missing' as const },
+  metrics: { bodyEligibleNonEnVariants: 0, totalNonEnVariants: 0, ratio: 1 },
+};
+
 describe('buildRecoveryExecutionQueueReport', () => {
   it('creates ready, blocked, and watch lanes from control-board and scorecard truth', () => {
     const report = buildRecoveryExecutionQueueReport({
@@ -172,6 +195,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: 'warning',
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [
           'Ingest the newest Coverage Drilldown export(s) and rerun the coverage report.',
@@ -363,6 +388,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -538,6 +565,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: 'clear',
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -755,6 +784,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: 'clear',
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -947,6 +978,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [
           'Work the dominant Coverage Drilldown clusters from `reports/seo/latest-coverage-drilldown.md`; current leader is other.',
@@ -1117,6 +1150,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -1307,6 +1342,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -1509,6 +1546,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
@@ -1696,6 +1735,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
             highestSeverity: null,
           },
         },
+        indexQuality: INDEX_QUALITY_STUB,
+        languageAlignment: LANGUAGE_ALIGNMENT_STUB,
         weeklyGates: [],
         nextActions: [],
       },
