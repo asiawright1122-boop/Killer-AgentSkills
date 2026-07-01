@@ -15,13 +15,11 @@
 // because they're only referenced inside a `try/catch` fallback path.
 import sitemapSkillsJson from '../../data/sitemap-skills.json';
 import skillLocaleGovernanceJson from '../../data/seo-skill-locale-governance.json';
-import skillIndexabilityJson from '../../reports/seo/latest-skill-indexability.json';
 import sitemapBlocklistJson from '../../data/seo-sitemap-blocklist.json';
 
 const staticFallbacks: Record<string, unknown> = {
   'data/sitemap-skills.json': sitemapSkillsJson,
   'data/seo-skill-locale-governance.json': skillLocaleGovernanceJson,
-  'reports/seo/latest-skill-indexability.json': skillIndexabilityJson,
   'data/seo-sitemap-blocklist.json': sitemapBlocklistJson,
 };
 
