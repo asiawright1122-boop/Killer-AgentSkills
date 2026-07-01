@@ -34,6 +34,12 @@ jobs:
       - name: Install Dependencies
         run: HUSKY=0 npm ci
 
+      - name: Install Worker Dependencies
+        run: cd workers && HUSKY=0 npm ci
+
+      - name: Install CLI Dependencies
+        run: cd packages/cli && HUSKY=0 npm ci
+
       - name: Lint (ESLint)
         run: npm run lint
 
@@ -75,6 +81,9 @@ jobs:
 
       - name: Install Dependencies
         run: HUSKY=0 npm ci
+
+      - name: Install Worker Dependencies
+        run: cd workers && HUSKY=0 npm ci
 
       - name: Validate AI Guardrails
         env:
@@ -222,6 +231,9 @@ jobs:
 
       - name: Install Dependencies
         run: HUSKY=0 npm ci
+
+      - name: Install Worker Dependencies
+        run: cd workers && HUSKY=0 npm ci
 
       - name: Build
         env:
