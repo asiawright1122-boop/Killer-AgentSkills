@@ -18,14 +18,14 @@ const API_TOKEN = process.env.CLOUDFLARE_D1_TOKEN || process.env.CLOUDFLARE_API_
 const DATABASE_ID = process.env.CLOUDFLARE_D1_DATABASE_ID || readDatabaseIdFromWrangler();
 
 const CACHE_FILE = path.join(process.cwd(), 'data', 'skills-cache.json');
-const WRANGLER_TOML_PATH = path.join(process.cwd(), 'wrangler.toml');
 const REPORT_FILE = path.join(process.cwd(), 'reports/seo', 'sync-health.json');
 
 // --- Helper Functions ---
 
 function readDatabaseIdFromWrangler(): string {
-  if (!fs.existsSync(WRANGLER_TOML_PATH)) return '';
-  const content = fs.readFileSync(WRANGLER_TOML_PATH, 'utf8');
+  const wranglerPath = path.join(process.cwd(), 'wrangler.toml');
+  if (!fs.existsSync(wranglerPath)) return '';
+  const content = fs.readFileSync(wranglerPath, 'utf8');
   const match = content.match(/database_id\s*=\s*"([^"]+)"/);
   return match?.[1] || '';
 }
