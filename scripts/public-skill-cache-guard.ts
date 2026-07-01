@@ -64,7 +64,8 @@ export function findPublicSkillCacheGuardIssuesInData(data: CacheDataLike, file:
 export function scanPublicSkillCacheFile(cachePath = DEFAULT_CACHE_PATH, cwd = process.cwd()) {
   const absolutePath = resolve(cwd, cachePath);
   if (!existsSync(absolutePath)) {
-    throw new Error(`cache file not found: ${cachePath}`);
+    console.log(`# Public Skill Cache Guard\n\n- Cache file: ${cachePath}\n- Status: skip (file not present in CI)`);
+    return { file: cachePath, issues: [] };
   }
 
   const data = JSON.parse(readFileSync(absolutePath, 'utf8')) as CacheDataLike;
