@@ -46,7 +46,7 @@ import {
 import type { Env, SkillListingItem } from '../../../../lib/kv';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
-import SkillActions from '../../../../islands/SkillActions';
+import SkillActionsNative from '../../../../components/SkillActionsNative.astro';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
 import SkillCard from '../../../../components/SkillCard.astro';
@@ -1184,8 +1184,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 {/* Mobile Actions (Under Title) */}
                 <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
                   <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
-                    <SkillActions
-                      client:visible
+                    <SkillActionsNative
                       skillId={fullId}
                       skillName={skillDisplayName}
                       owner={owner}
@@ -1301,8 +1300,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                   {/* Actions Column - Hidden on mobile, shown on lg screens */}
                   <div class="hidden lg:flex items-center gap-4 shrink-0 self-start mt-4 lg:mt-0">
                     <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all">
-                      <SkillActions
-                        client:visible
+                      <SkillActionsNative
                         skillId={fullId}
                         skillName={skillDisplayName}
                         owner={owner}

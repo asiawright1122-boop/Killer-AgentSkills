@@ -1,0 +1,305 @@
+---
+/**
+ * SkillActionsNative – Astro-native replacement for the SkillActions React island.
+ *
+ * Provides the same three features without any React runtime dependency:
+ *  1. A favorite/unfavorite toggle button (heart icon)
+ *  2. A share button (copies URL to clipboard or uses Web Share API)
+ *  3. Records the skill visit in browsing history on mount
+ *
+ * Interactivity handled by a component-local `<script>` block using
+ * vanilla JS + `astro:page-load` lifecycle (same pattern as SkillInstall.astro).
+ */
+
+import { Heart, Share2, Check } from 'lucide-react';
+import { getSkillRoutePath } from '../lib/skill-route-paths';
+
+interface Props {
+  skillId: string;
+  skillName: string;
+  owner: string;
+  repo: string;
+  description: string;
+  locale?: string;
+  variant?: string;
+  labels?: {
+    addToFavorites: string;
+    removeFromFavorites: string;
+    shareSkill: string;
+  };
+}
+
+const { skillId, skillName, owner, repo, description, labels } = Astro.props;
+
+const routePath = getSkillRoutePath({ id: skillId, owner, repo }) || repo;
+const ariaAdd = labels?.addToFavorites || 'Add to favorites';
+const ariaRemove = labels?.removeFromFavorites || 'Remove from favorites';
+const ariaShare = labels?.shareSkill || 'Share this skill';
+---
+
+<div
+  class="skill-actions flex items-center gap-2"
+  data-skill-id={skillId}
+  data-skill-name={skillName}
+  data-owner={owner}
+  data-repo={repo}
+  data-route-path={routePath}
+  data-description={description}
+  data-aria-add={ariaAdd}
+  data-aria-remove={ariaRemove}
+  data-aria-share={ariaShare}
+>
+  {/* Skeleton placeholders — replaced by script after localStorage check */}
+  <div class="skill-actions-skeleton flex items-center gap-2">
+    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse"></div>
+    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse"></div>
+  </div>
+
+  {/* Actual buttons — hidden until script initializes them */}
+  <div class="skill-actions-buttons hidden flex items-center gap-2">
+    {/* Favorite toggle button */}
+    <button
+      class="skill-fav-btn group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ease-out bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-700 hover:text-pink-500 dark:hover:text-pink-400"
+      aria-label={ariaAdd}
+      aria-pressed="false"
+    >
+      <Heart className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
+    </button>
+
+    {/* Share button */}
+    <button
+      class="skill-share-btn group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ease-out bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-cyan-300 dark:hover:border-cyan-700 hover:text-cyan-500 dark:hover:text-cyan-400"
+      aria-label={ariaShare}
+    >
+      <span class="skill-share-icon-share"
+        ><Share2 className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" /></span
+      >
+      <span class="skill-share-icon-copied hidden"><Check className="w-4 h-4" /></span>
+    </button>
+  </div>
+</div>
+
+<script>
+  import { loadFavorites, toggleFavorite, isFavorite } from '../lib/favorites';
+  import { loadHistory, addToHistory } from '../lib/history';
+
+  function initSkillActions() {
+    document.querySelectorAll<HTMLElement>('.skill-actions').forEach((container) => {
+      const skeleton = container.querySelector<HTMLElement>('.skill-actions-skeleton');
+      const buttons = container.querySelector<HTMLElement>('.skill-actions-buttons');
+      const favBtn = container.querySelector<HTMLButtonElement>('.skill-fav-btn');
+      const shareBtn = container.querySelector<HTMLButtonElement>('.skill-share-btn');
+
+      if (!skeleton || !buttons || !favBtn || !shareBtn) return;
+
+      const skillId = container.dataset.skillId || '';
+      const skillName = container.dataset.skillName || '';
+      const owner = container.dataset.owner || '';
+      const repo = container.dataset.repo || '';
+      const routePath = container.dataset.routePath || '';
+      const description = container.dataset.description || '';
+      const ariaAdd = container.dataset.ariaAdd || 'Add to favorites';
+      const ariaRemove = container.dataset.ariaRemove || 'Remove from favorites';
+      const shareIconShare = shareBtn.querySelector<HTMLElement>('.skill-share-icon-share');
+      const shareIconCopied = shareBtn.querySelector<HTMLElement>('.skill-share-icon-copied');
+
+      // ── Initialize: check favorites + record history ──────────────────
+      const favs = loadFavorites();
+      const isFav = isFavorite(favs, skillId);
+
+      if (isFav) {
+        favBtn.classList.remove(
+          'bg-white',
+          'dark:bg-slate-900',
+          'text-slate-600',
+          'dark:text-slate-400',
+          'border-slate-200',
+          'dark:border-slate-700',
+          'hover:border-pink-300',
+          'dark:hover:border-pink-700',
+          'hover:text-pink-500',
+          'dark:hover:text-pink-400',
+        );
+        favBtn.classList.add(
+          'bg-pink-50',
+          'dark:bg-pink-950/30',
+          'text-pink-600',
+          'dark:text-pink-400',
+          'border-pink-200',
+          'dark:border-pink-800',
+          'hover:bg-pink-100',
+          'dark:hover:bg-pink-950/50',
+        );
+        favBtn.setAttribute('aria-pressed', 'true');
+        favBtn.setAttribute('aria-label', ariaRemove);
+        // Fill heart
+        const heartSvg = favBtn.querySelector('svg');
+        if (heartSvg) {
+          heartSvg.classList.add('fill-pink-500', 'text-pink-500', 'scale-110');
+        }
+      }
+
+      // Record history visit
+      const history = loadHistory();
+      addToHistory(history, { id: skillId, name: skillName, owner, repo, routePath, description });
+
+      // Show buttons, hide skeleton
+      skeleton.classList.add('hidden');
+      buttons.classList.remove('hidden');
+
+      // ── Favorite toggle click handler ──────────────────────────────
+      favBtn.addEventListener('click', () => {
+        const currentFavs = loadFavorites();
+        const result = toggleFavorite(currentFavs, {
+          id: skillId,
+          name: skillName,
+          owner,
+          repo,
+          routePath,
+          description,
+        });
+
+        if (result.isFavorite) {
+          favBtn.classList.remove(
+            'bg-white',
+            'dark:bg-slate-900',
+            'text-slate-600',
+            'dark:text-slate-400',
+            'border-slate-200',
+            'dark:border-slate-700',
+            'hover:border-pink-300',
+            'dark:hover:border-pink-700',
+            'hover:text-pink-500',
+            'dark:hover:text-pink-400',
+          );
+          favBtn.classList.add(
+            'bg-pink-50',
+            'dark:bg-pink-950/30',
+            'text-pink-600',
+            'dark:text-pink-400',
+            'border-pink-200',
+            'dark:border-pink-800',
+            'hover:bg-pink-100',
+            'dark:hover:bg-pink-950/50',
+          );
+          favBtn.setAttribute('aria-pressed', 'true');
+          favBtn.setAttribute('aria-label', ariaRemove);
+          const heartSvg = favBtn.querySelector('svg');
+          if (heartSvg) heartSvg.classList.add('fill-pink-500', 'text-pink-500', 'scale-110');
+        } else {
+          favBtn.classList.remove(
+            'bg-pink-50',
+            'dark:bg-pink-950/30',
+            'text-pink-600',
+            'dark:text-pink-400',
+            'border-pink-200',
+            'dark:border-pink-800',
+            'hover:bg-pink-100',
+            'dark:hover:bg-pink-950/50',
+          );
+          favBtn.classList.add(
+            'bg-white',
+            'dark:bg-slate-900',
+            'text-slate-600',
+            'dark:text-slate-400',
+            'border-slate-200',
+            'dark:border-slate-700',
+            'hover:border-pink-300',
+            'dark:hover:border-pink-700',
+            'hover:text-pink-500',
+            'dark:hover:text-pink-400',
+          );
+          favBtn.setAttribute('aria-pressed', 'false');
+          favBtn.setAttribute('aria-label', ariaAdd);
+          const heartSvg = favBtn.querySelector('svg');
+          if (heartSvg) heartSvg.classList.remove('fill-pink-500', 'text-pink-500', 'scale-110');
+        }
+      });
+
+      // ── Share button click handler ──────────────────────────────────
+      let shareTimeout: ReturnType<typeof setTimeout> | null = null;
+
+      shareBtn.addEventListener('click', async () => {
+        const url = window.location.href;
+        const shareData = { title: skillName, text: description || skillName, url };
+
+        try {
+          // Prefer Web Share API on supported devices (mobile)
+          if (navigator.share) {
+            await navigator.share(shareData);
+            return;
+          }
+        } catch {
+          // User cancelled or share failed – fall through to clipboard
+        }
+
+        // Fallback: copy URL to clipboard
+        try {
+          await navigator.clipboard.writeText(url);
+          showCopiedState();
+        } catch {
+          // Last resort: prompt-based copy
+          window.prompt('Copy this URL:', url);
+        }
+      });
+
+      function showCopiedState() {
+        // shareBtn is guaranteed non-null by the early return above
+        const btn = shareBtn!;
+        // Switch to copied visual state
+        btn.classList.remove(
+          'bg-white',
+          'dark:bg-slate-900',
+          'text-slate-600',
+          'dark:text-slate-400',
+          'border-slate-200',
+          'dark:border-slate-700',
+          'hover:border-cyan-300',
+          'dark:hover:border-cyan-700',
+          'hover:text-cyan-500',
+          'dark:hover:text-cyan-400',
+        );
+        btn.classList.add(
+          'bg-green-50',
+          'dark:bg-green-950/30',
+          'text-green-600',
+          'dark:text-green-400',
+          'border-green-200',
+          'dark:border-green-800',
+        );
+        if (shareIconShare) shareIconShare.classList.add('hidden');
+        if (shareIconCopied) shareIconCopied.classList.remove('hidden');
+
+        // Revert after 2 seconds
+        if (shareTimeout) clearTimeout(shareTimeout);
+        shareTimeout = setTimeout(() => {
+          btn.classList.remove(
+            'bg-green-50',
+            'dark:bg-green-950/30',
+            'text-green-600',
+            'dark:text-green-400',
+            'border-green-200',
+            'dark:border-green-800',
+          );
+          btn.classList.add(
+            'bg-white',
+            'dark:bg-slate-900',
+            'text-slate-600',
+            'dark:text-slate-400',
+            'border-slate-200',
+            'dark:border-slate-700',
+            'hover:border-cyan-300',
+            'dark:hover:border-cyan-700',
+            'hover:text-cyan-500',
+            'dark:hover:text-cyan-400',
+          );
+          if (shareIconShare) shareIconShare.classList.remove('hidden');
+          if (shareIconCopied) shareIconCopied.classList.add('hidden');
+        }, 2000);
+      }
+    });
+  }
+
+  // Init on first load and re-init on View Transitions page swaps
+  document.addEventListener('astro:page-load', initSkillActions);
+</script>
