@@ -65,12 +65,27 @@ function replaceLocaleSegment(pathname: string, currentLocale: string, nextLocal
 }
 
 function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'full' | 'short'): string {
+  const MAX_TITLE_LEN = 85;
+  const ELLIPSIS = '…';
+
+  function truncate(str: string, max: number): string {
+    if (str.length <= max) return str;
+    // Find the last separator before the limit to avoid cutting mid-word
+    const cut = str.lastIndexOf(' — ', max - 1);
+    if (cut > max * 0.4) return str.slice(0, cut) + ELLIPSIS;
+    const dash = str.lastIndexOf('–', max - 2);
+    if (dash > max * 0.4) return str.slice(0, dash) + ELLIPSIS;
+    const space = str.lastIndexOf(' ', max - 2);
+    if (space > max * 0.4) return str.slice(0, space) + ELLIPSIS;
+    return str.slice(0, max - 1) + ELLIPSIS;
+  }
+
   if (!appendBrand) {
-    return title;
+    return truncate(title, MAX_TITLE_LEN);
   }
 
   if (title.includes('Killer-Skills')) {
-    return title;
+    return truncate(title, MAX_TITLE_LEN);
   }
 
   const isSubpage = title !== 'Killer-Skills';
@@ -78,7 +93,8 @@ function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'f
   const shortBrand = ' | Killer-Skills';
 
   if (brandSuffix === 'short') {
-    return (title + shortBrand).length <= 60 ? title + shortBrand : title;
+    const withBrand = title + shortBrand;
+    return withBrand.length <= 60 ? withBrand : truncate(title, MAX_TITLE_LEN);
   }
 
   if ((title + fullBrand).length <= 60) {
@@ -89,7 +105,8 @@ function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'f
     return title + shortBrand;
   }
 
-  return title;
+  // Title too long for any brand suffix — truncate the raw title
+  return truncate(title, MAX_TITLE_LEN);
 }
 
 const DEFAULT_DESCRIPTION =
