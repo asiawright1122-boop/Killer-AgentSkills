@@ -35,10 +35,7 @@ if (fs.existsSync('.env.local')) {
 }
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-if (!GITHUB_TOKEN) {
-    console.error('❌ GITHUB_TOKEN is not set in .env.local');
-    process.exit(1);
-}
+const _githubTokenMissing = !GITHUB_TOKEN;
 
 // 目标文件
 const DATA_FILE = path.join(process.cwd(), 'data/expanded-github-skills.json');
@@ -435,6 +432,11 @@ async function pruneStaleEntries(items: HarvestedSkill[]): Promise<HarvestedSkil
 // ============ Main ============
 
 export async function main() {
+    if (_githubTokenMissing) {
+        console.error('❌ GITHUB_TOKEN is not set in .env.local');
+        process.exit(1);
+    }
+
     console.log('🌾 SKILL HARVESTER v2 STARTED');
 
     // Parse args

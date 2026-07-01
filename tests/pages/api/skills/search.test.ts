@@ -59,6 +59,17 @@ describe('GET /api/skills/search', () => {
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.resetModules();
+
+    // Mock getLightweightSkills so KV fallback tests use test data instead of
+    // reading from local files (skills-cache.json is .gitignored → missing in CI).
+    vi.doMock('../../../../src/lib/skills', async () => {
+      const actual = await vi.importActual<typeof import('../../../../src/lib/skills')>('../../../../src/lib/skills');
+      return {
+        ...actual,
+        getLightweightSkills: vi.fn().mockResolvedValue(MOCK_SKILLS),
+      };
+    });
+
     const mod = await import('../../../../src/pages/api/skills/search');
     GET = mod.GET;
   });
@@ -162,12 +173,9 @@ describe('GET /api/skills/search', () => {
   });
 
   it('KV fallback: returns skills when D1 is not configured', async () => {
-    const store = new Map<string, unknown>();
-    MOCK_SKILLS.forEach((s) => store.set(`skill:${s.owner}/${s.repo}`, s));
-
     const ctx = buildContext(
       'http://localhost/api/skills/search?q=skill',
-      createMockEnv({ SKILLS_CACHE: createMockKV(store), DB: undefined }),
+      createMockEnv({ SKILLS_CACHE: createMockKV(), DB: undefined }),
     );
 
     const res = await GET(ctx);
@@ -178,12 +186,9 @@ describe('GET /api/skills/search', () => {
   });
 
   it('KV fallback: filters by category', async () => {
-    const store = new Map<string, unknown>();
-    MOCK_SKILLS.forEach((s) => store.set(`skill:${s.owner}/${s.repo}`, s));
-
     const ctx = buildContext(
       'http://localhost/api/skills/search?category=productivity',
-      createMockEnv({ SKILLS_CACHE: createMockKV(store), DB: undefined }),
+      createMockEnv({ SKILLS_CACHE: createMockKV(), DB: undefined }),
     );
 
     const res = await GET(ctx);
@@ -193,12 +198,9 @@ describe('GET /api/skills/search', () => {
   });
 
   it('KV fallback: returns all skills when query is empty', async () => {
-    const store = new Map<string, unknown>();
-    MOCK_SKILLS.forEach((s) => store.set(`skill:${s.owner}/${s.repo}`, s));
-
     const ctx = buildContext(
       'http://localhost/api/skills/search',
-      createMockEnv({ SKILLS_CACHE: createMockKV(store), DB: undefined }),
+      createMockEnv({ SKILLS_CACHE: createMockKV(), DB: undefined }),
     );
 
     const res = await GET(ctx);
@@ -239,8 +241,8 @@ describe('GET /api/skills/search', () => {
   });
 
   it('returns skills with correct pagination slice', async () => {
-    const store = new Map<string, unknown>();
-    const allSkills = Array.from({ length: 25 }, (_, i) => ({
+    // Create 25 mock skills for pagination testing
+    const paginationSkills: UnifiedSkill[] = Array.from({ length: 25 }, (_, i) => ({
       id: String(i + 1),
       owner: 'test',
       repo: `skill-${i + 1}`,
@@ -253,11 +255,14 @@ describe('GET /api/skills/search', () => {
       source: 'cache' as const,
       updatedAt: '2024-01-01T00:00:00Z',
     }));
-    allSkills.forEach((s) => store.set(`skill:${s.owner}/${s.repo}`, s));
+
+    // Override the mock for this specific test
+    const { getLightweightSkills } = await import('../../../../src/lib/skills');
+    vi.mocked(getLightweightSkills).mockResolvedValueOnce(paginationSkills);
 
     const ctx = buildContext(
       'http://localhost/api/skills/search?limit=10&page=2',
-      createMockEnv({ SKILLS_CACHE: createMockKV(store), DB: undefined }),
+      createMockEnv({ SKILLS_CACHE: createMockKV(), DB: undefined }),
     );
 
     const res = await GET(ctx);

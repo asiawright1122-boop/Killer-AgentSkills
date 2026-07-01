@@ -1,0 +1,335 @@
+---
+/**
+ * HistoryManagerNative – Astro-native replacement for the HistoryManager React island.
+ *
+ * Displays the user's browsing history as a card grid with clear-all and remove
+ * per-item actions. Interactivity handled by a component-local `<script>` using
+ * vanilla JS + `astro:page-load` lifecycle.
+ *
+ * Pattern: skeleton placeholder → script reads localStorage → shows real content.
+ */
+
+import { Clock, ArrowUpRight, X, Trash2 } from 'lucide-react';
+
+interface Props {
+  locale: string;
+  translations: {
+    browsingHistory: string;
+    historyCount: string;
+    clearHistory: string;
+    noHistory: string;
+    noHistoryHint: string;
+    browseSkills: string;
+    removeHistory: string;
+    time: {
+      justNow: string;
+      agoM: string;
+      agoH: string;
+      agoD: string;
+    };
+  };
+}
+
+const { locale, translations: t } = Astro.props;
+---
+
+<div
+  class="history-manager min-h-[60vh]"
+  data-locale={locale}
+  data-t-browsing-history={t.browsingHistory}
+  data-t-history-count={t.historyCount}
+  data-t-clear-history={t.clearHistory}
+  data-t-no-history={t.noHistory}
+  data-t-no-history-hint={t.noHistoryHint}
+  data-t-browse-skills={t.browseSkills}
+  data-t-remove-history={t.removeHistory}
+  data-t-just-now={t.time.justNow}
+  data-t-ago-m={t.time.agoM}
+  data-t-ago-h={t.time.agoH}
+  data-t-ago-d={t.time.agoD}
+>
+  {/* ── Skeleton loading state ─────────────────────────────────────────── */}
+  <div class="history-skeleton">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-5 h-5 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-xl bg-cyan-500/20 border border-cyan-500/30">
+                <Clock className="w-6 h-6 text-cyan-500" />
+              </div>
+              <div>
+                <div class="h-7 w-44 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mb-1"></div>
+                <div class="h-4 w-24 bg-slate-100 dark:bg-slate-800 rounded animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          Array.from({ length: 6 }).map(() => (
+            <div class="h-52 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  {/* ── Empty state (hidden until script decides) ──────────────────────── */}
+  <div class="history-empty hidden">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center gap-4">
+          <a
+            href={`/${locale}/skills`}
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            aria-label="Back to skills"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </a>
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-xl bg-cyan-500/20 border border-cyan-500/30">
+              <Clock className="w-6 h-6 text-cyan-500" />
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.browsingHistory}</h1>
+              <p class="text-sm text-slate-500 dark:text-slate-400 history-count-label">0 skills</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="text-center py-20">
+        <div class="inline-flex p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
+          <Clock className="w-12 h-12 text-slate-400 dark:text-slate-500" />
+        </div>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t.noHistory}</h2>
+        <p class="text-slate-500 dark:text-slate-400 mb-6">{t.noHistoryHint}</p>
+        <a
+          href={`/${locale}/skills`}
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-colors"
+        >
+          {t.browseSkills}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {/* ── History grid (hidden until script populates) ──────────────────── */}
+  <div class="history-loaded hidden">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <a
+              href={`/${locale}/skills`}
+              class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              aria-label="Back to skills"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </a>
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-xl bg-cyan-500/20 border border-cyan-500/30">
+                <Clock className="w-6 h-6 text-cyan-500" />
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.browsingHistory}</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400 history-count-label">0 skills</p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="history-clear-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+            {t.clearHistory}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="history-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards injected by script */}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { loadHistory, removeFromHistory, saveHistory, clearHistory, formatRelativeTime } from '../lib/history';
+  import { buildLocalizedSkillPath } from '../lib/skill-route-paths';
+
+  function initHistoryManager() {
+    document.querySelectorAll<HTMLElement>('.history-manager').forEach((container) => {
+      const skeleton = container.querySelector<HTMLElement>('.history-skeleton');
+      const emptyState = container.querySelector<HTMLElement>('.history-empty');
+      const loadedState = container.querySelector<HTMLElement>('.history-loaded');
+      const grid = container.querySelector<HTMLElement>('.history-grid');
+      const clearBtn = container.querySelector<HTMLButtonElement>('.history-clear-btn');
+      if (!skeleton || !emptyState || !loadedState || !grid || !clearBtn) return;
+
+      const locale = container.dataset.locale || 'en';
+      const removeLabel = container.dataset.tRemoveHistory || 'Remove';
+      const countTemplate = container.dataset.tHistoryCount || '{count} skills';
+      const timeLabels = {
+        justNow: container.dataset.tJustNow || 'Just now',
+        agoM: container.dataset.tAgoM || '{count}m ago',
+        agoH: container.dataset.tAgoH || '{count}h ago',
+        agoD: container.dataset.tAgoD || '{count}d ago',
+      };
+
+      const history = loadHistory();
+      const count = history.length;
+
+      // Hide skeleton
+      skeleton.classList.add('hidden');
+
+      // Update count labels
+      container.querySelectorAll<HTMLElement>('.history-count-label').forEach((el) => {
+        el.textContent = countTemplate.replace('{count}', String(count));
+      });
+
+      if (count === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      // Show loaded state & render cards
+      loadedState.classList.remove('hidden');
+      grid.innerHTML = '';
+
+      for (const item of history) {
+        const detailUrl = buildLocalizedSkillPath(locale, item.owner, item.routePath || item.repo);
+        const relTime = formatRelativeTime(item.visitedAt, timeLabels);
+
+        const card = document.createElement('a');
+        card.href = detailUrl;
+        card.className = 'block group history-card';
+        card.dataset.itemId = item.id;
+        card.innerHTML = `
+          <div class="relative h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:border-cyan-400/50 hover:-translate-y-1">
+            <button
+              class="history-remove-btn absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 text-slate-400"
+              title="${removeLabel}"
+              aria-label="${removeLabel}"
+              data-item-id="${item.id}"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <div class="relative z-10">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1 min-w-0 pr-4">
+                  <h3 class="text-base font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">${item.name}</h3>
+                  <div class="flex items-center gap-2 mt-2 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200/50 dark:border-slate-700/50 w-fit transition-colors group-hover:bg-slate-100 dark:group-hover:bg-slate-800 group-hover:border-cyan-200/30 dark:group-hover:border-cyan-800/30">
+                    <img src="https://github.com/${item.owner}.png" alt="${item.owner}" width="16" height="16" class="w-4 h-4 rounded-full hist-avatar" loading="lazy" decoding="async" data-fallback-owner="${item.owner}" />
+                    <span class="text-xs font-medium text-slate-700 dark:text-slate-300">${item.owner}</span>
+                  </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">${item.description || 'No description available'}</p>
+              <div class="flex items-center gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 13"/></svg>
+                <span>${relTime}</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Wire up avatar fallback (CSP-safe: no inline onerror)
+        card.querySelectorAll<HTMLImageElement>('.hist-avatar').forEach((img) => {
+          const fallbackOwner = img.dataset.fallbackOwner || '';
+          img.addEventListener(
+            'error',
+            () => {
+              img.src = `https://ui-avatars.com/api/?name=${fallbackOwner}&background=random`;
+            },
+            { once: true },
+          );
+        });
+
+        // Wire up remove button
+        const removeBtn = card.querySelector<HTMLButtonElement>('.history-remove-btn');
+        removeBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = removeBtn.dataset.itemId || '';
+          const current = loadHistory();
+          const updated = removeFromHistory(current, id);
+          saveHistory(updated);
+          // Animate card out then remove
+          const cardEl = card as HTMLElement;
+          cardEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          cardEl.style.opacity = '0';
+          cardEl.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            cardEl.remove();
+            checkEmpty();
+          }, 300);
+        });
+
+        grid.appendChild(card);
+      }
+
+      function checkEmpty() {
+        const g = grid!;
+        const loaded = loadedState!;
+        const empty = emptyState!;
+        const remainingCards = g.querySelectorAll('a.history-card');
+        if (remainingCards.length === 0) {
+          loaded.classList.add('hidden');
+          empty.classList.remove('hidden');
+          container.querySelectorAll<HTMLElement>('.history-count-label').forEach((el) => {
+            el.textContent = countTemplate.replace('{count}', '0');
+          });
+        } else {
+          container.querySelectorAll<HTMLElement>('.history-count-label').forEach((el) => {
+            el.textContent = countTemplate.replace('{count}', String(remainingCards.length));
+          });
+        }
+      }
+
+      // Wire up clear-all button
+      clearBtn.addEventListener('click', () => {
+        clearHistory();
+        grid!.innerHTML = '';
+        loadedState!.classList.add('hidden');
+        emptyState!.classList.remove('hidden');
+        container.querySelectorAll<HTMLElement>('.history-count-label').forEach((el) => {
+          el.textContent = countTemplate.replace('{count}', '0');
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initHistoryManager);
+</script>

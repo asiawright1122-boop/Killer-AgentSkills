@@ -1543,8 +1543,8 @@ describe('public links and navigation copy', () => {
     const commandBarSource = readPageSource('../components/CommandBar.tsx');
     const commandPaletteSource = readPageSource('../islands/CommandPalette.tsx');
     const searchBarSource = readPageSource('../islands/SearchBar.tsx');
-    const favoritesManagerSource = readPageSource('../islands/FavoritesManager.tsx');
-    const historyManagerSource = readPageSource('../islands/HistoryManager.tsx');
+    const favoritesManagerSource = readPageSource('../components/FavoritesManagerNative.astro');
+    const historyManagerSource = readPageSource('../components/HistoryManagerNative.astro');
 
     expect(commandBarSource).toContain('window.location.href = result.href;');
     expect(commandBarSource).not.toContain(
@@ -1558,10 +1558,10 @@ describe('public links and navigation copy', () => {
     expect(searchBarSource).toContain('locale=${encodeURIComponent(locale)}');
     expect(searchBarSource).not.toContain('href={`/${locale}/skills/${r.owner}/${r.repo}`}');
 
-    expect(favoritesManagerSource).toContain('buildLocalizedSkillPath(locale, owner, skill.routePath || repo)');
+    expect(favoritesManagerSource).toContain('buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo)');
     expect(favoritesManagerSource).not.toContain('const detailUrl = `/${locale}/skills/${owner}/${repo}`;');
 
-    expect(historyManagerSource).toContain('buildLocalizedSkillPath(locale, owner, item.routePath || repo)');
+    expect(historyManagerSource).toContain('buildLocalizedSkillPath(locale, item.owner, item.routePath || item.repo)');
     expect(historyManagerSource).not.toContain('const detailUrl = `/${locale}/skills/${owner}/${repo}`;');
   });
 

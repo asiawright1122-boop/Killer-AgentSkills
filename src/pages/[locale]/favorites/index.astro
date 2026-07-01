@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import FavoritesManager from '../../../islands/FavoritesManager';
+import FavoritesManagerNative from '../../../components/FavoritesManagerNative.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 
 export const prerender = false;
@@ -35,5 +35,5 @@ const favoritesTranslations = {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true} robots={robotsContent}>
-  <FavoritesManager client:load locale={locale} translations={favoritesTranslations} />
+  <FavoritesManagerNative locale={locale} translations={favoritesTranslations} />
 </Layout>

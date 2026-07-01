@@ -1,0 +1,293 @@
+---
+/**
+ * FavoritesManagerNative – Astro-native replacement for the FavoritesManager React island.
+ *
+ * Displays the user's favorite skills as a card grid. Interactivity handled by
+ * a component-local `<script>` using vanilla JS + `astro:page-load` lifecycle.
+ *
+ * Pattern: skeleton placeholder → script reads localStorage → shows real content.
+ * This avoids React runtime while providing identical UX.
+ */
+
+import { Heart, ArrowUpRight, X } from 'lucide-react';
+
+interface Props {
+  locale: string;
+  translations: {
+    myFavorites: string;
+    favoritesCount: string;
+    noFavorites: string;
+    noFavoritesHint: string;
+    browseSkills: string;
+    removeFavorite: string;
+    savedAt: string;
+  };
+}
+
+const { locale, translations: t } = Astro.props;
+---
+
+<div
+  class="favorites-manager min-h-[60vh]"
+  data-locale={locale}
+  data-t-my-favorites={t.myFavorites}
+  data-t-favorites-count={t.favoritesCount}
+  data-t-no-favorites={t.noFavorites}
+  data-t-no-favorites-hint={t.noFavoritesHint}
+  data-t-browse-skills={t.browseSkills}
+  data-t-remove-favorite={t.removeFavorite}
+  data-t-saved-at={t.savedAt}
+>
+  {/* ── Skeleton loading state ─────────────────────────────────────────── */}
+  <div class="favorites-skeleton">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center gap-4">
+          <div class="w-5 h-5 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">
+              <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
+            </div>
+            <div>
+              <div class="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mb-1"></div>
+              <div class="h-4 w-24 bg-slate-100 dark:bg-slate-800 rounded animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          Array.from({ length: 6 }).map(() => (
+            <div class="h-52 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  {/* ── Empty state (hidden until script decides) ──────────────────────── */}
+  <div class="favorites-empty hidden">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center gap-4">
+          <a
+            href={`/${locale}/skills`}
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            aria-label="Back to skills"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </a>
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">
+              <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.myFavorites}</h1>
+              <p class="text-sm text-slate-500 dark:text-slate-400 favorites-count-label">0 skills</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="text-center py-20">
+        <div class="inline-flex p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
+          <Heart className="w-12 h-12 text-slate-400 dark:text-slate-500" />
+        </div>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t.noFavorites}</h2>
+        <p class="text-slate-500 dark:text-slate-400 mb-6">{t.noFavoritesHint}</p>
+        <a
+          href={`/${locale}/skills`}
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-colors"
+        >
+          {t.browseSkills}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {/* ── Favorites grid (hidden until script populates) ─────────────────── */}
+  <div class="favorites-loaded hidden">
+    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4 py-6">
+        <div class="flex items-center gap-4">
+          <a
+            href={`/${locale}/skills`}
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            aria-label="Back to skills"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </a>
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">
+              <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.myFavorites}</h1>
+              <p class="text-sm text-slate-500 dark:text-slate-400 favorites-count-label">0 skills</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="favorites-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards injected by script */}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { loadFavorites, removeFavorite, saveFavorites } from '../lib/favorites';
+  import { buildLocalizedSkillPath } from '../lib/skill-route-paths';
+  import type { FavoriteSkill } from '../lib/favorites';
+
+  function initFavoritesManager() {
+    document.querySelectorAll<HTMLElement>('.favorites-manager').forEach((container) => {
+      const skeleton = container.querySelector<HTMLElement>('.favorites-skeleton');
+      const emptyState = container.querySelector<HTMLElement>('.favorites-empty');
+      const loadedState = container.querySelector<HTMLElement>('.favorites-loaded');
+      const grid = container.querySelector<HTMLElement>('.favorites-grid');
+      if (!skeleton || !emptyState || !loadedState || !grid) return;
+
+      const locale = container.dataset.locale || 'en';
+      const savedAtTemplate = container.dataset.tSavedAt || 'Saved {date}';
+      const removeLabel = container.dataset.tRemoveFavorite || 'Remove';
+      const countTemplate = container.dataset.tFavoritesCount || '{count} skills';
+
+      const favorites = loadFavorites();
+      const count = favorites.length;
+
+      // Hide skeleton
+      skeleton.classList.add('hidden');
+
+      // Update count labels
+      container.querySelectorAll<HTMLElement>('.favorites-count-label').forEach((el) => {
+        el.textContent = countTemplate.replace('{count}', String(count));
+      });
+
+      if (count === 0) {
+        // Show empty state
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      // Show loaded state & render cards
+      loadedState.classList.remove('hidden');
+      grid.innerHTML = '';
+
+      for (const skill of favorites) {
+        const detailUrl = buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo);
+        const addedDate = new Date(skill.addedAt).toLocaleDateString();
+        const savedAtText = savedAtTemplate.replace('{date}', addedDate);
+
+        const card = document.createElement('a');
+        card.href = detailUrl;
+        card.className = 'block group';
+        card.innerHTML = `
+          <div class="relative h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:border-cyan-400/50 hover:-translate-y-1">
+            <button
+              class="fav-remove-btn absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 text-slate-400"
+              title="${removeLabel}"
+              data-skill-id="${skill.id}"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <div class="relative z-10">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1 min-w-0 pr-4">
+                  <h3 class="text-base font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">${skill.name}</h3>
+                  <div class="flex items-center gap-2 mt-2 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200/50 dark:border-slate-700/50 w-fit transition-colors group-hover:bg-slate-100 dark:group-hover:bg-slate-800 group-hover:border-cyan-200/30 dark:group-hover:border-cyan-800/30">
+                    <img src="https://github.com/${skill.owner}.png" alt="${skill.owner}" width="16" height="16" class="w-4 h-4 rounded-full fav-avatar" loading="lazy" decoding="async" data-fallback-owner="${skill.owner}" />
+                    <span class="text-xs font-medium text-slate-700 dark:text-slate-300">${skill.owner}</span>
+                  </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">${skill.description || 'No description available'}</p>
+              <div class="flex items-center gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="pink" stroke="pink" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
+                <span>${savedAtText}</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Wire up avatar fallback (CSP-safe: no inline onerror)
+        card.querySelectorAll<HTMLImageElement>('.fav-avatar').forEach((img) => {
+          const fallbackOwner = img.dataset.fallbackOwner || '';
+          img.addEventListener(
+            'error',
+            () => {
+              img.src = `https://ui-avatars.com/api/?name=${fallbackOwner}&background=random`;
+            },
+            { once: true },
+          );
+        });
+
+        // Wire up remove button
+        const removeBtn = card.querySelector<HTMLButtonElement>('.fav-remove-btn');
+        removeBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = removeBtn.dataset.skillId || '';
+          const current = loadFavorites();
+          const updated = removeFavorite(current, id);
+          saveFavorites(updated);
+          // Animate card out then remove
+          const cardEl = card as HTMLElement;
+          cardEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          cardEl.style.opacity = '0';
+          cardEl.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            cardEl.remove();
+            // Check if empty now
+            const remainingCards = grid.querySelectorAll('a.group');
+            if (remainingCards.length === 0) {
+              loadedState.classList.add('hidden');
+              emptyState.classList.remove('hidden');
+              container.querySelectorAll<HTMLElement>('.favorites-count-label').forEach((el) => {
+                el.textContent = countTemplate.replace('{count}', '0');
+              });
+            } else {
+              container.querySelectorAll<HTMLElement>('.favorites-count-label').forEach((el) => {
+                el.textContent = countTemplate.replace('{count}', String(remainingCards.length));
+              });
+            }
+          }, 300);
+        });
+
+        grid.appendChild(card);
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initFavoritesManager);
+</script>

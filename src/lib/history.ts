@@ -2,7 +2,7 @@
  * History localStorage utility
  *
  * Shared logic for reading/writing the browsing history list in localStorage.
- * Used by HistoryManager (list page) and SkillActions (detail page recording).
+ * Used by HistoryManagerNative (list page) and SkillActionsNative (detail page recording).
  *
  * Requirements: 6.2, 6.3
  */

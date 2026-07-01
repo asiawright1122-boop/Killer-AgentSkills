@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import HistoryManager from '../../../islands/HistoryManager';
+import HistoryManagerNative from '../../../components/HistoryManagerNative.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 
 export const prerender = false;
@@ -41,5 +41,5 @@ const historyTranslations = {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true} robots={robotsContent}>
-  <HistoryManager client:load locale={locale} translations={historyTranslations} />
+  <HistoryManagerNative locale={locale} translations={historyTranslations} />
 </Layout>

@@ -2,7 +2,7 @@
  * Favorites localStorage utility
  *
  * Shared logic for reading/writing the favorites list in localStorage.
- * Used by FavoritesManager (list page) and SkillActions (detail page toggle).
+ * Used by FavoritesManagerNative (list page) and SkillActionsNative (detail page toggle).
  *
  * Requirements: 6.3, 6.4
  */
