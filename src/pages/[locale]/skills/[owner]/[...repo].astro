@@ -694,8 +694,11 @@ const skillLocaleGovernance = renderRepoDirectory
       typedLocale,
       SUPPORTED_LOCALES,
     );
-const skillAvailableLocales = skillLocaleGovernance?.publishedLocales;
-const skillXDefaultLocale = skillLocaleGovernance?.canonicalLocale;
+// Skill detail pages have translated UI chrome in all locales even when
+// the README content is English-only. Google needs hreflang for all locales
+// to avoid treating them as duplicate content.
+const skillAvailableLocales = SUPPORTED_LOCALES;
+const skillXDefaultLocale = 'en';
 const skillIndexability = renderRepoDirectory
   ? null
   : buildSkillIndexabilityAssessment(

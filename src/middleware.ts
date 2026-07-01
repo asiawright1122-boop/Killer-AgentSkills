@@ -104,6 +104,8 @@ let _sitemapSkillsLoaded = false;
 let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 let _sitemapSkillsLoadTime = 0;
 const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
+// Edge cache version - bump this when deploying breaking changes to invalidate stale cache
+const EDGE_CACHE_VERSION = 'v3';
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
   // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
@@ -501,7 +503,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (isCacheableRequest && typeof caches !== 'undefined') {
     try {
       const cache = caches.default;
-      const cacheKey = new Request(context.url.toString(), context.request);
+      const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
       const cached = await cache.match(cacheKey);
       if (cached) {
         // Clone to allow multiple reads and add cache-hit marker
@@ -1023,7 +1025,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         if (typeof caches !== 'undefined') {
           try {
             const cache = caches.default;
-            const cacheKey = new Request(context.url.toString(), context.request);
+            const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
             response.headers.set('X-Cache', 'MISS');
             const waitUntil = (context.locals.runtime as any)?.ctx?.waitUntil;
             if (waitUntil) {
@@ -1112,7 +1114,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         // Only cache if the response explicitly opts in with s-maxage
         if (cc.includes('s-maxage') && !cc.includes('private')) {
           const cache = caches.default;
-          const cacheKey = new Request(context.url.toString(), context.request);
+          const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
           // Clone the response: one for cache, one for client
           const cacheResponse = response.clone();
           response.headers.set('X-Cache', 'MISS');
