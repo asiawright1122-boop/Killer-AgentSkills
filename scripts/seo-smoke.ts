@@ -121,7 +121,7 @@ const checks: PageCheck[] = [
   },
   {
     path: '/zh/skills',
-    titleIncludes: 'AI Agent',
+    titleIncludes: 'Skills',
     canonical: `${SITE_ORIGIN}/zh/skills`,
     locale: 'zh',
     expectJsonLd: true,
