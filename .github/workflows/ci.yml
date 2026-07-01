@@ -305,11 +305,13 @@ jobs:
       - name: Verify Production Deployment
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          for i in {1..30}; do
-            if curl -fsSL "https://killer-skills.com/?deployment=${GITHUB_SHA}" | grep -F "x-build-sha\" content=\"${GITHUB_SHA}" >/dev/null; then
+          for i in {1..45}; do
+            SHA=$(curl -fsSL "https://killer-skills.com/?_nocache=${i}" -H "Cache-Control: no-cache" | grep -o 'x-build-sha" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"//')
+            if [ "$SHA" = "${GITHUB_SHA}" ]; then
               echo "✅ Production domain is serving ${GITHUB_SHA}"
               exit 0
             fi
+            echo "⏳ Attempt $i/45: build-sha=${SHA:-none}, expected=${GITHUB_SHA:0:7}"
             sleep 10
           done
           echo "❌ Production domain did not serve ${GITHUB_SHA}"
