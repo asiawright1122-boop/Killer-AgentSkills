@@ -1,5 +1,5 @@
 ---
-import HeaderActions from '../islands/HeaderActions';
+import HeaderActionsNative from '../components/HeaderActionsNative.astro';
 import { LOCALE_NAMES, translateOr } from '../i18n';
 
 interface Props {
@@ -65,8 +65,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
     </nav>
 
     <!-- Rights/Actions -->
-    <HeaderActions
-      client:idle
+    <HeaderActionsNative
       locale={locale}
       localeNames={LOCALE_NAMES}
       labels={{

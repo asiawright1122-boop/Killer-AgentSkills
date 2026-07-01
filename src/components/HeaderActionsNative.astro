@@ -1,0 +1,451 @@
+---
+/**
+ * HeaderActionsNative – Astro-native replacement for the HeaderActions React island.
+ *
+ * Renders: search, language dropdown, submit-skill button, favorites link,
+ * theme toggle (desktop), and mobile hamburger + fullscreen overlay.
+ *
+ * Interactivity: vanilla JS in a component-local <script> using
+ * astro:page-load lifecycle. No React runtime needed.
+ *
+ * The mobile overlay is rendered as part of this component with
+ * fixed positioning instead of React's createPortal.
+ */
+
+import { Moon, Sun, Menu, X, Heart, Globe, ChevronDown, Search, Rocket } from 'lucide-react';
+import SubmitSkillModalNative from './SubmitSkillModalNative.astro';
+
+interface Props {
+  locale: string;
+  localeNames: Record<string, string>;
+  labels: {
+    home: string;
+    skills: string;
+    categories: string;
+    docs: string;
+    blog: string;
+    cli: string;
+    community: string;
+    collections: string;
+    language: string;
+    theme: string;
+    favorites: string;
+    github: string;
+    switchLanguage: string;
+    toggleTheme: string;
+    toggleMenu: string;
+    favoritesAria: string;
+    darkMode?: string;
+    lightMode?: string;
+    submitSkill: string;
+    search: string;
+  };
+}
+
+const { locale, localeNames, labels } = Astro.props;
+
+const navItems = [
+  { href: `/${locale}`, label: labels.home, icon: 'home' },
+  { href: `/${locale}/skills`, label: labels.skills, icon: 'compass' },
+  { href: `/${locale}/collections`, label: labels.collections || 'Collections', icon: 'layers' },
+  { href: `/${locale}/categories`, label: labels.categories, icon: 'grid' },
+  { href: `/${locale}/blog`, label: labels.blog, icon: 'book' },
+  { href: `/${locale}/community`, label: labels.community, icon: 'users' },
+];
+
+// Inline SVG icons for mobile nav (build-time, zero client JS)
+const navSvg: Record<string, string> = {
+  home: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  compass:
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+  layers:
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/><path d="m22 18.65-9.17 4.16a2 2 0 0 1-1.66 0L2 18.65"/></svg>',
+  grid: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>',
+  book: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  users:
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M17 7a4 4 0 0 0-1.49 7.69"/></svg>',
+};
+---
+
+<div
+  class="header-actions flex items-center gap-2 md:gap-4"
+  data-locale={locale}
+  data-dark-label={labels.darkMode || 'Dark Mode'}
+  data-light-label={labels.lightMode || 'Light Mode'}
+>
+  {/* ── Search Button (Desktop) ─────────────────────────────────────── */}
+  <button
+    class="header-search-btn hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors font-black uppercase text-sm tracking-wide shrink-0 whitespace-nowrap"
+    aria-label={labels.search}
+  >
+    <Search className="w-4 h-4" />
+    <span class="hidden xl:inline">{labels.search}</span>
+    <kbd
+      class="hidden xl:inline px-1.5 ml-1 py-0.5 text-[10px] bg-[var(--foreground)] text-[var(--background)] rounded-sm"
+      >⌘K</kbd
+    >
+  </button>
+
+  {/* ── Language Selector (Desktop) ──────────────────────────────────── */}
+  <div class="relative hidden md:block header-lang-dropdown">
+    <button
+      class="header-lang-toggle px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-black uppercase text-sm tracking-wide shrink-0 whitespace-nowrap"
+      aria-label={labels.switchLanguage}
+      aria-expanded="false"
+    >
+      <Globe className="w-4 h-4" />
+      <span class="hidden md:inline">{localeNames[locale] || locale}</span>
+      <ChevronDown className="w-4 h-4 hidden md:inline header-lang-chevron transition-transform duration-100" />
+    </button>
+
+    <div
+      class="header-lang-menu absolute right-0 top-full mt-2 w-[340px] bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] z-50 p-3 font-black uppercase text-xs sm:text-sm grid grid-cols-2 gap-2 hidden"
+    >
+      {
+        Object.entries(localeNames).map(([code, name]) => (
+          <button
+            type="button"
+            class={`header-lang-option w-full text-left px-3 py-2 border-2 transition-all flex items-center justify-between ${
+              code === locale
+                ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] translate-x-[-2px] translate-y-[-2px] shadow-[2px_2px_0px_0px_var(--border)]'
+                : 'bg-[var(--card)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_0px_var(--border)]'
+            }`}
+            data-locale-code={code}
+          >
+            <span class="truncate">{name}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* ── Submit Skill Button (Desktop) ───────────────────────────────── */}
+  <button
+    class="header-submit-btn hidden md:flex items-center gap-2 px-3 py-2 border-2 border-[var(--border)] bg-[#00ffcc] text-black hover:bg-emerald-400 transition-all font-black uppercase tracking-widest text-sm shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_var(--border)] whitespace-nowrap shrink-0"
+    aria-label={labels.submitSkill}
+  >
+    <Rocket className="w-4 h-4" />
+    <span>{labels.submitSkill}</span>
+  </button>
+
+  {/* ── Favorites Link (Desktop) ────────────────────────────────────── */}
+  <a
+    href={`/${locale}/favorites`}
+    class="hidden md:flex items-center justify-center p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[#ff003c] text-[var(--foreground)] hover:text-white transition-colors"
+    aria-label={labels.favoritesAria}
+  >
+    <Heart className="w-5 h-5" />
+  </a>
+
+  {/* ── Theme Toggle (Desktop) ───────────────────────────────────────── */}
+  <button
+    class="header-theme-btn hidden md:block p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-[var(--foreground)] transition-colors"
+    aria-label={labels.toggleTheme}
+  >
+    <Sun className="w-5 h-5 header-theme-icon-light" />
+    <Moon className="w-5 h-5 header-theme-icon-dark hidden" />
+  </button>
+
+  {/* ── Mobile Menu Toggle ──────────────────────────────────────────── */}
+  <button
+    class="header-mobile-toggle md:hidden p-2.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
+    aria-label={labels.toggleMenu}
+    aria-expanded="false"
+  >
+    <Menu className="w-6 h-6 header-menu-icon-open" />
+    <X className="w-6 h-6 header-menu-icon-close hidden" />
+  </button>
+</div>
+
+{/* ── Mobile Overlay (fixed, no portal needed) ──────────────────────────── */}
+<div
+  class="header-mobile-overlay fixed inset-0 z-[60] md:hidden transition-all duration-150 ease-out invisible opacity-0 pointer-events-none"
+  aria-hidden="true"
+>
+  {/* Backdrop */}
+  <div class="header-mobile-backdrop absolute inset-0 bg-[var(--background)] opacity-95"></div>
+
+  {/* Panel */}
+  <div
+    class="header-mobile-panel absolute right-4 top-4 bottom-4 left-16 border-[3px] border-[var(--border)] bg-[var(--card)] shadow-[8px_8px_0px_0px_var(--border)] flex flex-col transition-transform duration-200 ease-out translate-x-full translate-y-4"
+  >
+    {/* Panel Header */}
+    <div
+      class="flex items-center justify-between px-6 h-16 shrink-0 border-b-[3px] border-[var(--border)] bg-[var(--background)]"
+    >
+      <a href={`/${locale}`} class="flex items-center gap-3 group">
+        <div
+          class="w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] font-black text-xs shadow-[2px_2px_0px_0px_var(--border)]"
+        >
+          KS
+        </div>
+        <span class="font-black text-xl tracking-tight uppercase text-[var(--foreground)]"> Killer-Skills </span>
+      </a>
+      <button
+        class="header-mobile-close p-2.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
+        aria-label={labels.toggleMenu}
+      >
+        <X className="w-6 h-6" />
+      </button>
+    </div>
+
+    {/* Nav items */}
+    <div class="flex-1 overflow-y-auto bg-[var(--background)] flex flex-col">
+      <nav class="flex flex-col border-b-[3px] border-[var(--border)]">
+        {
+          navItems.map(({ href, label, icon }) => (
+            <a
+              href={href}
+              class="header-mobile-nav-link flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b last:border-b-0 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+            >
+              <Fragment set:html={navSvg[icon]} />
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+
+      {/* Quick actions */}
+      <div class="flex flex-col border-b-[3px] border-[var(--border)] bg-[var(--card)]">
+        <button
+          class="header-mobile-submit flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-widest text-[#000000] bg-emerald-400 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all m-4 mt-2"
+        >
+          <Rocket className="w-5 h-5 flex-shrink-0" />
+          {labels.submitSkill}
+        </button>
+        <button
+          type="button"
+          class="header-mobile-search flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors w-full text-left"
+        >
+          <Search className="w-5 h-5 flex-shrink-0" />
+          {labels.search}
+        </button>
+        <a
+          href={`/${locale}/favorites`}
+          class="header-mobile-fav flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[#ff003c] hover:text-white transition-colors"
+        >
+          <Heart className="w-5 h-5 flex-shrink-0" />
+          {labels.favorites}
+        </a>
+        <button
+          type="button"
+          class="header-mobile-theme flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors w-full text-left"
+        >
+          <Sun className="w-5 h-5 flex-shrink-0 header-theme-icon-light" />
+          <Moon className="w-5 h-5 flex-shrink-0 header-theme-icon-dark hidden" />
+          <span class="header-theme-label">{labels.lightMode || 'Light Mode'}</span>
+        </button>
+      </div>
+
+      {/* Language Selector (Mobile) */}
+      <div class="p-6 bg-[var(--background)] flex-1">
+        <span class="text-xs font-bold text-[var(--muted-foreground)] mb-4 block font-mono">
+          // {labels.language}
+        </span>
+        <div class="grid grid-cols-2 gap-3">
+          {
+            Object.entries(localeNames).map(([code, name]) => (
+              <button
+                type="button"
+                class={`header-mobile-lang text-left px-4 py-3 text-sm font-black uppercase border-2 transition-all ${
+                  code === locale
+                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
+                    : 'bg-[var(--card)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)]'
+                }`}
+                data-locale-code={code}
+              >
+                {name}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* ── Submit Skill Modal (native dialog) ────────────────────────────────── */}
+<SubmitSkillModalNative locale={locale} />
+
+<script>
+  function initHeaderActions() {
+    document.querySelectorAll<HTMLElement>('.header-actions').forEach((container) => {
+      if (container.dataset.initialized) return;
+      container.dataset.initialized = 'true';
+
+      const locale = container.dataset.locale || 'en';
+      const darkLabel = container.dataset.darkLabel || 'Dark Mode';
+      const lightLabel = container.dataset.lightLabel || 'Light Mode';
+
+      // ── Search dispatch ─────────────────────────────────────────────
+      const openSearch = () => {
+        window.dispatchEvent(new CustomEvent('ks:open-search'));
+        closeMobileMenu();
+      };
+
+      container.querySelectorAll('.header-search-btn').forEach((btn) => {
+        btn.addEventListener('click', openSearch);
+      });
+
+      // ── Theme toggle ───────────────────────────────────────────────
+      function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        container.querySelectorAll('.header-theme-icon-light').forEach((el) => {
+          el.classList.toggle('hidden', isDark);
+        });
+        container.querySelectorAll('.header-theme-icon-dark').forEach((el) => {
+          el.classList.toggle('hidden', !isDark);
+        });
+        container.querySelectorAll('.header-theme-label').forEach((el) => {
+          el.textContent = isDark ? darkLabel : lightLabel;
+        });
+      }
+
+      updateThemeIcons();
+      document.addEventListener('astro:after-swap', updateThemeIcons);
+
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        if (newTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        updateThemeIcons();
+      }
+
+      container.querySelectorAll('.header-theme-btn').forEach((btn) => {
+        btn.addEventListener('click', toggleTheme);
+      });
+      container.querySelectorAll('.header-mobile-theme').forEach((btn) => {
+        btn.addEventListener('click', toggleTheme);
+      });
+
+      // ── Language selector ───────────────────────────────────────────
+      const langToggle = container.querySelector<HTMLButtonElement>('.header-lang-toggle');
+      const langMenu = container.querySelector<HTMLElement>('.header-lang-menu');
+      const langChevron = container.querySelector<HTMLElement>('.header-lang-chevron');
+      let langOpen = false;
+
+      function toggleLangMenu(open?: boolean) {
+        langOpen = open ?? !langOpen;
+        langMenu?.classList.toggle('hidden', !langOpen);
+        langChevron?.classList.toggle('rotate-180', langOpen);
+        if (langToggle) langToggle.ariaExpanded = String(langOpen);
+      }
+
+      langToggle?.addEventListener('click', () => toggleLangMenu());
+
+      // Close on click outside
+      document.addEventListener('mousedown', (e) => {
+        if (langOpen) {
+          const dropdown = container.querySelector('.header-lang-dropdown');
+          if (dropdown && !dropdown.contains(e.target as Node)) {
+            toggleLangMenu(false);
+          }
+        }
+      });
+
+      // Language switching
+      function switchLanguage(code: string) {
+        if (code === locale) {
+          toggleLangMenu(false);
+          closeMobileMenu();
+          return;
+        }
+        toggleLangMenu(false);
+        closeMobileMenu();
+        document.cookie = `locale=${code};path=/;max-age=31536000;SameSite=Lax`;
+        const currentPath = window.location.pathname;
+        const newPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${code}$1`);
+        window.location.href = newPath;
+      }
+
+      container.querySelectorAll('.header-lang-option').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const code = (btn as HTMLElement).dataset.localeCode || '';
+          switchLanguage(code);
+        });
+      });
+
+      container.querySelectorAll('.header-mobile-lang').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const code = (btn as HTMLElement).dataset.localeCode || '';
+          switchLanguage(code);
+        });
+      });
+
+      // ── Mobile menu ────────────────────────────────────────────────
+      const overlay = container.parentElement?.querySelector<HTMLElement>('.header-mobile-overlay');
+      const panel = overlay?.querySelector<HTMLElement>('.header-mobile-panel');
+      const menuIconOpen = container.querySelector<HTMLElement>('.header-menu-icon-open');
+      const menuIconClose = container.querySelector<HTMLElement>('.header-menu-icon-close');
+      let menuOpen = false;
+
+      function openMobileMenu() {
+        menuOpen = true;
+        overlay?.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
+        overlay?.classList.add('visible', 'opacity-100', 'pointer-events-auto');
+        overlay?.setAttribute('aria-hidden', 'false');
+        panel?.classList.remove('translate-x-full', 'translate-y-4');
+        panel?.classList.add('translate-x-0', 'translate-y-0');
+        menuIconOpen?.classList.add('hidden');
+        menuIconClose?.classList.remove('hidden');
+        const toggle = container.querySelector<HTMLButtonElement>('.header-mobile-toggle');
+        if (toggle) toggle.ariaExpanded = 'true';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileMenu() {
+        menuOpen = false;
+        overlay?.classList.add('invisible', 'opacity-0', 'pointer-events-none');
+        overlay?.classList.remove('visible', 'opacity-100', 'pointer-events-auto');
+        overlay?.setAttribute('aria-hidden', 'true');
+        panel?.classList.add('translate-x-full', 'translate-y-4');
+        panel?.classList.remove('translate-x-0', 'translate-y-0');
+        menuIconOpen?.classList.remove('hidden');
+        menuIconClose?.classList.add('hidden');
+        const toggle = container.querySelector<HTMLButtonElement>('.header-mobile-toggle');
+        if (toggle) toggle.ariaExpanded = 'false';
+        document.body.style.overflow = '';
+      }
+
+      container.querySelectorAll('.header-mobile-toggle').forEach((btn) => {
+        btn.addEventListener('click', () => (menuOpen ? closeMobileMenu() : openMobileMenu()));
+      });
+
+      overlay?.querySelector('.header-mobile-backdrop')?.addEventListener('click', closeMobileMenu);
+      overlay?.querySelector('.header-mobile-close')?.addEventListener('click', closeMobileMenu);
+
+      // Close on navigation (View Transitions)
+      document.addEventListener('astro:after-swap', () => {
+        closeMobileMenu();
+        toggleLangMenu(false);
+      });
+
+      // Close mobile nav links on click
+      overlay?.querySelectorAll('.header-mobile-nav-link, .header-mobile-fav').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      // Mobile quick actions
+      overlay?.querySelector('.header-mobile-search')?.addEventListener('click', openSearch);
+
+      // ── Submit Skill Modal ──────────────────────────────────────────
+      const submitDialog = container.parentElement?.querySelector<HTMLDialogElement>('.submit-skill-dialog');
+
+      container.querySelectorAll('.header-submit-btn').forEach((btn) => {
+        btn.addEventListener('click', () => submitDialog?.showModal());
+      });
+
+      overlay?.querySelector('.header-mobile-submit')?.addEventListener('click', () => {
+        closeMobileMenu();
+        setTimeout(() => submitDialog?.showModal(), 300);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initHeaderActions);
+</script>

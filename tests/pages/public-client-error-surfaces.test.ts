@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 const publicClientSurfaces = [
   'src/islands/ErrorBoundary.tsx',
   'src/islands/WebTerminal.tsx',
-  'src/islands/SubmitSkillModal.tsx',
+  'src/components/SubmitSkillModalNative.astro',
 ];
 
 describe('public client error surfaces', () => {

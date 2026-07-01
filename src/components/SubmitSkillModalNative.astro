@@ -1,0 +1,365 @@
+---
+/**
+ * SubmitSkillModalNative – Astro-native replacement for SubmitSkillModal React island.
+ *
+ * Uses HTML native `<dialog>` element for modal behavior (focus trap, backdrop,
+ * Escape-to-close) instead of React's createPortal.
+ *
+ * Props: locale (for zh/en text switching)
+ *
+ * The dialog is opened by calling `dialog.showModal()` and closed with `dialog.close()`.
+ * A component-local <script> handles form validation, API calls, and state transitions.
+ */
+
+import { X, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const isZh = locale === 'zh';
+---
+
+<dialog
+  class="submit-skill-dialog backdrop:bg-black/60 backdrop:backdrop-blur-sm bg-transparent p-0 max-w-lg w-full shadow-[8px_8px_0px_0px_var(--border)]"
+  data-locale={locale}
+>
+  {/* ── Dialog Content ─────────────────────────────────────────────────── */}
+  <div
+    class="bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden"
+  >
+    {/* Header */}
+    <div class="flex items-center justify-between px-6 py-4 border-b-4 border-[var(--border)] bg-[var(--card)]">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] font-black shadow-[2px_2px_0px_0px_var(--border)]"
+        >
+          +
+        </div>
+        <h2 class="text-xl font-black uppercase tracking-widest text-[var(--foreground)] mt-1">
+          {isZh ? '提交新技能' : 'Submit Skill'}
+        </h2>
+      </div>
+      <button
+        class="submit-close-btn p-1 uppercase font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+      >
+        <X className="w-6 h-6" strokeWidth={3} />
+      </button>
+    </div>
+
+    {/* Body — all steps rendered, toggled by data-step attribute */}
+    <div class="p-6 sm:p-8">
+      {/* Error banner */}
+      <div
+        class="submit-error mb-6 px-4 py-3 bg-rose-50 dark:bg-rose-950/30 border-2 border-rose-500 text-rose-700 dark:text-rose-400 font-bold text-sm shadow-[4px_4px_0px_0px_rgba(244,63,94,1)] hidden"
+        data-role="error"
+      >
+      </div>
+
+      {/* ── Step: Input ──────────────────────────────────────────────────── */}
+      <form class="submit-step space-y-6" data-step="input">
+        <div>
+          <label class="block text-sm font-black uppercase tracking-widest text-[var(--foreground)] mb-3 font-mono">
+            {isZh ? 'GitHub 仓库地址' : 'GitHub Repository URL'}
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-[var(--muted-foreground)]"
+                ><path
+                  d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3-0.5 6-2.5 6-7a5.5 5.5 0 0 0-1.5-4c0.5-1.5 0.5-3-0.5-4.5 0 0-1.5 0-3 1.5a10.5 10.5 0 0 0-5 0C9.5 2.5 8 2.5 8 2.5c-1 1.5-1 3-0.5 4.5A5.5 5.5 0 0 0 6 12c0 4.5 3 6.5 6 7a4.8 4.8 0 0 0-1 3.5V22"
+                ></path><path d="M9 22c-4 0-7-2-7-5 0-2 2.5-4 5-5"></path></svg
+              >
+            </div>
+            <input
+              type="text"
+              required
+              name="repo-url"
+              placeholder="https://github.com/owner/repo"
+              class="block w-full pl-12 pr-4 py-4 text-base bg-[var(--card)] border-[3px] border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 focus:border-[var(--primary)] transition-colors font-mono"
+            />
+          </div>
+          <p class="mt-3 text-xs text-[var(--muted-foreground)] font-bold font-mono">
+            {
+              isZh
+                ? '* 仓库根目录必须包含 SKILL.md 文件才能被系统收录'
+                : '* Repository must contain a SKILL.md file at root'
+            }
+          </p>
+        </div>
+        <button
+          type="submit"
+          class="submit-validate-btn w-full flex items-center justify-center gap-2 py-4 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <span class="submit-validate-label flex items-center gap-2">
+            {isZh ? '解析验证' : 'Validate Repo'}
+            <ArrowRight className="w-5 h-5" strokeWidth={3} />
+          </span>
+          <span class="submit-validate-spinner hidden flex items-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            {isZh ? '解析中...' : 'Validating...'}
+          </span>
+        </button>
+      </form>
+
+      {/* ── Step: Preview ───────────────────────────────────────────────── */}
+      <div class="submit-step space-y-6 hidden" data-step="preview">
+        <div class="p-5 border-[3px] border-dashed border-[var(--border)] bg-[var(--card)] relative">
+          <div
+            class="absolute -top-3 -left-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] px-2 py-1 text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)] animate-bounce font-mono"
+          >
+            {isZh ? '解析成功!' : 'Found!'}
+          </div>
+          <h3 class="submit-preview-name text-xl font-black text-[var(--foreground)] mb-2 mt-2 break-words"></h3>
+          <p
+            class="submit-preview-desc text-sm font-bold text-[var(--muted-foreground)] mb-4 font-mono leading-relaxed"
+          >
+          </p>
+          <div class="flex flex-wrap gap-4 text-xs font-black uppercase tracking-widest font-mono">
+            <div
+              class="flex items-center gap-1.5 text-[var(--foreground)] pt-3 border-t-2 border-[var(--border)] w-full"
+            >
+              <img
+                class="submit-preview-avatar w-5 h-5 border border-[var(--border)]"
+                alt=""
+                width="20"
+                height="20"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="submit-preview-owner"></span>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <button
+            type="button"
+            class="submit-back-btn flex-1 py-4 bg-[var(--card)] text-[var(--foreground)] border-[3px] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-sm font-black uppercase tracking-widest transition-colors"
+          >
+            {isZh ? '上一步' : 'Back'}
+          </button>
+          <button
+            type="button"
+            class="submit-confirm-btn flex-[2] flex items-center justify-center gap-2 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] border-[3px] border-[var(--border)] hover:bg-emerald-500 hover:text-white text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all disabled:opacity-50"
+          >
+            <span class="submit-confirm-label flex items-center gap-2">
+              {isZh ? '确认提交' : 'Submit Skill'}
+              <ArrowRight className="w-5 h-5" strokeWidth={3} />
+            </span>
+            <span class="submit-confirm-spinner hidden flex items-center gap-2">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              {isZh ? '提交中...' : 'Submitting...'}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* ── Step: Success ───────────────────────────────────────────────── */}
+      <div class="submit-step text-center py-8 space-y-6 hidden" data-step="success">
+        <div
+          class="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 border-4 border-emerald-500 rounded-full shadow-[8px_8px_0px_0px_rgba(16,185,129,1)]"
+        >
+          <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400" strokeWidth={3} />
+        </div>
+        <div>
+          <h3 class="text-2xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">
+            {isZh ? '提交已接收!' : 'Submission Received!'}
+          </h3>
+          <p class="text-[var(--muted-foreground)] font-bold text-sm font-mono leading-relaxed">
+            {
+              isZh
+                ? '您的技能已进入审批队列。我们将在审核其质量与安全性后，正式将其收录进排行榜。'
+                : 'Your skill is now in the review queue. We will perform quality and safety checks before officially listing it.'
+            }
+          </p>
+        </div>
+        <button
+          type="button"
+          class="submit-close-success-btn w-full mt-4 py-4 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+        >
+          {isZh ? '关闭' : 'Close'}
+        </button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  function getPublicApiError(data: unknown, fallback: string): string {
+    if (data && typeof data === 'object' && 'error' in data! && typeof (data as any).error === 'string') {
+      return (data as any).error;
+    }
+    return fallback;
+  }
+
+  function initSubmitSkillModal() {
+    document.querySelectorAll<HTMLDialogElement>('.submit-skill-dialog').forEach((dialog) => {
+      if (dialog.dataset.initialized) return;
+      dialog.dataset.initialized = 'true';
+
+      const locale = dialog.dataset.locale || 'en';
+      const isZh = locale === 'zh';
+
+      const errorEl = dialog.querySelector<HTMLElement>('[data-role="error"]')!;
+      const steps = dialog.querySelectorAll<HTMLElement>('.submit-step');
+      const validateBtn = dialog.querySelector<HTMLButtonElement>('.submit-validate-btn')!;
+      const validateLabel = dialog.querySelector<HTMLElement>('.submit-validate-label')!;
+      const validateSpinner = dialog.querySelector<HTMLElement>('.submit-validate-spinner')!;
+      const backBtn = dialog.querySelector<HTMLButtonElement>('.submit-back-btn')!;
+      const confirmBtn = dialog.querySelector<HTMLButtonElement>('.submit-confirm-btn')!;
+      const confirmLabel = dialog.querySelector<HTMLElement>('.submit-confirm-label')!;
+      const confirmSpinner = dialog.querySelector<HTMLElement>('.submit-confirm-spinner')!;
+      const closeSuccessBtn = dialog.querySelector<HTMLButtonElement>('.submit-close-success-btn')!;
+      const closeBtn = dialog.querySelector<HTMLButtonElement>('.submit-close-btn')!;
+      const form = dialog.querySelector<HTMLFormElement>('.submit-step[data-step="input"]') as HTMLFormElement;
+      const urlInput = form?.querySelector<HTMLInputElement>('input[name="repo-url"]')!;
+
+      const previewName = dialog.querySelector<HTMLElement>('.submit-preview-name')!;
+      const previewDesc = dialog.querySelector<HTMLElement>('.submit-preview-desc')!;
+      const previewAvatar = dialog.querySelector<HTMLImageElement>('.submit-preview-avatar')!;
+      const previewOwner = dialog.querySelector<HTMLElement>('.submit-preview-owner')!;
+
+      let currentUrl = '';
+      let previewData: any = null;
+
+      function showStep(step: string) {
+        steps.forEach((el) => {
+          el.classList.toggle('hidden', el.dataset.step !== step);
+        });
+        errorEl.classList.add('hidden');
+      }
+
+      function resetState() {
+        showStep('input');
+        urlInput.value = '';
+        currentUrl = '';
+        previewData = null;
+        errorEl.classList.add('hidden');
+        validateLabel.classList.remove('hidden');
+        validateSpinner.classList.add('hidden');
+        confirmLabel.classList.remove('hidden');
+        confirmSpinner.classList.add('hidden');
+        validateBtn.removeAttribute('disabled');
+        confirmBtn.removeAttribute('disabled');
+      }
+
+      function closeDialog() {
+        dialog.close();
+        setTimeout(resetState, 300);
+      }
+
+      // Close buttons
+      closeBtn?.addEventListener('click', closeDialog);
+      closeSuccessBtn?.addEventListener('click', closeDialog);
+      dialog.addEventListener('cancel', (e) => {
+        // Allow Escape key to close
+        setTimeout(resetState, 300);
+      });
+
+      // Step 1: Validate
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        currentUrl = urlInput.value.trim();
+        if (!currentUrl) return;
+
+        validateBtn.setAttribute('disabled', '');
+        validateLabel.classList.add('hidden');
+        validateSpinner.classList.remove('hidden');
+        errorEl.classList.add('hidden');
+
+        try {
+          const res = await fetch(`/api/skills/submit?url=${encodeURIComponent(currentUrl)}`);
+          const data = await res.json();
+
+          if (!res.ok) {
+            errorEl.textContent = getPublicApiError(
+              data,
+              isZh ? '验证失败，请稍后重试' : 'Validation failed. Please try again.',
+            );
+            errorEl.classList.remove('hidden');
+            showStep('input');
+          } else {
+            previewData = data.skill;
+            previewName.textContent = previewData?.frontmatter?.name || previewData?.name || '';
+            previewDesc.textContent =
+              previewData?.frontmatter?.description || previewData?.description || 'No description provided.';
+            previewOwner.textContent = previewData?.owner || '';
+            previewAvatar.src = `https://github.com/${previewData?.owner}.png`;
+            showStep('preview');
+          }
+        } catch (err) {
+          errorEl.textContent = isZh ? '验证失败，请稍后重试' : 'Validation failed. Please try again.';
+          errorEl.classList.remove('hidden');
+          showStep('input');
+        } finally {
+          validateBtn.removeAttribute('disabled');
+          validateLabel.classList.remove('hidden');
+          validateSpinner.classList.add('hidden');
+        }
+      });
+
+      // Back button
+      backBtn?.addEventListener('click', () => showStep('input'));
+
+      // Step 2: Submit
+      confirmBtn?.addEventListener('click', async () => {
+        confirmBtn.setAttribute('disabled', '');
+        confirmLabel.classList.add('hidden');
+        confirmSpinner.classList.remove('hidden');
+        errorEl.classList.add('hidden');
+
+        try {
+          const res = await fetch('/api/skills/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ repoUrl: currentUrl }),
+          });
+          const data = await res.json();
+
+          if (!res.ok) {
+            errorEl.textContent = getPublicApiError(
+              data,
+              isZh ? '提交失败，请稍后重试' : 'Submission failed. Please try again.',
+            );
+            errorEl.classList.remove('hidden');
+            showStep('preview');
+          } else {
+            showStep('success');
+          }
+        } catch (err) {
+          errorEl.textContent = isZh ? '提交失败，请稍后重试' : 'Submission failed. Please try again.';
+          errorEl.classList.remove('hidden');
+          showStep('preview');
+        } finally {
+          confirmBtn.removeAttribute('disabled');
+          confirmLabel.classList.remove('hidden');
+          confirmSpinner.classList.add('hidden');
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initSubmitSkillModal);
+</script>
+
+<style>
+  .submit-skill-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+  .submit-skill-dialog {
+    border: none;
+    margin: auto;
+    overflow: visible;
+  }
+</style>
