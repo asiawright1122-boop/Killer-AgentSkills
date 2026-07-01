@@ -45,6 +45,7 @@ const t = useTranslations(messages);
         height="64"
         class="w-full h-full object-cover grayscale contrast-125"
         loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
         decoding={priority ? 'sync' : 'async'}
         fetchpriority={priority ? 'high' : 'auto'}
       />

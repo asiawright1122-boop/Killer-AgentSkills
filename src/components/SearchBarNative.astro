@@ -1,0 +1,178 @@
+---
+/**
+ * Astro-native SearchBar — replaces the React SearchBar island.
+ * Uses vanilla JS with no React runtime dependency.
+ * This removes the 182KB React client.js from the homepage.
+ */
+
+interface Props {
+  locale?: string;
+  placeholder?: string;
+  buttonText?: string;
+}
+
+const { locale = 'en', placeholder = "Try: 'find a database tool'", buttonText = 'RUN' } = Astro.props;
+---
+
+<div id="search-bar" class="max-w-xl mx-auto relative group z-50" data-locale={locale}>
+  <form id="search-bar-form">
+    {/* Brutalist Solid Shadow Background */}
+    <div class="absolute inset-0 bg-[var(--border)] translate-x-1 translate-y-1"></div>
+
+    <div class="relative flex">
+      <input
+        type="text"
+        id="skillSearchInput"
+        name="q"
+        placeholder={placeholder}
+        aria-label={placeholder}
+        autocomplete="off"
+        class="block w-full px-6 py-4 text-lg border-2 border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-0 focus:border-[var(--primary)] transition-all placeholder:text-[var(--muted-foreground)] text-[var(--foreground)] font-mono font-bold tracking-wider rounded-none relative z-10"
+        style="border-radius:0"
+      />
+
+      <button
+        type="submit"
+        aria-label={`Search skills`}
+        class="bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] px-6 border-y-2 border-r-2 border-[var(--border)] transition-colors cursor-pointer flex items-center justify-center rounded-none relative z-10"
+        style="border-radius:0"
+      >
+        <span class="font-black tracking-widest whitespace-nowrap hidden sm:inline-block mr-2">
+          {buttonText}
+        </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+          class="w-5 h-5 flex-shrink-0"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+    </div>
+  </form>
+
+  {/* AI Semantic Search Results Dropdown */}
+  <div
+    id="search-bar-results"
+    class="absolute top-full left-0 right-0 mt-3 border-2 border-[var(--border)] bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] max-h-96 overflow-y-auto hidden"
+  >
+  </div>
+</div>
+
+<script>
+  // Vanilla JS SearchBar — no React needed
+  const DEBOUNCE_MS = 400;
+  const bar = document.getElementById('search-bar');
+  if (bar) {
+    const locale = bar.dataset.locale || 'en';
+    const input = document.getElementById('skillSearchInput') as HTMLInputElement;
+    const form = document.getElementById('search-bar-form') as HTMLFormElement;
+    const results = document.getElementById('search-bar-results') as HTMLDivElement;
+
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let currentQuery = '';
+
+    function showLoading() {
+      results.innerHTML =
+        '<div class="p-6 text-center text-[var(--muted-foreground)] font-mono animate-pulse flex items-center justify-center gap-3"><span class="text-xl">🤖</span> AI Semantic Search...</div>';
+      results.classList.remove('hidden');
+    }
+
+    function showNoResults() {
+      results.innerHTML =
+        '<div class="p-6 text-center text-[var(--muted-foreground)] font-mono">No semantic matches found.</div>';
+      results.classList.remove('hidden');
+    }
+
+    function showResults(
+      items: Array<{
+        id: string;
+        name: string;
+        owner: string;
+        routePath: string;
+        repo: string;
+        href: string;
+        category?: string;
+        stars?: number;
+        score: number;
+      }>,
+    ) {
+      const html = items
+        .map((r) => {
+          const path = r.routePath || r.repo;
+          const catTag = r.category ? ` • ${r.category}` : '';
+          const starsTag =
+            r.stars !== undefined
+              ? `<span class="text-sm font-bold flex items-center bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-2 py-1 rounded">★ ${r.stars}</span>`
+              : '';
+          return `<li class="border-b-2 border-[var(--border)] last:border-b-0">
+          <a href="${r.href}" class="flex items-center justify-between p-4 hover:bg-[var(--primary)] hover:text-[var(--foreground)] transition-colors group">
+            <div class="flex flex-col overflow-hidden">
+              <span class="font-bold truncate text-lg group-hover:text-black">${r.name}</span>
+              <span class="text-sm opacity-70 truncate font-mono mt-1 group-hover:text-black">${r.owner}/${path}${catTag}</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">${starsTag}</div>
+          </a>
+        </li>`;
+        })
+        .join('');
+      results.innerHTML = `<ul class="flex flex-col">${html}</ul>`;
+      results.classList.remove('hidden');
+    }
+
+    function hideResults() {
+      results.classList.add('hidden');
+    }
+
+    // Debounced search on input
+    input.addEventListener('input', () => {
+      currentQuery = input.value;
+      if (timer) clearTimeout(timer);
+      if (!currentQuery.trim()) {
+        hideResults();
+        return;
+      }
+      timer = setTimeout(async () => {
+        showLoading();
+        try {
+          const res = await fetch(
+            `/api/search?q=${encodeURIComponent(currentQuery)}&locale=${encodeURIComponent(locale)}`,
+          );
+          if (res.ok) {
+            const data = await res.json();
+            const items = data.results || [];
+            if (items.length > 0) showResults(items);
+            else showNoResults();
+          }
+        } catch {
+          showNoResults();
+        }
+      }, DEBOUNCE_MS);
+    });
+
+    // Show results on focus if there's a query
+    input.addEventListener('focus', () => {
+      if (currentQuery.trim()) results.classList.remove('hidden');
+    });
+
+    // Click outside to close
+    document.addEventListener('mousedown', (e) => {
+      if (!bar.contains(e.target as Node)) hideResults();
+    });
+
+    // Form submit → navigate to skills listing
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (q) window.location.href = `/${locale}/skills?q=${encodeURIComponent(q)}`;
+    });
+  }
+</script>

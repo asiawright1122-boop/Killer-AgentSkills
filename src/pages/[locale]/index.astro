@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import SkillCard from '../../components/SkillCard.astro';
 import OfficialSkills from '../../components/OfficialSkills.astro';
-import SearchBar from '../../islands/SearchBar';
+import SearchBarNative from '../../components/SearchBarNative.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/public-skill-catalog';
 import { buildKeywordString } from '../../lib/seo-keywords';
@@ -369,10 +369,9 @@ const features = [
           {seoIntro}
         </p>
 
-        <!-- Search Bar (React Island) -->
+        <!-- Search Bar (Astro native — no React runtime) -->
         <div class="max-w-xl mx-auto">
-          <SearchBar
-            client:visible
+          <SearchBarNative
             locale={locale}
             placeholder={t('Home.searchPlaceholder')}
             buttonText={t('Home.searchButton')}

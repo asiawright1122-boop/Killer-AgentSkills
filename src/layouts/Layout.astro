@@ -93,6 +93,9 @@ const robotsContent =
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
+    <!-- Preload LCP image for faster paint -->
+    <link rel="preload" as="image" href={absoluteImage} fetchpriority="high" />
+
     <!--
       Font loading: `rel="preload" as="style"` starts the stylesheet download
       immediately without blocking the parser. A separate <script> below
