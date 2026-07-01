@@ -59,3 +59,9 @@ export function clearSeo404RulesCache(): void {
   _rulesCache = null;
   _rulesCacheTime = 0;
 }
+
+/** Inject pre-loaded data (used by tests to bypass KV/DEV requirements). */
+export function setSeo404RulesCache(data: Seo404Rule[]): void {
+  _rulesCache = data;
+  _rulesCacheTime = Date.now();
+}

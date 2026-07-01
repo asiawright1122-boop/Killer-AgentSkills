@@ -55,3 +55,9 @@ export function clearSitemapBlocklistCache(): void {
   _blocklistCache = null;
   _blocklistCacheTime = 0;
 }
+
+/** Inject pre-loaded data (used by tests to bypass KV/DEV requirements). */
+export function setSitemapBlocklistCache(data: CompiledSitemapBlocklist): void {
+  _blocklistCache = data;
+  _blocklistCacheTime = Date.now();
+}

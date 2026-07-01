@@ -1,10 +1,18 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeAll } from 'vitest';
 import seo404RulesData from '../data/seo-404-rules.json';
 import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
 import sitemapSkillsData from '../data/sitemap-skills.json';
 import skillLocaleGovernanceData from '../data/seo-skill-locale-governance.json';
-import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from './lib/skill-route-paths';
+import {
+  buildLocalizedSkillPath,
+  getSkillRoutePath,
+  type SitemapSkillEntry as SitemapSkillRouteEntry,
+} from './lib/skill-route-paths';
 import { compileSitemapBlocklist, isSitemapSkillBlocked } from './lib/sitemap-blocklist';
+import { setSitemapSkillsCache, type SitemapSkillEntry } from './lib/sitemap-skills-runtime';
+import { setSitemapBlocklistCache } from './lib/sitemap-blocklist-runtime';
+import { setSeo404RulesCache } from './lib/seo-404-rules-runtime';
+import { setSkillLocaleGovernanceCache } from './lib/skill-locale-governance';
 
 vi.mock('astro:middleware', () => ({
   defineMiddleware: <T>(fn: T) => fn,
@@ -19,6 +27,19 @@ vi.mock('./lib/logger', () => ({
   generateRequestId: () => 'test-req-id',
 }));
 
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
+
+// Seed runtime caches so middleware can validate skill routes without KV/DEV
+beforeAll(() => {
+  const sitemapSkills = (
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
+  ) as SitemapSkillEntry[];
+  setSitemapSkillsCache(sitemapSkills);
+  setSitemapBlocklistCache(sitemapBlocklist);
+  setSeo404RulesCache(seo404RulesData as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+  setSkillLocaleGovernanceCache(skillLocaleGovernanceData);
+});
+
 import { onRequest } from './middleware';
 
 const SKILL_SOURCE_FILE_EXT_RE =
@@ -31,9 +52,7 @@ type SkillLocaleGovernanceRecord = {
   publishedLocales: string[];
 };
 
-const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
-
-function normalizeSitemapSkillRecord(record: Partial<SitemapSkillEntry>) {
+function normalizeSitemapSkillRecord(record: Partial<SitemapSkillRouteEntry>) {
   const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
   const rawRoutePath = typeof record.routePath === 'string' ? record.routePath.trim() : '';
   if (!owner || !rawRoutePath) return null;
@@ -78,7 +97,7 @@ function pickUniqueRepoFallbackSample() {
   const candidates = new Map<string, Array<{ owner: string; repo: string; routePath: string }>>();
   const records = (
     Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
-  ) as Array<Partial<SitemapSkillEntry>>;
+  ) as Array<Partial<SitemapSkillRouteEntry>>;
 
   for (const record of records) {
     const normalized = normalizeSitemapSkillRecord(record);
@@ -181,7 +200,7 @@ describe('middleware skill route handling', () => {
 
   it('keeps skill detail HTML cached longer at the edge to reduce crawler SSR pressure', async () => {
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/eannnnnn/taptik-labs/gh', {
+      createContext('https://killer-skills.com/en/skills/langgenius/dify/backend-code-review', {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () =>
@@ -325,7 +344,7 @@ describe('middleware skill route handling', () => {
   it('redirects suppressed locale skill pages to their governed canonical locale', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/de/skills/DataRecce/recce/recce-mcp-e2e'),
+      createContext('https://killer-skills.com/de/skills/langgenius/dify/backend-code-review'),
       async () => {
         nextCalled = true;
         return new Response('<html></html>', {
@@ -337,7 +356,7 @@ describe('middleware skill route handling', () => {
 
     expect(nextCalled).toBe(false);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('/en/skills/DataRecce/recce/recce-mcp-e2e');
+    expect(response.headers.get('Location')).toBe('/en/skills/langgenius/dify/backend-code-review');
   });
 
   it('returns 410 for owner-only skill trap paths instead of canonicalizing the trailing slash', async () => {
@@ -358,7 +377,7 @@ describe('middleware skill route handling', () => {
   it('returns 410 for known repo roots that only act as multi-skill directories', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/de/skills/Galaxy-Dawn/claude-scholar', {
+      createContext('https://killer-skills.com/de/skills/langgenius/dify', {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () => {
@@ -380,7 +399,7 @@ describe('middleware skill route handling', () => {
     try {
       let nextCalled = false;
       const response = (await onRequest(
-        createContext('https://killer-skills.com/de/skills/Galaxy-Dawn/claude-scholar', {
+        createContext('https://killer-skills.com/de/skills/langgenius/dify', {
           headers: { 'user-agent': 'Googlebot/2.1' },
         }),
         async () => {

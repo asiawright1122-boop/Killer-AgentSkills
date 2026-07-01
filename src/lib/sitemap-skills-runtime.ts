@@ -79,3 +79,9 @@ export function clearSitemapSkillsCache(): void {
   _sitemapSkillsCache = null;
   _sitemapSkillsCacheTime = 0;
 }
+
+/** Inject pre-loaded data (used by tests to bypass KV/DEV requirements). */
+export function setSitemapSkillsCache(data: SitemapSkillEntry[]): void {
+  _sitemapSkillsCache = data;
+  _sitemapSkillsCacheTime = Date.now();
+}

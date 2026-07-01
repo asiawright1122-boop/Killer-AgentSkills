@@ -102,6 +102,16 @@ export function isGovernanceLoaded(): boolean {
 }
 
 /**
+ * Inject pre-loaded governance data (used by tests to bypass KV/DEV requirements).
+ * Accepts the same raw JSON shape as the KV/local-file sources.
+ */
+export function setSkillLocaleGovernanceCache(data: unknown): void {
+  skillLocaleGovernanceMap.clear();
+  populateGovernanceMap(data);
+  _governanceLoaded = true;
+}
+
+/**
  * Local dev eager load: populate governance map from local file on import in dev mode.
  * This ensures synchronous access works in local dev without KV.
  */

@@ -1,7 +1,10 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import * as fc from 'fast-check';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './i18n';
 import seo404RulesData from '../data/seo-404-rules.json';
+import sitemapSkillsData from '../data/sitemap-skills.json';
+import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
+import skillLocaleGovernanceData from '../data/seo-skill-locale-governance.json';
 import {
   detectLocale,
   isStaticOrApiPath,
@@ -9,6 +12,11 @@ import {
   COUNTRY_TO_LOCALE,
   checkAdminAuth,
 } from './middleware-utils';
+import { setSitemapSkillsCache, type SitemapSkillEntry } from './lib/sitemap-skills-runtime';
+import { setSitemapBlocklistCache } from './lib/sitemap-blocklist-runtime';
+import { compileSitemapBlocklist } from './lib/sitemap-blocklist';
+import { setSeo404RulesCache } from './lib/seo-404-rules-runtime';
+import { setSkillLocaleGovernanceCache } from './lib/skill-locale-governance';
 
 vi.mock('astro:middleware', () => ({
   defineMiddleware: <T>(fn: T) => fn,
@@ -22,6 +30,17 @@ vi.mock('./lib/logger', () => ({
   },
   generateRequestId: () => 'test-req-id',
 }));
+
+// Seed runtime caches so middleware can validate skill routes without KV/DEV
+beforeAll(() => {
+  const sitemapSkills = (
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
+  ) as SitemapSkillEntry[];
+  setSitemapSkillsCache(sitemapSkills);
+  setSitemapBlocklistCache(compileSitemapBlocklist(sitemapBlocklistData));
+  setSeo404RulesCache(seo404RulesData as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+  setSkillLocaleGovernanceCache(skillLocaleGovernanceData);
+});
 
 import { onRequest } from './middleware';
 
@@ -549,7 +568,7 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
   it('crawler requests keep valid canonical skill detail URLs reachable', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/IstiN/dmtools/dmtools', {
+      createContext('https://killer-skills.com/en/skills/coleam00/Archon/archon', {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () => {
