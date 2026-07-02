@@ -47,7 +47,7 @@ import type { Env, SkillListingItem } from '../../../../lib/kv';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActionsNative from '../../../../components/SkillActionsNative.astro';
-import SkillReadme from '../../../../islands/SkillReadme';
+import SkillReadmeNative from '../../../../components/SkillReadmeNative.astro';
 import SkillFileManagerNative from '../../../../components/SkillFileManagerNative.astro';
 import SkillCard from '../../../../components/SkillCard.astro';
 import '../../../../styles/prism-tokens.css';
@@ -1503,8 +1503,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       </pre>
                     </div>
                   ) : (
-                    <SkillReadme
-                      client:idle
+                    <SkillReadmeNative
                       initialContent={publicReadmeContent}
                       initialFiles={{
                         'SKILL.md': publicReadmeContent,
@@ -1527,7 +1526,6 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                           2,
                         ),
                       }}
-                      name="SKILL.md"
                       sourceRepositoryOwner={owner}
                       sourceRepositoryRepo={repo}
                       sourceFilePath={skill.filePath || 'SKILL.md'}

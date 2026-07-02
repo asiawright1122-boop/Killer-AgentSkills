@@ -1,0 +1,256 @@
+---
+/**
+ * SkillReadmeNative – Astro‑native replacement for the SkillReadme React island.
+ *
+ * Strategy: SSR all markdown/file content to HTML in the Astro frontmatter using
+ * Astro's built-in `createMarkdownProcessor`. Vanilla JS handles file switching
+ * (via nanostores), copy button, and the "Preview/Raw" toggle.
+ *
+ * This eliminates react-markdown, react-syntax-highlighter, and all React hooks.
+ * The rendered HTML includes Shiki/Prism syntax‑highlighted code blocks produced
+ * at build/SSR time — zero client‑side JS for rendering.
+ *
+ * Props: initialContent, initialFiles, headerTitle, headerDescription, headerBadge,
+ *        sourceRepositoryOwner, sourceRepositoryRepo, sourceFilePath
+ */
+
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { FileText, Copy, Check, Eye } from 'lucide-react';
+import { slugifyHeading } from '../lib/markdown-headings';
+import { resolveRepositoryMarkdownImage, resolveRepositoryMarkdownLink } from '../lib/markdown-source-links';
+
+interface Props {
+  initialContent: string;
+  initialFiles?: Record<string, string>;
+  headerTitle?: string;
+  headerDescription?: string;
+  headerBadge?: string;
+  sourceRepositoryOwner?: string;
+  sourceRepositoryRepo?: string;
+  sourceFilePath?: string;
+}
+
+const {
+  initialContent,
+  initialFiles = {},
+  headerTitle,
+  headerDescription,
+  headerBadge,
+  sourceRepositoryOwner,
+  sourceRepositoryRepo,
+  sourceFilePath,
+} = Astro.props;
+
+// --- SSR markdown rendering ---
+// Create a shared markdown processor (async factory, cached per request)
+const processor = await createMarkdownProcessor();
+
+// Render all files through the markdown pipeline
+// Markdown files go through the full processor; raw files get code-block html
+const renderedFiles: Record<string, string> = {};
+
+for (const [filename, content] of Object.entries({ 'SKILL.md': initialContent, ...initialFiles })) {
+  if (filename.endsWith('.md')) {
+    const result = await processor.render(content, {
+      fileURL:
+        sourceRepositoryOwner && sourceRepositoryRepo
+          ? new URL(
+              `https://github.com/${sourceRepositoryOwner}/${sourceRepositoryRepo}/blob/main/${sourceFilePath || filename}`,
+            )
+          : undefined,
+    });
+    renderedFiles[filename] = result.code;
+  } else {
+    // Non-markdown files: render as raw code block (plaintext)
+    const result = await processor.render(
+      '```' + (filename.endsWith('.json') ? 'json' : '') + '\n' + content + '\n```',
+    );
+    renderedFiles[filename] = result.code;
+  }
+}
+
+// Store rendered content as data attributes for vanilla JS to access
+import { currentFile, fileContents, setFileContent } from '../stores/skill-files';
+// Initialize the stores
+setFileContent('SKILL.md', initialContent);
+for (const [f, c] of Object.entries(initialFiles)) {
+  setFileContent(f, c);
+}
+---
+
+<div
+  class="skill-readme bg-white dark:bg-[#151515]/80 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl transition-colors duration-300"
+  data-initial-file="SKILL.md"
+  data-source-owner={sourceRepositoryOwner}
+  data-source-repo={sourceRepositoryRepo}
+  data-source-file-path={sourceFilePath}
+>
+  {/* ── Header ───────────────────────────────────────────────────────────── */}
+  <div
+    class="h-12 bg-gray-50/80 dark:bg-white/5 border-b border-gray-200 dark:border-white/5 flex items-center justify-between px-4 transition-colors duration-300"
+  >
+    <div class="flex items-center gap-3">
+      <div class="flex gap-1.5 group">
+        <div
+          class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-[inset_0_0_2px_rgba(0,0,0,0.2)] border border-[#e0443e] group-hover:brightness-90 transition-all"
+        >
+        </div>
+        <div
+          class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-[inset_0_0_2px_rgba(0,0,0,0.2)] border border-[#dea123] group-hover:brightness-90 transition-all"
+        >
+        </div>
+        <div
+          class="w-3 h-3 rounded-full bg-[#27c93f] shadow-[inset_0_0_2px_rgba(0,0,0,0.2)] border border-[#1aab29] group-hover:brightness-90 transition-all"
+        >
+        </div>
+      </div>
+      <div class="h-4 w-px bg-gray-300 dark:bg-white/10 mx-1"></div>
+      <div class="flex items-center gap-2 text-gray-400 dark:text-gray-500 text-sm font-mono">
+        <FileText size={14} />
+        <span class="readme-filename text-gray-600 dark:text-gray-300 font-medium">SKILL.md</span>
+      </div>
+      <span
+        class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-gray-200 dark:bg-white/10 text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-white/5 uppercase tracking-wider"
+      >
+        Readonly
+      </span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="readme-preview-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all text-xs font-medium border border-gray-200 dark:border-white/5"
+      >
+        <Eye size={14} />
+        <span>Preview</span>
+      </button>
+      <button
+        type="button"
+        class="readme-copy-btn p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg text-gray-400 hover:text-black dark:hover:text-white transition-colors relative"
+        title="Copy content"
+      >
+        <Copy size={16} className="readme-copy-icon-copy" />
+        <Check size={16} className="readme-copy-icon-check hidden text-green-500" />
+      </button>
+    </div>
+  </div>
+
+  {/* ── Skill metadata banner ───────────────────────────────────────────── */}
+  {
+    (headerTitle || headerDescription || headerBadge) && (
+      <div class="border-b border-gray-200 dark:border-white/5 bg-cyan-50/70 dark:bg-cyan-500/10 px-4 py-3 transition-colors duration-300">
+        <div class="flex items-start justify-between gap-3 flex-wrap">
+          <div class="min-w-0">
+            {headerTitle && (
+              <div class="text-sm font-black uppercase tracking-widest text-gray-900 dark:text-cyan-100">
+                {headerTitle}
+              </div>
+            )}
+            {headerDescription && (
+              <div class="text-xs font-mono font-bold text-gray-600 dark:text-cyan-50/80 mt-1 leading-relaxed">
+                {headerDescription}
+              </div>
+            )}
+          </div>
+          {headerBadge && (
+            <span class="px-2 py-1 rounded-none border border-gray-300 dark:border-cyan-200/30 bg-white dark:bg-cyan-400/15 text-[10px] font-black uppercase tracking-widest text-gray-700 dark:text-cyan-100">
+              {headerBadge}
+            </span>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  {/* ── Content Area ────────────────────────────────────────────────────── */}
+  <div class="relative h-[400px] group/scroll">
+    <div
+      class="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"
+    >
+    </div>
+
+    {/* Initial content: SKILL.md rendered markdown */}
+    {
+      renderedFiles['SKILL.md'] ? (
+        <div class="p-8 relative z-10 h-full overflow-y-auto custom-scrollbar readme-content">
+          <article class="prose prose-zinc dark:prose-invert max-w-3xl mx-auto prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-gray-100 dark:prose-pre:bg-[#0e0e0e] prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-white/10 prose-pre:text-gray-900 dark:prose-pre:text-gray-50">
+            <Fragment set:html={renderedFiles['SKILL.md']} />
+          </article>
+        </div>
+      ) : (
+        <div class="rounded-lg overflow-hidden bg-white border border-gray-200 dark:bg-[#1e1e1e] dark:border-gray-700 transition-colors duration-300 h-full">
+          <Fragment set:html={renderedFiles['SKILL.md'] || '<pre><code>Loading…</code></pre>'} />
+        </div>
+      )
+    }
+
+    <div
+      class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-[#050505] to-transparent pointer-events-none opacity-50"
+    >
+    </div>
+  </div>
+</div>
+
+{/* ── Hidden rendered file storage for JS switching ───────────────────── */}
+<div class="rendered-files-data hidden" data-files={JSON.stringify(renderedFiles)}></div>
+
+<script>
+  import { currentFile, selectFile } from '../stores/skill-files';
+
+  function initSkillReadme() {
+    document.querySelectorAll<HTMLElement>('.skill-readme').forEach((container) => {
+      if (container.dataset.initialized) return;
+      container.dataset.initialized = 'true';
+
+      const renderedFilesEl = container.querySelector<HTMLElement>('.rendered-files-data');
+      if (!renderedFilesEl) return;
+      const renderedFiles: Record<string, string> = JSON.parse(renderedFilesEl.dataset.files || '{}');
+
+      const filenameEl = container.querySelector<HTMLElement>('.readme-filename')!;
+      const contentArea = container.querySelector<HTMLElement>('.readme-content')!;
+      const copyBtn = container.querySelector<HTMLButtonElement>('.readme-copy-btn')!;
+      const copyIconCopy = container.querySelector<HTMLElement>('.readme-copy-icon-copy')!;
+      const copyIconCheck = container.querySelector<HTMLElement>('.readme-copy-icon-check')!;
+
+      let currentFilename = 'SKILL.md';
+
+      // Switch file content when nanostore changes
+      function switchToFile(filename: string) {
+        if (!renderedFiles[filename]) return;
+        currentFilename = filename;
+
+        // Update header filename display
+        filenameEl!.textContent = filename;
+
+        // Replace content
+        const html = renderedFiles[filename];
+        if (filename.endsWith('.md')) {
+          contentArea!.innerHTML = `<article class="prose prose-zinc dark:prose-invert max-w-3xl mx-auto prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-gray-100 dark:prose-pre:bg-[#0e0e0e] prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-white/10 prose-pre:text-gray-900 dark:prose-pre:text-gray-50">${html}</article>`;
+        } else {
+          contentArea!.innerHTML = `<div class="rounded-lg overflow-hidden bg-white border border-gray-200 dark:bg-[#1e1e1e] dark:border-gray-700 transition-colors duration-300 h-full">${html}</div>`;
+        }
+      }
+
+      // Subscribe to nanostore
+      currentFile.listen((newFile) => {
+        switchToFile(newFile);
+      });
+
+      // Copy button
+      copyBtn.addEventListener('click', () => {
+        // Find the text content of the currently displayed file
+        const text = contentArea?.textContent || '';
+        navigator.clipboard.writeText(text).then(() => {
+          copyIconCopy.classList.add('hidden');
+          copyIconCheck.classList.remove('hidden');
+          setTimeout(() => {
+            copyIconCopy.classList.remove('hidden');
+            copyIconCheck.classList.add('hidden');
+          }, 2000);
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initSkillReadme);
+</script>
