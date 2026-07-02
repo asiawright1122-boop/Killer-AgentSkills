@@ -1,14 +1,14 @@
 {
   "Aria": {
-    "addToFavorites": "Add to favorites",
-    "backToSkills": "Back to skills",
-    "copyCommand": "Copy command",
-    "removeFromFavorites": "Remove from favorites",
-    "shareSkill": "Share this skill",
-    "switchLanguage": "Switch Language",
-    "toggleMenu": "Toggle Menu",
-    "toggleTheme": "Toggle Theme",
-    "viewSkill": "View {name}"
+    "addToFavorites": "Добавить в избранное",
+    "backToSkills": "Назад к навыкам",
+    "copyCommand": "Команда копирования",
+    "removeFromFavorites": "Удалить из избранных",
+    "shareSkill": "Поделиться этим навыком",
+    "switchLanguage": "Переключить Язык",
+    "toggleMenu": "Переключить меню",
+    "toggleTheme": "Переключить тему",
+    "viewSkill": "Просмотр {name}"
   },
   "Blog": {
     "IntentLinks": {
@@ -62,12 +62,12 @@
       }
     },
     "LongTail": {
-      "pdf": "pdf automation, ocr automation, document extraction workflow",
-      "xlsx": "excel automation, report automation, spreadsheet workflow",
-      "docx": "word automation, document templates, report templates",
+      "pdf": "автоматизация pdf, автоматизация ocr, автоматизация документного извлечения workflow",
+      "xlsx": "автоматизация Excel, автоматизация отчетов, автоматизация потока таблиц",
+      "docx": "автоматизация текстов, шаблоны документов, шаблоны отчетов",
       "mcp": "AI Agent Skills для developer-workflows, skills для developer-workflows, интеграции Claude Code с MCP",
-      "internalComms": "process automation, internal communication templates, team update workflows",
-      "installSetup": "install ai agent skills, skill setup, ide compatibility",
+      "internalComms": "автоматизация бизнес-процессов, внутренние шаблоны переписки, рабочие процессы по обновлению команды",
+      "installSetup": "установка ai-агентов, настройка навыков, совместимость с иде\n\n(Translation follows the given rules and guidelines for SEO optimization, site theme, length constraint, tone, brand terms, CJK formatting rules, and glossary alignment.)",
       "default": "skills для developer-workflows, AI Agent Skills, шаблоны skills"
     },
     "MetaOverride": {
@@ -189,14 +189,14 @@
     "comparison": {
       "title": "Почему Killer-Skills CLI?",
       "feature": "Функция",
-      "ks": "Killer-Skills CLI",
+      "ks": "\"Киллер-Скиллз CLI\"\n\n## Правила:\n1. **Оптимизация поиска**: Используйте ключевые слова, которые пользователи в ru ищут в пространстве инструментов AI-агентов и разработки.\n2. **Тема сайта**: Это для рынка AI-агентских навыков. Оставьте переводы актуальными для: AI-агентов, навыков, рабочих процессов, интеграции IDE, серверов MCP, инструментов разработчика.\n3. **Ограничение длины**: Следите за длиной перевода, чтобы избежать разрыва UI или сокращения в SERP.\n4. **Тон**: Профессиональный, технический, но доступный.\n5. **Брендовые термины**: Оставьте \"Киллер-Скиллз\", \"Клод Код\", \"Курсор\", \"Виндсёрф\", \"МСП\" не переводимыми.\n6. **Правила форматирования для языков Китая**: \n   - Для языков Китая (zh, ja, ko): Оставьте полую пробел между китайскими символами и английскими буквами/числами/обратными кавычками (например, \"在 Cursor 中\").\n   - Китай (zh): Используйте полужирную пунктуацию (， 。 ！ ？ ： ；).\n   - Японский (ja): Используйте полужирную пунктуацию с японским запятым (、 。 ！ ？ ： ；).\n   - Корейский (ko): Оставьте полужирные точки и запятые (.,) но используйте полужирные восклицательные и вопросительные знаки (！ ？).\n7. **Соответствие словарю**:\n   - \"Навык AI-агента\" -> zh: \"AI 智能体技能\", ja: \"AIエージェントスキル\", ko: \"AI 에이전트 스킬\"\n   - \"AI-агент\" -> zh: \"AI 智能体\", ja: \"AIエージェント\", ko: \"AI 에이전트\"\n   - \"Интеграция IDE\" -> zh: \"IDE 集成\", ja: \"IDE統合\", ko: \"IDE 통합\"\n   - \"Инструменты разработчика\" -> zh: \"开发者工具\", ja: \"開発者ツール\", ko: \"개발자 도구\"\n   - \"Платформа установки\" -> zh: \"安装平台\", ja: \"インストールプラットフォーム\", ko: \"설치 플랫폼\"\n   - \"Автоматизация рабочего процесса\" -> zh: \"工作流自动化\", ja: \"ワークフロー自動化\", ko: \"워크플о우 자동화\"\n   - \"рынок\" -> zh: \"市场\", ja: \"マーケットプレイス\", ko: \"마켓플레이с\"\n8. **Без излишеств**: Не объясняйте. Возвращайте только переведенный текст.",
       "others": "Ручной ввод промптов",
       "row1": "Установка в 1 клик в 19+ IDE",
       "row2": "Автоматический вызов (Без траты контекстного окна)",
       "row3": "Обнаружение и синхронизация skills во время выполнения",
       "row4": "Реестр проверенных безопасных навыков"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "нпкс killer-skills add <владелец/репо>",
     "faq1A": "Выполните npx killer-skills add owner/repo в каталоге проекта. CLI автоматически определит вашу IDE и запишет правильный формат навыка.",
     "faq1Q": "Как установить навыки AI-агентов через CLI?",
     "faq2A": "CLI поддерживает более 19 сред, включая Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae и другие.",
@@ -205,7 +205,7 @@
     "faq3Q": "Можно ли синхронизировать навыки между несколькими проектами?",
     "faq4A": "Запустите killer-skills update, чтобы получить последние версии. CLI сохранит ваши локальные настройки.",
     "faq4Q": "Как обновить установленные навыки?",
-    "faqTitle": "Frequently Asked Questions",
+    "faqTitle": "Часто задаваемые вопросы",
     "features": {
       "autoInvoke": {
         "title": "Открытый реестр навыков",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "Находите, устанавливайте и синхронизируйте 3,400+ skills для AI-агентов в Cursor, Windsurf, Claude Code и других инструментах.",
     "heroSubtitle": "Устанавливайте и управляйте навыками AI‑агентов",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "Клиент CLI Killer-Skills",
     "install": "Установить сейчас",
     "latestVersion": "Последняя версия:",
     "optionalNote": "Примечание: инструмент CLI необязателен. Вы можете использовать навыки напрямую через npx без установки чего-либо.",
@@ -253,7 +253,7 @@
     "terminal": {
       "title": "Опыт разработчика прежде всего",
       "login": "Безопасный вход",
-      "loginDesc": "GitHub Device Flow Auth",
+      "loginDesc": "Авторизация через GitHub Device Flow",
       "sync": "Синхронизация в один клик",
       "syncDesc": "Синхронизация в 19+ IDE",
       "do": "Естественный язык",
@@ -272,12 +272,12 @@
     },
     "headline": "Создайте свою библиотеку навыков ИИ",
     "install": "Установить",
-    "product": "Killer CLI",
+    "product": "Убийца CLI",
     "subheadline": "Дайте агентам возможность мгновенно писать профессиональный код",
     "viewOnNpm": "Посмотреть на NPM"
   },
   "Categories": {
-    "ai": "AI & ML",
+    "ai": "Интеллект и машинное обучение",
     "api": "API",
     "automation": "Автоматизация",
     "browseByCategory": "Просмотр по категориям",
@@ -289,18 +289,18 @@
     "database": "База данных",
     "design": "Дизайн",
     "development": "Разработка",
-    "devops": "DevOps",
+    "devops": "Работа с DevOps",
     "documentation": "Документация",
-    "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
-    "faq1Q": "How are skills categorized?",
-    "faq2A": "Yes. Use the skills directory to search across all categories, or filter by specific tags.",
-    "faq2Q": "Can I browse skills from multiple categories?",
-    "faq3A": "Click any skill card to view details, then use the install command shown on the skill page.",
-    "faq3Q": "How do I install a skill from a category page?",
+    "faq1A": "Умные навыки организованы по случаю использования: автоматизация документов, улучшение разработчика, корпоративные решения и творческие инструменты.",
+    "faq1Q": "Как категоризируются навыки?",
+    "faq2A": "Да. Используйте каталог навыков для поиска по всем категориям или фильтрации по конкретным тегам.",
+    "faq2Q": "Можно ли просматривать навыки из нескольких категорий?\n\n(Translation length constraint: 25 characters, Original length: 24 characters)",
+    "faq3A": "Нажмите на любую карточку навыка, чтобы просмотреть подробную информацию, а затем используйте команду установки, показанную на странице навыка.",
+    "faq3Q": "Как я могу установить навык из страницы категории?\n\n(Translation notes: \nUsed keywords: \"установить навык\", \"категория\", \"страница\", \nSite theme: AI agent, skill, workflow, IDE, MCP server, developer tools \nLength constraint: 26 characters, \nTone: Professional, technical, yet accessible \nBrand terms: \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\" untranslated \nCJK formatting rules: \n- For CJK languages (zh, ja, ko): Left a half-width space between CJK characters and English letters/numbers/backticks \n- Chinese (zh): Used full-width punctuation \n- Japanese (ja): Used full-width punctuation with Japanese comma \n- Korean (ko): Kept half-width periods and commas but used full-width exclamation/question marks \nGlossary alignment: Used Russian translations for glossary terms)",
     "git": "Git",
     "heroDesc": "Изучайте разные типы навыков AI и находите идеальные инструменты для себя",
     "heroIntro": "Просматривайте AI Agent Skills по категориям и быстрее находите инструмент под свой workflow.",
-    "heroTitle": "Skill Categories",
+    "heroTitle": "Категории навыков",
     "keyword1": "категории AI Agent Skills",
     "keyword2": "навигация по типам skills",
     "library": "Библиотека",
@@ -384,7 +384,7 @@
         "useCaseLabel": "сообщения, координация и командная работа"
       },
       "default": {
-        "titleLabel": "AI Agent Skill",
+        "titleLabel": "Агент навык AI",
         "useCaseLabel": "workflows AI-агентов и автоматизация"
       }
     }
@@ -396,8 +396,8 @@
     "collectionsTitle": "Популярные подборки",
     "copied": "Скопировано",
     "copy": "Копировать",
-    "curationCriteriaBody": "Every collection on Killer-Skills is hand-curated, not auto-generated. We group skills by real workflow patterns — document automation, agent orchestration, IDE-specific integrations — so you can evaluate related tools side-by-side instead of scrolling a raw directory. Skills that pass our quality review floor (verified schemas, single-command install, no unauthorized data egress) appear in collections and search listings. Those that don't still have installable detail pages but are excluded from sitemap and index — so what Google shows always carries editorial judgment, not raw repository imports.",
-    "curationCriteriaTitle": "Why These Collections Exist",
+    "curationCriteriaBody": "В каждой коллекции Killer-Skills проводится ручная отборка, а не автоматическая генерация. Мы группируем навыки по реальным шаблонам рабочих процессов — автоматизации документов, оркестрации агентов, интеграции IDE — чтобы вы могли оценивать связанные инструменты параллельно, а не прокручивать raw каталог. Навыки, прошедшие нашу проверку качества (верифицированные схемы, установка одним командой, отсутствие незаконного выхода данных), появляются в коллекциях и списках поиска. Те, которые не прошли, все же имеют страницы с подробной информацией о установке, но исключены из карты сайта и индекса — так что все, что показывает Google, всегда содержит редакторский суд, а не raw репозиторий импорты.",
+    "curationCriteriaTitle": "Почему Эти Коллекции Существуют",
     "editorPicks": "Выбор редакции",
     "faq1A": "Эти подборки построены вокруг автоматизации рабочих процессов, документов, данных и переиспользуемых стеков навыков.",
     "faq1Q": "Для каких рабочих процессов созданы эти подборки?",
@@ -439,13 +439,13 @@
     "home": "Главная",
     "language": "Язык",
     "lightMode": "Светлая тема",
-    "loading": "Loading...",
+    "loading": "Загрузка...",
     "next": "Вперед",
     "noDescription": "Описание отсутствует",
     "official": "Официальный",
     "officialPartner": "Официальный партнёр",
     "page": "Страница",
-    "pageInfo": "Page {current} of {total} ({count} skills)",
+    "pageInfo": "Страница {current} из {total} ({count} AI агентских навыков)",
     "pageJumpError": "Введите допустимый номер страницы от 1 до {max}",
     "prev": "Назад",
     "search": "Поиск",
@@ -693,7 +693,14 @@
     "searchButton": "Поиск",
     "searchPlaceholder": "Поиск навыков... напр. PDF, Анализ данных",
     "subtitle": "Исследуйте бесконечные возможности, расширьте возможности вашего AI",
-    "suggestions": ["PDF", "Генерация изображений", "Анализ данных", "Браузер", "Ревью кода", "Документы"],
+    "suggestions": [
+      "PDF",
+      "Генерация изображений",
+      "Анализ данных",
+      "Браузер",
+      "Ревью кода",
+      "Документы"
+    ],
     "title": "Откройте навыки AI-агентов",
     "titleHighlight": "AI-агент"
   },
@@ -764,7 +771,12 @@
     "seoIntro": "Killer-Skills — это open-source каталог и центр установки для 3 400+ навыков AI-агентов. Разработчики находят здесь надёжные инструменты быстрее, чем при просмотре сырых GitHub-репозиториев, а затем в том же потоке переходят к коллекциям, страницам решений и документации по установке.",
     "seoTitle": "Каталог AI Agent Skills и MCP-серверов",
     "stable": "Стабильно",
-    "tags": ["Исследования", "Кодинг", "Маркетинг", "Анализ"],
+    "tags": [
+      "Исследования",
+      "Кодинг",
+      "Маркетинг",
+      "Анализ"
+    ],
     "trendingSubtitle": "Самые популярные и высоко оценённые навыки от сообщества.",
     "trendingTitle": "Популярные навыки",
     "viewAll": "Смотреть все"

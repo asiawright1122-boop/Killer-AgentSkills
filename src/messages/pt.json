@@ -693,7 +693,14 @@
     "searchButton": "Buscar",
     "searchPlaceholder": "Buscar habilidades... ex: PDF, Análise de Dados",
     "subtitle": "Explore possibilidades infinitas, capacite seu assistente de AI",
-    "suggestions": ["PDF", "Geração de Imagens", "Análise de Dados", "Navegador", "Revisão de Código", "Documentos"],
+    "suggestions": [
+      "Arquivo PDF",
+      "Geração de Imagens",
+      "Análise de Dados",
+      "Navegador",
+      "Revisão de Código",
+      "Documentos"
+    ],
     "title": "Descubra Habilidades de Agentes de AI",
     "titleHighlight": "Agente de Inteligência Artificial"
   },
@@ -764,7 +771,12 @@
     "seoIntro": "Killer-Skills é um diretório open source e ponto de entrada de instalação para mais de 3.400 skills de agentes de IA. Desenvolvedores encontram ferramentas confiáveis mais rápido do que navegando repositórios brutos do GitHub e, no mesmo fluxo, seguem para coleções, páginas de soluções e documentação de instalação.",
     "seoTitle": "Diretório de AI Agent Skills e servidores MCP",
     "stable": "Estável",
-    "tags": ["Pesquisa", "Codificação", "Marketing", "Análise"],
+    "tags": [
+      "Pesquisa",
+      "Codificação",
+      "\"Marketing\" -> \"Marketing\"",
+      "Análise"
+    ],
     "trendingSubtitle": "Skills mais bem avaliadas e mais populares da comunidade.",
     "trendingTitle": "Habilidades em Alta",
     "viewAll": "Ver Tudo"
@@ -867,7 +879,7 @@
     "officialSeoTitle": "Skills Oficiais de Agentes de Inteligência Artificial",
     "ownerSeoDesc": "Navegue pelas habilidades de agentes de inteligência artificial publicadas pelo {owner} para Claude Code, Cursor e Windsurf.",
     "ownerSeoTitle": "Habilidades de Agente de Inteligência Artificial por {owner}",
-    "popular": "Popular",
+    "popular": "Habilidades Populares",
     "searchPrefix": "Busca: {query}",
     "searchSeoDesc": "Resultado de busca para \"{query}\" em habilidades de agentes inteligentes para Claude Code, Cursor e Windsurf no Killer-Skills.",
     "searchSeoTitle": "{query} Resultados de Pesquisa de Habilidades de Agentes Inteligentes",
@@ -910,8 +922,8 @@
     "browseSkills": "Explorar Skills",
     "browsingHistory": "Histórico de Navegação",
     "clearHistory": "Limpar Tudo",
-    "favoritesCount": "{count} skills",
-    "historyCount": "{count} skills",
+    "favoritesCount": "{count} habilidades",
+    "historyCount": "{contagem} habilidades",
     "myFavorites": "Meus Favoritos",
     "noFavorites": "Nenhum favorito ainda",
     "noFavoritesHint": "Navegue pelo diretório e clique no coração para salvar skills",
@@ -962,7 +974,7 @@
         "description": "Explore templates, automações iniciais e playbooks reutilizáveis para tarefas repetitivas com IA."
       },
       "ai-agent-skills": {
-        "label": "AI Agent Skills",
+        "label": "Habilidades de Agente de Inteligência Artificial",
         "description": "Explore AI Agent Skills de alta qualidade para código, automação, dados e produtividade nos principais IDEs."
       },
       "claude-code-skills": {
@@ -1009,14 +1021,14 @@
       "developer": "Desenvolvedor",
       "data": "Dados",
       "ai": "Inteligência Artificial",
-      "design": "Design",
+      "design": "\"Design\" -> \"Design\"",
       "documentation": "Documentação",
-      "devops": "DevOps & Cloud",
+      "devops": "Desenvolvimento de Software e Nuvem",
       "security": "Segurança",
       "communication": "Comunicação"
     },
     "discover": "Descobrir",
-    "frameworks": "Frameworks",
+    "frameworks": "Ferramentas",
     "views": {
       "official": "Oficial",
       "featured": "Destaque",
@@ -1027,9 +1039,9 @@
     "copied": "Copiado!",
     "copy": "Copiar",
     "creators": "Criadores Ativos",
-    "downloads": "Downloads",
+    "downloads": "Downloads\n\nTranslated from English to Portuguese.",
     "featured": "Skills em Destaque",
-    "forks": "Forks",
+    "forks": "\"Forks\" \n\npt: \"Forks\"",
     "install": "Código de Instalação",
     "noResults": "Nenhuma skill encontrada",
     "noResultsHint": "Tente palavras-chave diferentes",
