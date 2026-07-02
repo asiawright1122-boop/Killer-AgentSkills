@@ -250,17 +250,19 @@ async function main() {
   //     - skill-collection-lookup  → skill→collection 反查 (18K)
   //     - related-skills-lookup    → related skills 查询表 (3.4M)
   //     - seo-sitemap-blocklist    → 低质量 skill 屏蔽列表 (103K)
-  //     - submission:{id}          → 用户提交 (由 API 写入)
-  //     - crawled-skills           → 爬取结果 (由 API 写入)
-  //   技能数据 (skill:*) 不再写入 KV — 前端已全部从 D1 读取
+//     - collections              → 合集数据 (38 files, ~828KB) — 前端运行时加载
+	  //     - submission:{id}          → 用户提交 (由 API 写入)
+	  //     - crawled-skills           → 爬取结果 (由 API 写入)
+	  //   技能数据 (skill:*) 不再写入 KV — 前端已全部从 D1 读取
   // ══════════════════════════════════════════════════════════
 
   const activeKeys = new Set<string>();
 
-  // 1. Sync critical small keys FIRST (sitemap, collection lookup, blocklist)
-  //    These are small and essential — docs sync can consume the entire daily
-  //    free-tier quota (1000 writes), so we must prioritize.
-  await syncSitemapData();
+// 1. Sync critical small keys FIRST (sitemap, collection lookup, blocklist, collections)
+	  //    These are small and essential — docs sync can consume the entire daily
+	  //    free-tier quota (1000 writes), so we must prioritize.
+	  await syncSitemapData();
+	  await syncCollections();
 
   // 2. Then sync docs (180+ keys, heavy on quota)
   const docKeys = await syncDocs();
@@ -272,7 +274,8 @@ async function main() {
   }
 
   // 2. Sitemap key and related runtime data keys (written in syncSitemapData)
-  activeKeys.add('sitemap-skills');
+  activeKeys.add('collections');
+	  activeKeys.add('sitemap-skills');
   activeKeys.add('skill-collection-lookup');
   activeKeys.add('related-skills-lookup');
   activeKeys.add('seo-sitemap-blocklist');
@@ -393,7 +396,50 @@ main()
   })
   .catch(console.error);
 
-async function syncSitemapData() {
+async function syncCollections() {
+	  if (kvNamespaceUnavailable) {
+	    console.warn('⚠️ Skip collections KV sync because namespace is unavailable.');
+	    return;
+	  }
+	  console.log('\n📚 Syncing collections data...');
+	  const collectionsDir = path.join(process.cwd(), 'src/content/collections');
+	  if (!fs.existsSync(collectionsDir)) {
+	    console.warn('⚠️  src/content/collections directory not found');
+	    return;
+	  }
+	
+	  const files = fs.readdirSync(collectionsDir).filter((f) => f.endsWith('.json'));
+	  if (files.length === 0) {
+	    console.warn('⚠️  No collection JSON files found');
+	    return;
+	  }
+	
+	  const entries: Array<{ id: string; slug: string; data: any }> = [];
+	  for (const file of files) {
+	    try {
+	      const content = fs.readFileSync(path.join(collectionsDir, file), 'utf-8');
+	      const data = JSON.parse(content);
+	      const slug = file.replace(/\.json$/, '');
+	      entries.push({ id: slug, slug, data });
+	    } catch {
+	      console.warn(`⚠️  Failed to parse collection file: ${file}`);
+	    }
+	  }
+	
+	  const json = JSON.stringify(entries);
+	  const sizeKB = (Buffer.byteLength(json, 'utf-8') / 1024).toFixed(1);
+	  console.log(`   ${entries.length} collections, ~${sizeKB} KB combined`);
+	
+	  const success = await writeToKV([{ key: 'collections', value: json }]);
+	  if (success) {
+	    console.log(`✅ Collections synced to KV (${entries.length} entries, ${sizeKB} KB)`);
+	  } else {
+	    console.error('❌ Failed to sync collections');
+	    hadSyncError = true;
+	  }
+	}
+	
+	async function syncSitemapData() {
   if (kvNamespaceUnavailable) {
     console.warn('⚠️ Skip sitemap KV sync because namespace is unavailable.');
     return;
