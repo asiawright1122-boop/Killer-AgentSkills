@@ -80,14 +80,25 @@ run_pipeline() {
         # For now, let's continue.
     fi
 
-    # Step 2: Build Cache (Incremental)
-    log "🏗️  Step 2: Building Skills Cache (Incremental)..." | tee -a "$LOG_FILE"
-    if npx tsx scripts/build-skills-cache.ts --mode=discover >> "$LOG_FILE" 2>&1; then
-        log "✅ Build completed." | tee -a "$LOG_FILE"
-    else
-        log "❌ Build failed. Aborting sync." | tee -a "$LOG_FILE"
-        return 1
-    fi
+# Step 2: Build Cache (Incremental)
+log "🏗️ Step 2: Building Skills Cache (Incremental)..." | tee -a "$LOG_FILE"
+if npx tsx scripts/build-skills-cache.ts --mode=discover >> "$LOG_FILE" 2>&1; then
+  log "✅ Build completed." | tee -a "$LOG_FILE"
+else
+  log "❌ Build failed. Aborting sync." | tee -a "$LOG_FILE"
+  return 1
+fi
+
+# Step 2.8: Fix short descriptions (post-build cleanup)
+# Some GitHub repos produce descriptions that are just '>' or '>-' (markdown
+# parsing artifacts). This step expands them using SEO description, definition,
+# or features fields so every skill has a meaningful description for search.
+log "🔧 Step 2.8: Fixing short descriptions..." | tee -a "$LOG_FILE"
+if npx tsx scripts/fix-short-skill-descriptions.ts >> "$LOG_FILE" 2>&1; then
+  log "✅ Description fix completed." | tee -a "$LOG_FILE"
+else
+  log "⚠️  Description fix had issues (non-fatal)." | tee -a "$LOG_FILE"
+fi
 
     # Step 2.5: AI Provider Health Gate
     log "🧪 Step 2.5: Refreshing AI Runtime Probe..." | tee -a "$LOG_FILE"
