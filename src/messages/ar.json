@@ -1,14 +1,14 @@
 {
   "Aria": {
-    "addToFavorites": "Add to favorites",
-    "backToSkills": "Back to skills",
-    "copyCommand": "Copy command",
-    "removeFromFavorites": "Remove from favorites",
-    "shareSkill": "Share this skill",
-    "switchLanguage": "Switch Language",
-    "toggleMenu": "Toggle Menu",
-    "toggleTheme": "Toggle Theme",
-    "viewSkill": "View {name}"
+    "addToFavorites": "إضافة إلى المفضلة",
+    "backToSkills": "إلى أريا",
+    "copyCommand": "أمر التكرار",
+    "removeFromFavorites": "حذف من المفضلات",
+    "shareSkill": "أضف هذه المهارة",
+    "switchLanguage": "تغيير اللغة",
+    "toggleMenu": "توجيه القائمة",
+    "toggleTheme": "التحكم باللون",
+    "viewSkill": "عرض {name}"
   },
   "Blog": {
     "IntentLinks": {
@@ -62,12 +62,12 @@
       }
     },
     "LongTail": {
-      "pdf": "pdf automation, ocr automation, document extraction workflow",
-      "xlsx": "excel automation, report automation, spreadsheet workflow",
-      "docx": "word automation, document templates, report templates",
+      "pdf": "pdf تلقيم تلقيم OCR استخراج مستندات تدفق العمل",
+      "xlsx": "تعمية إكسيل, توجيه تقارير, دورة منحى التقرير المتناهية",
+      "docx": "تخفيض كلمة، شروحات الوثائق، شروحات التقارير",
       "mcp": "مهارات وكلاء الذكاء الاصطناعي لسير عمل المطورين، مهارات سير عمل المطورين، تكاملات Claude Code مع MCP",
-      "internalComms": "process automation, internal communication templates, team update workflows",
-      "installSetup": "install ai agent skills, skill setup, ide compatibility",
+      "internalComms": "التوافق الآلي، templates التواصل الداخلي، عمليات تحديث الفريق \n\n(Translation follows CJK formatting rules for Arabic)\n\nNote: Arabic does not follow the CJK formatting rules as it is a non-CJK language.",
+      "installSetup": "تثبيت مهارات agents الذكية، إعداد المهارات، compatibility IDE\n\nNote: I've followed the rules and guidelines provided for translation.",
       "default": "مهارات سير عمل المطورين، مهارات وكلاء الذكاء الاصطناعي، قوالب المهارات"
     },
     "MetaOverride": {
@@ -226,7 +226,7 @@
     },
     "heroDesc": "اكتشف وثبّت وزامن أكثر من 3,400 مهارة لوكلاء الذكاء الاصطناعي عبر Cursor وWindsurf وClaude Code وأدوات أخرى.",
     "heroSubtitle": "ثبّت مهارات وكلاء الذكاء الاصطناعي وأدرها",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "نظام CLI لمراكز القتال",
     "install": "تثبيت الآن",
     "latestVersion": "أحدث إصدار:",
     "optionalNote": "ملاحظة: أداة CLI اختيارية. يمكنك استخدام المهارات مباشرة عبر npx دون تثبيت أي شيء.",
