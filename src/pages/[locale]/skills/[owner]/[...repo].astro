@@ -694,10 +694,15 @@ const skillLocaleGovernance = renderRepoDirectory
       typedLocale,
       SUPPORTED_LOCALES,
     );
-// Skill detail pages have translated UI chrome in all locales even when
-// the README content is English-only. Google needs hreflang for all locales
-// to avoid treating them as duplicate content.
-const skillAvailableLocales = [...SUPPORTED_LOCALES];
+// Use the locale governance to determine which locales actually have
+// translated content. Only declare hreflang for locales with real content
+// (translated README body or high-quality translated metadata). Declaring
+// hreflang for non-existent translations signals duplicate content to Google.
+const skillAvailableLocales = skillLocaleGovernance?.publishedLocales?.length
+  ? skillLocaleGovernance.publishedLocales
+  : typedLocale === 'en'
+    ? SUPPORTED_LOCALES
+    : [typedLocale, 'en'];
 const skillXDefaultLocale = 'en';
 const skillIndexability = renderRepoDirectory
   ? null
