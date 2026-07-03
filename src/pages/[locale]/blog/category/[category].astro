@@ -7,35 +7,27 @@ import { buildKeywordString, type KeywordClusterId } from '../../../../lib/seo-k
 import { getBlogIntentLinks } from '../../../../lib/blog-seo-intent';
 import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  const BLOG_CATEGORIES = ['document-automation', 'developer-experience', 'enterprise-solutions', 'creative-tools'];
-  return SUPPORTED_LOCALES.flatMap((locale) => BLOG_CATEGORIES.map((category) => ({ params: { locale, category } })));
-}
-
-const categoryIcons = {
-  'creative-tools': Palette,
-  'document-automation': FileText,
-  'enterprise-solutions': Building2,
-  'developer-experience': Terminal,
-};
+export const prerender = false;
 
 const { locale, category } = Astro.params;
-
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !category) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
+const typedLocale = locale as Locale;
+
 // Get posts for current locale and category
-let posts = await getCollection('blog', ({ data }) => {
-  return data.lang === locale && data.category === category && !data.draft;
+// Match by directory-based locale (id starts with locale/) instead of frontmatter lang
+let posts = await getCollection('blog', ({ id, data }) => {
+  const entryLocale = id.split('/')[0];
+  return entryLocale === typedLocale && data.category === category && !data.draft;
 });
 
 // Fallback to English if no posts found
 if (posts.length === 0 && locale !== 'en') {
-  posts = await getCollection('blog', ({ data }) => {
-    return data.lang === 'en' && data.category === category && !data.draft;
+  posts = await getCollection('blog', ({ id, data }) => {
+    const entryLocale = id.split('/')[0];
+    return entryLocale === 'en' && data.category === category && !data.draft;
   });
 }
 
@@ -48,9 +40,16 @@ if (posts.length === 0) {
 // Sort by date desc
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const messages = await loadMessages(locale as Locale);
+const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+
+const categoryIcons = {
+  'creative-tools': Palette,
+  'document-automation': FileText,
+  'enterprise-solutions': Building2,
+  'developer-experience': Terminal,
+};
 
 const categoryName = tr(`Blog.categories.${category}`, category || '');
 const categorySeoTitles: Record<string, { en: string; zh: string }> = {
@@ -166,12 +165,7 @@ const faqItems = [
             name: tr('Blog.title', 'Blog'),
             item: `https://killer-skills.com/${locale}/blog`,
           },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: categoryName,
-            item: canonicalUrl,
-          },
+          { '@type': 'ListItem', position: 3, name: categoryName, item: canonicalUrl },
         ],
       })}
     />
@@ -238,8 +232,7 @@ const faqItems = [
         href={`/${locale}/blog`}
         class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
       >
-        <ArrowLeft size={16} strokeWidth={3} />
-        {tr('Common.back', 'Back')}
+        <ArrowLeft size={16} strokeWidth={3} />{tr('Common.back', 'Back')}
       </a>
 
       {/* Header */}

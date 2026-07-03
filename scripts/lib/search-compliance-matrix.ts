@@ -356,7 +356,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const crawlClear =
     checkedUrls !== null &&
     checkedUrls > 0 &&
-    status2xx === checkedUrls &&
+    status2xx + effective4xx === checkedUrls &&
     effective4xx === 0 &&
     (status5xx ?? 0) === 0 &&
     sitemapFetchErrors === 0;

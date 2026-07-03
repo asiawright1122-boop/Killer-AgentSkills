@@ -14,20 +14,9 @@ import {
 } from '../../../lib/blog-seo-intent';
 import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-  return allPosts.map((post) => {
-    const parts = post.id.split('/');
-    const locale = parts[0] || 'en';
-    const slug = parts.slice(1).join('/');
-    return { params: { locale, slug } };
-  });
-}
+export const prerender = false;
 
 const { locale, slug } = Astro.params;
-
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
@@ -179,8 +168,7 @@ const blogBreadcrumbSchema = {
             href={`/${locale}/blog`}
             class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
           >
-            <ArrowLeft size={16} strokeWidth={3} />
-            {tr('Common.back', 'Back')}
+            <ArrowLeft size={16} strokeWidth={3} />{tr('Common.back', 'Back')}
           </a>
           <header class="mb-12 border-b-4 border-[var(--foreground)] pb-12">
             <h1
@@ -204,7 +192,8 @@ const blogBreadcrumbSchema = {
                   class="w-8 h-8 flex items-center justify-center text-xs text-[var(--background)] bg-[var(--foreground)] font-black border-2 border-[var(--foreground)]"
                 >
                   {post.data.author.charAt(0).toUpperCase()}
-                </div><span class="text-[var(--foreground)]">{post.data.author}</span>
+                </div>
+                <span class="text-[var(--foreground)]">{post.data.author}</span>
               </div>
               <div class="flex items-center gap-2">
                 <Calendar size={18} strokeWidth={2.5} /><time>{formattedDate}</time>
@@ -232,7 +221,7 @@ const blogBreadcrumbSchema = {
             )
           }
           <div
-            class="prose prose-lg max-w-none dark:prose-invert prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-h1:text-[var(--foreground)] prose-h2:text-[var(--foreground)] prose-h3:text-[var(--foreground)] prose-h2:border-b-[3px] prose-h2:border-[var(--border)] prose-h2:pb-2 prose-p:text-[var(--muted-foreground)] prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[var(--foreground)] prose-strong:font-black prose-a:text-[var(--foreground)] prose-a:font-bold prose-a:underline prose-a:decoration-[var(--primary)] prose-a:decoration-4 hover:prose-a:bg-[var(--primary)] hover:prose-a:text-[var(--primary-foreground)] hover:prose-a:no-underline transition-colors prose-blockquote:border-l-4 prose-blockquote:border-[var(--primary)] prose-blockquote:bg-[var(--card)] prose-blockquote:p-6 prose-blockquote:text-[var(--foreground)] prose-blockquote:font-mono prose-blockquote:font-bold prose-blockquote:shadow-[4px_4px_0px_0px_var(--border)] prose-ul:list-square prose-li:text-[var(--muted-foreground)] prose-li:font-medium prose-img:border-4 prose-img:border-[var(--foreground)] prose-img:shadow-[4px_4px_0px_0px_var(--foreground)] prose-img:rounded-none prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-white dark:prose-pre:bg-[#0a0a0a] prose-pre:text-[var(--foreground)] prose-pre:p-6 prose-pre:my-8 prose-pre:whitespace-pre-wrap prose-pre:break-words [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)] [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]"
+            class="prose prose-lg max-w-none dark:prose-invert prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-h1:text-[var(--foreground)] prose-h2:text-[var(--foreground)] prose-h3:text-[var(--foreground)] prose-h2:border-b-[3px] prose-h2:border-[var(--border)] prose-h2:pb-2 prose-p:text-[var(--muted-foreground)] prose-p:font-medium prose-p:leading-relaxed prose-strong:text-[var(--foreground)] prose-strong:font-black prose-a:text-[var(--foreground)] prose-a:font-bold prose-a:underline prose-a:decoration-[var(--primary)] prose-a:decoration-4 hover:prose-a:bg-[var(--primary)] hover:prose-a:text-[var(--primary-foreground)] hover:prose-a:no-underline transition-colors prose-blockquote:border-l-4 prose-blockquote:border-[var(--primary)] prose-blockquote:bg-[var(--card)] prose-blockquote:p-6 prose-blockquote:text-[var(--foreground)] prose-blockquote:font-mono prose-blockquote:font-bold prose-blockquote:shadow-[4px_4px_0px_0px_var(--border)] prose-ul:list-square prose-li:text-[var(--muted-foreground)] prose-li:font-medium prose-img:border-4 prose-img:border-[var(--foreground)] prose-img:shadow-[4px_4px_0px_0px_var(--foreground)] prose-img:rounded-none prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-white dark:prose-pre:bg-[#0a0a0a] prose-pre:text-[var(--foreground)] prose-pre:p-6 prose-pre:my-6 prose-pre:whitespace-pre-wrap prose-pre:break-words [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)] [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]"
           >
             <Content components={{ Info, h1: MarkdownH1AsH2 }} />
           </div>
@@ -273,10 +262,9 @@ const blogBreadcrumbSchema = {
             </div>
             <button
               class="flex items-center gap-2 px-6 py-3 border-2 border-[var(--foreground)] bg-[var(--card)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all"
-              ><Share2 size={18} strokeWidth={2.5} />{
-                t('Aria.shareSkill') ? t('Aria.shareSkill').replace(' this skill', '') : 'Share'
-              }</button
-            >
+              ><Share2 size={18} strokeWidth={2.5} />
+              {t('Aria.shareSkill') ? t('Aria.shareSkill').replace(' this skill', '') : 'Share'}
+            </button>
           </div>
         </article>
         <aside class="hidden lg:block sticky top-24 space-y-8">
