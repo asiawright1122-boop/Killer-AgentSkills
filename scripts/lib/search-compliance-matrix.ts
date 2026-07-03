@@ -262,6 +262,50 @@ function statusFromStringOrObject(value: string | { status?: string } | null | u
   return value.status || 'missing';
 }
 
+function countBlocklistedUrlsInCrawlHealth(crawl: CrawlHealthJson | null | undefined): number {
+  if (!crawl?.onPageSeoErrors || !crawl?.sitemapErrors) return 0;
+
+  // Load the blocklist to match URLs
+  const blocklistPath = process.cwd() + '/data/seo-sitemap-blocklist.json';
+  let blocklist: { rules?: { excludeExact?: unknown } } = {};
+  try {
+    blocklist = JSON.parse(readFileSync(blocklistPath, 'utf-8') as unknown as string);
+  } catch {
+    return 0;
+  }
+
+  const blockedExact = new Set<string>();
+  const rawExact = blocklist.rules?.excludeExact;
+  if (Array.isArray(rawExact)) {
+    for (const entry of rawExact) {
+      if (typeof entry === 'string') blockedExact.add(entry.trim());
+    }
+  }
+
+  // Count 404 URLs that are in the blocklist (expected missing skills).
+  // A 404 is "expected" if the owner/repo/routePath is blocklisted.
+  // The crawl health data has 404s in the `results` array, not just `onPageSeoErrors`.
+  let count = 0;
+  const crawlResults = crawl.results as Array<{ url?: string; status?: number }> | undefined;
+  if (crawlResults) {
+    for (const result of crawlResults) {
+      if (result.status !== 404) continue;
+      const url = typeof result.url === 'string' ? result.url : '';
+      const match = url.match(/\/skills\/([^/]+)\/([^/]+)\/(.+)/);
+      if (!match) continue;
+      const owner = match[1];
+      const repo = match[2];
+      const routePath = match[3];
+      const fullPath = `${owner}/${repo}/${routePath}`;
+      const ownerRepo = `${owner}/${repo}`;
+      if (blockedExact.has(fullPath) || blockedExact.has(ownerRepo) || blockedExact.has(owner)) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
 function authorityCount(
   authority: AuthorityUpliftJson | null | undefined,
   key: 'promote' | 'hold' | 'stop',
@@ -302,11 +346,18 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const status2xx = crawl?.statusSummary?.status2xx ?? null;
   const status4xx = crawl?.statusSummary?.status4xx ?? null;
   const status5xx = crawl?.statusSummary?.status5xx ?? null;
+
+  // Blocklisted 404s are expected — they represent skills removed from the
+  // active corpus but still present in GSC's index. Subtract them so they
+  // don't trigger a false crawl regression.
+  const blocklisted404s = countBlocklistedUrlsInCrawlHealth(crawl);
+  const effective4xx = Math.max(0, (status4xx ?? 0) - blocklisted404s);
+
   const crawlClear =
     checkedUrls !== null &&
     checkedUrls > 0 &&
     status2xx === checkedUrls &&
-    (status4xx ?? 0) === 0 &&
+    effective4xx === 0 &&
     (status5xx ?? 0) === 0 &&
     sitemapFetchErrors === 0;
 
