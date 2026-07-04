@@ -27,8 +27,7 @@ function readManifest(): Manifest {
   return parsed;
 }
 
-const publicCopy: Record<string, { title: { en: string; zh: string }; description: { en: string; zh: string } }> =
-  authoritySurfacePublicCopy;
+const publicCopy = authoritySurfacePublicCopy;
 
 function renderSurface(s: Manifest['surfaces'][number]): string {
   const copy = publicCopy[s.id];
@@ -78,4 +77,7 @@ async function main() {
   console.log(`Wrote ${OUTPUT_PATH} (${manifest.surfaces.length} surfaces)`);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

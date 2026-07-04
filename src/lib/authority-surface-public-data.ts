@@ -442,7 +442,7 @@ export const authoritySurfacePublicData = {
       href: '/{locale}/collections/top-java-ai-tools-developer-workflows',
       title: { en: 'Java Workflow Tools to Install First', zh: '优先安装的 Java 工作流工具' },
       description: {
-        en: 'A enterprise-focused Java collection guiding development teams through stable backend component configuration.',
+        en: 'An enterprise-focused Java collection guiding development teams through stable backend component configuration.',
         zh: '面向企业级 Java 开发团队的精选合集，指导工程师配置稳定且高性能的后端组件。',
       },
       placements: ['home', 'skills', 'collections', 'solutions'],
