@@ -2,11 +2,9 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { evaluateCollectionForBackfill } from './lib/backfill-authority-surface-collections';
+import type { AuthoritySurfacesManifest } from './lib/authority-surfaces-paths';
 
 type LocalizedText = Record<string, string>;
-type AuthorityManifest = {
-  surfaces: Array<{ id: string; surfaceClass: string; href: string; tier: string }>;
-};
 type CollectionJson = {
   canonicalSlug?: string;
   title?: LocalizedText;
@@ -36,11 +34,11 @@ function readJson<T>(p: string): T {
   }
 }
 
-function loadManifestSlugs(manifest: AuthorityManifest): Set<string> {
+function loadManifestSlugs(manifest: AuthoritySurfacesManifest): Set<string> {
   return new Set(
-    manifest.surfaces
+    (manifest.surfaces ?? [])
       .filter((s) => s.surfaceClass === 'collection')
-      .map((s) => s.href.replace(/^\/{locale}\/collections\//, '')),
+      .map((s) => (s.href ?? '').replace(/^\/{locale}\/collections\//, '')),
   );
 }
 
@@ -52,6 +50,7 @@ function loadDriftIssues(): Record<string, string[]> {
   const drift = readJson<{ items?: Array<{ slug: string; code: string }> }>(DRIFT_PATH);
   const map: Record<string, string[]> = {};
   for (const issue of drift.items ?? []) {
+    if (!issue.slug || !issue.code) continue;
     (map[issue.slug] ??= []).push(issue.code);
   }
   return map;
@@ -65,7 +64,7 @@ function loadDiskCollections(): CollectionJson[] {
 
 function buildSurfaceRecordFromCollection(slug: string, c: CollectionJson) {
   return {
-    id: `collection-${slug.replace(/^top-/, '').replace(/-/g, '-')}`,
+    id: `collection-${slug.replace(/^top-/, '')}`,
     role: 'primary',
     tier: c.featured ? 'P0' : 'P1',
     surfaceClass: 'collection',
@@ -78,7 +77,11 @@ function buildSurfaceRecordFromCollection(slug: string, c: CollectionJson) {
 }
 
 function main() {
-  const manifest = readJson<AuthorityManifest>(MANIFEST_PATH);
+  const manifest = readJson<AuthoritySurfacesManifest>(MANIFEST_PATH);
+  if (!manifest || !Array.isArray(manifest.surfaces)) {
+    console.error(`FATAL: manifest missing or malformed at ${MANIFEST_PATH}. Expected a top-level "surfaces" array.`);
+    process.exit(1);
+  }
   const existingSlugs = loadManifestSlugs(manifest);
   const driftIssues = loadDriftIssues();
   const disk = loadDiskCollections();

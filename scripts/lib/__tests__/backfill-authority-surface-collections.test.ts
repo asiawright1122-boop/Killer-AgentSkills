@@ -6,7 +6,7 @@ describe('backfill quality gate', () => {
     const result = evaluateCollectionForBackfill({
       canonicalSlug: 'top-foo',
       editorial: { selectionReason: { en: 'x' }, maintenance: { reviewedAt: '2026-06-01' } },
-    } as any, { existingSlugs: new Set(['other']), driftIssues: {} });
+    }, { existingSlugs: new Set(['other']), driftIssues: {} });
     expect(result.admit).toBe(true);
   });
 
@@ -14,7 +14,7 @@ describe('backfill quality gate', () => {
     const result = evaluateCollectionForBackfill({
       canonicalSlug: 'top-foo',
       editorial: { maintenance: { reviewedAt: '2026-06-01' } },
-    } as any, { existingSlugs: new Set(['top-foo']), driftIssues: {} });
+    }, { existingSlugs: new Set(['top-foo']), driftIssues: {} });
     expect(result.admit).toBe(false);
     expect(result.reason).toBe('already_in_manifest');
   });
@@ -22,7 +22,7 @@ describe('backfill quality gate', () => {
   it('rejects a collection missing editorial block', () => {
     const result = evaluateCollectionForBackfill({
       canonicalSlug: 'top-foo',
-    } as any, { existingSlugs: new Set(), driftIssues: {} });
+    }, { existingSlugs: new Set(), driftIssues: {} });
     expect(result.admit).toBe(false);
     expect(result.reason).toBe('missing_editorial');
   });
@@ -31,7 +31,7 @@ describe('backfill quality gate', () => {
     const result = evaluateCollectionForBackfill({
       canonicalSlug: 'top-foo',
       editorial: { selectionReason: { en: 'x' }, maintenance: {} },
-    } as any, { existingSlugs: new Set(), driftIssues: {} });
+    }, { existingSlugs: new Set(), driftIssues: {} });
     expect(result.admit).toBe(false);
     expect(result.reason).toBe('missing_reviewed_at');
   });
@@ -40,8 +40,17 @@ describe('backfill quality gate', () => {
     const result = evaluateCollectionForBackfill({
       canonicalSlug: 'top-foo',
       editorial: { selectionReason: { en: 'x' }, maintenance: { reviewedAt: '2026-06-01' } },
-    } as any, { existingSlugs: new Set(), driftIssues: { 'top-foo': ['duplicate_mcp_slug_token'] } });
+    }, { existingSlugs: new Set(), driftIssues: { 'top-foo': ['duplicate_mcp_slug_token'] } });
     expect(result.admit).toBe(false);
     expect(result.reason).toBe('drift_issue');
+  });
+
+  it('rejects when trustSignals is present but empty across locales', () => {
+    const result = evaluateCollectionForBackfill({
+      canonicalSlug: 'top-foo',
+      editorial: { trustSignals: { en: [], zh: [] }, maintenance: { reviewedAt: '2026-06-01' } },
+    }, { existingSlugs: new Set(), driftIssues: {} });
+    expect(result.admit).toBe(false);
+    expect(result.reason).toBe('missing_editorial');
   });
 });
