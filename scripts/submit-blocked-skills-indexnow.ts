@@ -16,10 +16,16 @@ import { getSkillRoutePath, buildLocalizedSkillPath } from '../src/lib/skill-rou
 import { SUPPORTED_LOCALES } from '../src/i18n';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { getP0SurfacePathsFromFile } from './lib/authority-surfaces-paths';
 
 const INDEXNOW_KEY = '89cc8ad09dc64e58b25ccb5632573e78';
 const INDEXNOW_KEY_LOCATION = `https://killer-skills.com/${INDEXNOW_KEY}.txt`;
 const HOST = 'killer-skills.com';
+
+// P0 surface paths derived from data/authority-surfaces.json via
+// scripts/lib/authority-surfaces-paths.ts. Stays in sync with the
+// main submit-indexnow.ts (Phase 1 v5.5).
+const P0_SURFACE_PATHS = getP0SurfacePathsFromFile();
 
 function parseArgs(): { dryRun: boolean; limit: number } {
   const args = process.argv.slice(2);
@@ -87,14 +93,8 @@ async function main() {
     urlList.push(`https://${HOST}${canonicalPath}`);
   }
 
-  // Also add P0 surface URLs (same as main submit-indexnow.ts)
-  const P0_SURFACE_PATHS = [
-    '', '/collections', '/collections/top-official-ai-skills-trusted-tools',
-    '/collections/top-agent-workflow-building-tools',
-    '/collections/top-cursor-compatible-skills-workflow-integrations',
-    '/docs/installation', '/blog/official-ai-agent-skills-guide',
-    '/blog/claude-code-vs-cursor-vs-windsurf',
-  ];
+  // Also add P0 surface URLs (shared with main submit-indexnow.ts via
+  // scripts/lib/authority-surfaces-paths.ts).
   for (const p0Path of P0_SURFACE_PATHS) {
     urlList.push(`https://${HOST}/en${p0Path}`);
   }
