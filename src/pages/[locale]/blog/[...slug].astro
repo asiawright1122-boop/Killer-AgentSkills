@@ -14,7 +14,26 @@ import {
 } from '../../../lib/blog-seo-intent';
 import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
 
-export const prerender = false;
+// Prerender all blog post pages at build time.
+// Previously this was prerender=false (SSR), which forced the Astro Content
+// Layer to inline all 353 blog markdown bodies (~4.5 MiB) into the Worker
+// bundle so they were queryable at request time. That bloated the bundle
+// past Cloudflare's free-tier 3 MiB Worker size limit and blocked deploys.
+// Prerendering pushes the rendered HTML out to static dist/client assets,
+// keeping the markdown bodies out of dist/server/* entirely.
+export const prerender = true;
+
+export async function getStaticPaths() {
+  // Get every non-draft blog post across all locales and emit one static
+  // path per (locale, slug) pair.
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  return allPosts.map((post) => {
+    const firstSlash = post.id.indexOf('/');
+    const locale = firstSlash > 0 ? post.id.slice(0, firstSlash) : post.data.lang || 'en';
+    const slug = firstSlash > 0 ? post.id.slice(firstSlash + 1) : post.id;
+    return { params: { locale, slug } };
+  });
+}
 
 const { locale, slug } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {

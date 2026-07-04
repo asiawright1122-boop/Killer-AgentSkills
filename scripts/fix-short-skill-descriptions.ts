@@ -44,6 +44,12 @@ function getText(field: Record<string, string> | string | undefined, locale = 'e
   return field[locale] || field.en || '';
 }
 
+function getFeatureList(features: Record<string, string[]> | string[] | undefined): string[] {
+  if (!features) return [];
+  if (Array.isArray(features)) return features;
+  return features.en || features[''] || Object.values(features)[0] || [];
+}
+
 function deriveDescription(skill: Skill): string | null {
   // Prefer SEO description if it has substance
   const seoDesc = getText(skill.seo?.description);
@@ -56,7 +62,7 @@ function deriveDescription(skill: Skill): string | null {
   // Then features combined
   const features = skill.seo?.features;
   if (features) {
-    const featArray = typeof features === 'string' ? [features] : (features.en || features[''] || Object.values(features)[0] || []);
+    const featArray = getFeatureList(features);
     if (Array.isArray(featArray) && featArray.length > 0) {
       const combined = featArray.join(', ');
       if (combined.length > 50) return combined;
@@ -84,7 +90,9 @@ function fixShortDescriptions() {
     }
 
     if (isDryRun) {
-      console.log(`[DRY] ${skill.id || skill.owner + '/' + skill.repo}: "${desc.slice(0,30)}" → "${replacement.slice(0,70)}"`);
+      console.log(
+        `[DRY] ${skill.id || skill.owner + '/' + skill.repo}: "${desc.slice(0, 30)}" → "${replacement.slice(0, 70)}"`,
+      );
     } else {
       // Update description
       if (typeof skill.description === 'object') {

@@ -7,7 +7,52 @@ import { buildKeywordString, type KeywordClusterId } from '../../../../lib/seo-k
 import { getBlogIntentLinks } from '../../../../lib/blog-seo-intent';
 import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
-export const prerender = false;
+// Prerender all (locale, category) combinations at build time.
+// Previously prerender=false forced the Content Layer to inline all 353
+// blog markdown bodies into the Worker bundle (~4.5 MiB), busting the 3 MiB
+// free-tier Worker size limit. Prerendering emits static HTML to dist/client,
+// keeping markdown bodies out of dist/server and the deployed Worker.
+export const prerender = true;
+
+export async function getStaticPaths() {
+  // Match the categories declared in blog/index.astro — these are the only
+  // categories we render pages for. Declared inside getStaticPaths because
+  // Astro hoists this function during static-build analysis; module-level
+  // consts evaluated after the hoist would be unresolved.
+  const BLOG_CATEGORIES = ['creative-tools', 'document-automation', 'enterprise-solutions', 'developer-experience'];
+
+  // Pre-compute which (locale, category) pairs actually have posts (in current
+  // locale, or via English fallback). We don't emit empty category pages so
+  // Google doesn't index thin category listings without posts.
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+  const perLocaleCategorys = new Map<string, Set<string>>();
+  for (const post of allPosts) {
+    const cat = post.data.category;
+    if (!cat || !BLOG_CATEGORIES.includes(cat)) continue;
+    const firstSlash = post.id.indexOf('/');
+    const dirLocale = firstSlash > 0 ? post.id.slice(0, firstSlash) : post.data.lang || 'en';
+    if (!SUPPORTED_LOCALES.includes(dirLocale as Locale)) continue;
+    const set = perLocaleCategorys.get(dirLocale) || new Set<string>();
+    set.add(cat);
+    perLocaleCategorys.set(dirLocale, set);
+  }
+
+  // English fallback: a locale's category page is also emitted when the same
+  // category has English posts, even if no local-language posts exist.
+  const englishCats = perLocaleCategorys.get('en') || new Set<string>();
+
+  const paths: Array<{ params: { locale: string; category: string } }> = [];
+  for (const locale of SUPPORTED_LOCALES) {
+    const cats = perLocaleCategorys.get(locale) || new Set<string>();
+    for (const category of BLOG_CATEGORIES) {
+      if (cats.has(category) || (locale !== 'en' && englishCats.has(category))) {
+        paths.push({ params: { locale, category } });
+      }
+    }
+  }
+  return paths;
+}
 
 const { locale, category } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !category) {
@@ -32,8 +77,9 @@ if (posts.length === 0 && locale !== 'en') {
 }
 
 if (posts.length === 0) {
-  Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  // getStaticPaths already filtered out empty category pages, so reaching
+  // this point means the static path we emitted corresponds to a real
+  // (locale, category) combination. We still guard defensively.
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 

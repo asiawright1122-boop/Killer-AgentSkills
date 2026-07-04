@@ -7,14 +7,20 @@
  * (via nanostores), copy button, and the "Preview/Raw" toggle.
  *
  * This eliminates react-markdown, react-syntax-highlighter, and all React hooks.
- * The rendered HTML includes Shiki/Prism syntax‑highlighted code blocks produced
- * at build/SSR time — zero client‑side JS for rendering.
+ * Code blocks are rendered as plain pre/code HTML to keep the Worker bundle
+ * below Cloudflare's free-tier limit; zero client-side JS is needed for rendering.
  *
  * Props: initialContent, initialFiles, headerTitle, headerDescription, headerBadge,
  *        sourceRepositoryOwner, sourceRepositoryRepo, sourceFilePath
  */
 
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkSmartypants from 'remark-smartypants';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
 import { FileText, Copy, Check, Eye } from 'lucide-react';
 import { slugifyHeading } from '../lib/markdown-headings';
 import { resolveRepositoryMarkdownImage, resolveRepositoryMarkdownLink } from '../lib/markdown-source-links';
@@ -42,8 +48,68 @@ const {
 } = Astro.props;
 
 // --- SSR markdown rendering ---
-// Create a shared markdown processor (async factory, cached per request)
-const processor = await createMarkdownProcessor();
+const markdownContext =
+  sourceRepositoryOwner && sourceRepositoryRepo
+    ? {
+        owner: sourceRepositoryOwner,
+        repo: sourceRepositoryRepo,
+        sourceFilePath,
+      }
+    : null;
+
+const getTextContent = (node: any): string => {
+  if (!node || typeof node !== 'object') return '';
+  if (node.type === 'text') return String(node.value || '');
+  if (!Array.isArray(node.children)) return '';
+  return node.children.map(getTextContent).join('');
+};
+
+function rehypeReadmeLinksAndHeadings() {
+  return (tree: any) => {
+    const walk = (node: any) => {
+      if (!node || typeof node !== 'object') return;
+
+      if (node.type === 'element') {
+        node.properties ||= {};
+
+        if (/^h[1-6]$/.test(node.tagName || '') && !node.properties.id) {
+          const id = slugifyHeading(getTextContent(node));
+          if (id) node.properties.id = id;
+        }
+
+        if (markdownContext && node.tagName === 'a' && typeof node.properties.href === 'string') {
+          const target = resolveRepositoryMarkdownLink(node.properties.href, markdownContext);
+          node.properties.href = target.href;
+          if (target.isExternal) {
+            node.properties.target = '_blank';
+            node.properties.rel = 'noopener noreferrer';
+          }
+        }
+
+        if (markdownContext && node.tagName === 'img' && typeof node.properties.src === 'string') {
+          node.properties.src = resolveRepositoryMarkdownImage(node.properties.src, markdownContext).href;
+        }
+      }
+
+      if (Array.isArray(node.children)) {
+        for (const child of node.children) walk(child);
+      }
+    };
+
+    walk(tree);
+  };
+}
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkSmartypants)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeRaw)
+  .use(rehypeReadmeLinksAndHeadings)
+  .use(rehypeStringify, { allowDangerousHtml: true });
+
+const renderMarkdown = async (content: string): Promise<string> => String(await processor.process(content));
 
 // Render all files through the markdown pipeline
 // Markdown files go through the full processor; raw files get code-block html
@@ -51,26 +117,17 @@ const renderedFiles: Record<string, string> = {};
 
 for (const [filename, content] of Object.entries({ 'SKILL.md': initialContent, ...initialFiles })) {
   if (filename.endsWith('.md')) {
-    const result = await processor.render(content, {
-      fileURL:
-        sourceRepositoryOwner && sourceRepositoryRepo
-          ? new URL(
-              `https://github.com/${sourceRepositoryOwner}/${sourceRepositoryRepo}/blob/main/${sourceFilePath || filename}`,
-            )
-          : undefined,
-    });
-    renderedFiles[filename] = result.code;
+    renderedFiles[filename] = await renderMarkdown(content);
   } else {
     // Non-markdown files: render as raw code block (plaintext)
-    const result = await processor.render(
+    renderedFiles[filename] = await renderMarkdown(
       '```' + (filename.endsWith('.json') ? 'json' : '') + '\n' + content + '\n```',
     );
-    renderedFiles[filename] = result.code;
   }
 }
 
 // Store rendered content as data attributes for vanilla JS to access
-import { currentFile, fileContents, setFileContent } from '../stores/skill-files';
+import { setFileContent } from '../stores/skill-files';
 // Initialize the stores
 setFileContent('SKILL.md', initialContent);
 for (const [f, c] of Object.entries(initialFiles)) {
@@ -195,7 +252,7 @@ for (const [f, c] of Object.entries(initialFiles)) {
 <div class="rendered-files-data hidden" data-files={JSON.stringify(renderedFiles)}></div>
 
 <script>
-  import { currentFile, selectFile } from '../stores/skill-files';
+  import { currentFile } from '../stores/skill-files';
 
   function initSkillReadme() {
     document.querySelectorAll<HTMLElement>('.skill-readme').forEach((container) => {
@@ -212,12 +269,9 @@ for (const [f, c] of Object.entries(initialFiles)) {
       const copyIconCopy = container.querySelector<HTMLElement>('.readme-copy-icon-copy')!;
       const copyIconCheck = container.querySelector<HTMLElement>('.readme-copy-icon-check')!;
 
-      let currentFilename = 'SKILL.md';
-
       // Switch file content when nanostore changes
       function switchToFile(filename: string) {
         if (!renderedFiles[filename]) return;
-        currentFilename = filename;
 
         // Update header filename display
         filenameEl!.textContent = filename;

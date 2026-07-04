@@ -62,6 +62,7 @@ type CrawlHealthJson = {
   sitemapErrors?: unknown[];
   onPageSeoErrors?: unknown[];
   duplicates?: unknown[];
+  results?: Array<{ url?: string; status?: number }>;
 };
 
 type CoverageDrilldownJson = {
@@ -267,7 +268,7 @@ function countBlocklistedUrlsInCrawlHealth(crawl: CrawlHealthJson | null | undef
 
   // Load the blocklist to match URLs
   const blocklistPath = process.cwd() + '/data/seo-sitemap-blocklist.json';
-  let blocklist: { rules?: { excludeExact?: unknown } } = {};
+  let blocklist: { rules?: { excludeExact?: unknown } };
   try {
     blocklist = JSON.parse(readFileSync(blocklistPath, 'utf-8') as unknown as string);
   } catch {
@@ -286,7 +287,7 @@ function countBlocklistedUrlsInCrawlHealth(crawl: CrawlHealthJson | null | undef
   // A 404 is "expected" if the owner/repo/routePath is blocklisted.
   // The crawl health data has 404s in the `results` array, not just `onPageSeoErrors`.
   let count = 0;
-  const crawlResults = crawl.results as Array<{ url?: string; status?: number }> | undefined;
+  const crawlResults = crawl.results;
   if (crawlResults) {
     for (const result of crawlResults) {
       if (result.status !== 404) continue;
@@ -356,6 +357,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const crawlClear =
     checkedUrls !== null &&
     checkedUrls > 0 &&
+    status2xx !== null &&
     status2xx + effective4xx === checkedUrls &&
     effective4xx === 0 &&
     (status5xx ?? 0) === 0 &&
@@ -365,7 +367,11 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
   const coverageDrilldownFresh = coverageFreshness === 'fresh' || coverageFreshness === 'warning';
   const sweepFreshness = computeSweepFreshness(sweep);
   const coverageFresh = coverageDrilldownFresh || sweepFreshness.fresh;
-  const coverageFreshSource = coverageDrilldownFresh ? 'drilldown-export' : sweepFreshness.fresh ? 'inspection-sweep' : 'none';
+  const coverageFreshSource = coverageDrilldownFresh
+    ? 'drilldown-export'
+    : sweepFreshness.fresh
+      ? 'inspection-sweep'
+      : 'none';
   const proofTrust = proof?.trustVerdict || 'missing';
   const trafficClear = traffic?.status === 'clear' && traffic?.sourceMode === 'live-api';
   const expansionBoundaryStatus = statusFromStringOrObject(authority?.expansionBoundary);
@@ -472,21 +478,19 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             : 'opportunity board unavailable',
         ),
       ],
-      verdict: coverageFreshness === 'blocking'
-        ? 'block'
-        : canonicalizationOpportunityCount === 0
-          ? 'pass'
-          : 'watch',
-      rationale: coverageFreshness === 'blocking'
-        ? 'Canonical and redirect proof cannot be closed while the newest Coverage export is outside the hard freshness SLA.'
-        : canonicalizationOpportunityCount === 0
-          ? 'No canonicalization-lane opportunities detected in GSC data. The middleware enforces trailing-slash removal, non-www canonicalization, and 410 Gone for blocklisted paths — all signals are consistent.'
-          : 'Canonical and redirect proof can proceed, but GSC data shows canonicalization-lane opportunities that need cleanup (trailing-slash URLs, blocklisted skills, or suppressed locale variants).',
-      nextAction: coverageFreshness === 'blocking'
-        ? 'Run `npm run report:seo:coverage-sweep:p0` to restore coverage freshness before assessing canonicalization signals.'
-        : canonicalizationOpportunityCount === 0
-          ? 'Continue monitoring GSC opportunity board for new canonicalization-lane items.'
-          : 'Submit REMOV-01 removal batch to clear canonicalization-lane URLs from GSC index, then verify on next board refresh.',
+      verdict: coverageFreshness === 'blocking' ? 'block' : canonicalizationOpportunityCount === 0 ? 'pass' : 'watch',
+      rationale:
+        coverageFreshness === 'blocking'
+          ? 'Canonical and redirect proof cannot be closed while the newest Coverage export is outside the hard freshness SLA.'
+          : canonicalizationOpportunityCount === 0
+            ? 'No canonicalization-lane opportunities detected in GSC data. The middleware enforces trailing-slash removal, non-www canonicalization, and 410 Gone for blocklisted paths — all signals are consistent.'
+            : 'Canonical and redirect proof can proceed, but GSC data shows canonicalization-lane opportunities that need cleanup (trailing-slash URLs, blocklisted skills, or suppressed locale variants).',
+      nextAction:
+        coverageFreshness === 'blocking'
+          ? 'Run `npm run report:seo:coverage-sweep:p0` to restore coverage freshness before assessing canonicalization signals.'
+          : canonicalizationOpportunityCount === 0
+            ? 'Continue monitoring GSC opportunity board for new canonicalization-lane items.'
+            : 'Submit REMOV-01 removal batch to clear canonicalization-lane URLs from GSC index, then verify on next board refresh.',
     },
     {
       id: 'people-first-public-copy',
@@ -579,8 +583,12 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
         ),
       ],
       verdict: structuredDataValAvailable
-        ? structuredDataValPassed ? 'pass' : 'watch'
-        : crawl?.onPageSeoErrors?.length === 0 ? 'watch' : 'block',
+        ? structuredDataValPassed
+          ? 'pass'
+          : 'watch'
+        : crawl?.onPageSeoErrors?.length === 0
+          ? 'watch'
+          : 'block',
       rationale: structuredDataValAvailable
         ? structuredDataValPassed
           ? 'All P0 authority surfaces pass structured-data validation; JSON-LD schema blocks are present and complete.'
@@ -623,11 +631,7 @@ function buildItems(input: SearchComplianceInputs): SearchComplianceItem[] {
             : 'IndexNow evidence missing',
         ),
       ],
-      verdict: indexNowFresh
-        ? 'pass'
-        : promotionOpen || automationOpen
-          ? 'watch'
-          : 'unavailable',
+      verdict: indexNowFresh ? 'pass' : promotionOpen || automationOpen ? 'watch' : 'unavailable',
       rationale: indexNowFresh
         ? 'IndexNow submission evidence is recent (≤7 days) and the key file is present and accessible. P0 authority surfaces are submitted to search engines on each CI cycle.'
         : promotionOpen || automationOpen
