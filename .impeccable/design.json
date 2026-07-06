@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-06T00:00:00.000Z",
+  "title": "Design System: Killer-Skills",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Cool Marketplace Background",
+        "canonical": "oklch(97.5% 0.006 220)",
+        "tonalRamp": [
+          "oklch(15% 0.006 220)",
+          "oklch(27% 0.006 220)",
+          "oklch(39% 0.006 220)",
+          "oklch(51% 0.006 220)",
+          "oklch(63% 0.006 220)",
+          "oklch(75% 0.006 220)",
+          "oklch(87% 0.006 220)",
+          "oklch(97.5% 0.006 220)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Ink Foreground",
+        "canonical": "oklch(17% 0.035 245)",
+        "tonalRamp": [
+          "oklch(15% 0.035 245)",
+          "oklch(25% 0.035 245)",
+          "oklch(35% 0.035 245)",
+          "oklch(45% 0.035 245)",
+          "oklch(58% 0.035 245)",
+          "oklch(72% 0.035 245)",
+          "oklch(86% 0.035 245)",
+          "oklch(95% 0.035 245)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Review Gold",
+        "canonical": "oklch(79% 0.165 76)",
+        "tonalRamp": [
+          "oklch(18% 0.165 76)",
+          "oklch(28% 0.165 76)",
+          "oklch(40% 0.165 76)",
+          "oklch(52% 0.165 76)",
+          "oklch(64% 0.165 76)",
+          "oklch(76% 0.165 76)",
+          "oklch(86% 0.12 76)",
+          "oklch(95% 0.055 76)"
+        ]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "Action Teal",
+        "canonical": "oklch(77% 0.145 188)",
+        "tonalRamp": [
+          "oklch(18% 0.145 188)",
+          "oklch(28% 0.145 188)",
+          "oklch(40% 0.145 188)",
+          "oklch(52% 0.145 188)",
+          "oklch(64% 0.145 188)",
+          "oklch(76% 0.145 188)",
+          "oklch(86% 0.1 188)",
+          "oklch(95% 0.045 188)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Route heroes and homepage identity only."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Dense public explanations and skill summaries."
+      },
+      "mono": {
+        "displayName": "Evidence Mono",
+        "purpose": "Commands, scores, and audit labels only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "marketplace-ambient",
+        "value": "0 12px 32px oklch(17% 0.035 245 / 0.08)",
+        "purpose": "Light-mode card and panel separation on browse surfaces."
+      },
+      {
+        "name": "dark-marketplace-ambient",
+        "value": "0 18px 48px oklch(0% 0 0 / 0.2)",
+        "purpose": "Dark-mode panel separation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "marketplace-state",
+        "value": "0.18s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hover, active, border, and background transitions."
+      },
+      {
+        "name": "drawer-enter",
+        "value": "0.2s ease-out",
+        "purpose": "Mobile drawer panel motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "filter-collapse",
+        "value": "800px"
+      },
+      {
+        "name": "mobile-compact",
+        "value": "480px"
+      },
+      {
+        "name": "decision-panel",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Marketplace Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary search, filter, and high-confidence navigation action.",
+      "html": "<button class=\"ds-btn-primary\">Search</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--foreground); color: var(--background); padding: 0.75rem 0.95rem; font-family: var(--font-display); font-weight: 800; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: var(--primary); color: var(--primary-foreground); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Evidence Chip",
+      "kind": "chip",
+      "refersTo": "chip-evidence",
+      "description": "Source, review, category, and risk evidence marker.",
+      "html": "<span class=\"ds-chip-evidence\">Reviewed</span>",
+      "css": ".ds-chip-evidence { display: inline-flex; align-items: center; gap: 0.375rem; border: 1px solid var(--tag-border); border-radius: 999px; background: var(--tag-bg); color: var(--tag-text); padding: 0.25rem 0.5rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; line-height: 1; }"
+    },
+    {
+      "name": "Marketplace Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Search and filter input used in hero panels and listing filters.",
+      "html": "<label class=\"ds-field\"><span>Keyword</span><input placeholder=\"Search Skill, repo, task\" /></label>",
+      "css": ".ds-field { display: grid; gap: 0.375rem; font-family: var(--font-body); font-weight: 700; color: var(--foreground); } .ds-field span { font-size: 0.875rem; } .ds-field input { min-width: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--background); color: var(--foreground); padding: 0.75rem 0.875rem; font: inherit; font-weight: 650; } .ds-field input::placeholder { color: color-mix(in oklch, var(--foreground) 58%, var(--background)); } .ds-field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Skill Listing Card",
+      "kind": "card",
+      "refersTo": "card-marketplace",
+      "description": "Compact comparison card for browse and ranking pages.",
+      "html": "<article class=\"ds-skill-card\"><div><h3>frontend-code-review</h3><span class=\"ds-chip-evidence\">Official</span></div><p>Review frontend code for quality, security, and maintainability.</p></article>",
+      "css": ".ds-skill-card { display: grid; gap: 1rem; border: 1px solid var(--border); border-radius: var(--radius); background: color-mix(in oklch, var(--card) 88%, var(--background)); color: var(--foreground); padding: 1.25rem; box-shadow: none; transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); } .ds-skill-card:hover { border-color: color-mix(in oklch, var(--accent) 62%, var(--border)); background: color-mix(in oklch, var(--card-hover) 76%, var(--background)); transform: translateY(-1px); } .ds-skill-card div { display: flex; justify-content: space-between; gap: 1rem; align-items: start; } .ds-skill-card h3 { margin: 0; font-family: var(--font-display); font-size: 1.125rem; line-height: 1.25; } .ds-skill-card p { margin: 0; color: var(--muted-foreground); line-height: 1.5; }"
+    },
+    {
+      "name": "Mobile Drawer Navigation",
+      "kind": "nav",
+      "refersTo": "nav-mobile-drawer",
+      "description": "Body-hoisted mobile route and action drawer.",
+      "html": "<nav class=\"ds-mobile-drawer\"><a>Home</a><a>Skills</a><a>Rankings</a><a>Occupations</a><a>Categories</a></nav>",
+      "css": ".ds-mobile-drawer { width: min(420px, calc(100vw - 2rem)); border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; font-family: var(--font-body); } .ds-mobile-drawer a { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); color: var(--foreground); text-decoration: none; font-size: 1rem; font-weight: 700; } .ds-mobile-drawer a:hover { background: var(--muted); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Review Desk",
+    "overview": "Killer-Skills should feel like a public review desk for AI agent capabilities: fast to scan, strict about what gets listed, and calm enough that users can decide whether to install. The surface is not a mascot-led community hub and not a raw GitHub directory. It is a classified marketplace where navigation, ranking, evidence chips, and install panels all point to the same decision: can I trust this skill for my workflow?",
+    "keyCharacteristics": [
+      "Classification-first: every core route answers one browsing intent before exposing the full directory.",
+      "Evidence-forward: source, review status, risk flags, category, and install command are visible as product facts.",
+      "Compact but not crowded: cards are scannable, headings are decisive, explanatory copy is short.",
+      "Multilingual by default: labels cannot rely on narrow English-only spacing or hover-only disclosure."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Color Rule",
+        "body": "Teal means action, active state, or review evidence. Do not use it as generic decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Beige Rule",
+        "body": "Warm neutral backgrounds are prohibited. Warmth belongs only in the Review Gold accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Tracking Rule",
+        "body": "Letter spacing is 0 across the public marketplace. Do not revive tracked uppercase section grammar.",
+        "section": "typography"
+      },
+      {
+        "name": "The Border-First Rule",
+        "body": "A 1px border is the default separator. Shadows are allowed only when a surface needs clear click or panel affordance.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the primary IA to Home, Skills, Rankings, Occupations, and Categories.",
+      "Do treat official/community as source evidence, not as a top-level category.",
+      "Do show only marketplace-approved skills in public listings; D-level or ineligible skills stay out of Skills, Rankings, Occupations, and Categories.",
+      "Do use the detail page as the trustworthy installation decision point."
+    ],
+    "donts": [
+      "Don't copy CocoLoop's mascot or personality system.",
+      "Don't ship a flat raw directory as the primary experience.",
+      "Don't use generic AI landing-page tropes: gradient text, decorative AI gradients, metric-heavy hero sections, fake trust badges, repeated tiny section eyebrows, decorative grid backgrounds, or nested card grids.",
+      "Don't hide critical installation or review evidence behind hover-only interactions."
+    ]
+  }
+}
