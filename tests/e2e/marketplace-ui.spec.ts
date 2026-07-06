@@ -107,10 +107,9 @@ async function expectVisibleCardSort(
 }
 
 test.describe('Marketplace UI audit', () => {
-  test('desktop core routes keep one primary header and distinct route identity', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 800 });
-
-    for (const route of coreRoutes) {
+  for (const route of coreRoutes) {
+    test(`desktop route ${route.path} keeps one primary header and distinct identity`, async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 });
       await page.goto(route.path);
       await expect(page.getByTestId('site-header')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1, name: route.h1 })).toBeVisible();
@@ -126,8 +125,8 @@ test.describe('Marketplace UI audit', () => {
 
       await expectNoHorizontalOverflow(page);
       await expectCleanPublicCopy(page);
-    }
-  });
+    });
+  }
 
   test('mobile drawer opens fully and preserves primary route order', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
