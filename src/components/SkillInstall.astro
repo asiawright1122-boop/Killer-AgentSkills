@@ -88,14 +88,18 @@ const {
         </div>
       </div>
       <div
-        class="text-[var(--foreground)] break-all select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-base"
+        class="text-[var(--foreground)] select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-sm leading-6"
       >
-        <span class="text-[var(--accent)] font-bold select-none">&gt;</span>
-        <span>{installCommand}</span>
+        <span class="text-[var(--accent)] font-bold select-none shrink-0">&gt;</span>
+        <code
+          class="block min-w-0 max-w-full overflow-x-auto whitespace-nowrap pr-12 font-mono text-[0.86rem] sm:text-sm"
+        >
+          {installCommand}
+        </code>
 
         <button
           id="install-copy-btn"
-          class="absolute right-2 top-2 rounded-md p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border border-[var(--foreground)] transition-all opacity-0 group-hover/cmd:opacity-100"
+          class="absolute right-1 top-1 rounded-md p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border border-[var(--foreground)] transition-all opacity-100 sm:opacity-0 sm:group-hover/cmd:opacity-100 focus:opacity-100"
           data-command={installCommand}
         >
           <Copy size={16} strokeWidth={3} />
