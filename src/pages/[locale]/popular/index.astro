@@ -69,6 +69,7 @@ const pageDescription = isZhCopy
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', category, activeRank);
 const categoryLabel = category ? getCategoryLabel(category, t) || category : '';
 const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
+const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');
 const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) => {
   const params = new URLSearchParams();
   if (rank !== 'popular') params.set('rank', rank);
@@ -104,7 +105,7 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
     />
 
     <MarketplaceSection
-      title={categoryLabel || pageTitle}
+      title={listTitle}
       description={isZhCopy
         ? '热门按综合排名排序；最新按更新时间排序。'
         : 'Popular is sorted by overall ranking; latest is sorted by update time.'}
