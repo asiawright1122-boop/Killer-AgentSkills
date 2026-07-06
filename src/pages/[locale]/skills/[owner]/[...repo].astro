@@ -951,7 +951,7 @@ const detailSourceLabel =
     : isZhLocale
       ? '社区来源'
       : 'Community source';
-const detailRiskChips = buildDetailRiskChips({ visibleRiskLabels, riskFlags: skillRiskFlags });
+const detailRiskChips = buildDetailRiskChips({ visibleRiskLabels, riskFlags: skillRiskFlags }).slice(0, 4);
 const detailReviewStatus =
   skillSecurityLevel === 'D'
     ? isZhLocale
@@ -1265,6 +1265,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 </div>
 
                 <aside
+                  data-testid="skill-install-decision"
                   class="skill-decision-panel p-4 lg:sticky lg:top-24"
                   aria-label={isZhLocale ? '安装决策' : 'Install decision'}
                 >
@@ -1342,7 +1343,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
             </section>
 
             <div class="space-y-8 pb-14">
-              <section class="skill-detail-surface p-5 md:p-6">
+              <section data-testid="skill-fit-tasks" class="skill-detail-surface p-5 md:p-6">
                 <div class="mb-5 flex items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
                   <div>
                     <h2 class="text-2xl font-bold">{isZhLocale ? '适合什么任务' : 'Fit and Tasks'}</h2>
@@ -1397,7 +1398,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 )}
               </section>
 
-              <section class="skill-detail-surface p-5 md:p-6">
+              <section data-testid="skill-review-permissions" class="skill-detail-surface p-5 md:p-6">
                 <div class="mb-5 flex items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
                   <div>
                     <h2 class="text-2xl font-bold">{isZhLocale ? '审核与权限' : 'Review and Permissions'}</h2>
@@ -1454,7 +1455,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 </div>
               )}
 
-              <section class="skill-evidence-shell">
+              <section data-testid="skill-source-material" class="skill-evidence-shell">
                 <div class="border-b border-[var(--border)] px-5 py-4">
                   <h2 class="text-2xl font-bold">{isZhLocale ? '来源材料' : sourceEvidenceTitle}</h2>
                   <p class="mt-1 text-sm font-semibold text-[var(--muted-foreground)]">

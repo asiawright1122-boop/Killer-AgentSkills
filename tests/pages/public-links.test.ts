@@ -522,6 +522,30 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).not.toContain("description || t('Skills.noResults')");
   });
 
+  it('keeps skill detail pages centered on visible install decisions and review evidence', () => {
+    const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+    const decisionPanelStart = skillDetailSource.indexOf('data-testid="skill-install-decision"');
+    const decisionPanelEnd = skillDetailSource.indexOf('</aside>', decisionPanelStart);
+    const decisionPanelSource = skillDetailSource.slice(decisionPanelStart, decisionPanelEnd);
+
+    expect(skillDetailSource).toContain('data-testid="skill-install-decision"');
+    expect(skillDetailSource).toContain("aria-label={isZhLocale ? '安装决策' : 'Install decision'}");
+    expect(skillDetailSource).toContain('SkillInstall');
+    expect(skillDetailSource).toContain('installCommand={installCommand}');
+    expect(skillDetailSource).toContain('href={`/${locale}/safe`}');
+    expect(skillDetailSource).toContain('GitHub');
+    expect(skillDetailSource).toContain('SkillActionsNative');
+    expect(skillDetailSource).toContain('data-testid="skill-fit-tasks"');
+    expect(skillDetailSource).toContain('data-testid="skill-review-permissions"');
+    expect(skillDetailSource).toContain('data-testid="skill-source-material"');
+    expect(skillDetailSource).toContain('sourceEvidenceDescription');
+    expect(skillDetailSource).toContain('README 和文件仅作为上游证据。');
+    expect(skillDetailSource).toContain('SkillRelated');
+    expect(decisionPanelSource).not.toContain('group-hover');
+    expect(decisionPanelSource).not.toContain('opacity-0');
+    expect(decisionPanelSource).not.toContain('max-h-0');
+  });
+
   it('keeps touched public translation keys defined across all shipped locales', () => {
     const touchedSources = [
       readPageSource('../components/Header.astro'),

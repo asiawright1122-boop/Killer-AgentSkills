@@ -48,4 +48,13 @@ describe('buildDetailRiskChips', () => {
   it('returns an empty list when no risks exist', () => {
     expect(buildDetailRiskChips({ visibleRiskLabels: [], riskFlags: [] })).toEqual([]);
   });
+
+  it('keeps detail risk chips concise for visible decision panels', () => {
+    expect(
+      buildDetailRiskChips({
+        visibleRiskLabels: ['Token', 'Network', 'File write', 'Thin source'],
+        riskFlags: [{ label: 'Network' }, { label: 'Stale source' }],
+      }).slice(0, 4),
+    ).toEqual(['Token', 'Network', 'File write', 'Thin source']);
+  });
 });
