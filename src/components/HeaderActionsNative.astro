@@ -385,13 +385,6 @@ const iconSvg: Record<string, string> = {
         });
       });
 
-      container.querySelectorAll('.header-mobile-lang').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const code = (btn as HTMLElement).dataset.localeCode || '';
-          switchLanguage(code);
-        });
-      });
-
       // ── Mobile menu ────────────────────────────────────────────────
       let overlay = container.parentElement?.querySelector<HTMLElement>('.header-mobile-overlay');
       if (overlay && overlay.parentElement !== document.body) {
@@ -448,6 +441,13 @@ const iconSvg: Record<string, string> = {
       // Close mobile nav links on click
       overlay?.querySelectorAll('.header-mobile-nav-link, .header-mobile-fav').forEach((link) => {
         link.addEventListener('click', closeMobileMenu);
+      });
+
+      overlay?.querySelectorAll('.header-mobile-lang').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const code = (btn as HTMLElement).dataset.localeCode || '';
+          switchLanguage(code);
+        });
       });
 
       // Mobile quick actions
