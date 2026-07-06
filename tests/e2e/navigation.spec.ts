@@ -15,19 +15,24 @@ test.describe('Navigation & i18n E2E', () => {
 
   test('desktop navigation should click through the marketplace primary routes', async ({ page }) => {
     await page.goto('/en');
+    await waitForHeaderActions(page);
     const nav = page.getByTestId('desktop-primary-nav');
     await expect(nav).toBeVisible();
 
     await Promise.all([page.waitForURL(/\/en\/skills$/), nav.locator('a[href="/en/skills"]').click()]);
+    await waitForHeaderActions(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Skills Directory' })).toBeVisible();
 
     await Promise.all([page.waitForURL(/\/en\/popular$/), nav.locator('a[href="/en/popular"]').click()]);
+    await waitForHeaderActions(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Popular Skills' })).toBeVisible();
 
     await Promise.all([page.waitForURL(/\/en\/occupations$/), nav.locator('a[href="/en/occupations"]').click()]);
+    await waitForHeaderActions(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Occupations' })).toBeVisible();
 
     await Promise.all([page.waitForURL(/\/en\/categories$/), nav.locator('a[href="/en/categories"]').click()]);
+    await waitForHeaderActions(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
   });
 
