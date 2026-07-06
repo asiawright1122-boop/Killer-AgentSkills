@@ -485,6 +485,44 @@ describe('public links and navigation copy', () => {
     expect(zh.Home.seoDescription).toContain('榜单');
   });
 
+  it('keeps the primary marketplace IA centralized and free of old header taxonomies', async () => {
+    const { getPrimaryNavItems, PRIMARY_MARKETPLACE_NAV_IDS, PRIMARY_MARKETPLACE_NAV_HREFS } =
+      await import('../../src/lib/site-ia');
+    const headerSource = readPageSource('../components/Header.astro');
+    const headerActionsSource = readPageSource('../components/HeaderActionsNative.astro');
+
+    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual(['home', 'skills', 'rankings', 'occupations', 'categories']);
+    expect(PRIMARY_MARKETPLACE_NAV_HREFS('zh')).toEqual([
+      '/zh',
+      '/zh/skills',
+      '/zh/popular',
+      '/zh/occupations',
+      '/zh/categories',
+    ]);
+    expect(getPrimaryNavItems('zh').map((item) => item.label)).toEqual(['首页', 'Skills', '榜单', '职业', '分类']);
+    expect(getPrimaryNavItems('en').map((item) => item.label)).toEqual([
+      'Home',
+      'Skills',
+      'Rankings',
+      'Occupations',
+      'Categories',
+    ]);
+
+    expect(headerSource).toContain('data-testid="site-header"');
+    expect(headerSource).toContain('data-testid="desktop-primary-nav"');
+    expect(headerSource).toContain('getPrimaryNavItems(locale)');
+    expect(headerActionsSource).toContain('data-testid="header-actions"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-toggle"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-overlay"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-panel"');
+    expect(headerActionsSource).toContain('document.body.appendChild(overlay)');
+    expect(headerActionsSource).toContain("overlay?.dataset.state = 'open';");
+    expect(headerActionsSource).toContain("overlay?.dataset.state = 'closed';");
+
+    const primaryHeaderSource = `${headerSource}\n${headerActionsSource}`;
+    expect(primaryHeaderSource).not.toMatch(/专题|热门|探索|文档|Topics|Hot|Explore|Docs/);
+  });
+
   it('keeps homepage locale copy focused on directory and installation entry', () => {
     expect(en.Home.heroBadge).toBe('Vetted for safety, native IDE compatibility, and lean execution');
     expect(en.Home.heroDesc2).toBe(

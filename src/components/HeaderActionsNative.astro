@@ -68,6 +68,7 @@ const iconSvg: Record<string, string> = {
 ---
 
 <div
+  data-testid="header-actions"
   class="header-actions flex items-center gap-2 md:gap-4"
   data-locale={locale}
   data-dark-label={labels.darkMode || 'Dark Mode'}
@@ -152,6 +153,7 @@ const iconSvg: Record<string, string> = {
 
   {/* ── Mobile Menu Toggle ──────────────────────────────────────────── */}
   <button
+    data-testid="mobile-menu-toggle"
     class="header-mobile-toggle md:hidden inline-flex h-11 w-11 items-center justify-center rounded-md border border-[var(--border)] hover:bg-[var(--card)] text-[var(--foreground)] transition-colors"
     style="width:44px;height:44px;min-width:44px"
     aria-label={labels.toggleMenu}
@@ -164,6 +166,8 @@ const iconSvg: Record<string, string> = {
 
 {/* ── Mobile Overlay ────────────────────────────────────────────────────── */}
 <div
+  data-testid="mobile-menu-overlay"
+  data-state="closed"
   class="header-mobile-overlay hidden fixed inset-0 z-[60] md:hidden overflow-hidden transition-all duration-150 ease-out invisible opacity-0 pointer-events-none"
   aria-hidden="true"
 >
@@ -172,6 +176,7 @@ const iconSvg: Record<string, string> = {
 
   {/* Panel */}
   <div
+    data-testid="mobile-menu-panel"
     class="header-mobile-panel absolute inset-y-4 right-4 left-4 sm:left-auto sm:w-[420px] rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col transition-transform duration-200 ease-out translate-x-full translate-y-4 overflow-hidden"
   >
     {/* Panel Header */}
@@ -399,6 +404,8 @@ const iconSvg: Record<string, string> = {
 
       function openMobileMenu() {
         menuOpen = true;
+        // overlay?.dataset.state = 'open';
+        if (overlay) overlay.dataset.state = 'open';
         overlay?.classList.remove('hidden', 'invisible', 'opacity-0', 'pointer-events-none');
         overlay?.classList.add('visible', 'opacity-100', 'pointer-events-auto');
         overlay?.setAttribute('aria-hidden', 'false');
@@ -413,6 +420,8 @@ const iconSvg: Record<string, string> = {
 
       function closeMobileMenu() {
         menuOpen = false;
+        // overlay?.dataset.state = 'closed';
+        if (overlay) overlay.dataset.state = 'closed';
         overlay?.classList.add('hidden', 'invisible', 'opacity-0', 'pointer-events-none');
         overlay?.classList.remove('visible', 'opacity-100', 'pointer-events-auto');
         overlay?.setAttribute('aria-hidden', 'true');

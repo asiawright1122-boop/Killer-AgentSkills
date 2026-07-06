@@ -20,6 +20,7 @@ const isActiveNav = (href: string) => {
 ---
 
 <header
+  data-testid="site-header"
   class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/88 backdrop-blur-xl transition-all safe-area-px"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -37,6 +38,7 @@ const isActiveNav = (href: string) => {
 
     <!-- Desktop Nav -->
     <nav
+      data-testid="desktop-primary-nav"
       aria-label="Main navigation"
       class="hidden lg:flex items-center gap-1 xl:gap-4 text-sm font-bold text-[var(--foreground)] whitespace-nowrap shrink-0"
     >
