@@ -90,6 +90,7 @@ const iconSvg: Record<string, string> = {
   {/* ── Language Selector (Desktop) ──────────────────────────────────── */}
   <div class="relative hidden md:block header-lang-dropdown">
     <button
+      data-testid="desktop-locale-toggle"
       class="header-lang-toggle px-3 py-1.5 rounded-md border border-transparent hover:border-[var(--border)] hover:bg-[var(--card)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-semibold text-sm shrink-0 whitespace-nowrap"
       aria-label={labels.switchLanguage}
       aria-expanded="false"
@@ -104,12 +105,14 @@ const iconSvg: Record<string, string> = {
     </button>
 
     <div
+      data-testid="desktop-locale-menu"
       class="header-lang-menu absolute right-0 top-full mt-2 w-[340px] rounded-lg bg-[var(--card)] border border-[var(--border)] shadow-lg z-50 p-3 font-semibold text-xs sm:text-sm grid grid-cols-2 gap-2 hidden"
     >
       {
         Object.entries(localeNames).map(([code, name]) => (
           <button
             type="button"
+            data-testid={`desktop-locale-option-${code}`}
             class={`header-lang-option w-full text-left px-3 py-2 border-2 transition-all flex items-center justify-between ${
               code === locale
                 ? 'bg-[var(--tag-bg)] text-[var(--tag-text)] border-[var(--tag-border)]'
@@ -262,6 +265,7 @@ const iconSvg: Record<string, string> = {
             Object.entries(localeNames).map(([code, name]) => (
               <button
                 type="button"
+                data-testid={`mobile-locale-option-${code}`}
                 class={`header-mobile-lang text-left px-4 py-3 text-sm font-semibold rounded-md border transition-all ${
                   code === locale
                     ? 'bg-[var(--tag-bg)] text-[var(--tag-text)] border-[var(--tag-border)]'

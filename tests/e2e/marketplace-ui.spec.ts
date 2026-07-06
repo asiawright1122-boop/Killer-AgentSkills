@@ -12,7 +12,8 @@ const coreRoutes = [
 ];
 
 const oldHeaderLabels = /专题|热门(?! Skills)|探索|文档|Topics|Hot|Explore|Docs/;
-const hiddenReasoning = /思考链|内部思考|chain[- ]of[- ]thought|hidden reasoning/i;
+const hiddenReasoning =
+  /思考链|内部思考|chain[- ]of[- ]thought|hidden reasoning|internal strategy|recovery plan|rollout plan|implementation rationale|内部策略|恢复方案|回滚方案|发布方案|实施依据/i;
 
 async function expectNoHorizontalOverflow(page: Page) {
   const overflow = await page.evaluate(
@@ -24,6 +25,21 @@ async function expectNoHorizontalOverflow(page: Page) {
 async function expectCleanPublicCopy(page: Page) {
   const bodyText = await page.locator('body').innerText();
   expect(bodyText).not.toMatch(hiddenReasoning);
+}
+
+async function getVisibleSkillCardOrder(page: Page) {
+  const cards = page.getByTestId('skill-card');
+  const count = await cards.count();
+  const hrefs: string[] = [];
+
+  for (let index = 0; index < count; index += 1) {
+    const href = await cards.nth(index).getByTestId('skill-card-link').getAttribute('href');
+    if (href) {
+      hrefs.push(href);
+    }
+  }
+
+  return hrefs;
 }
 
 test.describe('Marketplace UI audit', () => {
@@ -96,5 +112,27 @@ test.describe('Marketplace UI audit', () => {
 
     await expectNoHorizontalOverflow(page);
     await expectCleanPublicCopy(page);
+  });
+
+  test('popular and latest routes render distinct card order when local data diverges', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+
+    await page.goto('/zh/popular');
+    const popularOrder = await getVisibleSkillCardOrder(page);
+
+    await page.goto('/zh/popular?rank=latest');
+    const latestOrder = await getVisibleSkillCardOrder(page);
+
+    const comparableCount = Math.min(popularOrder.length, latestOrder.length);
+    test.skip(comparableCount < 2, 'Local ranking data exposes fewer than two comparable skill cards.');
+
+    const popularSlice = popularOrder.slice(0, comparableCount);
+    const latestSlice = latestOrder.slice(0, comparableCount);
+    test.skip(
+      popularSlice.every((href, index) => href === latestSlice[index]),
+      'Local ranking data currently yields the same visible order for popular and latest routes.',
+    );
+
+    expect(latestSlice).not.toEqual(popularSlice);
   });
 });

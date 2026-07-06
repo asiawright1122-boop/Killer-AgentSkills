@@ -42,8 +42,8 @@ test.describe('Navigation & i18n E2E', () => {
   test('desktop locale switch should update the route and document language', async ({ page }) => {
     await page.goto('/en/collections');
     await waitForHeaderActions(page);
-    await page.locator('.header-lang-toggle').click();
-    await page.locator('.header-lang-option[data-locale-code="zh"]').click();
+    await page.getByTestId('desktop-locale-toggle').click();
+    await page.getByTestId('desktop-locale-option-zh').click();
 
     await expect(page).toHaveURL(/\/zh\/collections$/);
     await expect(page.locator('html')).toHaveAttribute('lang', /zh/);
@@ -60,8 +60,8 @@ test.describe('Navigation & i18n E2E', () => {
     await menuToggle.click();
     await expect(overlay).toHaveAttribute('data-state', 'open');
 
-    await page.getByTestId('mobile-menu-panel').locator('a[href="/en/categories"]').click();
-    await expect(page).toHaveURL(/\/en\/categories$/);
+    const categoriesLink = page.getByTestId('mobile-menu-panel').locator('a[href="/en/categories"]');
+    await Promise.all([page.waitForURL(/\/en\/categories$/), categoriesLink.click()]);
     await expect(overlay).toHaveAttribute('data-state', 'closed');
     await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
 
@@ -97,7 +97,7 @@ test.describe('Navigation & i18n E2E', () => {
     await menuToggle.click();
     await expect(overlay).toHaveAttribute('data-state', 'open');
 
-    await page.locator('.header-mobile-lang[data-locale-code="zh"]').click();
+    await page.getByTestId('mobile-locale-option-zh').click();
     await expect(page).toHaveURL(/\/zh\/collections$/);
     await expect(overlay).toHaveAttribute('data-state', 'closed');
     await expect(page.locator('html')).toHaveAttribute('lang', /zh/);
