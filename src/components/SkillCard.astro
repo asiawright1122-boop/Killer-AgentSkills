@@ -110,6 +110,8 @@ const isZhLocale = locale.startsWith('zh');
 const securityLevel = skill.securityLevel || (isVerified ? 'S' : 'C');
 const rankScore = typeof skill.rankScore === 'number' ? Math.round(skill.rankScore) : undefined;
 const qualityScore = typeof skill.qualityScore === 'number' ? Math.round(skill.qualityScore) : undefined;
+const rawRankScore = typeof skill.rankScore === 'number' ? String(skill.rankScore) : '0';
+const rawQualityScore = typeof skill.qualityScore === 'number' ? String(skill.qualityScore) : '0';
 const sourceKind = skill.sourceKind || (isVerified ? 'official' : 'community');
 const sourceKindLabel =
   sourceKind === 'official' ? (isZhLocale ? '官方' : 'Official') : isZhLocale ? '社区' : 'Community';
@@ -132,8 +134,8 @@ const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank 
   class="skill-list-card skill-list-card-hover group relative flex h-full flex-col p-5"
   data-testid="skill-card"
   data-skill-name={name}
-  data-rank-score={String(rankScore ?? 0)}
-  data-quality-score={String(qualityScore ?? 0)}
+  data-rank-score={rawRankScore}
+  data-quality-score={rawQualityScore}
   data-stars={String(stars)}
   data-updated-at={skill.updatedAt || ''}
 >

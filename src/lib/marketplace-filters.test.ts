@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { UnifiedSkill } from './skills';
 import {
+  compareSkillsPopular,
   getMarketplaceSkills,
   getSkillSourceKind,
   isMarketplaceApprovedSkill,
@@ -34,6 +35,12 @@ describe('marketplace filters', () => {
     expect(getMarketplaceSkills([failed, approved]).map((item) => item.name)).toEqual(['approved']);
   });
 
+  it('treats false-ish trusted-ranking eligibility values as blocked', () => {
+    expect(isMarketplaceApprovedSkill(skill({ isTrustedRankingEligible: 0 as never }))).toBe(false);
+    expect(isMarketplaceApprovedSkill(skill({ isTrustedRankingEligible: '0' as never }))).toBe(false);
+    expect(isMarketplaceApprovedSkill(skill({ isTrustedRankingEligible: 'false' as never }))).toBe(false);
+  });
+
   it('treats verified official repos as source kind official', () => {
     expect(getSkillSourceKind(skill({ owner: 'anthropics', repo: 'skills' }))).toBe('official');
     expect(getSkillSourceKind(skill({ owner: 'community', repo: 'toolkit' }))).toBe('community');
@@ -54,6 +61,14 @@ describe('marketplace filters', () => {
       'higher-quality',
       'higher-stars',
     ]);
+  });
+
+  it('exports the popular comparator contract directly', () => {
+    const alpha = skill({ name: 'alpha', rankScore: 88, qualityScore: 60, stars: 100 });
+    const beta = skill({ name: 'beta', rankScore: 88, qualityScore: 60, stars: 90 });
+
+    expect(compareSkillsPopular(alpha, beta)).toBeLessThan(0);
+    expect(compareSkillsPopular(beta, alpha)).toBeGreaterThan(0);
   });
 
   it('sorts latest by updatedAt descending', () => {
@@ -87,5 +102,27 @@ describe('marketplace filters', () => {
     });
 
     expect(sortSkillsLatest([gamma, alpha, beta]).map((item) => item.name)).toEqual(['beta', 'gamma', 'alpha']);
+  });
+
+  it('sorts invalid updatedAt values by popular order instead of NaN date math', () => {
+    const olderButHigherRank = skill({
+      name: 'older-but-higher-rank',
+      rankScore: 90,
+      qualityScore: 70,
+      stars: 10,
+      updatedAt: 'not-a-date',
+    });
+    const newerButLowerRank = skill({
+      name: 'newer-but-lower-rank',
+      rankScore: 85,
+      qualityScore: 80,
+      stars: 100,
+      updatedAt: '',
+    });
+
+    expect(sortSkillsLatest([newerButLowerRank, olderButHigherRank]).map((item) => item.name)).toEqual([
+      'older-but-higher-rank',
+      'newer-but-lower-rank',
+    ]);
   });
 });

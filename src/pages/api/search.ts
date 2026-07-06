@@ -7,6 +7,7 @@ import {
   type KVNamespaceLike,
 } from '../../lib/rate-limit';
 import type { Env } from '../../lib/kv';
+import { getMarketplaceSkills } from '../../lib/marketplace-filters';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/public-skill-catalog';
@@ -19,6 +20,16 @@ import { getRuntimeEnv } from '../../lib/runtime-env';
 // wrangler.toml).
 const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
+const MARKETPLACE_ADMISSION_SQL = `
+  (s.security_level IS NULL OR s.security_level != 'D')
+  AND (
+    json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
+    OR (
+      json_extract(s.data_json, '$.isTrustedRankingEligible') != 0
+      AND LOWER(CAST(json_extract(s.data_json, '$.isTrustedRankingEligible') AS TEXT)) != 'false'
+    )
+  )
+`;
 
 function buildFtsQuery(input: string): string {
   const terms = input
@@ -50,6 +61,19 @@ function trustBoostFrom(data: { rankScore?: unknown; sourceTrust?: unknown; secu
     data.securityLevel === 'S+' ? 0.0025 : data.securityLevel === 'S' ? 0.002 : data.securityLevel === 'A' ? 0.001 : 0;
 
   return rankScore * 0.004 + sourceBoost + securityBoost;
+}
+
+function isMarketplaceMetadataAdmitted(data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown }): boolean {
+  if (data.securityLevel === 'D') return false;
+  if (
+    data.isTrustedRankingEligible === false ||
+    data.isTrustedRankingEligible === 0 ||
+    data.isTrustedRankingEligible === '0' ||
+    data.isTrustedRankingEligible === 'false'
+  ) {
+    return false;
+  }
+  return true;
 }
 
 function sanitizeSearchResult<T extends Record<string, unknown>>(result: T): T {
@@ -123,7 +147,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
           if (vector && Array.isArray(vector)) {
             const vectorizeResp = await env.VECTORIZE!.query(vector, { topK: RESULT_LIMIT, returnMetadata: 'all' });
-            semanticMatches = vectorizeResp.matches || [];
+            semanticMatches = (vectorizeResp.matches || []).filter((match: { metadata?: Record<string, unknown> }) =>
+              isMarketplaceMetadataAdmitted(match.metadata || {}),
+            );
           }
         } catch (err) {
           console.error('Vectorize/AI search failed:', err);
@@ -146,20 +172,25 @@ export const GET: APIRoute = async ({ request, locals }) => {
                 s.stars,
                 s.category,
                 s.rank_score AS rankScore,
+                s.quality_score AS qualityScore,
                 s.security_level AS securityLevel,
                 s.source_trust AS sourceTrust,
+                json_extract(s.data_json, '$.isTrustedRankingEligible') AS isTrustedRankingEligible,
                 json_extract(s.data_json, '$.source') AS source,
                 bm25(skills_fts) AS rank
               FROM skills_fts
               JOIN skills s ON s.id = skills_fts.id
               WHERE skills_fts MATCH ?
+                AND ${MARKETPLACE_ADMISSION_SQL}
               ORDER BY rank, COALESCE(s.rank_score, s.quality_score, 0) DESC
               LIMIT ?
             `,
             )
             .bind(ftsQuery, RESULT_LIMIT)
             .all();
-          keywordMatches = Array.isArray(ftsResp.results) ? ftsResp.results : [];
+          keywordMatches = Array.isArray(ftsResp.results)
+            ? ftsResp.results.filter((row) => isMarketplaceMetadataAdmitted(row as Record<string, unknown>))
+            : [];
         } catch (err) {
           console.error('D1 FTS search failed:', err);
         }
@@ -198,7 +229,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         category: row.category || '',
         stars: Number(row.stars || 0),
         source: normalizeSource(row.source),
-        rankScore: normalizeNumber(row.rankScore),
+        rankScore: normalizeNumber(row.rankScore ?? row.qualityScore),
         securityLevel: String(row.securityLevel || 'C'),
         sourceTrust: String(row.sourceTrust || 'T3'),
       });
@@ -220,7 +251,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           category: (meta.category as string) || '',
           stars: typeof meta.stars === 'number' ? meta.stars : 0,
           source: 'cache',
-          rankScore: normalizeNumber(meta.rankScore),
+          rankScore: normalizeNumber(meta.rankScore ?? meta.qualityScore),
           securityLevel: String(meta.securityLevel || 'C'),
           sourceTrust: String(meta.sourceTrust || 'T3'),
         });
@@ -229,7 +260,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // If both failed or empty, fallback to fuse.js memory search
     if (combinedScores.size === 0) {
-      const skills = await getLightweightSkills(env);
+      const skills = getMarketplaceSkills(await getLightweightSkills(env));
       const ranked = searchSkills(skills, sanitizedQuery, locale).slice(0, RESULT_LIMIT);
       const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length, locale));
 

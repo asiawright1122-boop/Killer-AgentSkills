@@ -48,7 +48,12 @@ function comparePopularCards(a: VisibleSkillCard, b: VisibleSkillCard): number {
 }
 
 function compareLatestCards(a: VisibleSkillCard, b: VisibleSkillCard): number {
-  const byDate = new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime();
+  const parseUpdatedAt = (value: string) => {
+    const timestamp = value ? new Date(value).getTime() : 0;
+    return Number.isFinite(timestamp) ? timestamp : 0;
+  };
+
+  const byDate = parseUpdatedAt(b.updatedAt) - parseUpdatedAt(a.updatedAt);
   if (byDate !== 0) return byDate;
   return comparePopularCards(a, b);
 }

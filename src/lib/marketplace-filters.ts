@@ -11,14 +11,23 @@ const OFFICIAL_OWNERS = new Set(
 );
 
 function numericSortValue(value: number | null | undefined): number {
-  return typeof value === 'number' ? value : 0;
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function dateSortValue(value: string | null | undefined): number {
+  const timestamp = value ? new Date(value).getTime() : 0;
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function isFalseyRankingEligibility(value: unknown): boolean {
+  return value === false || value === 0 || value === '0' || value === 'false';
 }
 
 function skillDisplayName(skill: UnifiedSkill): string {
   return String(skill.name || skill.skillName || skill.repo);
 }
 
-function compareSkillsPopular(a: UnifiedSkill, b: UnifiedSkill): number {
+export function compareSkillsPopular(a: UnifiedSkill, b: UnifiedSkill): number {
   return (
     numericSortValue(b.rankScore) - numericSortValue(a.rankScore) ||
     numericSortValue(b.qualityScore) - numericSortValue(a.qualityScore) ||
@@ -40,7 +49,7 @@ export function getSkillSourceKind(skill: UnifiedSkill): SourceKind {
 
 export function isMarketplaceApprovedSkill(skill: UnifiedSkill): boolean {
   if (skill.securityLevel === 'D') return false;
-  if (skill.isTrustedRankingEligible === false) return false;
+  if (isFalseyRankingEligibility(skill.isTrustedRankingEligible)) return false;
   return true;
 }
 
@@ -57,7 +66,7 @@ export function sortSkillsPopular(skills: UnifiedSkill[]): UnifiedSkill[] {
 
 export function sortSkillsLatest(skills: UnifiedSkill[]): UnifiedSkill[] {
   return [...skills].sort((a, b) => {
-    const byDate = new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime();
+    const byDate = dateSortValue(b.updatedAt) - dateSortValue(a.updatedAt);
     if (byDate !== 0) return byDate;
     return compareSkillsPopular(a, b);
   });

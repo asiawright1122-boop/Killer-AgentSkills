@@ -8,6 +8,7 @@ import {
   type UnifiedSkill,
 } from '../../../lib/public-skill-catalog';
 import { errorResponse } from '../../../lib/api-utils';
+import { compareSkillsPopular, getMarketplaceSkills } from '../../../lib/marketplace-filters';
 import {
   checkRateLimitDetailed,
   createRateLimiter,
@@ -22,6 +23,17 @@ export const prerender = false;
 
 // Local-isolate fallback; prod uses RATE_LIMIT_SKILLS_SEARCH (wrangler.toml).
 const skillsSearchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
+
+const MARKETPLACE_ADMISSION_SQL = `
+  (s.security_level IS NULL OR s.security_level != 'D')
+  AND (
+    json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
+    OR (
+      json_extract(s.data_json, '$.isTrustedRankingEligible') != 0
+      AND LOWER(CAST(json_extract(s.data_json, '$.isTrustedRankingEligible') AS TEXT)) != 'false'
+    )
+  )
+`;
 
 /**
  * GET /api/skills/search
@@ -68,11 +80,12 @@ export const GET: APIRoute = async ({ request, locals }) => {
     // ==========================================
     if (env?.DB) {
       try {
-        let condition = '';
+        const conditions = [MARKETPLACE_ADMISSION_SQL];
         const params: (string | number)[] = [];
 
         let joinFts = '';
-        let orderBy = 'ORDER BY COALESCE(s.rank_score, s.quality_score, 0) DESC, s.stars DESC';
+        let orderBy =
+          'ORDER BY COALESCE(s.rank_score, 0) DESC, COALESCE(s.quality_score, 0) DESC, COALESCE(s.stars, 0) DESC, LOWER(COALESCE(s.name, s.repo, s.id)) ASC';
 
         if (query.trim()) {
           // Sanitize and format for FTS5 prefix matching: "word1"* AND "word2"*
@@ -83,16 +96,19 @@ export const GET: APIRoute = async ({ request, locals }) => {
               .map((word) => `"${word}"*`)
               .join(' AND ');
             joinFts = `JOIN skills_fts f ON s.id = f.id`;
-            condition += `WHERE skills_fts MATCH ? `;
+            conditions.push('skills_fts MATCH ?');
             params.push(ftsQuery);
-            orderBy = 'ORDER BY f.rank ASC, COALESCE(s.rank_score, s.quality_score, 0) DESC, s.stars DESC';
+            orderBy =
+              'ORDER BY f.rank ASC, COALESCE(s.rank_score, 0) DESC, COALESCE(s.quality_score, 0) DESC, COALESCE(s.stars, 0) DESC, LOWER(COALESCE(s.name, s.repo, s.id)) ASC';
           }
         }
 
         if (category) {
-          condition += condition ? ` AND s.category = ? ` : `WHERE s.category = ? `;
+          conditions.push('s.category = ?');
           params.push(category);
         }
+
+        const condition = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
         const countQuery = `SELECT COUNT(*) as total FROM skills s ${joinFts} ${condition}`;
         const dataQuery = `SELECT s.data_json FROM skills s ${joinFts} ${condition} ${orderBy} LIMIT ? OFFSET ?`;
@@ -108,14 +124,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
         ]);
 
         if (countResult && dataResult.success) {
-          _skills = dataResult.results
+          const parsedSkills = dataResult.results
             .map((row: Record<string, unknown>) => JSON.parse(row.data_json as string) as UnifiedSkill)
-            .filter((skill: UnifiedSkill) => isPublicSkill(skill))
-            .map((skill: UnifiedSkill) => ({
-              ...skill,
-              description: getLocalizedDescription(skill.description, locale),
-            }));
-          _total = Number(countResult.total) || _skills.length;
+            .filter((skill: UnifiedSkill) => isPublicSkill(skill));
+
+          _skills = getMarketplaceSkills(parsedSkills).map((skill: UnifiedSkill) => ({
+            ...skill,
+            description: getLocalizedDescription(skill.description, locale),
+          }));
+          const countedTotal = Number(countResult.total) || 0;
+          _total = parsedSkills.length === _skills.length ? countedTotal : _skills.length;
 
           return new Response(
             JSON.stringify({
@@ -141,7 +159,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // 2. SLOW PATH: KV + JS Memory (Fallback)
     // ==========================================
-    _skills = env ? await getLightweightSkills(env) : [];
+    _skills = env ? getMarketplaceSkills(await getLightweightSkills(env)) : [];
 
     // Localize descriptions
     _skills = _skills.map((skill: UnifiedSkill) => ({
@@ -158,12 +176,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (query.trim()) {
       _skills = searchSkills(_skills, query, locale);
     } else {
-      // No query: mirror the marketplace trusted-ranking order.
-      _skills.sort((a: UnifiedSkill, b: UnifiedSkill) => {
-        const rankCompare = (b.rankScore || b.qualityScore || 0) - (a.rankScore || a.qualityScore || 0);
-        if (rankCompare !== 0) return rankCompare;
-        return (b.stars || 0) - (a.stars || 0);
-      });
+      _skills.sort(compareSkillsPopular);
     }
 
     _total = _skills.length;

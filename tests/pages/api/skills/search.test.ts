@@ -2,6 +2,20 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createMockEnv, createMockD1, createMockKV, createAPIContext } from '../../../../src/lib/api-test-utils';
 import type { UnifiedSkill } from '../../../../src/lib/public-skill-catalog';
 
+const { mockGetLightweightSkills } = vi.hoisted(() => ({
+  mockGetLightweightSkills: vi.fn<() => Promise<UnifiedSkill[]>>(),
+}));
+
+vi.mock('../../../../src/lib/public-skill-catalog', async () => {
+  const actual = await vi.importActual<typeof import('../../../../src/lib/public-skill-catalog')>(
+    '../../../../src/lib/public-skill-catalog',
+  );
+  return {
+    ...actual,
+    getLightweightSkills: mockGetLightweightSkills,
+  };
+});
+
 const MOCK_SKILLS: UnifiedSkill[] = [
   {
     id: '1',
@@ -13,6 +27,10 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     category: 'productivity',
     topics: ['test'],
     stars: 100,
+    rankScore: 80,
+    qualityScore: 70,
+    securityLevel: 'A',
+    isTrustedRankingEligible: true,
     source: 'verified' as const,
     updatedAt: '2024-01-01T00:00:00Z',
     filePath: '.claude/skills/skill-one/SKILL.md',
@@ -31,6 +49,10 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     category: 'ai',
     topics: ['ai'],
     stars: 50,
+    rankScore: 70,
+    qualityScore: 65,
+    securityLevel: 'A',
+    isTrustedRankingEligible: true,
     source: 'featured' as const,
     updatedAt: '2024-01-01T00:00:00Z',
   },
@@ -44,6 +66,10 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     category: 'productivity',
     topics: ['filter'],
     stars: 200,
+    rankScore: 60,
+    qualityScore: 55,
+    securityLevel: 'A',
+    isTrustedRankingEligible: true,
     source: 'cache' as const,
     updatedAt: '2024-01-01T00:00:00Z',
   },
@@ -59,16 +85,8 @@ describe('GET /api/skills/search', () => {
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.resetModules();
-
-    // Mock getLightweightSkills so KV fallback tests use test data instead of
-    // reading from local files (skills-cache.json is .gitignored → missing in CI).
-    vi.doMock('../../../../src/lib/skills', async () => {
-      const actual = await vi.importActual<typeof import('../../../../src/lib/skills')>('../../../../src/lib/skills');
-      return {
-        ...actual,
-        getLightweightSkills: vi.fn().mockResolvedValue(MOCK_SKILLS),
-      };
-    });
+    mockGetLightweightSkills.mockReset();
+    mockGetLightweightSkills.mockResolvedValue(MOCK_SKILLS);
 
     const mod = await import('../../../../src/pages/api/skills/search');
     GET = mod.GET;
@@ -209,6 +227,133 @@ describe('GET /api/skills/search', () => {
     expect(body.skills.length).toBeGreaterThan(0);
   });
 
+  it('KV fallback: excludes D and trusted-ranking-ineligible skills before sorting', async () => {
+    mockGetLightweightSkills.mockResolvedValueOnce([
+      {
+        ...MOCK_SKILLS[0],
+        id: 'eligible-rank',
+        name: 'Eligible Rank',
+        repo: 'eligible-rank',
+        rankScore: 90,
+        qualityScore: 20,
+        stars: 5,
+      },
+      {
+        ...MOCK_SKILLS[1],
+        id: 'eligible-quality',
+        name: 'Eligible Quality',
+        repo: 'eligible-quality',
+        rankScore: 90,
+        qualityScore: 80,
+        stars: 3,
+      },
+      {
+        ...MOCK_SKILLS[2],
+        id: 'eligible-stars',
+        name: 'Eligible Stars',
+        repo: 'eligible-stars',
+        rankScore: 90,
+        qualityScore: 80,
+        stars: 200,
+      },
+      {
+        ...MOCK_SKILLS[2],
+        id: 'zzz-eligible-stars',
+        name: 'ZZZ Eligible Stars',
+        repo: 'zzz-eligible-stars',
+        rankScore: 90,
+        qualityScore: 80,
+        stars: 200,
+      },
+      {
+        ...MOCK_SKILLS[0],
+        id: 'blocked-security',
+        name: 'Blocked Security',
+        repo: 'blocked-security',
+        rankScore: 99,
+        qualityScore: 99,
+        stars: 999,
+        securityLevel: 'D',
+      },
+      {
+        ...MOCK_SKILLS[1],
+        id: 'blocked-trust',
+        name: 'Blocked Trust',
+        repo: 'blocked-trust',
+        rankScore: 98,
+        qualityScore: 98,
+        stars: 998,
+        isTrustedRankingEligible: 'false' as never,
+      },
+    ]);
+
+    const res = await GET(
+      buildContext(
+        'http://localhost/api/skills/search',
+        createMockEnv({ SKILLS_CACHE: createMockKV(), DB: undefined }),
+      ),
+    );
+
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.skills.map((skill: UnifiedSkill) => skill.name)).toEqual([
+      'Eligible Stars',
+      'ZZZ Eligible Stars',
+      'Eligible Quality',
+      'Eligible Rank',
+    ]);
+    expect(body.skills.find((skill: UnifiedSkill) => skill.securityLevel === 'D')).toBeUndefined();
+    expect(body.skills.find((skill: UnifiedSkill) => skill.name === 'Blocked Trust')).toBeUndefined();
+  });
+
+  it('D1 path: excludes D and trusted-ranking-ineligible rows from response and total', async () => {
+    const d1Results = [
+      {
+        data_json: JSON.stringify({
+          ...MOCK_SKILLS[0],
+          id: 'allowed',
+          name: 'Allowed',
+          repo: 'allowed',
+          rankScore: 90,
+          qualityScore: 70,
+          stars: 10,
+        }),
+      },
+      {
+        data_json: JSON.stringify({
+          ...MOCK_SKILLS[1],
+          id: 'blocked-security',
+          name: 'Blocked Security',
+          repo: 'blocked-security',
+          securityLevel: 'D',
+        }),
+      },
+      {
+        data_json: JSON.stringify({
+          ...MOCK_SKILLS[2],
+          id: 'blocked-trust',
+          name: 'Blocked Trust',
+          repo: 'blocked-trust',
+          isTrustedRankingEligible: 'false',
+        }),
+      },
+    ];
+    const mockDB = createMockD1(d1Results, 3);
+
+    const res = await GET(
+      buildContext(
+        'http://localhost/api/skills/search?q=skill',
+        createMockEnv({ DB: mockDB as unknown as D1Database }),
+      ),
+    );
+
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.total).toBe(1);
+    expect(body.skills).toHaveLength(1);
+    expect(body.skills[0].name).toBe('Allowed');
+  });
+
   it('pagination: hasMore is true when more results exist', async () => {
     const d1Results = MOCK_SKILLS.slice(0, 2).map((s) => ({ data_json: JSON.stringify(s) }));
     const mockDB = createMockD1(d1Results, 5);
@@ -256,9 +401,7 @@ describe('GET /api/skills/search', () => {
       updatedAt: '2024-01-01T00:00:00Z',
     }));
 
-    // Override the mock for this specific test
-    const { getLightweightSkills } = await import('../../../../src/lib/skills');
-    vi.mocked(getLightweightSkills).mockResolvedValueOnce(paginationSkills);
+    mockGetLightweightSkills.mockResolvedValueOnce(paginationSkills);
 
     const ctx = buildContext(
       'http://localhost/api/skills/search?limit=10&page=2',
