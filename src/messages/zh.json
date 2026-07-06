@@ -189,7 +189,7 @@
     "comparison": {
       "title": "为什么选择 Killer-Skills CLI？",
       "feature": "功能",
-      "ks": "Killer-Skills CLI",
+      "ks": "\"Killer-Skills CLI\"\n\n## 规则：\n1。 **SEO 优化 **： 使用 zh 用户在 AI 智能体工具和开发者工作流空间中实际搜索的关键词。\n2。 ** 站点主题 **： 这是 AI 智能体技能市场。保持翻译与 AI 智能体、技能、工作流、IDE 集成、MCP 服务器、开发者工具相关。\n3。 ** 长度限制 **： 保持翻译长度接近原文以避免 UI 破坏或 SERP 截断。\n4。 **tone**： 专业、技术、但易于理解。\n5。 ** 品牌术语 **： 保持 \"Killer-Skills\"、\"Claude Code\"、\"Cursor\"、\"Windsurf\"、\"MCP\" 未翻译。\n6。 **CJK 格式化规则 (关键)**：\n - 对 CJK 语言 (zh， ja， ko)： 在 CJK 字符和英文字母/数字/反引号之间留一个半宽空格 (e.g。 \"在 Cursor 中\")。\n - 中文 (zh)： 使用全宽标点符号 (，。！？：；)。\n - 日语 (ja)： 使用全宽标点符号和日语逗号 (、。！？：；)。\n - 韩语 (ko)： 保持半宽句点和逗号 (。，) 但使用全宽惊叹号和问号 (！？)。\n7。 ** 词汇对齐 **：\n - \"AI 智能体技能\" -> zh： \"AI 智能体技能\"， ja： \"AI 智能体技能\"， ko： \"AI 智能体技能\"\n - \"AI 智能体\" -> zh： \"AI 智能体\"， ja： \"AI 智能体\"， ko： \"AI 智能体\"\n - \"IDE 集成\" -> zh： \"IDE 集成\"， ja： \"IDE 集成\"， ko： \"IDE 集成\"\n - \"开发者工具\" -> zh： \"开发者工具\"， ja： \"开发者工具\"， ko： \"开发者工具\"\n - \"安装平台\" -> zh： \"安装平台\"， ja： \"安装平台\"， ko： \"安装平台\"\n - \"工作流自动化\" -> zh： \"工作流自动化\"， ja： \"工作流自动化\"， ko： \"工作流自动化\"\n - \"市场\" -> zh： \"市场\"， ja： \"市场\"， ko： \"市场\"\n8。 ** 无废话 **： 不解释。返回 ONLY 翻译文本。\n\n\"Killer-Skills CLI\"",
       "others": "手动写 Prompt",
       "row1": "一键安装到 19 个 IDE",
       "row2": "自动调用 (零 Context 浪费)",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI 智能体技能。",
     "heroSubtitle": "安装和管理 AI 智能体技能",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "杀手技能 CLI",
     "install": "立即安装",
     "latestVersion": "最新版本：",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
@@ -660,7 +660,7 @@
     "overview": "概览",
     "platformOverview": "技能概览",
     "quickStart": "快速开始",
-    "restApi": "REST API",
+    "restApi": "REST API\n\n## 规则：\n1。 **SEO 优化 **： 使用 zh 用户在 AI 智能体工具和开发者工作流空间中搜索的关键词。\n2。 ** 站点主题 **： 这是 AI 智能体技能市场。保持翻译与 AI 智能体、技能、工作流、IDE 集成、MCP 服务器、开发者工具相关。\n3。 ** 长度限制 **： 尽量保持翻译长度与原文相同以避免 UI 破坏或 SERP 截断。\n4。 ** tonality**：专业、技术、但易于理解。\n5。 ** 品牌术语 **： 保持 \"Killer-Skills\"、\"Claude Code\"、\"Cursor\"、\"Windsurf\"、\"MCP\" 未翻译。\n6。 **CJK 格式化规则（关键）**：\n - 对 CJK 语言（zh、ja、ko）：在 CJK 字符和英文字母/数字/反引号之间留半宽空格（例如 \"在 Cursor 中\"）。\n - 中文（zh）：使用全宽标点符号（，。！？：；）。\n - 日语（ja）：使用全宽标点符号与日语逗号（、。！？：；）。\n - 韩语（ko）：保持半宽句点和逗号（。，）但使用全宽惊叹号/问号（！？）。\n7。 ** 词典对齐 **：\n - \"AI 智能体技能\" -> zh： \"AI 智能体技能\"， ja： \"AI 智能体技能\"， ko： \"AI 智能体技能\"\n - \"AI 智能体\" -> zh： \"AI 智能体\"， ja： \"AI 智能体\"， ko： \"AI 智能体\"\n - \"IDE 集成\" -> zh： \"IDE 集成\"， ja： \"IDE 集成\"， ko： \"IDE 集成\"\n - \"开发者工具\" -> zh： \"开发者工具\"， ja： \"开发者工具\"， ko： \"开发者工具\"\n - \"安装平台\" -> zh： \"安装平台\"， ja： \"安装平台\"， ko： \"安装平台\"\n - \"工作流自动化\" -> zh： \"工作流自动化\"， ja： \"工作流自动化\"， ko： \"工作流自动化\"\n - \"市场\" -> zh： \"市场\"， ja： \"市场\"， ko： \"市场\"\n8。 ** 无废话 **： 不解释。仅返回翻译文本。",
     "security": "安全",
     "skills": "技能 (Skills)",
     "tools": "工具 (Tools)",
@@ -693,7 +693,14 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能 ... 例如：PDF 处理、数据分析",
     "subtitle": "探索无限可能，赋能你的 AI 助手",
-    "suggestions": ["PDF 处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
+    "suggestions": [
+      "PDF 处理",
+      "图像生成",
+      "数据分析",
+      "浏览器自动化",
+      "代码审查",
+      "文档处理"
+    ],
     "title": "发现 AI 智能体技能",
     "titleHighlight": "AI 智能体"
   },
@@ -761,10 +768,15 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能，例如：网页爬取、数据可视化",
     "seoDescription": "按排行、来源、场景和安装风险搜索 AI 智能体技能。Killer-Skills 面向 Claude Code、Cursor、Windsurf 与 19+ IDE 提供榜单、搜索、分类和安全入口。",
-    "seoIntro": "Killer-Skills 是 AI Agent Skills 的开源目录、榜单、搜索、分类和安全入口。开发者可以先看排行，再按来源、场景和安装风险继续筛选。",
-    "seoTitle": "AI Agent Skills 榜单：Claude Code、Cursor 与 Windsurf 技能入口",
+    "seoIntro": "Killer-Skills 是 AI 智能体技能的开源目录、榜单、搜索、分类和安全入口。开发者可以先看排行，再按来源、场景和安装风险继续筛选。",
+    "seoTitle": "AI 智能体技能榜单：Claude Code、Cursor 与 Windsurf 技能入口",
     "stable": "稳定",
-    "tags": ["研究", "编程", "营销", "分析"],
+    "tags": [
+      "研究",
+      "编程",
+      "营销",
+      "分析"
+    ],
     "trendingSubtitle": "由社区评选的顶级技能。",
     "trendingTitle": "精选技能",
     "viewAll": "查看全部"
@@ -881,13 +893,13 @@
   },
   "Metadata": {
     "Skills": {
-      "title": "AI Agent Skills 榜单与探索",
+      "title": "AI 智能体技能榜单与探索",
       "description": "按排行、来源和场景探索 Killer-Skills 中的 AI 智能体技能。支持 Claude Code、Windsurf、Cursor 等。"
     },
     "description": "发现、安装和管理 AI 智能体技能，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
     "keywords": "agent skills， claude code， AI 智能体， cursor， windsurf， antigravity， ai skills， 编程技能， AI 助手， 代码生成",
-    "template": "%s | Killer-Skills",
-    "title": "Killer-Skills - AI Agent Skills 榜单"
+    "template": "\"%s | Killer-Skills\" 的翻譯為 \"%s | Killer-Skills\"",
+    "title": "Killer-Skills - AI 智能体技能榜单"
   },
   "Navigation": {
     "blog": "博客",

@@ -771,7 +771,12 @@
     "seoIntro": "Killer-Skills es un directorio de código abierto y centro de instalación para más de 3,400 skills de agentes de IA. Ayuda a descubrir herramientas confiables más rápido que navegando repositorios crudos de GitHub y a pasar desde un mismo flujo a colecciones, soluciones y documentación de instalación.",
     "seoTitle": "Directorio de AI Agent Skills y servidores MCP",
     "stable": "Estable",
-    "tags": ["Investigación", "Codificación", "\"Marketing\" -> \"Marketing\"", "Análisis"],
+    "tags": [
+      "Investigación",
+      "Codificación",
+      "\"Marketing\" -> \"Marketing\"",
+      "Análisis"
+    ],
     "trendingSubtitle": "Skills mejor valoradas y más populares de la comunidad.",
     "trendingTitle": "Habilidades en tendencia",
     "viewAll": "Ver todo"
@@ -1020,7 +1025,8 @@
       "documentation": "Documentación",
       "devops": "Desarrollo Operativo & Nube",
       "security": "Seguridad",
-      "communication": "Comunicación"
+      "communication": "Comunicación",
+      "other": "Otros"
     },
     "discover": "Descubrir",
     "frameworks": "\"Frameworks\" -> \"Frameworks\"",
