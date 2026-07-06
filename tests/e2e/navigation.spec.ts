@@ -82,7 +82,10 @@ test.describe('Navigation & i18n E2E', () => {
     const href = await skillCard.locator('a[href*="/en/skills/"]').first().getAttribute('href');
     expect(href).toBeTruthy();
 
-    await Promise.all([page.waitForURL(new RegExp(escapeRegExp(href!))), skillCard.locator('a[href*="/en/skills/"]').first().click()]);
+    await Promise.all([
+      page.waitForURL(new RegExp(escapeRegExp(href!))),
+      skillCard.locator('a[href*="/en/skills/"]').first().click(),
+    ]);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 

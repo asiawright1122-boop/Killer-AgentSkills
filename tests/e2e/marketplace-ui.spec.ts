@@ -43,10 +43,7 @@ function parseCardNumber(value: string | null): number {
 
 function comparePopularCards(a: VisibleSkillCard, b: VisibleSkillCard): number {
   return (
-    b.rankScore - a.rankScore ||
-    b.qualityScore - a.qualityScore ||
-    b.stars - a.stars ||
-    a.name.localeCompare(b.name)
+    b.rankScore - a.rankScore || b.qualityScore - a.qualityScore || b.stars - a.stars || a.name.localeCompare(b.name)
   );
 }
 

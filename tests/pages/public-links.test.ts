@@ -20,8 +20,7 @@ const readPageSource = (relativePath: string) => {
 };
 const readRepoSource = (relativePath: string) =>
   readFileSync(new URL(`../../${relativePath}`, import.meta.url), 'utf8');
-const stripSourceComments = (source: string) =>
-  source.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+const stripSourceComments = (source: string) => source.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
 const extractNamedFunctionBody = (source: string, functionName: string) => {
   const signature = `function ${functionName}(`;
   const signatureIndex = source.indexOf(signature);
@@ -248,8 +247,7 @@ const hasRuntimeKvImport = (source: string): boolean => {
   return false;
 };
 
-const hasDynamicRuntimeKvImport = (source: string): boolean =>
-  /import\s*\(\s*['"][^'"]*lib\/kv['"]\s*\)/.test(source);
+const hasDynamicRuntimeKvImport = (source: string): boolean => /import\s*\(\s*['"][^'"]*lib\/kv['"]\s*\)/.test(source);
 
 const hasRuntimeSkillsImport = (source: string): boolean => {
   const skillsImportPattern = /import\s+([^;]+?)\s+from\s+['"][^'"]*lib\/skills['"];?/g;
@@ -393,7 +391,9 @@ describe('public links and navigation copy', () => {
     expect(popularSource).toContain(
       "activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills)",
     );
-    expect(popularSource).toContain("const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');");
+    expect(popularSource).toContain(
+      "const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');",
+    );
     expect(occupationDetailSource).toContain('occupation.popularSkills');
     expect(occupationDetailSource).toContain('occupation.latestSkills');
     expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
@@ -405,7 +405,7 @@ describe('public links and navigation copy', () => {
     const layoutSource = readPageSource('../layouts/Layout.astro');
 
     expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, 480)');
-    expect(skillsIndexSource).toContain(".slice(0, 80)");
+    expect(skillsIndexSource).toContain('.slice(0, 80)');
     expect(skillsIndexSource).toContain('visibleResults = results.slice(0, 72)');
     expect(skillsIndexSource).toContain("'Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600'");
     expect(layoutSource).toContain('<meta name="robots" content={robotsContent} />');
@@ -574,11 +574,11 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
     expect(zhHomeSource).toContain('MarketplaceHero');
-    expect(zhHomeSource).toContain("title=\"Killer-Skills\"");
+    expect(zhHomeSource).toContain('title="Killer-Skills"');
     expect(zhHomeSource).toContain('searchAction={`/${locale}/search`}');
-    expect(zhHomeSource).toContain("href: `/${locale}/skills`");
-    expect(zhHomeSource).toContain("href: `/${locale}/popular`");
-    expect(zhHomeSource).toContain("href: `/${locale}/occupations`");
+    expect(zhHomeSource).toContain('href: `/${locale}/skills`');
+    expect(zhHomeSource).toContain('href: `/${locale}/popular`');
+    expect(zhHomeSource).toContain('href: `/${locale}/occupations`');
     expect(zhHomeSource).toContain('actionHref={`/${locale}/categories`}');
     // Verify the i18n values themselves carry the correct positioning
     expect(zh.Home.seoTitle).toContain('AI Agent Skills');
@@ -967,7 +967,6 @@ describe('public links and navigation copy', () => {
     expect(collectionsIndexSource).not.toContain('Three-Step Decision-to-Setup Path');
     expect(collectionsIndexSource).not.toContain('killer-skills list');
   });
-
 
   it('keeps evergreen blog counts aligned with current public totals', () => {
     const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
@@ -1654,7 +1653,9 @@ describe('public links and navigation copy', () => {
     expect(searchBarSource).toContain('locale=${encodeURIComponent(locale)}');
     expect(searchBarSource).not.toContain('href={`/${locale}/skills/${r.owner}/${r.repo}`}');
 
-    expect(favoritesManagerSource).toContain('buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo)');
+    expect(favoritesManagerSource).toContain(
+      'buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo)',
+    );
     expect(favoritesManagerSource).not.toContain('const detailUrl = `/${locale}/skills/${owner}/${repo}`;');
 
     expect(historyManagerSource).toContain('buildLocalizedSkillPath(locale, item.owner, item.routePath || item.repo)');
@@ -1665,7 +1666,9 @@ describe('public links and navigation copy', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
     expect(skillsIndexSource).toContain("const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';");
-    expect(skillsIndexSource).toContain('Complete AI agent skills directory with keyword, category, occupation, and source filters.');
+    expect(skillsIndexSource).toContain(
+      'Complete AI agent skills directory with keyword, category, occupation, and source filters.',
+    );
     expect(skillsIndexSource).toContain('MarketplaceHero');
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
   });
