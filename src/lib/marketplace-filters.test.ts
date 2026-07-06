@@ -46,10 +46,46 @@ describe('marketplace filters', () => {
     expect(sortSkillsPopular([starred, trusted]).map((item) => item.name)).toEqual(['trusted', 'starred']);
   });
 
+  it('sorts popular by quality score when rank score ties', () => {
+    const higherQuality = skill({ name: 'higher-quality', rankScore: 88, qualityScore: 77, stars: 5 });
+    const higherStars = skill({ name: 'higher-stars', rankScore: 88, qualityScore: 60, stars: 500 });
+
+    expect(sortSkillsPopular([higherStars, higherQuality]).map((item) => item.name)).toEqual([
+      'higher-quality',
+      'higher-stars',
+    ]);
+  });
+
   it('sorts latest by updatedAt descending', () => {
     const older = skill({ name: 'older', updatedAt: '2026-01-01T00:00:00.000Z' });
     const newer = skill({ name: 'newer', updatedAt: '2026-07-01T00:00:00.000Z' });
 
     expect(sortSkillsLatest([older, newer]).map((item) => item.name)).toEqual(['newer', 'older']);
+  });
+
+  it('sorts latest ties by popular order', () => {
+    const alpha = skill({
+      name: 'alpha',
+      rankScore: 91,
+      qualityScore: 70,
+      stars: 40,
+      updatedAt: '2026-07-01T00:00:00.000Z',
+    });
+    const beta = skill({
+      name: 'beta',
+      rankScore: 91,
+      qualityScore: 70,
+      stars: 120,
+      updatedAt: '2026-07-01T00:00:00.000Z',
+    });
+    const gamma = skill({
+      name: 'gamma',
+      rankScore: 91,
+      qualityScore: 70,
+      stars: 120,
+      updatedAt: '2026-07-01T00:00:00.000Z',
+    });
+
+    expect(sortSkillsLatest([gamma, alpha, beta]).map((item) => item.name)).toEqual(['beta', 'gamma', 'alpha']);
   });
 });

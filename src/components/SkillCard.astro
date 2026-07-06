@@ -29,6 +29,8 @@ interface Props {
     sourceTrust?: SourceTrustLevel;
     securityScore?: number;
     rankScore?: number;
+    qualityScore?: number;
+    updatedAt?: string;
     riskFlags?: RiskFlag[];
     securityBrief?: string;
     sourceKind?: 'official' | 'community';
@@ -107,6 +109,7 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
 const isZhLocale = locale.startsWith('zh');
 const securityLevel = skill.securityLevel || (isVerified ? 'S' : 'C');
 const rankScore = typeof skill.rankScore === 'number' ? Math.round(skill.rankScore) : undefined;
+const qualityScore = typeof skill.qualityScore === 'number' ? Math.round(skill.qualityScore) : undefined;
 const sourceKind = skill.sourceKind || (isVerified ? 'official' : 'community');
 const sourceKindLabel =
   sourceKind === 'official' ? (isZhLocale ? '官方' : 'Official') : isZhLocale ? '社区' : 'Community';
@@ -125,7 +128,15 @@ const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank 
   .join(' · ');
 ---
 
-<article class="skill-list-card skill-list-card-hover group relative flex h-full flex-col p-5" data-testid="skill-card">
+<article
+  class="skill-list-card skill-list-card-hover group relative flex h-full flex-col p-5"
+  data-testid="skill-card"
+  data-skill-name={name}
+  data-rank-score={String(rankScore ?? 0)}
+  data-quality-score={String(qualityScore ?? 0)}
+  data-stars={String(stars)}
+  data-updated-at={skill.updatedAt || ''}
+>
   <CardOverlayLink href={skillLink} ariaLabel={viewSkillLabel} testId="skill-card-link" />
 
   <!-- Header: Title + Verified Badge -->

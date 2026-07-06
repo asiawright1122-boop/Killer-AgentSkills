@@ -10,10 +10,21 @@ const OFFICIAL_OWNERS = new Set(
     .map((repo) => repo.owner),
 );
 
-function scoreForPopularSort(skill: UnifiedSkill): number {
-  if (typeof skill.rankScore === 'number') return skill.rankScore;
-  if (typeof skill.qualityScore === 'number') return skill.qualityScore;
-  return 0;
+function numericSortValue(value: number | null | undefined): number {
+  return typeof value === 'number' ? value : 0;
+}
+
+function skillDisplayName(skill: UnifiedSkill): string {
+  return String(skill.name || skill.skillName || skill.repo);
+}
+
+function compareSkillsPopular(a: UnifiedSkill, b: UnifiedSkill): number {
+  return (
+    numericSortValue(b.rankScore) - numericSortValue(a.rankScore) ||
+    numericSortValue(b.qualityScore) - numericSortValue(a.qualityScore) ||
+    numericSortValue(b.stars) - numericSortValue(a.stars) ||
+    skillDisplayName(a).localeCompare(skillDisplayName(b))
+  );
 }
 
 export function getSkillSourceKind(skill: UnifiedSkill): SourceKind {
@@ -41,18 +52,13 @@ export function getMarketplaceSkills(skills: UnifiedSkill[]): UnifiedSkill[] {
 }
 
 export function sortSkillsPopular(skills: UnifiedSkill[]): UnifiedSkill[] {
-  return [...skills].sort(
-    (a, b) =>
-      scoreForPopularSort(b) - scoreForPopularSort(a) ||
-      (b.stars || 0) - (a.stars || 0) ||
-      String(a.name || a.skillName || a.repo).localeCompare(String(b.name || b.skillName || b.repo)),
-  );
+  return [...skills].sort(compareSkillsPopular);
 }
 
 export function sortSkillsLatest(skills: UnifiedSkill[]): UnifiedSkill[] {
   return [...skills].sort((a, b) => {
     const byDate = new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime();
     if (byDate !== 0) return byDate;
-    return sortSkillsPopular([a, b])[0] === a ? -1 : 1;
+    return compareSkillsPopular(a, b);
   });
 }

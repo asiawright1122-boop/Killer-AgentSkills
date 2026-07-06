@@ -27,19 +27,77 @@ async function expectCleanPublicCopy(page: Page) {
   expect(bodyText).not.toMatch(hiddenReasoning);
 }
 
-async function getVisibleSkillCardOrder(page: Page) {
+type VisibleSkillCard = {
+  href: string;
+  name: string;
+  rankScore: number;
+  qualityScore: number;
+  stars: number;
+  updatedAt: string;
+};
+
+function parseCardNumber(value: string | null): number {
+  const parsed = Number(value ?? '0');
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function comparePopularCards(a: VisibleSkillCard, b: VisibleSkillCard): number {
+  return (
+    b.rankScore - a.rankScore ||
+    b.qualityScore - a.qualityScore ||
+    b.stars - a.stars ||
+    a.name.localeCompare(b.name)
+  );
+}
+
+function compareLatestCards(a: VisibleSkillCard, b: VisibleSkillCard): number {
+  const byDate = new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime();
+  if (byDate !== 0) return byDate;
+  return comparePopularCards(a, b);
+}
+
+async function getVisibleSkillCards(page: Page): Promise<VisibleSkillCard[]> {
   const cards = page.getByTestId('skill-card');
   const count = await cards.count();
-  const hrefs: string[] = [];
+  const visibleCards: VisibleSkillCard[] = [];
 
   for (let index = 0; index < count; index += 1) {
-    const href = await cards.nth(index).getByTestId('skill-card-link').getAttribute('href');
-    if (href) {
-      hrefs.push(href);
-    }
+    const card = cards.nth(index);
+    if (!(await card.isVisible())) continue;
+
+    const href = await card.getByTestId('skill-card-link').getAttribute('href');
+    if (!href) continue;
+
+    visibleCards.push({
+      href,
+      name: (await card.getAttribute('data-skill-name')) || '',
+      rankScore: parseCardNumber(await card.getAttribute('data-rank-score')),
+      qualityScore: parseCardNumber(await card.getAttribute('data-quality-score')),
+      stars: parseCardNumber(await card.getAttribute('data-stars')),
+      updatedAt: (await card.getAttribute('data-updated-at')) || '',
+    });
   }
 
-  return hrefs;
+  return visibleCards;
+}
+
+async function expectVisibleCardSort(
+  page: Page,
+  path: string,
+  sortName: string,
+  compareCards: (a: VisibleSkillCard, b: VisibleSkillCard) => number,
+) {
+  await page.goto(path);
+  const visibleCards = await getVisibleSkillCards(page);
+  test.skip(
+    visibleCards.length < 2,
+    `${sortName} sort semantics need at least two visible skill cards on ${path}. Found ${visibleCards.length}.`,
+  );
+
+  const actualOrder = visibleCards.map((card) => card.href);
+  const expectedOrder = [...visibleCards].sort(compareCards).map((card) => card.href);
+
+  expect(actualOrder).toEqual(expectedOrder);
 }
 
 test.describe('Marketplace UI audit', () => {
@@ -114,25 +172,13 @@ test.describe('Marketplace UI audit', () => {
     await expectCleanPublicCopy(page);
   });
 
-  test('popular and latest routes render distinct card order when local data diverges', async ({ page }) => {
+  test('popular route visible cards match rank, quality, stars, then name ordering', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
+    await expectVisibleCardSort(page, '/zh/popular', 'Popular', comparePopularCards);
+  });
 
-    await page.goto('/zh/popular');
-    const popularOrder = await getVisibleSkillCardOrder(page);
-
-    await page.goto('/zh/popular?rank=latest');
-    const latestOrder = await getVisibleSkillCardOrder(page);
-
-    const comparableCount = Math.min(popularOrder.length, latestOrder.length);
-    test.skip(comparableCount < 2, 'Local ranking data exposes fewer than two comparable skill cards.');
-
-    const popularSlice = popularOrder.slice(0, comparableCount);
-    const latestSlice = latestOrder.slice(0, comparableCount);
-    test.skip(
-      popularSlice.every((href, index) => href === latestSlice[index]),
-      'Local ranking data currently yields the same visible order for popular and latest routes.',
-    );
-
-    expect(latestSlice).not.toEqual(popularSlice);
+  test('latest route visible cards match updatedAt then popular tie-break ordering', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await expectVisibleCardSort(page, '/zh/popular?rank=latest', 'Latest', compareLatestCards);
   });
 });

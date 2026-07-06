@@ -22,3 +22,20 @@ Verification
 
 Report file path
 - `/Users/kaka/Dev/Killer-Skills/.superpowers/sdd/task-4-report.md`
+
+## Re-review Fix: Popular/Latest Sort Semantics
+
+- Updated `src/lib/marketplace-filters.ts` so Popular now sorts by `rankScore` desc, then `qualityScore` desc, then stars desc, then display name asc, with missing numeric values treated as `0`.
+- Kept Latest as `updatedAt` desc and changed its tie-break to the exact Popular comparator instead of the previous merged score fallback.
+- Strengthened `src/lib/marketplace-filters.test.ts` with explicit coverage for the `qualityScore` Popular tie-break and for Latest ties resolving through Popular ordering.
+- Added non-visible `data-skill-name`, `data-rank-score`, `data-quality-score`, `data-stars`, and `data-updated-at` attributes to `src/components/SkillCard.astro` so Playwright can read the rendered sort inputs directly.
+- Replaced the Popular-vs-Latest difference test in `tests/e2e/marketplace-ui.spec.ts` with route-by-route semantic assertions that compute the expected visible order from those card attributes for Popular and Latest independently.
+
+Verification
+- `npx vitest run src/lib/marketplace-filters.test.ts --reporter=verbose` -> 1 file passed, 6 tests passed, 0 failed
+- `PLAYWRIGHT_PORT=4322 npx playwright test tests/e2e/marketplace-ui.spec.ts --project=chromium` -> 5 passed, 0 skipped, 0 failed
+- `PLAYWRIGHT_PORT=4322 npx playwright test tests/e2e/navigation.spec.ts tests/e2e/marketplace-ui.spec.ts --project=chromium` -> 12 passed, 0 skipped, 0 failed
+
+Notes
+- Running the two Playwright commands concurrently on the same `PLAYWRIGHT_PORT=4322` caused local server collisions and false failures; the required sequential reruns passed.
+- Local dev still logs D1 `no such table: skills` fallback noise on some skill detail requests, but it did not fail the required assertions in this task.
