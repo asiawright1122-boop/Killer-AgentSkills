@@ -205,9 +205,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
             )
             .bind(ftsQuery, RESULT_LIMIT)
             .all();
-          keywordMatches = Array.isArray(ftsResp.results)
-            ? ftsResp.results.filter((row) => isMarketplaceMetadataAdmitted(row as Record<string, unknown>))
-            : [];
+          const ftsRows = Array.isArray(ftsResp.results) ? (ftsResp.results as Record<string, unknown>[]) : [];
+          keywordMatches = ftsRows.filter((row) => isMarketplaceMetadataAdmitted(row));
         } catch (err) {
           console.error('D1 FTS search failed:', err);
         }

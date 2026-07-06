@@ -205,7 +205,7 @@ describe('GET /api/search', () => {
     const env = createMockEnv({
       AI: {
         run: vi.fn(async () => ({ data: [[0.1, 0.2, 0.3]] })),
-      } as unknown as Ai,
+      },
       VECTORIZE: {
         query: vi.fn(async () => ({
           matches: [
