@@ -7,6 +7,7 @@ import { SUPPORTED_LOCALES, loadMessages, type Locale } from '../../../i18n';
 import { getCategoryLabel } from '../../../lib/category-taxonomy';
 import type { Env } from '../../../lib/kv';
 import { buildOccupationDetail } from '../../../lib/occupations';
+import { getMarketplaceSkills } from '../../../lib/marketplace-filters';
 import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 import { buildKeywordString } from '../../../lib/seo-keywords';
@@ -26,7 +27,8 @@ const [messages, skillsFetched] = await Promise.all([
   loadMessages(typedLocale),
   getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
 ]);
-const occupation = buildOccupationDetail(skillsFetched, slug || '', typedLocale);
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const occupation = buildOccupationDetail(marketplaceSkills, slug || '', typedLocale);
 if (!occupation) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }

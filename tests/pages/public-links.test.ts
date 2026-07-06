@@ -365,6 +365,41 @@ describe('public links and navigation copy', () => {
     expect(skillsSidebarSource).not.toContain('href={`/${locale}/skills?tag=${fw.id}`}');
   });
 
+  it('keeps all marketplace browse routes behind the shared admission and ranking contracts', () => {
+    const homeSource = readPageSource('../pages/[locale]/index.astro');
+    const skillsSource = readPageSource('../pages/[locale]/skills/index.astro');
+    const popularSource = readPageSource('../pages/[locale]/popular/index.astro');
+    const occupationsSource = readPageSource('../pages/[locale]/occupations/index.astro');
+    const occupationDetailSource = readPageSource('../pages/[locale]/occupations/[slug].astro');
+    const categoriesSource = readPageSource('../pages/[locale]/categories/index.astro');
+    const categoryDetailSource = readPageSource('../pages/[locale]/categories/[slug].astro');
+
+    for (const source of [
+      homeSource,
+      skillsSource,
+      popularSource,
+      occupationsSource,
+      occupationDetailSource,
+      categoriesSource,
+      categoryDetailSource,
+    ]) {
+      expect(source).toContain('getMarketplaceSkills(');
+    }
+
+    expect(homeSource).toContain('sortSkillsPopular(marketplaceSkills).slice(0, 8)');
+    expect(homeSource).toContain('sortSkillsLatest(marketplaceSkills).slice(0, 8)');
+    expect(skillsSource).toContain('getSkillSourceKind(skill)');
+    expect(skillsSource).toContain('inferSkillOccupationIds(skill).includes(occupation)');
+    expect(popularSource).toContain(
+      "activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills)",
+    );
+    expect(popularSource).toContain("const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');");
+    expect(occupationDetailSource).toContain('occupation.popularSkills');
+    expect(occupationDetailSource).toContain('occupation.latestSkills');
+    expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
+    expect(categoryDetailSource).toContain('sortSkillsLatest(categorySkills)');
+  });
+
   it('keeps parameterized skills listing pages on bounded queries for crawl stability', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
     const layoutSource = readPageSource('../layouts/Layout.astro');
@@ -376,6 +411,19 @@ describe('public links and navigation copy', () => {
     expect(layoutSource).toContain('<meta name="robots" content={robotsContent} />');
     expect(skillsIndexSource).not.toContain('getLightweightSkills(env)');
     expect(skillsIndexSource).not.toContain('shouldLoadFullListingData');
+  });
+
+  it('keeps review policy as admission evidence instead of a generic safety tutorial', () => {
+    const safeSource = readPageSource('../pages/[locale]/safe/index.astro');
+
+    expect(safeSource).toContain('getMarketplaceSkills(skills)');
+    expect(safeSource).toContain('const blockedCount = skills.length - admittedSkills.length;');
+    expect(safeSource).toContain('const reviewedCount = skills.filter');
+    expect(safeSource).toContain('D 级或被判定不适合公开展示的 Skills 不进入目录、榜单、职业页和分类页。');
+    expect(safeSource).toContain('Official/community is a source attribute, not a category');
+    expect(safeSource).toContain('Token、联网、写文件等信号会在卡片和详情页用短标签展示。');
+    expect(safeSource).toContain('MarketplaceSimplePage');
+    expect(safeSource).not.toMatch(/先安装|小心|谨慎|教程|guide|tutorial|how to stay safe/i);
   });
 
   it('keeps canonicalized noindex handling on skill detail while legacy hubs stay lightweight', () => {
