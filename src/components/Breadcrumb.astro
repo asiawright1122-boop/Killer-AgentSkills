@@ -9,9 +9,7 @@ const { items } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="mb-6">
-  <ol
-    class="flex flex-wrap items-center gap-1 text-xs font-bold uppercase tracking-wide text-[var(--muted-foreground)]"
-  >
+  <ol class="flex flex-wrap items-center gap-1 text-sm font-semibold text-[var(--muted-foreground)]">
     {
       items.map((item, index) => (
         <li class="flex items-center gap-1">

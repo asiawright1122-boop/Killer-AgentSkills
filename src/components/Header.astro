@@ -1,6 +1,7 @@
 ---
 import HeaderActionsNative from '../components/HeaderActionsNative.astro';
 import { LOCALE_NAMES, translateOr } from '../i18n';
+import { getPrimaryNavItems } from '../lib/site-ia';
 
 interface Props {
   locale: string;
@@ -9,20 +10,27 @@ interface Props {
 
 const { locale, messages } = Astro.props;
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+const primaryNavItems = getPrimaryNavItems(locale);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || `/${locale}`;
+const isActiveNav = (href: string) => {
+  const normalizedHref = href.replace(/\/$/, '') || `/${locale}`;
+  if (normalizedHref === `/${locale}`) return currentPath === normalizedHref;
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
 ---
 
 <header
-  class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-md transition-all safe-area-px"
+  class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/88 backdrop-blur-xl transition-all safe-area-px"
 >
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
     <a href={`/${locale}`} class="flex items-center gap-3 group">
       <div
-        class="relative w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all"
+        class="relative w-9 h-9 rounded-lg flex items-center justify-center bg-[var(--secondary)] text-[var(--secondary-foreground)] border border-[var(--border)] transition-all group-hover:border-[var(--accent)]"
       >
-        <span class="font-black text-[var(--primary-foreground)] tracking-tighter text-xs">KS</span>
+        <span class="font-display font-extrabold tracking-tight text-xs">KS</span>
       </div>
-      <span class="font-black text-xl tracking-tight uppercase text-[var(--foreground)] whitespace-nowrap">
+      <span class="font-display font-extrabold text-lg tracking-tight text-[var(--foreground)] whitespace-nowrap">
         Killer-Skills
       </span>
     </a>
@@ -30,52 +38,33 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
     <!-- Desktop Nav -->
     <nav
       aria-label="Main navigation"
-      class="hidden lg:flex items-center gap-1 xl:gap-5 text-sm font-bold uppercase tracking-wide text-[var(--foreground)] whitespace-nowrap shrink-0"
+      class="hidden lg:flex items-center gap-1 xl:gap-4 text-sm font-bold text-[var(--foreground)] whitespace-nowrap shrink-0"
     >
-      <a
-        href={`/${locale}`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Common.home', 'Home')}</a
-      >
-      <a
-        href={`/${locale}/skills`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Common.skillsMarket', 'Skills')}</a
-      >
-      <a
-        href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
-        class="px-2 py-1 border-2 border-[var(--primary)] hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{locale === 'zh' ? '官方工具' : 'Official Tools'}</a
-      >
-      <a
-        href={`/${locale}/collections`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Common.collections', 'Collections')}</a
-      >
-      <a
-        href={`/${locale}/blog`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Navigation.blog', 'Blog')}</a
-      >
+      {
+        primaryNavItems.map((item) => (
+          <a
+            href={item.href}
+            class={`px-2.5 py-1.5 rounded-md border transition-all shrink-0 ${
+              isActiveNav(item.href)
+                ? 'border-[var(--accent)] bg-[var(--tag-bg)] text-[var(--tag-text)]'
+                : 'border-transparent hover:border-[var(--border)] hover:bg-[var(--card)]'
+            }`}
+            aria-current={isActiveNav(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </nav>
 
     <!-- Rights/Actions -->
     <HeaderActionsNative
       locale={locale}
       localeNames={LOCALE_NAMES}
+      primaryNavItems={primaryNavItems}
       labels={{
-        home: tr('Navigation.home', 'Home'),
-        skills: tr('Navigation.marketplace', 'Skills'),
-        categories: tr('Navigation.categories', 'Categories'),
-        blog: tr('Navigation.blog', 'Blog'),
-        docs: tr('Navigation.docs', 'Docs'),
-        cli: tr('Footer.cli', 'CLI'),
-        community: tr('Footer.community', 'Community'),
-        collections: tr('Common.collections', 'Collections'),
         language: tr('Common.language', 'Language'),
-        theme: tr('Common.theme', 'Theme'),
         favorites: tr('Navigation.favorites', 'Favorites'),
-        github: tr('Navigation.github', 'GitHub'),
         switchLanguage: tr('Aria.switchLanguage', 'Switch language'),
         toggleTheme: tr('Aria.toggleTheme', 'Toggle theme'),
         toggleMenu: tr('Aria.toggleMenu', 'Toggle menu'),

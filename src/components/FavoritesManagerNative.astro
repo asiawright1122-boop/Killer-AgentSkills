@@ -40,17 +40,17 @@ const { locale, translations: t } = Astro.props;
 >
   {/* ── Skeleton loading state ─────────────────────────────────────────── */}
   <div class="favorites-skeleton">
-    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+    <div class="border-b border-[var(--border)] bg-[var(--card)]">
       <div class="max-w-6xl mx-auto px-4 py-6">
         <div class="flex items-center gap-4">
-          <div class="w-5 h-5 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
+          <div class="w-5 h-5 bg-[var(--muted)] rounded animate-pulse"></div>
           <div class="flex items-center gap-3">
             <div class="p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">
               <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
             </div>
             <div>
-              <div class="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded animate-pulse mb-1"></div>
-              <div class="h-4 w-24 bg-slate-100 dark:bg-slate-800 rounded animate-pulse"></div>
+              <div class="h-7 w-40 bg-[var(--muted)] rounded animate-pulse mb-1"></div>
+              <div class="h-4 w-24 bg-[var(--muted)] rounded animate-pulse"></div>
             </div>
           </div>
         </div>
@@ -58,23 +58,19 @@ const { locale, translations: t } = Astro.props;
     </div>
     <div class="max-w-6xl mx-auto px-4 py-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          Array.from({ length: 6 }).map(() => (
-            <div class="h-52 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
-          ))
-        }
+        {Array.from({ length: 6 }).map(() => <div class="h-52 rounded-lg bg-[var(--muted)] animate-pulse" />)}
       </div>
     </div>
   </div>
 
   {/* ── Empty state (hidden until script decides) ──────────────────────── */}
   <div class="favorites-empty hidden">
-    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+    <div class="border-b border-[var(--border)] bg-[var(--card)]">
       <div class="max-w-6xl mx-auto px-4 py-6">
         <div class="flex items-center gap-4">
           <a
-            href={`/${locale}/skills`}
-            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            href={`/${locale}`}
+            class="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
             aria-label="Back to skills"
           >
             <svg
@@ -96,8 +92,8 @@ const { locale, translations: t } = Astro.props;
               <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
             </div>
             <div>
-              <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.myFavorites}</h1>
-              <p class="text-sm text-slate-500 dark:text-slate-400 favorites-count-label">0 skills</p>
+              <h1 class="text-2xl font-bold text-[var(--foreground)]">{t.myFavorites}</h1>
+              <p class="text-sm text-[var(--muted-foreground)] favorites-count-label">0 skills</p>
             </div>
           </div>
         </div>
@@ -105,15 +101,12 @@ const { locale, translations: t } = Astro.props;
     </div>
     <div class="max-w-6xl mx-auto px-4 py-8">
       <div class="text-center py-20">
-        <div class="inline-flex p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
-          <Heart className="w-12 h-12 text-slate-400 dark:text-slate-500" />
+        <div class="inline-flex p-4 rounded-full bg-[var(--muted)] mb-4">
+          <Heart className="w-12 h-12 text-[var(--muted-foreground)]" />
         </div>
-        <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t.noFavorites}</h2>
-        <p class="text-slate-500 dark:text-slate-400 mb-6">{t.noFavoritesHint}</p>
-        <a
-          href={`/${locale}/skills`}
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-colors"
-        >
+        <h2 class="text-xl font-semibold text-[var(--foreground)] mb-2">{t.noFavorites}</h2>
+        <p class="text-[var(--muted-foreground)] mb-6">{t.noFavoritesHint}</p>
+        <a href={`/${locale}/search`} class="market-button px-6 py-3">
           {t.browseSkills}
         </a>
       </div>
@@ -122,12 +115,12 @@ const { locale, translations: t } = Astro.props;
 
   {/* ── Favorites grid (hidden until script populates) ─────────────────── */}
   <div class="favorites-loaded hidden">
-    <div class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+    <div class="border-b border-[var(--border)] bg-[var(--card)]">
       <div class="max-w-6xl mx-auto px-4 py-6">
         <div class="flex items-center gap-4">
           <a
-            href={`/${locale}/skills`}
-            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            href={`/${locale}`}
+            class="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
             aria-label="Back to skills"
           >
             <svg
@@ -149,8 +142,8 @@ const { locale, translations: t } = Astro.props;
               <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
             </div>
             <div>
-              <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.myFavorites}</h1>
-              <p class="text-sm text-slate-500 dark:text-slate-400 favorites-count-label">0 skills</p>
+              <h1 class="text-2xl font-bold text-[var(--foreground)]">{t.myFavorites}</h1>
+              <p class="text-sm text-[var(--muted-foreground)] favorites-count-label">0 skills</p>
             </div>
           </div>
         </div>
@@ -212,9 +205,9 @@ const { locale, translations: t } = Astro.props;
         card.href = detailUrl;
         card.className = 'block group';
         card.innerHTML = `
-          <div class="relative h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:border-cyan-400/50 hover:-translate-y-1">
+          <div class="skill-list-card skill-list-card-hover relative h-full p-6">
             <button
-              class="fav-remove-btn absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 text-slate-400"
+              class="fav-remove-btn absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full bg-[var(--muted)] hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-300"
               title="${removeLabel}"
               data-skill-id="${skill.id}"
             >
@@ -223,16 +216,16 @@ const { locale, translations: t } = Astro.props;
             <div class="relative z-10">
               <div class="flex items-start justify-between mb-4">
                 <div class="flex-1 min-w-0 pr-4">
-                  <h3 class="text-base font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">${skill.name}</h3>
-                  <div class="flex items-center gap-2 mt-2 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200/50 dark:border-slate-700/50 w-fit transition-colors group-hover:bg-slate-100 dark:group-hover:bg-slate-800 group-hover:border-cyan-200/30 dark:group-hover:border-cyan-800/30">
+                  <h3 class="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">${skill.name}</h3>
+                  <div class="flex items-center gap-2 mt-2 px-2.5 py-1 bg-[var(--muted)] rounded-lg border border-[var(--border)] w-fit transition-colors">
                     <img src="https://github.com/${skill.owner}.png" alt="${skill.owner}" width="16" height="16" class="w-4 h-4 rounded-full fav-avatar" loading="lazy" decoding="async" data-fallback-owner="${skill.owner}" />
-                    <span class="text-xs font-medium text-slate-700 dark:text-slate-300">${skill.owner}</span>
+                    <span class="text-xs font-medium text-[var(--foreground)]">${skill.owner}</span>
                   </div>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
               </div>
-              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">${skill.description || 'No description available'}</p>
-              <div class="flex items-center gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500">
+              <p class="text-sm text-[var(--muted-foreground)] mb-4 line-clamp-2 leading-relaxed">${skill.description || 'No description available'}</p>
+              <div class="flex items-center gap-2 pt-4 border-t border-[var(--border)] text-xs text-[var(--muted-foreground)]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="pink" stroke="pink" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
                 <span>${savedAtText}</span>
               </div>

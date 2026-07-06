@@ -1,733 +1,184 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import SkillCard from '../../../components/SkillCard.astro';
-import CollectionCard from '../../../components/CollectionCard.astro';
-import SkillsSidebar from '../../../components/SkillsSidebar.astro';
-import Pagination from '../../../components/Pagination.astro';
-import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
-
-import { searchSkills, filterByCategory } from '../../../lib/search';
-import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from '../../../lib/category-taxonomy';
-import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
+import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
 import {
-  getLightweightSkillsPage,
-  getLightweightSkillsTop,
-  type UnifiedSkill,
-} from '../../../lib/public-skill-catalog';
-import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
-import { resolveQueryIntent } from '../../../lib/query-intent';
-import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';
-import { getSolutionIntents } from '../../../lib/solution-intents';
-import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
-import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
-import type { Env } from '../../../lib/kv';
+  getMarketplaceSkills,
+  getSkillSourceKind,
+  sortSkillsLatest,
+  sortSkillsPopular,
+  type SourceKind,
+} from '../../../lib/marketplace-filters';
+import { buildOccupationSummaries, inferSkillOccupationIds } from '../../../lib/occupations';
+import { filterByCategory, searchSkills } from '../../../lib/search';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import type { Env } from '../../../lib/kv';
+
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
-// Validate locale
+
 const { locale } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const typedLocale = locale as Locale;
-// Get env from Cloudflare runtime
+const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
-
-// Get URL search params for filtering
 const url = Astro.url;
-const rawQuery = url.searchParams.get('q') || url.searchParams.get('query') || '';
-const query = rawQuery.trim().replace(/\s+/g, ' ').slice(0, 80);
-const NOISY_QUERY_REGEX =
-  /(https?:\/\/|[\\/]|(?:^|\s)[\w.-]+\.(?:md|mdx|ts|tsx|js|jsx|py|json|go|yaml|yml|toml|rs|rb|css|xml|txt|csv|lock)(?:\b|$))/i;
-const shouldSkipFullScanQuery = Boolean(query) && (query.length > 60 || NOISY_QUERY_REGEX.test(query));
+const query = (url.searchParams.get('q') || '').trim().replace(/\s+/g, ' ').slice(0, 80);
 const category = normalizeCategoryId(url.searchParams.get('category') || '');
-const view = url.searchParams.get('view') || '';
-const owner = url.searchParams.get('owner') || '';
-const topicParam = (url.searchParams.get('topic') || '').trim();
-const normalizeFacet = (value: string) => value.toLowerCase().replace(/\s+/g, ' ').trim();
-const topic = normalizeFacet(topicParam);
-const ITEMS_PER_PAGE = 12;
-const FILTERED_SKILL_SAMPLE_LIMIT = 240;
-const requestedPageRaw = Number.parseInt(url.searchParams.get('page') || '1', 10);
-const requestedPage = Number.isFinite(requestedPageRaw) && requestedPageRaw > 0 ? requestedPageRaw : 1;
-const usePagedListing = !query && !category && !view && !owner && !topic;
-const shouldLoadFilteredListingData = !usePagedListing && !shouldSkipFullScanQuery;
+const occupation = (url.searchParams.get('occupation') || '').trim();
+const requestedSource = (url.searchParams.get('source') || 'all').toLowerCase();
+const activeSource = ['all', 'official', 'community'].includes(requestedSource)
+  ? (requestedSource as SourceKind | 'all')
+  : 'all';
+const requestedSort = (url.searchParams.get('sort') || 'popular').toLowerCase();
+const activeSort = requestedSort === 'latest' ? 'latest' : 'popular';
 
-// ⚡ PARALLEL: Load listing data + translations concurrently.
-// For plain listing pages (no filters), use paged D1 query to avoid full-table scans.
-const emptyPagedResult = {
-  skills: [] as UnifiedSkill[],
-  total: 0,
-  page: requestedPage,
-  pageSize: ITEMS_PER_PAGE,
-};
-const [skillsFetched, pagedSkillsResult, messages] = await Promise.all([
-  shouldLoadFilteredListingData
-    ? getLightweightSkillsTop(env, FILTERED_SKILL_SAMPLE_LIMIT).catch(
-        () => [] as Awaited<ReturnType<typeof getLightweightSkillsTop>>,
-      )
-    : Promise.resolve([] as Awaited<ReturnType<typeof getLightweightSkillsTop>>),
-  usePagedListing
-    ? getLightweightSkillsPage(env, requestedPage, ITEMS_PER_PAGE).catch(() => emptyPagedResult)
-    : Promise.resolve(null as Awaited<ReturnType<typeof getLightweightSkillsPage>> | null),
+const [messages, skillsFetched] = await Promise.all([
   loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
 ]);
-const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-
-let skills: UnifiedSkill[] = [];
-let totalItems = 0;
-let totalSkills = 0;
-let totalPages = 1;
-let currentPage = 1;
-let paginatedSkills: UnifiedSkill[] = [];
-let paginatedCollections: [string, number][] = [];
-
-if (usePagedListing) {
-  let paged = pagedSkillsResult || emptyPagedResult;
-  const firstTotalPages = Math.max(1, Math.ceil((paged.total || 0) / ITEMS_PER_PAGE));
-  const clampedPage = Math.max(1, Math.min(requestedPage, firstTotalPages));
-
-  // Keep pagination stable on out-of-range page numbers without full-table fallback.
-  if (clampedPage !== requestedPage) {
-    paged = await getLightweightSkillsPage(env, clampedPage, ITEMS_PER_PAGE).catch(() => paged);
-  }
-
-  skills = paged.skills;
-  totalItems = paged.total;
-  totalSkills = paged.total;
-  totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
-  currentPage = clampedPage;
-  paginatedSkills = skills;
-
-  if (totalSkills === 0) {
-    console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
-  }
-} else {
-  skills = skillsFetched;
-
-  // If D1/KV returned no skills, show empty state gracefully
-  if (skills.length === 0) {
-    console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
-  }
-
-  skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
-
-  // Identify Official Skills
-  const officialOwners = Object.values(OFFICIAL_REPOS)
-    .filter((r) => r.type === 'official')
-    .map((r) => r.owner);
-
-  // Apply view filter
-  if (view === 'official') {
-    skills = skills.filter((s) => officialOwners.includes(s.owner));
-  } else if (view === 'featured') {
-    // 精选 = 官方仓库 OR qualityScore >= 阈值
-    const allOfficialOwners = Object.values(OFFICIAL_REPOS).map((r) => r.owner);
-    skills = skills
-      .filter((s) => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
-      .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
-  } else if (view === 'latest') {
-    skills = [...skills].sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
-  }
-
-  // Apply owner filter
-  if (owner) {
-    skills = skills.filter((s) => s.owner === owner);
-  }
-
-  // Apply topic filter
-  if (topic) {
-    skills = skills.filter((s) => {
-      const topics = Array.isArray(s.topics) ? s.topics : [];
-      return topics.some((item) => {
-        const normalized = normalizeFacet(String(item || ''));
-        if (!normalized) return false;
-        return normalized === topic || normalized.includes(topic) || topic.includes(normalized);
-      });
-    });
-  }
-
-  // Apply search filter
-  if (query) {
-    skills = shouldSkipFullScanQuery ? [] : searchSkills(skills, query, typedLocale);
-  }
-
-  // Apply category filter (skip 'all' since it means show everything)
-  if (category && category !== 'all') {
-    skills = filterByCategory(skills, category);
-  }
-
-  // Calculate pagination
-  // For 'Official' view (without owner filter), paginate based on collections (owners), not skills.
-  totalItems = skills.length;
-
-  if (view === 'official' && !owner) {
-    const skillsByOwner = skills.reduce(
-      (acc, skill) => {
-        const skillOwner = skill.owner;
-        acc[skillOwner] = (acc[skillOwner] || 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
-
-    const owners = Object.entries(skillsByOwner);
-    totalItems = owners.length;
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    currentPage = Math.max(1, Math.min(requestedPage, totalPages || 1));
-    paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-  } else {
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    currentPage = Math.max(1, Math.min(requestedPage, totalPages || 1));
-  }
-
-  totalSkills = skills.length;
-  paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-}
-
-// translations already loaded in parallel above
 const t = useTranslations(messages);
-const cleanQuery = query.trim().slice(0, 60);
-const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, t) : null;
-const workflowEntryLinks = getSolutionIntents(typedLocale);
-const skillsSemanticLinks = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['collections-hub', 'docs-installation', 'solution-agent-workflows'],
-}).map((surface) => surface.href);
-const defaultSkillsSeoDescription = tr(
-  'Metadata.Skills.description',
-  'Browse and install thousands of AI Agent skills in the Killer-Skills directory. Supports Claude Code, Windsurf, Cursor, and more.',
-);
-const resolveCategoryDescription = (categoryId: string) => {
-  const seoDescription = getCategorySeoDescription(categoryId, typedLocale);
-  return seoDescription && seoDescription.trim().length > 0 ? seoDescription : defaultSkillsSeoDescription;
-};
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const overview = await getMarketplaceOverview(env, typedLocale, t, {
+  includeEmptyCategories: true,
+  includeOtherCategory: false,
+  topCategoryLimit: 12,
+}).catch(() => ({
+  categories: [],
+  topCategories: [],
+  totalSkillCount: marketplaceSkills.length,
+  featuredRoutes: [],
+  featuredCollections: [],
+  solutionEntries: [],
+}));
+const occupations = buildOccupationSummaries(marketplaceSkills, typedLocale).filter((item) => item.skillCount > 0);
 
-// Helper: simple template interpolation for message file values
-const tpl = (tplStr: string, vars: Record<string, string>) =>
-  Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, v), tplStr);
-
-// Page title — use message file keys for all 10 locales
-let pageTitle = tr(
-  'Marketplace.seoTitle',
-  typedLocale === 'zh' ? '浏览与安装 AI Agent 技能' : 'AI Agent Skills for Claude Code, Cursor & Windsurf',
-);
-if (cleanQuery)
-  pageTitle = tpl(
-    tr(
-      'Marketplace.searchSeoTitle',
-      typedLocale === 'zh' ? '搜索结果：{query}｜AI Agent 技能' : '{query} AI Agent Skills Search Results',
-    ),
-    { query: cleanQuery },
-  );
-else if (category && category !== 'all')
-  pageTitle = tpl(
-    tr(
-      'Marketplace.categorySeoTitle',
-      typedLocale === 'zh' ? '{category} AI Agent 技能' : '{category} AI Agent Skills',
-    ),
-    { category: getCategoryLabel(category, t) || category },
-  );
-else if (view === 'official')
-  pageTitle = tr(
-    'Marketplace.officialSeoTitle',
-    typedLocale === 'zh' ? '官方 AI Agent 技能' : 'Official AI Agent Skills',
-  );
-else if (view === 'featured')
-  pageTitle = tr(
-    'Marketplace.featuredSeoTitle',
-    typedLocale === 'zh' ? '精选 AI Agent 技能' : 'Featured AI Agent Skills',
-  );
-else if (view === 'latest')
-  pageTitle = tr(
-    'Marketplace.latestSeoTitle',
-    typedLocale === 'zh' ? '最新发现的 AI Agent 技能' : 'Latest AI Agent Skills',
-  );
-else if (topic)
-  pageTitle = tpl(
-    tr('Marketplace.topicSeoTitle', typedLocale === 'zh' ? '{topic} 相关 AI Agent 技能' : '{topic} AI Agent Skills'),
-    { topic: topicParam },
-  );
-
-if (owner) {
-  const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
-  const ownerName = vendorConfig?.name || owner;
-  pageTitle = tpl(
-    tr(
-      'Marketplace.ownerSeoTitle',
-      typedLocale === 'zh' ? '{owner} 发布的 AI Agent 技能' : 'AI Agent Skills by {owner}',
-    ),
-    { owner: ownerName },
-  );
+let results = [...marketplaceSkills];
+if (activeSource !== 'all') {
+  results = results.filter((skill) => getSkillSourceKind(skill) === activeSource);
 }
-if (queryIntent) {
-  pageTitle = tpl(
-    tr(
-      'Marketplace.searchSeoTitle',
-      typedLocale === 'zh' ? '搜索结果：{query}｜AI Agent 技能' : '{query} AI Agent Skills Search Results',
-    ),
-    { query: queryIntent.displayTerm },
-  );
+if (category) {
+  results = filterByCategory(results, category);
+}
+if (occupation) {
+  results = results.filter((skill) => inferSkillOccupationIds(skill).includes(occupation));
+}
+if (query) {
+  results = searchSkills(results, query, typedLocale);
+} else {
+  results = activeSort === 'latest' ? sortSkillsLatest(results) : sortSkillsPopular(results);
+}
+if (query && activeSort === 'latest') {
+  results = sortSkillsLatest(results);
 }
 
-// Page description — use message file keys for all 10 locales
-let pageDescription = tr(
-  'Marketplace.seoDescription',
-  typedLocale === 'zh'
-    ? '浏览并安装适用于 Claude Code、Cursor、Windsurf 等环境的 AI Agent 技能，按搜索、分类、主题和官方来源快速筛选。'
-    : 'Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.',
-);
-if (cleanQuery) {
-  pageDescription = tpl(
-    tr(
-      'Marketplace.searchSeoDesc',
-      typedLocale === 'zh'
-        ? '查看与 {query} 相关的 AI Agent 技能结果，快速找到可直接安装到 Claude Code、Cursor 和 Windsurf 的能力模块。'
-        : 'Explore AI Agent skills related to {query} and find installable capabilities for Claude Code, Cursor, Windsurf, and other supported environments.',
-    ),
-    { query: cleanQuery },
-  );
-} else if (owner) {
-  pageDescription = tpl(
-    tr(
-      'Marketplace.ownerSeoDesc',
-      typedLocale === 'zh'
-        ? '浏览 {owner} 发布的 AI Agent 技能，查看其在 Claude Code、Cursor、Windsurf 等环境中的可安装能力。'
-        : 'Browse AI Agent skills published by {owner} and review installable capabilities for Claude Code, Cursor, Windsurf, and more.',
-    ),
-    { owner },
-  );
-} else if (category && category !== 'all') {
-  pageDescription = resolveCategoryDescription(category);
-} else if (view === 'official') {
-  pageDescription = tr(
-    'Marketplace.officialSeoDesc',
-    typedLocale === 'zh'
-      ? '浏览由官方团队维护的 AI Agent 技能，优先查看高可信、可直接安装的工作流能力。'
-      : 'Browse official AI Agent skills maintained by trusted teams and review high-confidence, install-ready workflow capabilities.',
-  );
-} else if (view === 'featured') {
-  pageDescription = tr(
-    'Marketplace.featuredSeoDesc',
-    typedLocale === 'zh'
-      ? '浏览精选 AI Agent 技能，快速发现社区认可度高、适合直接加入开发流程的能力模块。'
-      : 'Browse featured AI Agent skills and discover highly rated capabilities that fit directly into real developer workflows.',
-  );
-} else if (view === 'latest') {
-  pageDescription = tr(
-    'Marketplace.latestSeoDesc',
-    typedLocale === 'zh'
-      ? '查看最新收录的 AI Agent 技能，跟进新出现的工作流、自动化与开发者工具能力。'
-      : 'Review the latest AI Agent skills added to the directory and keep up with new workflow, automation, and developer-tool capabilities.',
-  );
-} else if (topic) {
-  pageDescription = tpl(
-    tr(
-      'Marketplace.topicSeoDesc',
-      typedLocale === 'zh'
-        ? '浏览与 {topic} 相关的 AI Agent 技能，快速定位适合当前任务的可安装能力模块。'
-        : 'Browse AI Agent skills related to {topic} and quickly find installable capabilities for your current workflow.',
-    ),
-    { topic: topicParam },
-  );
-}
-if (queryIntent) {
-  pageDescription = queryIntent.description;
-}
-
-const pageKeywords = buildKeywordString(
-  t,
-  'core',
-  'ideCompat',
-  ...(queryIntent ? getIntentKeywordClusters(queryIntent.id) : ['developerExperience', 'workflowAutomation']),
-  ...(category && category !== 'all' ? getCategoryKeywordClusters(category) : []),
-  owner ? ['developerExperience'] : [],
-  view === 'official' ? ['developerExperience'] : [],
-  view === 'featured' ? ['developerExperience'] : [],
-  view === 'latest' ? ['developerExperience'] : [],
-  cleanQuery,
-  queryIntent?.displayTerm,
-  queryIntent?.keywords || [],
-  category && category !== 'all' ? [category] : [],
-  topicParam,
-  'Killer-Skills',
-);
-
-const buildPaginationUrl = (p: number) => {
-  const params = new URLSearchParams();
-  if (query) params.set('q', query);
-  if (category) params.set('category', category);
-  if (view) params.set('view', view);
-  if (owner) params.set('owner', owner);
-  if (topicParam) params.set('topic', topicParam);
-  if (p > 1) params.set('page', String(p));
-
-  const serialized = params.toString().replace(/\+/g, '%20');
-  return serialized
-    ? `https://killer-skills.com/${locale}/skills?${serialized}`
-    : `https://killer-skills.com/${locale}/skills`;
-};
-const baseSkillsUrl = `https://killer-skills.com/${locale}/skills`;
-const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
-const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
-const hasListingParams = Boolean(cleanQuery || category || view || owner || topicParam || currentPage > 1);
-const robotsContent = hasListingParams ? 'noindex, follow' : undefined;
-if (robotsContent) {
-  Astro.response.headers.set('X-Robots-Tag', robotsContent);
-}
-const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
-const buildSkillItemUrl = (skill: UnifiedSkill) => {
-  const routePath = getSkillRoutePath(skill) || skill.repo;
-  const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);
-  return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;
-};
-
-// Category list for sidebar
+const totalResults = results.length;
+const visibleResults = results.slice(0, 72);
+const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';
+const pageDescription = isZhCopy
+  ? '完整 AI Agent Skills 目录，支持关键词、分类、职业和来源筛选。'
+  : 'Complete AI agent skills directory with keyword, category, occupation, and source filters.';
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', query, category, occupation);
+const categoryLabel = category ? getCategoryLabel(category, t) : '';
+const activeOccupation = occupations.find((item) => item.id === occupation);
+const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
 ---
 
-<Layout
-  locale={locale}
-  title={pageTitle}
-  description={pageDescription}
-  keywords={pageKeywords}
-  customCanonical={currentCanonicalUrl}
-  noindex={hasListingParams}
-  robots={robotsContent}
->
-  {/* Pagination SEO: rel prev/next */}
-  <Fragment slot="head">
-    {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
-    {nextPageUrl && <link rel="next" href={nextPageUrl} />}
-  </Fragment>
-  {/* BreadcrumbList JSON-LD */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}` },
-        { '@type': 'ListItem', position: 2, name: pageTitle, item: baseSkillsUrl },
-      ],
-    })}
-  />
-  {/* GEO: Speakable Schema for AI citation */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: pageTitle,
-      speakable: {
-        '@type': 'SpeakableSpecification',
-        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
-      },
-      url: currentCanonicalUrl || baseSkillsUrl,
-      significantLink: skillsSemanticLinks,
-    })}
-  />
-  {/* CollectionPage + ItemList JSON-LD */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: pageTitle,
-      description: pageDescription,
-      url: currentCanonicalUrl || baseSkillsUrl,
-      isPartOf: {
-        '@type': 'WebSite',
-        name: 'Killer-Skills',
-        url: 'https://killer-skills.com',
-      },
-      mainEntity: {
-        '@type': 'ItemList',
-        numberOfItems: totalSkills,
-        itemListElement: paginatedSkills.slice(0, 12).map((s: any, i: number) => ({
-          '@type': 'ListItem',
-          position: (currentPage - 1) * ITEMS_PER_PAGE + i + 1,
-          name: s.name || s.repo,
-          url: buildSkillItemUrl(s),
-        })),
-      },
-    })}
-  />
-  <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-      <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
-        <!-- Sidebar (Left) -->
-        <SkillsSidebar activeCategory={category} activeView={view} />
+<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? 'Skills' : 'Skills'}
+      title={pageTitle}
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? '搜索 Skill、仓库、任务' : 'Search skill, repo, task'}
+      searchAction={`/${locale}/skills`}
+      countLabel={countLabel}
+      actions={[
+        { href: `/${locale}/popular`, label: isZhCopy ? '榜单' : 'Rankings' },
+        { href: `/${locale}/categories`, label: isZhCopy ? '分类' : 'Categories' },
+      ]}
+    />
 
-        <!-- Main Content (Right) -->
-        <div class="flex-1 min-w-0">
-          <!-- Page Header & Search (Integrated) -->
-          <div
-            class="mb-10 border-[3px] border-[var(--border)] p-5 md:p-7 bg-[var(--background)] shadow-[8px_8px_0px_0px_var(--border)]"
-          >
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-6 overflow-visible">
-              <div class="flex-1 space-y-2">
-                <h1
-                  class="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase mb-2 leading-none"
-                >
-                  {
-                    query
-                      ? t('Marketplace.browsing')
-                      : category
-                        ? getCategoryLabel(category, t) || category
-                        : owner
-                          ? `${Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner)?.name || owner} Skills`
-                          : view === 'official'
-                            ? t('Sidebar.views.official')
-                            : view === 'featured'
-                              ? t('Sidebar.views.featured')
-                              : view === 'latest'
-                                ? t('Sidebar.views.latest')
-                                : tr(
-                                    'Marketplace.seoTitle',
-                                    typedLocale === 'zh'
-                                      ? '浏览与安装 AI Agent 技能'
-                                      : 'Browse and Install AI Agent Skills',
-                                  )
-                  }
-                </h1>
-                <p
-                  class="text-[var(--muted-foreground)] font-mono text-base md:text-lg font-bold opacity-80 leading-relaxed max-w-4xl mt-3"
-                >
-                  {category ? resolveCategoryDescription(category) : defaultSkillsSeoDescription}
-                </p>
-
-                {/* SEO Context Injection for Topical Authority */}
-                {
-                  !query && !owner && (
-                    <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                      <p>
-                        {tr(
-                          'Marketplace.seoIntro',
-                          typedLocale === 'zh'
-                            ? '这个技能目录把可安装的 AI Agent 技能集中在一起，方便你按搜索、分类、主题和官方来源快速筛选，并直接安装到 Claude Code、Cursor、Windsurf 等环境。'
-                            : 'This directory brings installable AI Agent skills into one place so you can filter by search, category, topic, and official source, then install them directly into Claude Code, Cursor, Windsurf, and other supported environments.',
-                        )}
-                      </p>
-                    </div>
-                  )
-                }
-
-                {
-                  !cleanQuery && !category && !view && !owner && (
-                    <div class="mt-5 flex flex-wrap gap-2">
-                      {workflowEntryLinks.map((term) => (
-                        <a
-                          href={term.href}
-                          class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] text-xs font-black uppercase tracking-wide hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all"
-                        >
-                          {term.query}
-                        </a>
-                      ))}
-                    </div>
-                  )
-                }
-              </div>
-
-              <div class="hidden md:block group">
-                <div
-                  class="bg-[var(--background)] text-[var(--foreground)] py-3 px-5 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--primary)] group-hover:shadow-[7px_7px_0px_0px_var(--primary)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all min-w-[150px] flex flex-col items-center justify-center relative"
-                >
-                  <!-- Compact Status & Live Bar -->
-                  <div class="w-full flex items-center justify-between mb-2">
-                    <div class="flex gap-1">
-                      <div class="w-1.5 h-1.5 bg-[var(--foreground)]"></div>
-                      <div class="w-1.5 h-1.5 bg-[var(--foreground)] opacity-20"></div>
-                    </div>
-                    <div
-                      class="px-1.5 py-0.5 bg-[var(--primary)] text-[var(--primary-foreground)] text-[9px] font-black tracking-widest uppercase flex items-center gap-1 border border-[var(--border)]"
-                    >
-                      <span class="relative flex h-1.5 w-1.5">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"
-                        ></span>
-                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-600"></span>
-                      </span>
-                      LIVE
-                    </div>
-                  </div>
-
-                  <!-- Refined Number -->
-                  <div class="text-5xl font-black tracking-tighter tabular-nums leading-none mb-2">
-                    {totalSkills}
-                  </div>
-
-                  <!-- Label tight to the number -->
-                  <div class="w-full border-t border-[var(--border)] border-dotted pt-1.5 text-center">
-                    <span class="text-xs font-bold text-[var(--foreground)] leading-none">
-                      {t('Marketplace.availableSkills')}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pro Search Bar -->
-            <form method="get" action={`/${locale}/skills`} class="relative group">
-              <div
-                class="relative flex items-center bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] focus-within:translate-x-[-2px] focus-within:translate-y-[-2px] focus-within:shadow-[8px_8px_0px_0px_var(--primary)] transition-all"
-              >
-                <div class="pl-4 text-[var(--foreground)]">
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="3"
-                    aria-hidden="true"
-                    ><path
-                      stroke-linecap="square"
-                      stroke-linejoin="miter"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg
-                  >
-                </div>
-                <input
-                  type="text"
-                  name="q"
-                  value={query}
-                  placeholder={t('Common.searchPlaceholder')}
-                  aria-label={t('Common.searchPlaceholder')}
-                  class="flex-1 bg-transparent border-none focus:ring-0 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] h-14 px-4 text-xl font-bold font-mono tracking-tight uppercase"
-                />
-                <button
-                  type="submit"
-                  class="bg-[var(--primary)] text-[var(--primary-foreground)] px-8 py-3.5 border-l-[3px] border-[var(--border)] font-bold uppercase hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-lg h-full"
-                >
-                  {t('Common.search')}
-                </button>
-              </div>
-            </form>
-
-            <!-- Hot Tags -->
-            <div
-              class="mt-6 flex items-center gap-3 text-sm font-mono font-bold text-[var(--foreground)] uppercase overflow-x-auto pb-2"
-            >
-              <span class="shrink-0 text-[var(--muted-foreground)]">// {t('Marketplace.popular')}:</span>
-              {
-                (
-                  (messages?.Marketplace?.hotTags as string[] | undefined) || [
-                    'PDF Processing',
-                    'Data Analysis',
-                    'Web Scraping',
-                    'Code Review',
-                  ]
-                ).map((tag: string) => (
-                  <a
-                    href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
-                    rel="nofollow"
-                    class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap"
-                  >
-                    [{tag}]
-                  </a>
-                ))
-              }
-            </div>
-          </div>
-
-          <!-- Skills Grid -->
-          <h2 class="sr-only">
-            {
-              view === 'official' && !owner
-                ? t('Sidebar.views.official')
-                : category
-                  ? getCategoryLabel(category, t) || category
-                  : t('Marketplace.availableSkills')
-            }
-          </h2>
-          <div class="mb-6 flex items-center justify-between md:hidden">
-            <div class="text-sm text-slate-500">
-              {totalSkills}
-              {t('Marketplace.availableSkills').toLowerCase()}
-            </div>
-          </div>
-
+    <MarketplaceSection
+      title={query || activeOccupation?.label || categoryLabel || (isZhCopy ? '全部 Skills' : 'All Skills')}
+      description={isZhCopy
+        ? '榜单、职业和分类入口都会回到同一套筛选逻辑。'
+        : 'Rankings, occupations, and categories all resolve into the same filterable directory.'}
+    >
+      <form class="marketplace-filterbar" action={`/${locale}/skills`} method="get">
+        <input
+          name="q"
+          type="search"
+          value={query}
+          placeholder={isZhCopy ? '关键词' : 'Keyword'}
+          aria-label={isZhCopy ? '关键词' : 'Keyword'}
+        />
+        <select name="category" aria-label={isZhCopy ? '分类' : 'Category'}>
+          <option value="" selected={!category}>{isZhCopy ? '全部分类' : 'All categories'}</option>
           {
-            (view === 'official' && !owner ? paginatedCollections.length > 0 : paginatedSkills.length > 0) ? (
-              view === 'official' && !owner ? (
-                /* Official Collections View */
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedCollections.map(([ownerName, count]) => (
-                    <CollectionCard owner={ownerName} count={count} locale={locale} />
-                  ))}
-                </div>
-              ) : (
-                /* Standard Skill Grid */
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedSkills.map((skill) => (
-                    <div class="h-full">
-                      <SkillCard skill={skill} locale={locale} messages={messages} t={t} />
-                    </div>
-                  ))}
-                </div>
-              )
-            ) : (
-              <div class="text-center py-24 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)]">
-                <div class="w-20 h-20 mx-auto bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-4xl mb-6 shadow-[4px_4px_0px_0px_var(--border)] text-white">
-                  🔍
-                </div>
-                <h3 class="text-3xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">
-                  {t('Marketplace.noSkills')}
-                </h3>
-                <p class="text-[var(--muted-foreground)] font-mono max-w-md mx-auto mb-8 font-bold">
-                  {t('Marketplace.noSkillsHint')}
-                </p>
-                <a
-                  href={`/${locale}/skills`}
-                  class="inline-block px-8 py-4 bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--primary-foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold uppercase transition-colors shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
-                >
-                  {t('Marketplace.viewAll')}
-                </a>
-              </div>
-            )
+            overview.categories.map((item) => (
+              <option value={item.id} selected={category === item.id}>
+                {item.label}
+              </option>
+            ))
           }
-
-          {/* Pagination Controls */}
+        </select>
+        <select name="occupation" aria-label={isZhCopy ? '职业' : 'Occupation'}>
+          <option value="" selected={!occupation}>{isZhCopy ? '全部职业' : 'All occupations'}</option>
           {
-            totalPages > 1 && (
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                baseUrl={`/${locale}/skills`}
-                searchParams={{
-                  ...(query && { q: query }),
-                  ...(category && { category }),
-                  ...(view && { view }),
-                  ...(owner && { owner }),
-                  ...(topicParam && { topic: topicParam }),
-                }}
-                t={t}
-                tr={tr}
-              />
-            )
+            occupations.map((item) => (
+              <option value={item.id} selected={occupation === item.id}>
+                {item.label}
+              </option>
+            ))
           }
-        </div>
+        </select>
+        <select name="source" aria-label={isZhCopy ? '来源' : 'Source'}>
+          <option value="all" selected={activeSource === 'all'}>{isZhCopy ? '全部来源' : 'All sources'}</option>
+          <option value="official" selected={activeSource === 'official'}>{isZhCopy ? '官方' : 'Official'}</option>
+          <option value="community" selected={activeSource === 'community'}>{isZhCopy ? '社区' : 'Community'}</option>
+        </select>
+        <select name="sort" aria-label={isZhCopy ? '排序' : 'Sort'}>
+          <option value="popular" selected={activeSort === 'popular'}>{isZhCopy ? '热门' : 'Popular'}</option>
+          <option value="latest" selected={activeSort === 'latest'}>{isZhCopy ? '最新' : 'Latest'}</option>
+        </select>
+        <button type="submit">{isZhCopy ? '筛选' : 'Filter'}</button>
+      </form>
+
+      <div class="marketplace-tabbar" aria-label={isZhCopy ? '快捷入口' : 'Quick filters'}>
+        <a
+          href={`/${locale}/skills`}
+          aria-current={!query && !category && !occupation && activeSource === 'all' ? 'page' : undefined}
+        >
+          {isZhCopy ? '全部' : 'All'}
+        </a>
+        <a href={`/${locale}/skills?source=official`} aria-current={activeSource === 'official' ? 'page' : undefined}>
+          {isZhCopy ? '官方' : 'Official'}
+        </a>
+        <a href={`/${locale}/skills?sort=latest`} aria-current={activeSort === 'latest' && !query ? 'page' : undefined}>
+          {isZhCopy ? '最新' : 'Latest'}
+        </a>
       </div>
-    </div>
-  </div>
-</Layout>
 
-{/* ⚡ Prefetch on hover — preload detail pages before user clicks */}
-<script is:inline>
-  const prefetched = new Set();
-  document.addEventListener(
-    'pointerenter',
-    (e) => {
-      const link = e.target?.closest?.('a[href*="/skills/"]');
-      if (!link) return;
-      const href = link.getAttribute('href');
-      if (!href || prefetched.has(href) || href.endsWith('/skills') || href.includes('?')) return;
-      prefetched.add(href);
-      const l = document.createElement('link');
-      l.rel = 'prefetch';
-      l.href = href;
-      document.head.appendChild(l);
-    },
-    { capture: true, passive: true },
-  );
-</script>
+      <div class="mt-5">
+        <MarketplaceSkillList
+          skills={visibleResults}
+          locale={locale}
+          messages={messages}
+          emptyTitle={isZhCopy ? '暂无结果' : 'No results'}
+          emptyText={isZhCopy ? '换一个分类、职业或关键词。' : 'Try another category, occupation, or keyword.'}
+        />
+      </div>
+    </MarketplaceSection>
+  </main>
+</Layout>

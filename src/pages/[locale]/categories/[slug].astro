@@ -1,0 +1,107 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import type { Env } from '../../../lib/kv';
+import {
+  getCategoryDef,
+  getCategoryLabel,
+  getCategorySeoDescription,
+  normalizeCategoryId,
+} from '../../../lib/category-taxonomy';
+import { getMarketplaceSkills, sortSkillsLatest, sortSkillsPopular } from '../../../lib/marketplace-filters';
+import { buildOccupationSummaries } from '../../../lib/occupations';
+import { filterByCategory } from '../../../lib/search';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+
+const { locale, slug } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const categoryId = normalizeCategoryId(slug || '');
+if (!getCategoryDef(categoryId)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+]);
+const t = useTranslations(messages);
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const categorySkills = filterByCategory(marketplaceSkills, categoryId);
+const popularSkills = sortSkillsPopular(categorySkills);
+const latestSkills = sortSkillsLatest(categorySkills);
+const categoryLabel = getCategoryLabel(categoryId, t) || categoryId;
+const relatedOccupations = buildOccupationSummaries(categorySkills, typedLocale)
+  .filter((occupation) => occupation.skillCount > 0)
+  .slice(0, 6);
+const pageTitle = `${categoryLabel} ${isZhCopy ? 'Skills' : 'Skills'}`;
+const pageDescription =
+  getCategorySeoDescription(categoryId, typedLocale) ||
+  (isZhCopy ? `浏览 ${categoryLabel} 分类下的 Skills。` : `Browse skills in ${categoryLabel}.`);
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', categoryId);
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? '分类' : 'Category'}
+      title={categoryLabel}
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? `搜索 ${categoryLabel}` : `Search ${categoryLabel}`}
+      searchAction={`/${locale}/search`}
+      countLabel={isZhCopy ? `${categorySkills.length} 个 Skills` : `${categorySkills.length} skills`}
+      actions={[
+        { href: `/${locale}/skills?category=${categoryId}`, label: isZhCopy ? '筛选目录' : 'Filter directory' },
+        { href: `/${locale}/categories`, label: isZhCopy ? '全部分类' : 'All categories' },
+      ]}
+    />
+
+    {
+      relatedOccupations.length > 0 && (
+        <MarketplaceSection title={isZhCopy ? '相关职业' : 'Related Occupations'}>
+          <div class="marketplace-card-grid">
+            {relatedOccupations.map((occupation) => (
+              <a class="marketplace-card-link" href={occupation.href}>
+                <div class="marketplace-meta-row">
+                  <span>{isZhCopy ? `${occupation.skillCount} 个 Skills` : `${occupation.skillCount} skills`}</span>
+                </div>
+                <h3>{occupation.label}</h3>
+                <p>{occupation.description}</p>
+              </a>
+            ))}
+          </div>
+        </MarketplaceSection>
+      )
+    }
+
+    <MarketplaceSection
+      title={isZhCopy ? '热门' : 'Popular'}
+      actionHref={`/${locale}/popular?category=${categoryId}`}
+      actionLabel={isZhCopy ? '进入榜单' : 'Open ranking'}
+    >
+      <MarketplaceSkillList skills={popularSkills.slice(0, 24)} locale={locale} messages={messages} />
+    </MarketplaceSection>
+
+    <MarketplaceSection
+      title={isZhCopy ? '最新' : 'Latest'}
+      actionHref={`/${locale}/popular?rank=latest&category=${categoryId}`}
+      actionLabel={isZhCopy ? '查看最新' : 'View latest'}
+    >
+      <MarketplaceSkillList skills={latestSkills.slice(0, 24)} locale={locale} messages={messages} />
+    </MarketplaceSection>
+  </main>
+</Layout>

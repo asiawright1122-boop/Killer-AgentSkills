@@ -110,7 +110,7 @@ function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'f
 }
 
 const DEFAULT_DESCRIPTION =
-  'Explore and install 3,400+ verified AI agent skills and MCP servers. Connect Cursor, Claude Code, and Windsurf to tools for browser, PDF, and database automation.';
+  'Browse and install 3,400+ verified AI agent skills and MCP servers. Connect Cursor, Claude Code, and Windsurf to tools for browser, PDF, and database automation.';
 
 function normalizeDescription(description?: string): string {
   const cleanDescription = description || DEFAULT_DESCRIPTION;

@@ -2,6 +2,7 @@ import { getNonTargetSkillReason } from './shared/validation';
 import { buildSkillIndexabilityAssessment } from './skill-indexability';
 import { normalizeSitemapSkillEntry, type SitemapSkillEntry } from './skill-route-paths';
 import { getLocalSkillsFallback } from './local-skills-fallback';
+import { assessSkillTrust, type RiskFlag, type SecurityLevel, type SourceTrustLevel } from './skill-trust';
 
 export interface Env {
   TRANSLATIONS: KVNamespace;
@@ -63,6 +64,16 @@ export interface SkillListingItem {
   updatedAt: string;
   lastSynced?: string;
   qualityScore: number;
+  securityLevel?: SecurityLevel;
+  sourceTrust?: SourceTrustLevel;
+  securityScore?: number;
+  sourceScore?: number;
+  rankScore?: number;
+  isTrustedRankingEligible?: boolean;
+  riskFlags?: RiskFlag[];
+  securityBrief?: string;
+  primaryTrustReason?: string;
+  lastAuditedAt?: string;
   filePath?: string;
   seo?: {
     definition: Record<string, string>;
@@ -115,6 +126,53 @@ const SKILLS_CATEGORY_SUMMARY_CACHE_TTL_MS = 2 * 60 * 1000;
 const SKILLS_LISTING_PAGE_CACHE_MAX = 120;
 const SKILLS_LISTING_TOP_CACHE_MAX = 40;
 const SKILLS_LISTING_BY_REFS_CACHE_MAX = 200;
+const _loggedMissingSkillsTableContexts = new Set<string>();
+
+function isMissingSkillsTableError(error: unknown): boolean {
+  const message =
+    error instanceof Error ? `${error.message} ${(error as Error & { cause?: unknown }).cause || ''}` : String(error);
+  return message.includes('no such table: skills');
+}
+
+function logD1Fallback(context: string, error: unknown): void {
+  if (isMissingSkillsTableError(error)) {
+    if (!_loggedMissingSkillsTableContexts.has(context)) {
+      _loggedMissingSkillsTableContexts.add(context);
+      console.warn(`[D1] ${context}; local skills table is missing, using bundled snapshot fallback`);
+    }
+    return;
+  }
+
+  console.error(`[D1] ${context}:`, error);
+}
+
+const sortListingByTrust = (a: SkillListingItem, b: SkillListingItem) =>
+  (b.rankScore || b.qualityScore || 0) - (a.rankScore || a.qualityScore || 0) || b.stars - a.stars;
+
+async function getLocalListingFallbackSorted(limit?: number): Promise<SkillListingItem[]> {
+  const all = await getLocalSkillsFallback();
+  const rows = all.map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>)).sort(sortListingByTrust);
+  return typeof limit === 'number' ? rows.slice(0, limit) : rows;
+}
+
+async function getLocalCategorySummary(): Promise<SkillsCategorySummary> {
+  const rows = await getLocalListingFallbackSorted();
+  const counts = new Map<string, number>();
+
+  for (const row of rows) {
+    const category = String(row.category || '')
+      .trim()
+      .toLowerCase();
+    counts.set(category, (counts.get(category) || 0) + 1);
+  }
+
+  return {
+    total: rows.length,
+    categories: Array.from(counts.entries())
+      .map(([category, count]) => ({ category, count }))
+      .sort((a, b) => b.count - a.count),
+  };
+}
 
 function isPublicSitemapSkillCandidate(skill: Record<string, unknown>): boolean {
   return !getNonTargetSkillReason({
@@ -316,7 +374,9 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
   // 1. Try D1 first (fastest)
   if (env?.DB) {
     try {
-      const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
+      const result = await env.DB.prepare(
+        `SELECT data_json FROM skills ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC`,
+      ).all();
       if (result.success && result.results) {
         return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
       }
@@ -357,25 +417,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
 export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
   if (!env?.DB) {
     console.warn('[D1] No DB binding found, falling back to local file array for listing');
-    const all = await getLocalSkillsFallback();
-    return all
-      .map((row) => ({
-        id: row.id,
-        name: row.name || row.skillName || row.repo,
-        skillName: row.skillName || row.name || '',
-        owner: row.owner,
-        repo: row.repo,
-        description: row.description,
-        category: row.category || '',
-        topics: row.topics || [],
-        stars: row.stars || 0,
-        source: row.source || 'cache',
-        updatedAt: row.updatedAt || '',
-        qualityScore: row.qualityScore || 0,
-        filePath: row.filePath || '',
-        seo: row.seo || undefined,
-      }))
-      .sort((a, b) => b.stars - a.stars);
+    return getLocalListingFallbackSorted();
   }
 
   try {
@@ -389,26 +431,37 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
                 category,
                 stars,
                 quality_score,
+                security_level,
+                source_trust,
+                rank_score,
+                last_audited_at,
                 updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
                 json_extract(data_json, '$.description') as description,
                 json_extract(data_json, '$.topics') as topics,
                 json_extract(data_json, '$.source') as source,
                 json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
                 json_extract(data_json, '$.filePath') as filePath,
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills 
-            ORDER BY stars DESC
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
         `,
     ).all();
 
     if (result.success && result.results) {
-      return result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      return rows.length > 0 ? rows : getLocalListingFallbackSorted();
     }
-    return [];
+    return getLocalListingFallbackSorted();
   } catch (e) {
-    console.error('[D1] Error in listing query:', e);
-    return [];
+    logD1Fallback('Error in listing query', e);
+    return getLocalListingFallbackSorted();
   }
 }
 
@@ -431,10 +484,7 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
   }
 
   if (!env?.DB) {
-    const all = await getLocalSkillsFallback();
-    const normalized = all
-      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
-      .sort((a, b) => b.stars - a.stars);
+    const normalized = await getLocalListingFallbackSorted();
     const fallbackResult: SkillsListingPageResult = {
       items: normalized.slice(offset, offset + safePageSize),
       total: normalized.length,
@@ -457,6 +507,21 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
       _skillsTotalCountCache = { value: total, ts: Date.now() };
     }
 
+    if (total === 0) {
+      const normalized = await getLocalListingFallbackSorted();
+      const fallbackResult: SkillsListingPageResult = {
+        items: normalized.slice(offset, offset + safePageSize),
+        total: normalized.length,
+        page: safePage,
+        pageSize: safePageSize,
+      };
+      setTimedMapValue(_skillsListingPageCache, pageCacheKey, fallbackResult, SKILLS_LISTING_PAGE_CACHE_MAX);
+      return {
+        ...fallbackResult,
+        items: cloneListingItems(fallbackResult.items),
+      };
+    }
+
     const result = await env.DB.prepare(
       `
             SELECT
@@ -467,16 +532,26 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
                 category,
                 stars,
                 quality_score,
+                security_level,
+                source_trust,
+                rank_score,
+                last_audited_at,
                 updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
                 json_extract(data_json, '$.description') as description,
                 json_extract(data_json, '$.topics') as topics,
                 json_extract(data_json, '$.source') as source,
                 json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
                 json_extract(data_json, '$.filePath') as filePath,
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills
-            ORDER BY stars DESC
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
             LIMIT ?1 OFFSET ?2
         `,
     )
@@ -484,12 +559,37 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
       .all();
 
     const items = result.success && result.results ? result.results.map((row: D1Row) => mapD1ListingRow(row)) : [];
+    if (items.length === 0 && safePage === 1) {
+      const normalized = await getLocalListingFallbackSorted();
+      const fallbackResult: SkillsListingPageResult = {
+        items: normalized.slice(offset, offset + safePageSize),
+        total: normalized.length,
+        page: safePage,
+        pageSize: safePageSize,
+      };
+      setTimedMapValue(_skillsListingPageCache, pageCacheKey, fallbackResult, SKILLS_LISTING_PAGE_CACHE_MAX);
+      return {
+        ...fallbackResult,
+        items: cloneListingItems(fallbackResult.items),
+      };
+    }
+
     const pagedResult: SkillsListingPageResult = { items, total, page: safePage, pageSize: safePageSize };
     setTimedMapValue(_skillsListingPageCache, pageCacheKey, pagedResult, SKILLS_LISTING_PAGE_CACHE_MAX);
     return { ...pagedResult, items: cloneListingItems(pagedResult.items) };
   } catch (e) {
-    console.error('[D1] Error in paged listing query:', e);
-    return { items: [], total: 0, page: safePage, pageSize: safePageSize };
+    logD1Fallback('Error in paged listing query', e);
+    const normalized = await getLocalListingFallbackSorted();
+    const fallbackResult: SkillsListingPageResult = {
+      items: normalized.slice(offset, offset + safePageSize),
+      total: normalized.length,
+      page: safePage,
+      pageSize: safePageSize,
+    };
+    return {
+      ...fallbackResult,
+      items: cloneListingItems(fallbackResult.items),
+    };
   }
 }
 
@@ -504,11 +604,7 @@ export async function getSkillsListingTop(env: Env, limit: number): Promise<Skil
   if (cachedTop) return cloneListingItems(cachedTop);
 
   if (!env?.DB) {
-    const all = await getLocalSkillsFallback();
-    const fallbackTop = all
-      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
-      .sort((a, b) => b.stars - a.stars)
-      .slice(0, safeLimit);
+    const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
     setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
     return cloneListingItems(fallbackTop);
   }
@@ -524,29 +620,50 @@ export async function getSkillsListingTop(env: Env, limit: number): Promise<Skil
                 category,
                 stars,
                 quality_score,
+                security_level,
+                source_trust,
+                rank_score,
+                last_audited_at,
                 updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
                 json_extract(data_json, '$.description') as description,
                 json_extract(data_json, '$.topics') as topics,
                 json_extract(data_json, '$.source') as source,
                 json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
                 json_extract(data_json, '$.filePath') as filePath,
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills
-            ORDER BY stars DESC
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
             LIMIT ?1
         `,
     )
       .bind(safeLimit)
       .all();
 
-    if (!result.success || !result.results) return [];
+    if (!result.success || !result.results) {
+      const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
+      setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
+      return cloneListingItems(fallbackTop);
+    }
     const rows = result.results.map((row: D1Row) => mapD1ListingRow(row));
+    if (rows.length === 0) {
+      const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
+      setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
+      return cloneListingItems(fallbackTop);
+    }
     setTimedMapValue(_skillsListingTopCache, topCacheKey, rows, SKILLS_LISTING_TOP_CACHE_MAX);
     return cloneListingItems(rows);
   } catch (e) {
-    console.error('[D1] Error in top listing query:', e);
-    return [];
+    logD1Fallback('Error in top listing query', e);
+    const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
+    setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
+    return cloneListingItems(fallbackTop);
   }
 }
 
@@ -559,22 +676,7 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
   if (cachedSummary) return cloneCategorySummary(cachedSummary);
 
   if (!env?.DB) {
-    const all = await getLocalSkillsFallback();
-    const counts = new Map<string, number>();
-    for (const row of all) {
-      const mapped = mapLocalListingRow(row as unknown as Record<string, unknown>);
-      const category = String(mapped.category || '')
-        .trim()
-        .toLowerCase();
-      counts.set(category, (counts.get(category) || 0) + 1);
-    }
-
-    const fallbackSummary: SkillsCategorySummary = {
-      total: all.length,
-      categories: Array.from(counts.entries())
-        .map(([category, count]) => ({ category, count }))
-        .sort((a, b) => b.count - a.count),
-    };
+    const fallbackSummary = await getLocalCategorySummary();
     _skillsCategorySummaryCache = { value: fallbackSummary, ts: Date.now() };
     return cloneCategorySummary(fallbackSummary);
   }
@@ -607,12 +709,20 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
             .sort((a: SkillsCategoryCountItem, b: SkillsCategoryCountItem) => b.count - a.count)
         : [];
 
+    if (total === 0 || categories.length === 0) {
+      const fallbackSummary = await getLocalCategorySummary();
+      _skillsCategorySummaryCache = { value: fallbackSummary, ts: Date.now() };
+      return cloneCategorySummary(fallbackSummary);
+    }
+
     const summary: SkillsCategorySummary = { total, categories };
     _skillsCategorySummaryCache = { value: summary, ts: Date.now() };
     return cloneCategorySummary(summary);
   } catch (e) {
-    console.error('[D1] Error in category summary query:', e);
-    return { total: 0, categories: [] };
+    logD1Fallback('Error in category summary query', e);
+    const fallbackSummary = await getLocalCategorySummary();
+    _skillsCategorySummaryCache = { value: fallbackSummary, ts: Date.now() };
+    return cloneCategorySummary(fallbackSummary);
   }
 }
 
@@ -641,14 +751,19 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
   const cachedRefs = getTimedMapValue(_skillsListingByRefsCache, refsCacheKey, SKILLS_LISTING_BY_REFS_CACHE_TTL_MS);
   if (cachedRefs) return cloneListingItems(cachedRefs);
 
-  if (!env?.DB) {
+  const getRefsFallback = async () => {
     const wanted = new Set(parsedRefs.map(([owner, repo]) => `${owner}/${repo}`));
     const all = await getLocalSkillsFallback();
     const fallbackRows = all
       .filter((row) => wanted.has(`${String(row.owner || '').toLowerCase()}/${String(row.repo || '').toLowerCase()}`))
-      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>));
+      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
+      .sort(sortListingByTrust);
     setTimedMapValue(_skillsListingByRefsCache, refsCacheKey, fallbackRows, SKILLS_LISTING_BY_REFS_CACHE_MAX);
     return cloneListingItems(fallbackRows);
+  };
+
+  if (!env?.DB) {
+    return getRefsFallback();
   }
 
   const CHUNK_SIZE = 80;
@@ -670,12 +785,22 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
                 category,
                 stars,
                 quality_score,
+                security_level,
+                source_trust,
+                rank_score,
+                last_audited_at,
                 updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
                 json_extract(data_json, '$.description') as description,
                 json_extract(data_json, '$.topics') as topics,
                 json_extract(data_json, '$.source') as source,
                 json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
                 json_extract(data_json, '$.filePath') as filePath,
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills
@@ -694,11 +819,15 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
         }
       }
     } catch (e) {
-      console.error('[D1] Error in listing-by-refs query:', e);
+      logD1Fallback('Error in listing-by-refs query', e);
     }
   }
 
   const matched = Array.from(deduped.values());
+  if (matched.length === 0) {
+    return getRefsFallback();
+  }
+
   setTimedMapValue(_skillsListingByRefsCache, refsCacheKey, matched, SKILLS_LISTING_BY_REFS_CACHE_MAX);
   return cloneListingItems(matched);
 }
@@ -714,45 +843,41 @@ export async function getRelatedSkillsFast(
   category: string,
   limit: number = 4,
 ): Promise<SkillListingItem[]> {
-  if (!env?.DB) {
+  const getRelatedFallback = async () => {
     const all = await getLocalSkillsFallback();
-    const filtered = all
+    return all
       .filter((s) => s.category === category && s.id !== currentId)
-      .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+      .map((row) => mapLocalListingRow(row as unknown as Record<string, unknown>))
+      .sort(sortListingByTrust)
       .slice(0, limit);
-    return filtered.map(
-      (row): SkillListingItem => ({
-        id: row.id,
-        name: row.name || row.skillName || row.repo,
-        skillName: row.skillName || row.name || '',
-        owner: row.owner,
-        repo: row.repo,
-        description: row.description,
-        category: row.category || '',
-        topics: row.topics || [],
-        stars: row.stars || 0,
-        source: row.source || 'cache',
-        updatedAt: row.updatedAt || '',
-        qualityScore: row.qualityScore || 0,
-        filePath: row.filePath || '',
-        seo: row.seo || undefined,
-      }),
-    );
+  };
+
+  if (!env?.DB) {
+    return getRelatedFallback();
   }
 
   try {
     const result = await env.DB.prepare(
       `
             SELECT 
-                id, owner, repo, name, category, stars, quality_score, updated_at,
+                id, owner, repo, name, category, stars, quality_score,
+                security_level, source_trust, rank_score, last_audited_at, updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
                 json_extract(data_json, '$.description') as description,
                 json_extract(data_json, '$.topics') as topics,
                 json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
+                json_extract(data_json, '$.filePath') as filePath,
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills 
             WHERE category = ?1 AND id != ?2
-            ORDER BY stars DESC
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
             LIMIT ?3
         `,
     )
@@ -760,29 +885,13 @@ export async function getRelatedSkillsFast(
       .all();
 
     if (result.success && result.results) {
-      return result.results.map(
-        (row: D1Row): SkillListingItem => ({
-          id: String(row.id ?? ''),
-          name: String(row.name ?? row.skillName ?? row.repo ?? ''),
-          skillName: String(row.skillName ?? row.name ?? ''),
-          owner: String(row.owner ?? ''),
-          repo: String(row.repo ?? ''),
-          description: row.description ? tryParseJSON(String(row.description), String(row.description)) : '',
-          category: String(row.category ?? ''),
-          topics: row.topics ? tryParseJSON(String(row.topics), []) : [],
-          stars: Number(row.stars ?? 0),
-          source: 'cache',
-          updatedAt: String(row.updated_at ?? ''),
-          qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
-          filePath: String(row.filePath ?? ''),
-          seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
-        }),
-      );
+      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      return rows.length > 0 ? rows : getRelatedFallback();
     }
-    return [];
+    return getRelatedFallback();
   } catch (e) {
-    console.error('[D1] Error in related skills query:', e);
-    return [];
+    logD1Fallback('Error in related skills query', e);
+    return getRelatedFallback();
   }
 }
 
@@ -796,8 +905,67 @@ function tryParseJSON<T>(str: string, fallback: T): T {
   }
 }
 
-function mapD1ListingRow(row: D1Row): SkillListingItem {
+function parseD1Boolean(value: unknown, fallback = false): boolean {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'number') return value !== 0;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (normalized === 'true' || normalized === '1') return true;
+    if (normalized === 'false' || normalized === '0' || normalized === '') return false;
+    return Boolean(tryParseJSON(normalized, fallback));
+  }
+  return fallback;
+}
+
+function hasPersistedTrustFields(row: Record<string, unknown>): boolean {
+  const hasScoreFields = [
+    row.securityLevel,
+    row.security_level,
+    row.sourceTrust,
+    row.source_trust,
+    row.securityScore,
+    row.security_score,
+    row.sourceScore,
+    row.source_score,
+    row.rankScore,
+    row.rank_score,
+  ].some((value) => value !== undefined && value !== null && String(value).trim() !== '');
+
+  const hasEvidenceFields = [row.riskFlags, row.securityBrief, row.primaryTrustReason].some((value) => {
+    if (value === undefined || value === null) return false;
+    const normalized = String(value).trim();
+    return normalized !== '' && normalized !== '[]' && normalized !== '{}' && normalized !== 'null';
+  });
+
+  return hasScoreFields && hasEvidenceFields;
+}
+
+function withTrustFallback(item: SkillListingItem, row: Record<string, unknown>): SkillListingItem {
+  if (hasPersistedTrustFields(row)) return item;
+
   return {
+    ...item,
+    ...assessSkillTrust({
+      id: item.id,
+      name: item.name,
+      owner: item.owner,
+      repo: item.repo,
+      source: item.source,
+      stars: item.stars,
+      forks: item.forks,
+      updatedAt: item.updatedAt,
+      lastSynced: String(row.lastSynced ?? row.last_synced ?? ''),
+      topics: item.topics,
+      filePath: item.filePath,
+      category: item.category,
+      description: item.description,
+      skillMd: (row.skillMd as SkillListingItem['skillMd']) || undefined,
+    }),
+  };
+}
+
+function mapD1ListingRow(row: D1Row): SkillListingItem {
+  const item: SkillListingItem = {
     id: String(row.id ?? ''),
     name: String(row.name ?? row.skillName ?? row.repo ?? ''),
     skillName: String(row.skillName ?? row.name ?? ''),
@@ -810,13 +978,25 @@ function mapD1ListingRow(row: D1Row): SkillListingItem {
     source: String(row.source ?? 'cache') as SkillListingItem['source'],
     updatedAt: String(row.updated_at ?? ''),
     qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+    securityLevel: String(row.security_level ?? row.securityLevel ?? 'C') as SkillListingItem['securityLevel'],
+    sourceTrust: String(row.source_trust ?? row.sourceTrust ?? 'T3') as SkillListingItem['sourceTrust'],
+    securityScore: Number(row.securityScore ?? row.security_score ?? 0),
+    sourceScore: Number(row.sourceScore ?? row.source_score ?? 0),
+    rankScore: Number(row.rank_score ?? row.rankScore ?? row.qualityScore ?? row.quality_score ?? 0),
+    isTrustedRankingEligible: parseD1Boolean(row.isTrustedRankingEligible, false),
+    riskFlags: row.riskFlags ? tryParseJSON(String(row.riskFlags), []) : [],
+    securityBrief: String(row.securityBrief ?? ''),
+    primaryTrustReason: String(row.primaryTrustReason ?? ''),
+    lastAuditedAt: String(row.last_audited_at ?? row.lastAuditedAt ?? ''),
     filePath: String(row.filePath ?? ''),
     seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
   };
+
+  return withTrustFallback(item, row);
 }
 
 function mapLocalListingRow(row: Record<string, unknown>): SkillListingItem {
-  return {
+  const item: SkillListingItem = {
     id: String(row.id ?? ''),
     name: String(row.name ?? row.skillName ?? row.repo ?? ''),
     skillName: String(row.skillName ?? row.name ?? ''),
@@ -829,9 +1009,21 @@ function mapLocalListingRow(row: Record<string, unknown>): SkillListingItem {
     source: String(row.source ?? 'cache') as SkillListingItem['source'],
     updatedAt: String(row.updatedAt ?? row.updated_at ?? ''),
     qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+    securityLevel: String(row.securityLevel ?? row.security_level ?? 'C') as SkillListingItem['securityLevel'],
+    sourceTrust: String(row.sourceTrust ?? row.source_trust ?? 'T3') as SkillListingItem['sourceTrust'],
+    securityScore: Number(row.securityScore ?? row.security_score ?? 0),
+    sourceScore: Number(row.sourceScore ?? row.source_score ?? 0),
+    rankScore: Number(row.rankScore ?? row.rank_score ?? row.qualityScore ?? row.quality_score ?? 0),
+    isTrustedRankingEligible: parseD1Boolean(row.isTrustedRankingEligible, false),
+    riskFlags: (row.riskFlags as SkillListingItem['riskFlags']) || [],
+    securityBrief: String(row.securityBrief ?? ''),
+    primaryTrustReason: String(row.primaryTrustReason ?? ''),
+    lastAuditedAt: String(row.lastAuditedAt ?? row.last_audited_at ?? ''),
     filePath: String(row.filePath ?? ''),
     seo: (row.seo as SkillListingItem['seo']) || undefined,
   };
+
+  return withTrustFallback(item, row);
 }
 
 /**

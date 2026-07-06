@@ -1,0 +1,179 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
+import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
+import {
+  getMarketplaceSkills,
+  getSkillSourceKind,
+  sortSkillsLatest,
+  sortSkillsPopular,
+  type SourceKind,
+} from '../../../lib/marketplace-filters';
+import { buildOccupationSummaries, inferSkillOccupationIds } from '../../../lib/occupations';
+import { filterByCategory, searchSkills } from '../../../lib/search';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import type { Env } from '../../../lib/kv';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const url = Astro.url;
+const query = (url.searchParams.get('q') || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+const category = normalizeCategoryId(url.searchParams.get('category') || '');
+const occupation = (url.searchParams.get('occupation') || '').trim();
+const requestedSource = (url.searchParams.get('source') || 'all').toLowerCase();
+const activeSource = ['all', 'official', 'community'].includes(requestedSource)
+  ? (requestedSource as SourceKind | 'all')
+  : 'all';
+const requestedSort = (url.searchParams.get('sort') || 'popular').toLowerCase();
+const activeSort = requestedSort === 'latest' ? 'latest' : 'popular';
+const hasListingParams = Boolean(query || category || occupation || activeSource !== 'all' || activeSort !== 'popular');
+const canonicalUrl = `https://killer-skills.com/${locale}/search`;
+
+if (hasListingParams) {
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
+}
+
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+]);
+const t = useTranslations(messages);
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const overview = await getMarketplaceOverview(env, typedLocale, t, {
+  includeEmptyCategories: true,
+  includeOtherCategory: false,
+  topCategoryLimit: 12,
+}).catch(() => ({
+  categories: [],
+  topCategories: [],
+  totalSkillCount: marketplaceSkills.length,
+  featuredRoutes: [],
+  featuredCollections: [],
+  solutionEntries: [],
+}));
+const occupations = buildOccupationSummaries(marketplaceSkills, typedLocale).filter((item) => item.skillCount > 0);
+
+let results = [...marketplaceSkills];
+if (activeSource !== 'all') {
+  results = results.filter((skill) => getSkillSourceKind(skill) === activeSource);
+}
+if (category) {
+  results = filterByCategory(results, category);
+}
+if (occupation) {
+  results = results.filter((skill) => inferSkillOccupationIds(skill).includes(occupation));
+}
+if (query) {
+  results = searchSkills(results, query, typedLocale);
+}
+if (!query || activeSort === 'latest') {
+  results = activeSort === 'latest' ? sortSkillsLatest(results) : sortSkillsPopular(results);
+}
+
+const totalResults = results.length;
+const visibleResults = results.slice(0, 72);
+const pageTitle = query ? (isZhCopy ? `搜索 ${query}` : `Search ${query}`) : isZhCopy ? '搜索 Skills' : 'Search Skills';
+const pageDescription = isZhCopy
+  ? '搜索通过基础审查的 AI Agent Skills，并按分类、职业和来源收窄结果。'
+  : 'Search baseline-reviewed AI agent skills and narrow results by category, occupation, and source.';
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', query, category, occupation);
+const categoryLabel = category ? getCategoryLabel(category, t) : '';
+const activeOccupation = occupations.find((item) => item.id === occupation);
+const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  appendBrand={false}
+  customCanonical={hasListingParams ? canonicalUrl : undefined}
+  noindex={hasListingParams}
+  robots={hasListingParams ? 'noindex, follow' : undefined}
+>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? '搜索' : 'Search'}
+      title={pageTitle}
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? '搜索 Skill、仓库、任务' : 'Search skill, repo, task'}
+      searchAction={`/${locale}/search`}
+      countLabel={countLabel}
+      actions={[{ href: `/${locale}/skills`, label: isZhCopy ? '打开目录' : 'Open directory' }]}
+    />
+
+    <MarketplaceSection
+      title={query || activeOccupation?.label || categoryLabel || (isZhCopy ? '搜索结果' : 'Search Results')}
+      description={isZhCopy
+        ? '搜索页和 Skills 目录使用同一套过滤逻辑。'
+        : 'Search and the Skills directory use the same filtering logic.'}
+    >
+      <form class="marketplace-filterbar" action={`/${locale}/search`} method="get">
+        <input
+          name="q"
+          type="search"
+          value={query}
+          placeholder={isZhCopy ? '关键词' : 'Keyword'}
+          aria-label={isZhCopy ? '关键词' : 'Keyword'}
+        />
+        <select name="category" aria-label={isZhCopy ? '分类' : 'Category'}>
+          <option value="" selected={!category}>{isZhCopy ? '全部分类' : 'All categories'}</option>
+          {
+            overview.categories.map((item) => (
+              <option value={item.id} selected={category === item.id}>
+                {item.label}
+              </option>
+            ))
+          }
+        </select>
+        <select name="occupation" aria-label={isZhCopy ? '职业' : 'Occupation'}>
+          <option value="" selected={!occupation}>{isZhCopy ? '全部职业' : 'All occupations'}</option>
+          {
+            occupations.map((item) => (
+              <option value={item.id} selected={occupation === item.id}>
+                {item.label}
+              </option>
+            ))
+          }
+        </select>
+        <select name="source" aria-label={isZhCopy ? '来源' : 'Source'}>
+          <option value="all" selected={activeSource === 'all'}>{isZhCopy ? '全部来源' : 'All sources'}</option>
+          <option value="official" selected={activeSource === 'official'}>{isZhCopy ? '官方' : 'Official'}</option>
+          <option value="community" selected={activeSource === 'community'}>{isZhCopy ? '社区' : 'Community'}</option>
+        </select>
+        <select name="sort" aria-label={isZhCopy ? '排序' : 'Sort'}>
+          <option value="popular" selected={activeSort === 'popular'}>{isZhCopy ? '热门' : 'Popular'}</option>
+          <option value="latest" selected={activeSort === 'latest'}>{isZhCopy ? '最新' : 'Latest'}</option>
+        </select>
+        <button type="submit">{isZhCopy ? '搜索' : 'Search'}</button>
+      </form>
+
+      <div class="mt-5">
+        <MarketplaceSkillList
+          skills={visibleResults}
+          locale={locale}
+          messages={messages}
+          emptyTitle={isZhCopy ? '没有结果' : 'No results'}
+          emptyText={isZhCopy ? '换一个关键词、分类或职业。' : 'Try another keyword, category, or occupation.'}
+        />
+      </div>
+    </MarketplaceSection>
+  </main>
+</Layout>

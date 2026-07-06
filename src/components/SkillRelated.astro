@@ -1,25 +1,17 @@
 ---
 /**
- * SkillRelated — Related skills grid + Related collections + Related authority paths.
+ * SkillRelated — Related skills grid, collections, and guided next steps.
  * Extracted from [...repo].astro for readability.
  */
 import SkillCard from './SkillCard.astro';
-import { Layers, ChevronRight, BookOpen, Lightbulb, FileText } from 'lucide-react';
-import { getCollectionCanonicalSlug } from '../lib/collection-slugs';
-import { getAuthoritySurfaceEntries } from '../lib/authority-surfaces';
-import {
-  getLocalizedSeoEligibleLocales,
-  getPreferredCanonicalLocale,
-  isDirectlyLocalizedVariant,
-} from '../lib/seo-locales';
-import { SUPPORTED_LOCALES, type Locale } from '../i18n';
+import { Layers, ChevronRight } from 'lucide-react';
+import type { Locale } from '../i18n';
 import type { UnifiedSkill } from '../lib/public-skill-catalog';
 
 interface Props {
   locale: string;
   typedLocale: Locale;
   relatedSkills: UnifiedSkill[];
-  relatedCollections: any[];
   skillName: string;
   repo: string;
   category: string;
@@ -28,97 +20,57 @@ interface Props {
   tr: (key: string, fallback?: string) => string;
 }
 
-const { locale, typedLocale, relatedSkills, relatedCollections, skillName, repo, category, messages, t, tr } =
-  Astro.props;
+const { locale, typedLocale, relatedSkills, skillName, repo, category, messages, t, tr } = Astro.props;
 
-// Determine which authority surfaces to show based on skill category
 function getRelevantAuthoritySurfaces(
   category: string,
 ): { id: string; title: string; description: string; href: string; icon: string }[] {
   const cat = (category || '').toLowerCase();
   const surfaces: { id: string; title: string; description: string; href: string; icon: string }[] = [];
+  const query = encodeURIComponent(repo || skillName || cat || '');
 
-  // Always include collections hub and installation docs
   surfaces.push({
-    id: 'collections-hub',
-    title: 'Skill Collections',
-    description: 'Browse curated collections for trusted tools and clear setup paths.',
-    href: `/${locale}/collections`,
+    id: 'skills',
+    title: typedLocale === 'zh' ? '相似 Skills' : 'Similar Skills',
+    description: typedLocale === 'zh' ? '按名称、来源和分类继续筛选。' : 'Filter by name, source, and category.',
+    href: query ? `/${locale}/skills?q=${query}` : `/${locale}/skills`,
     icon: 'grid',
   });
+
   surfaces.push({
-    id: 'docs-installation',
-    title: 'Installation Guide',
-    description: 'Review CLI commands, IDE compatibility, and setup steps.',
-    href: `/${locale}/docs/installation`,
-    icon: 'book',
+    id: 'review-policy',
+    title: typedLocale === 'zh' ? '审核政策' : 'Review Policy',
+    description: typedLocale === 'zh' ? '查看公开目录的准入规则。' : 'Review public listing admission rules.',
+    href: `/${locale}/safe`,
+    icon: 'shield',
   });
 
-  // Category-specific authority surfaces
   if (cat.includes('claude') || cat.includes('ai-agent') || cat.includes('workflow') || cat.includes('productivity')) {
     surfaces.push({
-      id: 'collection-official-trusted-tools',
-      title: 'Official AI Skills & Trusted Tools',
-      description: 'Start with official projects and established ecosystems.',
-      href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
-      icon: 'shield',
-    });
-    surfaces.push({
-      id: 'collection-agent-workflows',
-      title: 'Agent Workflow Building Tools',
-      description: 'Curated tools for multi-step agent workflows.',
-      href: `/${locale}/collections/top-agent-workflow-building-tools`,
-      icon: 'layers',
+      id: 'articles',
+      title: typedLocale === 'zh' ? '文章' : 'Articles',
+      description:
+        typedLocale === 'zh' ? '阅读同类工作流和选型文章。' : 'Read adjacent workflow and selection articles.',
+      href: `/${locale}/article`,
+      icon: 'book',
     });
   }
 
   if (cat.includes('cursor') || cat.includes('ide') || cat.includes('editor') || cat.includes('completion')) {
     surfaces.push({
-      id: 'collection-cursor',
-      title: 'Cursor-Compatible Skills',
-      description: 'Editor-specific workflow tools with clear setup paths.',
-      href: `/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`,
-      icon: 'code',
+      id: 'popular',
+      title: typedLocale === 'zh' ? '热门榜单' : 'Popular Ranking',
+      description: typedLocale === 'zh' ? '对比近期更常被使用的技能。' : 'Compare skills with stronger current demand.',
+      href: `/${locale}/popular`,
+      icon: 'grid',
     });
   }
 
-  // Solutions for developer-centric skills
-  if (
-    [
-      'developer',
-      'framework',
-      'react',
-      'typescript',
-      'python',
-      'rust',
-      'devops',
-      'nextjs',
-      'cli',
-      'mcp',
-      'data',
-      'finance',
-      'design',
-      'communication',
-      'documentation',
-      'security',
-      'browser',
-    ].some((kw) => cat.includes(kw))
-  ) {
-    surfaces.push({
-      id: 'solution-agent-workflows',
-      title: 'Agent Workflows Solution',
-      description: 'See how tools fit concrete developer jobs.',
-      href: `/${locale}/solutions/agent-workflows`,
-      icon: 'lightbulb',
-    });
-  }
-
-  // Always include the skills directory
   surfaces.push({
-    id: 'skills-directory',
-    title: 'Full Skills Directory',
-    description: 'Browse all 3,400+ skills across 19+ IDEs.',
-    href: `/${locale}/skills`,
+    id: 'rankings',
+    title: typedLocale === 'zh' ? '榜单' : 'Rankings',
+    description: typedLocale === 'zh' ? '查看热门和最新 Skills。' : 'View popular and latest skills.',
+    href: `/${locale}/popular`,
     icon: 'grid',
   });
 
@@ -136,30 +88,23 @@ const relevantSurfaces = getRelevantAuthoritySurfaces(category);
 
 {
   relatedSkills.length > 0 && (
-    <section class="border-t-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] py-16 relative overflow-hidden">
-      {/* Decorative Grid SVG on Dark Background */}
-      <div
-        class="absolute inset-0 opacity-10 pointer-events-none"
-        style="background-image: radial-gradient(var(--background) 1px, transparent 1px); background-size: 24px 24px;"
-      />
-
+    <section class="border-t border-[var(--border)] bg-[var(--background)] py-16 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="flex items-center justify-between mb-10 pb-4 border-b-4 border-[var(--background)]">
+        <div class="flex items-center justify-between mb-10 pb-4 border-b border-[var(--border)]">
           <div class="flex flex-col gap-2">
-            <h2 class="text-3xl font-black text-[var(--background)] flex items-center gap-3 uppercase tracking-tight">
+            <h2 class="text-3xl font-bold text-[var(--foreground)] flex items-center gap-3">
               <Layers className="text-[var(--primary)]" strokeWidth={3} />
               {tr('Detail.relatedSkills', typedLocale === 'zh' ? '相关技能' : 'Related Skills')}
             </h2>
-            {/* Long-Tail Competitive SEO Header */}
-            <h3 class="text-[var(--background)]/80 font-mono text-sm max-w-2xl font-normal">
+            <p class="text-[var(--muted-foreground)] text-sm max-w-2xl font-medium">
               {locale === 'zh'
-                ? `寻找 ${skillName || repo} 的替代方案 (Alternative) 或可搭配使用的同类 ${category || 'AI'} Skill？探索以下相关开源技能。`
-                : `Looking for an alternative to ${skillName || repo} or another ${category || 'custom'} skill for your workflow? Explore these related open-source skills.`}
-            </h3>
+                ? `继续查看与 ${skillName || repo} 接近、可替代或可搭配使用的技能。`
+                : `Continue with skills that are similar, complementary, or useful alternatives to ${skillName || repo}.`}
+            </p>
           </div>
           <a
-            href={`/${locale}/skills`}
-            class="text-sm font-black text-[var(--background)] hover:text-[var(--primary)] hover:translate-x-1 transition-all flex items-center gap-2 uppercase tracking-widest mt-1 md:mt-0"
+            href={`/${locale}/search`}
+            class="text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:translate-x-1 transition-all flex items-center gap-2 mt-1 md:mt-0"
           >
             {t('Common.viewAll')} <ChevronRight size={18} strokeWidth={3} />
           </a>
@@ -167,7 +112,7 @@ const relevantSurfaces = getRelevantAuthoritySurfaces(category);
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {relatedSkills.map((skill) => (
-            <div class="h-full transform hover:scale-[1.02] transition-transform">
+            <div class="h-full">
               <SkillCard skill={skill} locale={locale} messages={messages} t={t} />
             </div>
           ))}
@@ -178,68 +123,24 @@ const relevantSurfaces = getRelevantAuthoritySurfaces(category);
 }
 
 {
-  relatedCollections.length > 0 && (
-    <section class="py-12 border-t-[3px] border-[var(--border)] bg-[var(--background)]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight">
-            {t('Collections.relatedCollections')}
-          </h2>
-          <a
-            href={`/${locale}/collections`}
-            class="text-xs font-black text-[var(--muted-foreground)] hover:text-[var(--primary)] uppercase tracking-widest transition-colors"
-          >
-            {t('Collections.viewAllCollections')} →
-          </a>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          {relatedCollections.map((col) => {
-            const colTitle =
-              typeof col.data.title === 'object'
-                ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
-                : col.data.title;
-            const cleanSlug = getCollectionCanonicalSlug(col);
-            return (
-              <a
-                href={`/${locale}/collections/${cleanSlug}`}
-                class="inline-flex items-center gap-2 px-3 py-2 bg-[var(--card)] border-2 border-[var(--border)] font-bold text-xs text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-              >
-                <span class="text-[var(--primary)] text-[10px]">■</span>
-                {colTitle}
-                <span class="opacity-50">[{col.data.skills.length}]</span>
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-{
   relevantSurfaces.length > 0 && (
-    <section class="py-12 border-t-[3px] border-[var(--border)] bg-[var(--foreground)]/5">
+    <section class="py-12 border-t border-[var(--border)] bg-[var(--foreground)]/5">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-6">
-          {typedLocale === 'zh' ? '相关精选路径' : 'Related Authority Paths'}
-        </h2>
+        <h2 class="text-xl font-bold text-[var(--foreground)] mb-3">{typedLocale === 'zh' ? '下一步' : 'Next'}</h2>
         <p class="text-sm text-[var(--muted-foreground)] font-medium mb-6 max-w-2xl">
           {typedLocale === 'zh'
-            ? '围绕这个技能的方向继续浏览：相关合集、安装指南或场景方案。'
-            : 'Continue exploring around this skill: related collections, installation guides, or solution pages.'}
+            ? '继续筛选、对比或核对安全信息。'
+            : 'Continue searching, comparing, or checking safety.'}
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {relevantSurfaces.map((surface) => (
-            <a
-              href={surface.href}
-              class="group border-[2px] border-[var(--border)] bg-[var(--background)] p-5 hover:border-[var(--primary)] hover:shadow-[4px_4px_0px_0px_var(--primary)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all"
-            >
-              <h3 class="font-black text-sm uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary)] mb-2">
+            <a href={surface.href} class="skill-detail-card skill-detail-card-hover group p-5">
+              <h3 class="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] mb-2">
                 {surface.title}
               </h3>
               <p class="text-xs leading-5 text-[var(--muted-foreground)] font-medium">{surface.description}</p>
-              <div class="mt-3 text-xs font-black uppercase tracking-widest text-[var(--primary)] opacity-0 group-hover:opacity-100 transition-opacity">
-                {typedLocale === 'zh' ? '查看 →' : 'Open →'}
+              <div class="mt-3 text-xs font-bold text-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity">
+                {typedLocale === 'zh' ? '查看' : 'Open'}
               </div>
             </a>
           ))}

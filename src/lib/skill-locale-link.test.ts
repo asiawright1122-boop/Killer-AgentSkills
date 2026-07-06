@@ -21,6 +21,6 @@ describe('skill locale link governance', () => {
   });
 
   it('uses live governance data for known suppressed locale variants', () => {
-    expect(resolveSkillDetailLocale('00susu00', 'wiki-idea-llm-harness/wikillm', 'ja')).toBe('en');
+    expect(resolveSkillDetailLocale('langgenius', 'dify/frontend-code-review', 'ja')).toBe('en');
   });
 });

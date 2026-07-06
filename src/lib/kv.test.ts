@@ -4,6 +4,7 @@ import {
   setKV,
   getSkillsFromKV,
   getSkillsKV,
+  getSkillsListingTop,
   getSitemapSkillsFromKV,
   _clearSitemapSkillsCacheForTest,
   type Env,
@@ -66,6 +67,18 @@ function silenceExpectedKVLogs() {
   };
 }
 
+function expectLocalSnapshotFallback(result: any[]) {
+  expect(result.length).toBeGreaterThan(1000);
+  expect(result[0]).toEqual(
+    expect.objectContaining({
+      id: expect.any(String),
+      name: expect.any(String),
+      owner: expect.any(String),
+      repo: expect.any(String),
+    }),
+  );
+}
+
 const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(400);
 /**
  * Test fixture helper: adds an indexable README body AND the fields required
@@ -94,10 +107,44 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
   // Create D1 mock based on `skills` array for testing getSkillsFromKV/getSkillsKV
   const mockDB = {
     prepare: vi.fn((sql: string) => {
+      const sortedSkills = () =>
+        skills
+          .filter(Boolean)
+          .sort(
+            (a, b) =>
+              (b.rankScore || b.qualityScore || 0) - (a.rankScore || a.qualityScore || 0) ||
+              (b.stars || 0) - (a.stars || 0),
+          );
+      const toListingRow = (s: any) => ({
+        id: s.id,
+        owner: s.owner,
+        repo: s.repo,
+        name: s.name,
+        category: s.category,
+        stars: s.stars,
+        quality_score: s.qualityScore,
+        security_level: s.securityLevel,
+        source_trust: s.sourceTrust,
+        rank_score: s.rankScore,
+        last_audited_at: s.lastAuditedAt,
+        updated_at: s.updatedAt,
+        skillName: s.skillName,
+        description: typeof s.description === 'string' ? s.description : JSON.stringify(s.description || ''),
+        topics: JSON.stringify(s.topics || []),
+        source: s.source || 'cache',
+        qualityScore: s.qualityScore,
+        securityScore: s.securityScore,
+        sourceScore: s.sourceScore,
+        isTrustedRankingEligible: s.isTrustedRankingEligible,
+        riskFlags: JSON.stringify(s.riskFlags || []),
+        securityBrief: s.securityBrief,
+        primaryTrustReason: s.primaryTrustReason,
+        filePath: s.filePath,
+        seoDefinition: s.seo?.definition ? JSON.stringify(s.seo.definition) : undefined,
+      });
       const executeAll = () => {
-        if (sql.includes('ORDER BY stars DESC')) {
-          const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
-          return { success: true, results: sorted.map((s) => ({ data_json: JSON.stringify(s) })) };
+        if (sql.includes('SELECT data_json FROM skills')) {
+          return { success: true, results: sortedSkills().map((s) => ({ data_json: JSON.stringify(s) })) };
         }
         if (sql.includes('WHERE owner IS NOT NULL') || sql.includes('WHERE length(json_extract')) {
           return {
@@ -127,6 +174,9 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
                 seo: s.seo,
               })),
           };
+        }
+        if (sql.includes('FROM skills') && sql.includes('json_extract(data_json')) {
+          return { success: true, results: sortedSkills().map(toListingRow) };
         }
         return { success: true, results: [] };
       };
@@ -267,12 +317,12 @@ describe('getSkillsFromKV', () => {
     expect(result).toEqual(skills);
   });
 
-  it('should return empty array when DB binding is unavailable', async () => {
+  it('should fallback to local snapshot when DB binding is unavailable', async () => {
     const logs = silenceExpectedKVLogs();
     const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
     try {
       const result = await getSkillsFromKV(env);
-      expect(result).toEqual([]);
+      expectLocalSnapshotFallback(result);
       expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
       expect(logs.error).not.toHaveBeenCalled();
     } finally {
@@ -280,11 +330,11 @@ describe('getSkillsFromKV', () => {
     }
   });
 
-  it('should return empty array when env is null/undefined', async () => {
+  it('should fallback to local snapshot when env is null/undefined', async () => {
     const logs = silenceExpectedKVLogs();
     try {
       const result = await getSkillsFromKV(null as unknown as Env);
-      expect(result).toEqual([]);
+      expectLocalSnapshotFallback(result);
       expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
       expect(logs.error).not.toHaveBeenCalled();
     } finally {
@@ -298,7 +348,7 @@ describe('getSkillsFromKV', () => {
     expect(result).toEqual([]);
   });
 
-  it('should return empty array on D1 read error', async () => {
+  it('should fallback to local snapshot on D1 read error', async () => {
     const logs = silenceExpectedKVLogs();
     const env = createMockEnv({}, []);
     env.DB!.prepare = vi.fn().mockImplementation(() => {
@@ -307,7 +357,7 @@ describe('getSkillsFromKV', () => {
 
     try {
       const result = await getSkillsFromKV(env);
-      expect(result).toEqual([]);
+      expectLocalSnapshotFallback(result);
       expect(logs.warn).toHaveBeenCalledWith('[D1] Query failed, falling back to KV:', expect.any(Error));
       expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
       expect(logs.error).not.toHaveBeenCalled();
@@ -416,6 +466,45 @@ describe('getSkillsKV', () => {
 
     const result = await getSkillsKV(env, 'array-key');
     expect(result).toBeNull();
+  });
+});
+
+describe('getSkillsListingTop', () => {
+  it('maps trust and ranking fields from D1 listing rows', async () => {
+    const env = createMockEnv({}, [
+      {
+        id: 'trusted/skill',
+        name: 'trusted-skill',
+        owner: 'trusted',
+        repo: 'skill',
+        description: { en: 'Trusted skill' },
+        category: 'developer',
+        topics: ['agent-skills'],
+        stars: 10,
+        qualityScore: 55,
+        securityLevel: 'S',
+        sourceTrust: 'T2',
+        securityScore: 88,
+        sourceScore: 75,
+        rankScore: 87,
+        isTrustedRankingEligible: true,
+        riskFlags: [{ code: 'file_write', severity: 'info', label: 'local file write' }],
+        securityBrief: 'S security: local file write.',
+        primaryTrustReason: 'Public source with visible maintenance signals',
+        lastAuditedAt: '2026-07-05T00:00:00.000Z',
+        updatedAt: '2026-07-04T00:00:00.000Z',
+        source: 'cache',
+      },
+    ]);
+
+    const [skill] = await getSkillsListingTop(env, 1);
+
+    expect(skill.securityLevel).toBe('S');
+    expect(skill.sourceTrust).toBe('T2');
+    expect(skill.rankScore).toBe(87);
+    expect(skill.isTrustedRankingEligible).toBe(true);
+    expect(skill.riskFlags?.[0]?.code).toBe('file_write');
+    expect(skill.securityBrief).toBe('S security: local file write.');
   });
 });
 

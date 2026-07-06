@@ -1211,6 +1211,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       {n8nInternalLinks.map((item) => (
                         <a
                           href={item.href}
+                          rel={item.href.includes('/skills?q=') ? 'nofollow' : undefined}
                           class="rounded-md border border-[var(--border)] bg-[var(--card)] px-3 py-3 text-sm font-bold transition-colors hover:border-[var(--accent)] hover:bg-[var(--card-hover)]"
                         >
                           <span class="flex items-center justify-between gap-2">

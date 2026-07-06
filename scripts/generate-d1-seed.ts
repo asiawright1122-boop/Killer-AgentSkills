@@ -178,12 +178,16 @@ async function run() {
     const stars = escapeNumber(skill.stars);
     const forks = escapeNumber(skill.forks);
     const quality_score = escapeNumber(skill.qualityScore);
+    const security_level = escapeSql(skill.securityLevel || 'C');
+    const source_trust = escapeSql(skill.sourceTrust || 'T3');
+    const rank_score = escapeNumber(skill.rankScore || skill.qualityScore || 0);
+    const last_audited_at = escapeSql(skill.lastAuditedAt || skill.lastSynced || skill.updatedAt);
     const updated_at = escapeSql(skill.updatedAt);
     const last_synced = escapeSql(skill.lastSynced);
     const { json: rawJson, reduced } = shrinkSkillForSeed(skill);
     const content_hash = escapeSql(computePayloadHash(rawJson));
     const data_json = escapeSql(rawJson);
-    const statement = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
+    const statement = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, security_level, source_trust, rank_score, last_audited_at, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${security_level}, ${source_trust}, ${rank_score}, ${last_audited_at}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
     const ftsStatement = buildSearchText(skill, id, name, owner, repo, category);
     const combinedStatement = statement + ftsStatement;
 

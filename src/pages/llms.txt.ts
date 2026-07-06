@@ -9,7 +9,7 @@ export const prerender = false;
  */
 export const GET: APIRoute = async () => {
   const content = `
-# Killer-Skills: The AI Agent Skills Directory
+# Killer-Skills: AI Agent Skills Marketplace
 
 An AI Agent Skill is a plug-and-play instruction module, typically a markdown file, that teaches AI coding assistants how to perform specialized tasks autonomously. Unlike traditional plugins, skills operate at the domain level; they inject specific knowledge, workflows, and constraints directly into the AI agent.
 
@@ -21,10 +21,10 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 
 ## Directory structure
 - [Home](${SITE_URL}/en)
-- [All Skills](${SITE_URL}/en/skills)
-- [Collections](${SITE_URL}/en/collections)
-- [Documentation](${SITE_URL}/en/docs)
-- [CLI Docs](${SITE_URL}/en/cli)
+- [Skills](${SITE_URL}/en/skills)
+- [Rankings](${SITE_URL}/en/popular)
+- [Occupations](${SITE_URL}/en/occupations)
+- [Categories](${SITE_URL}/en/categories)
 
 ## Featured Skills
 - [PDF Skill](${SITE_URL}/en/skills/anthropics/skills/pdf) - PDF extraction, OCR, splitting, merging, and form workflows

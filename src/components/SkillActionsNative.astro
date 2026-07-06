@@ -51,15 +51,15 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
 >
   {/* Skeleton placeholders — replaced by script after localStorage check */}
   <div class="skill-actions-skeleton flex items-center gap-2">
-    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse"></div>
-    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse"></div>
+    <div class="w-10 h-10 rounded-lg bg-[var(--muted)] animate-pulse"></div>
+    <div class="w-10 h-10 rounded-lg bg-[var(--muted)] animate-pulse"></div>
   </div>
 
   {/* Actual buttons — hidden until script initializes them */}
   <div class="skill-actions-buttons hidden flex items-center gap-2">
     {/* Favorite toggle button */}
     <button
-      class="skill-fav-btn group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ease-out bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-700 hover:text-pink-500 dark:hover:text-pink-400"
+      class="skill-fav-btn group flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-out bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] hover:border-[var(--accent)]"
       aria-label={ariaAdd}
       aria-pressed="false"
     >
@@ -68,7 +68,7 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
 
     {/* Share button */}
     <button
-      class="skill-share-btn group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ease-out bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-cyan-300 dark:hover:border-cyan-700 hover:text-cyan-500 dark:hover:text-cyan-400"
+      class="skill-share-btn group flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-out bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] hover:border-[var(--accent)]"
       aria-label={ariaShare}
     >
       <span class="skill-share-icon-share"
@@ -109,16 +109,10 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
 
       if (isFav) {
         favBtn.classList.remove(
-          'bg-white',
-          'dark:bg-slate-900',
-          'text-slate-600',
-          'dark:text-slate-400',
-          'border-slate-200',
-          'dark:border-slate-700',
-          'hover:border-pink-300',
-          'dark:hover:border-pink-700',
-          'hover:text-pink-500',
-          'dark:hover:text-pink-400',
+          'bg-[var(--card)]',
+          'text-[var(--foreground)]',
+          'border-[var(--border)]',
+          'hover:border-[var(--accent)]',
         );
         favBtn.classList.add(
           'bg-pink-50',
@@ -161,16 +155,10 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
 
         if (result.isFavorite) {
           favBtn.classList.remove(
-            'bg-white',
-            'dark:bg-slate-900',
-            'text-slate-600',
-            'dark:text-slate-400',
-            'border-slate-200',
-            'dark:border-slate-700',
-            'hover:border-pink-300',
-            'dark:hover:border-pink-700',
-            'hover:text-pink-500',
-            'dark:hover:text-pink-400',
+            'bg-[var(--card)]',
+            'text-[var(--foreground)]',
+            'border-[var(--border)]',
+            'hover:border-[var(--accent)]',
           );
           favBtn.classList.add(
             'bg-pink-50',
@@ -198,16 +186,10 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
             'dark:hover:bg-pink-950/50',
           );
           favBtn.classList.add(
-            'bg-white',
-            'dark:bg-slate-900',
-            'text-slate-600',
-            'dark:text-slate-400',
-            'border-slate-200',
-            'dark:border-slate-700',
-            'hover:border-pink-300',
-            'dark:hover:border-pink-700',
-            'hover:text-pink-500',
-            'dark:hover:text-pink-400',
+            'bg-[var(--card)]',
+            'text-[var(--foreground)]',
+            'border-[var(--border)]',
+            'hover:border-[var(--accent)]',
           );
           favBtn.setAttribute('aria-pressed', 'false');
           favBtn.setAttribute('aria-label', ariaAdd);
@@ -248,16 +230,10 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
         const btn = shareBtn!;
         // Switch to copied visual state
         btn.classList.remove(
-          'bg-white',
-          'dark:bg-slate-900',
-          'text-slate-600',
-          'dark:text-slate-400',
-          'border-slate-200',
-          'dark:border-slate-700',
-          'hover:border-cyan-300',
-          'dark:hover:border-cyan-700',
-          'hover:text-cyan-500',
-          'dark:hover:text-cyan-400',
+          'bg-[var(--card)]',
+          'text-[var(--foreground)]',
+          'border-[var(--border)]',
+          'hover:border-[var(--accent)]',
         );
         btn.classList.add(
           'bg-green-50',
@@ -282,16 +258,10 @@ const ariaShare = labels?.shareSkill || 'Share this skill';
             'dark:border-green-800',
           );
           btn.classList.add(
-            'bg-white',
-            'dark:bg-slate-900',
-            'text-slate-600',
-            'dark:text-slate-400',
-            'border-slate-200',
-            'dark:border-slate-700',
-            'hover:border-cyan-300',
-            'dark:hover:border-cyan-700',
-            'hover:text-cyan-500',
-            'dark:hover:text-cyan-400',
+            'bg-[var(--card)]',
+            'text-[var(--foreground)]',
+            'border-[var(--border)]',
+            'hover:border-[var(--accent)]',
           );
           if (shareIconShare) shareIconShare.classList.remove('hidden');
           if (shareIconCopied) shareIconCopied.classList.add('hidden');

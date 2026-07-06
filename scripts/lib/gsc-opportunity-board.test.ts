@@ -157,7 +157,7 @@ describe('buildGscOpportunityBoardReport', () => {
       },
       currentPages: [
         {
-          entity: 'https://killer-skills.com/ja/skills/00susu00/wiki-idea-llm-harness/wikillm',
+          entity: 'https://killer-skills.com/ja/skills/langgenius/dify/frontend-code-review',
           clicks: 0,
           impressions: 5,
           ctr: 0,

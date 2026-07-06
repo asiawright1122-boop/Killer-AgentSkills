@@ -9,6 +9,10 @@ CREATE TABLE skills (
     stars INTEGER,
     forks INTEGER,
     quality_score INTEGER,
+    security_level TEXT,
+    source_trust TEXT,
+    rank_score INTEGER,
+    last_audited_at TEXT,
     updated_at TEXT,
     last_synced TEXT,
     content_hash TEXT,
@@ -18,6 +22,10 @@ CREATE TABLE skills (
 CREATE INDEX idx_skills_category ON skills(category);
 CREATE INDEX idx_skills_stars ON skills(stars DESC);
 CREATE INDEX idx_skills_quality ON skills(quality_score DESC);
+CREATE INDEX idx_skills_rank_score ON skills(rank_score DESC);
+CREATE INDEX idx_skills_security_level ON skills(security_level);
+CREATE INDEX idx_skills_source_trust ON skills(source_trust);
+CREATE INDEX idx_skills_trusted_rank ON skills(source_trust, security_level, rank_score DESC);
 CREATE INDEX idx_skills_updated_at ON skills(updated_at DESC);
 CREATE INDEX idx_skills_owner_repo ON skills(owner, repo);
 
@@ -98,4 +106,3 @@ CREATE TABLE IF NOT EXISTS gsc_url_inspection (
 
 CREATE INDEX IF NOT EXISTS idx_gsc_url_inspection_verdict ON gsc_url_inspection(verdict);
 CREATE INDEX IF NOT EXISTS idx_gsc_url_inspection_cluster ON gsc_url_inspection(cluster);
-

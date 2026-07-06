@@ -22,28 +22,23 @@ const isZh = locale === 'zh';
 ---
 
 <dialog
-  class="submit-skill-dialog backdrop:bg-black/60 backdrop:backdrop-blur-sm bg-transparent p-0 max-w-lg w-full shadow-[8px_8px_0px_0px_var(--border)]"
+  class="submit-skill-dialog backdrop:bg-black/60 backdrop:backdrop-blur-sm bg-transparent p-0 max-w-lg w-full"
   data-locale={locale}
 >
-  {/* ── Dialog Content ─────────────────────────────────────────────────── */}
-  <div
-    class="bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden"
-  >
+  <div class="skill-detail-card overflow-hidden">
     {/* Header */}
-    <div class="flex items-center justify-between px-6 py-4 border-b-4 border-[var(--border)] bg-[var(--card)]">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-[var(--border)] bg-[var(--card)]">
       <div class="flex items-center gap-3">
         <div
-          class="w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] font-black shadow-[2px_2px_0px_0px_var(--border)]"
+          class="w-8 h-8 rounded-md flex items-center justify-center bg-[var(--primary)] text-[var(--primary-foreground)] font-bold"
         >
           +
         </div>
-        <h2 class="text-xl font-black uppercase tracking-widest text-[var(--foreground)] mt-1">
+        <h2 class="text-xl font-bold text-[var(--foreground)] mt-1">
           {isZh ? '提交新技能' : 'Submit Skill'}
         </h2>
       </div>
-      <button
-        class="submit-close-btn p-1 uppercase font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-      >
+      <button class="submit-close-btn p-1 font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
         <X className="w-6 h-6" strokeWidth={3} />
       </button>
     </div>
@@ -52,7 +47,7 @@ const isZh = locale === 'zh';
     <div class="p-6 sm:p-8">
       {/* Error banner */}
       <div
-        class="submit-error mb-6 px-4 py-3 bg-rose-50 dark:bg-rose-950/30 border-2 border-rose-500 text-rose-700 dark:text-rose-400 font-bold text-sm shadow-[4px_4px_0px_0px_rgba(244,63,94,1)] hidden"
+        class="submit-error mb-6 px-4 py-3 rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-500 text-rose-700 dark:text-rose-400 font-bold text-sm hidden"
         data-role="error"
       >
       </div>
@@ -60,7 +55,7 @@ const isZh = locale === 'zh';
       {/* ── Step: Input ──────────────────────────────────────────────────── */}
       <form class="submit-step space-y-6" data-step="input">
         <div>
-          <label class="block text-sm font-black uppercase tracking-widest text-[var(--foreground)] mb-3 font-mono">
+          <label class="block text-sm font-bold text-[var(--foreground)] mb-3 font-mono">
             {isZh ? 'GitHub 仓库地址' : 'GitHub Repository URL'}
           </label>
           <div class="relative">
@@ -86,7 +81,7 @@ const isZh = locale === 'zh';
               required
               name="repo-url"
               placeholder="https://github.com/owner/repo"
-              class="block w-full pl-12 pr-4 py-4 text-base bg-[var(--card)] border-[3px] border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 focus:border-[var(--primary)] transition-colors font-mono"
+              class="block w-full rounded-lg pl-12 pr-4 py-4 text-base bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-0 focus:border-[var(--accent)] transition-colors font-mono"
             />
           </div>
           <p class="mt-3 text-xs text-[var(--muted-foreground)] font-bold font-mono">
@@ -99,7 +94,7 @@ const isZh = locale === 'zh';
         </div>
         <button
           type="submit"
-          class="submit-validate-btn w-full flex items-center justify-center gap-2 py-4 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all disabled:opacity-50 disabled:pointer-events-none"
+          class="submit-validate-btn market-button w-full py-4 text-sm disabled:opacity-50 disabled:pointer-events-none"
         >
           <span class="submit-validate-label flex items-center gap-2">
             {isZh ? '解析验证' : 'Validate Repo'}
@@ -114,21 +109,17 @@ const isZh = locale === 'zh';
 
       {/* ── Step: Preview ───────────────────────────────────────────────── */}
       <div class="submit-step space-y-6 hidden" data-step="preview">
-        <div class="p-5 border-[3px] border-dashed border-[var(--border)] bg-[var(--card)] relative">
-          <div
-            class="absolute -top-3 -left-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] px-2 py-1 text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)] animate-bounce font-mono"
-          >
+        <div class="p-5 rounded-lg border border-dashed border-[var(--border)] bg-[var(--card)] relative">
+          <div class="market-chip mb-3 px-2 py-1 text-xs font-mono">
             {isZh ? '解析成功!' : 'Found!'}
           </div>
-          <h3 class="submit-preview-name text-xl font-black text-[var(--foreground)] mb-2 mt-2 break-words"></h3>
+          <h3 class="submit-preview-name text-xl font-bold text-[var(--foreground)] mb-2 mt-2 break-words"></h3>
           <p
             class="submit-preview-desc text-sm font-bold text-[var(--muted-foreground)] mb-4 font-mono leading-relaxed"
           >
           </p>
-          <div class="flex flex-wrap gap-4 text-xs font-black uppercase tracking-widest font-mono">
-            <div
-              class="flex items-center gap-1.5 text-[var(--foreground)] pt-3 border-t-2 border-[var(--border)] w-full"
-            >
+          <div class="flex flex-wrap gap-4 text-xs font-bold font-mono">
+            <div class="flex items-center gap-1.5 text-[var(--foreground)] pt-3 border-t border-[var(--border)] w-full">
               <img
                 class="submit-preview-avatar w-5 h-5 border border-[var(--border)]"
                 alt=""
@@ -144,13 +135,13 @@ const isZh = locale === 'zh';
         <div class="flex gap-4">
           <button
             type="button"
-            class="submit-back-btn flex-1 py-4 bg-[var(--card)] text-[var(--foreground)] border-[3px] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-sm font-black uppercase tracking-widest transition-colors"
+            class="submit-back-btn flex-1 rounded-lg py-4 bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-sm font-bold transition-colors"
           >
             {isZh ? '上一步' : 'Back'}
           </button>
           <button
             type="button"
-            class="submit-confirm-btn flex-[2] flex items-center justify-center gap-2 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] border-[3px] border-[var(--border)] hover:bg-emerald-500 hover:text-white text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all disabled:opacity-50"
+            class="submit-confirm-btn market-button flex-[2] py-4 bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)] text-sm disabled:opacity-50"
           >
             <span class="submit-confirm-label flex items-center gap-2">
               {isZh ? '确认提交' : 'Submit Skill'}
@@ -167,12 +158,12 @@ const isZh = locale === 'zh';
       {/* ── Step: Success ───────────────────────────────────────────────── */}
       <div class="submit-step text-center py-8 space-y-6 hidden" data-step="success">
         <div
-          class="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 border-4 border-emerald-500 rounded-full shadow-[8px_8px_0px_0px_rgba(16,185,129,1)]"
+          class="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-500 rounded-full"
         >
           <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400" strokeWidth={3} />
         </div>
         <div>
-          <h3 class="text-2xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">
+          <h3 class="text-2xl font-bold text-[var(--foreground)] mb-2">
             {isZh ? '提交已接收!' : 'Submission Received!'}
           </h3>
           <p class="text-[var(--muted-foreground)] font-bold text-sm font-mono leading-relaxed">
@@ -183,10 +174,7 @@ const isZh = locale === 'zh';
             }
           </p>
         </div>
-        <button
-          type="button"
-          class="submit-close-success-btn w-full mt-4 py-4 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
-        >
+        <button type="button" class="submit-close-success-btn market-button w-full mt-4 py-4">
           {isZh ? '关闭' : 'Close'}
         </button>
       </div>

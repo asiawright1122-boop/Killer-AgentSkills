@@ -161,7 +161,7 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('Location')).toBe('/sitemap-skills.xml');
   });
 
-  it('strips first-page skills listing params back to the canonical listing URL', async () => {
+  it('canonicalizes legacy skills listing params into the current directory URL', async () => {
     let nextCalled = false;
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills?topic=workflow&page=1'),
@@ -176,7 +176,24 @@ describe('middleware skill route handling', () => {
 
     expect(nextCalled).toBe(false);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('/en/skills?topic=workflow');
+    expect(response.headers.get('Location')).toBe('/en/skills?q=workflow');
+  });
+
+  it('keeps current skills listing source and sort filters canonical', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?source=official&sort=latest'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
   });
 
   it('keeps public skill detail routes reachable when the repo segment contains a file-like suffix', async () => {
@@ -212,7 +229,7 @@ describe('middleware skill route handling', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('Cache-Control')).toBe(
-      'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400',
+      import.meta.env.DEV ? 'no-store' : 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400',
     );
   });
 
@@ -344,7 +361,7 @@ describe('middleware skill route handling', () => {
   it('redirects suppressed locale skill pages to their governed canonical locale', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/de/skills/langgenius/dify/backend-code-review'),
+      createContext('https://killer-skills.com/ja/skills/langgenius/dify/frontend-code-review'),
       async () => {
         nextCalled = true;
         return new Response('<html></html>', {
@@ -356,7 +373,7 @@ describe('middleware skill route handling', () => {
 
     expect(nextCalled).toBe(false);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('/en/skills/langgenius/dify/backend-code-review');
+    expect(response.headers.get('Location')).toBe('/en/skills/langgenius/dify/frontend-code-review');
   });
 
   it('returns 410 for owner-only skill trap paths instead of canonicalizing the trailing slash', async () => {

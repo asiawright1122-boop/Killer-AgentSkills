@@ -64,10 +64,7 @@ Allow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml
 Sitemap: ${SITE_URL}/sitemap-skills.xml
-Sitemap: ${SITE_URL}/sitemap-docs.xml
-Sitemap: ${SITE_URL}/sitemap-blog.xml
 Sitemap: ${SITE_URL}/sitemap-static.xml
-Sitemap: ${SITE_URL}/sitemap-collections.xml
 
 # IndexNow: notify search engines of new/updated URLs instantly
 # Key file at /killer-skills-indexnow-key.txt

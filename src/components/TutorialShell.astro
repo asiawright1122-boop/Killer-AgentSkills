@@ -13,8 +13,8 @@ const { title, description, tocItems = [] } = Astro.props;
   {
     tocItems.length > 0 && (
       <aside class="col-span-1 hidden md:block">
-        <div class="sticky top-24 bg-[var(--card)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-6">
-          <h3 class="font-black text-lg uppercase tracking-widest border-b-4 border-[var(--border)] pb-4 mb-4">
+        <div class="skill-detail-surface sticky top-24 p-6">
+          <h3 class="mb-4 border-b border-[var(--border)] pb-4 text-lg font-bold text-[var(--foreground)]">
             Table of Contents
           </h3>
           <nav class="flex flex-col gap-3 font-bold text-[var(--muted-foreground)]" aria-label="Table of Contents">
@@ -22,8 +22,8 @@ const { title, description, tocItems = [] } = Astro.props;
               <a
                 href={`#${item.id}`}
                 class:list={[
-                  'hover:text-[var(--foreground)] hover:translate-x-1 transition-transform',
-                  item.level > 2 ? 'pl-4 text-sm uppercase tracking-wide' : 'uppercase',
+                  'hover:text-[var(--accent)] hover:translate-x-1 transition-transform',
+                  item.level > 2 ? 'pl-4 text-sm' : '',
                 ]}
               >
                 {item.label}
@@ -37,11 +37,11 @@ const { title, description, tocItems = [] } = Astro.props;
 
   <main
     class:list={[
-      'bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-12 neo-markdown',
+      'skill-detail-surface p-8 md:p-12 neo-markdown',
       tocItems.length > 0 ? 'col-span-1 md:col-span-3' : 'col-span-1 md:col-span-4',
     ]}
   >
-    <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight border-b-4 border-[var(--border)] pb-6">
+    <h1 class="border-b border-[var(--border)] pb-6 text-4xl md:text-5xl font-bold text-balance">
       {title}
     </h1>
     <p class="text-xl font-bold text-[var(--muted-foreground)] mb-12">{description}</p>
@@ -52,10 +52,9 @@ const { title, description, tocItems = [] } = Astro.props;
 <style is:global>
   .neo-markdown h2 {
     font-size: clamp(1.75rem, 2vw, 2rem);
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-bottom: 4px solid var(--border);
+    font-weight: 700;
+    letter-spacing: 0;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 1rem;
     margin-top: 4rem;
     margin-bottom: 2rem;
@@ -64,8 +63,7 @@ const { title, description, tocItems = [] } = Astro.props;
   .neo-markdown h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     color: var(--foreground);
@@ -74,9 +72,9 @@ const { title, description, tocItems = [] } = Astro.props;
     scroll-margin-top: 7rem;
   }
   .neo-markdown pre {
-    background: var(--card);
-    border: 4px solid var(--border);
-    box-shadow: 6px 6px 0 0 var(--primary);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
     padding: 1.5rem;
     margin: 2rem 0;
     overflow-x: auto;
@@ -91,9 +89,10 @@ const { title, description, tocItems = [] } = Astro.props;
       Liberation Mono,
       Courier New,
       monospace;
-    color: #10b981;
+    color: var(--accent);
     font-weight: 700;
-    background: var(--card);
+    background: var(--muted);
+    border-radius: 0.35rem;
     padding: 0 0.25rem;
     position: relative;
   }
@@ -106,15 +105,13 @@ const { title, description, tocItems = [] } = Astro.props;
     opacity: 0.9;
   }
   .neo-markdown a {
-    color: var(--primary);
+    color: var(--accent);
     text-decoration: underline;
-    text-decoration-thickness: 4px;
+    text-decoration-thickness: 2px;
     text-underline-offset: 4px;
     transition: all 0.2s ease;
   }
   .neo-markdown a:hover {
-    background: var(--primary);
-    color: var(--primary-foreground);
-    text-decoration: none;
+    color: var(--foreground);
   }
 </style>

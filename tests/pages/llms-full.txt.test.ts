@@ -48,33 +48,18 @@ describe('GET /llms-full.txt', () => {
     expect(body).not.toContain('### MCP Servers (Model Context Protocol)');
   });
 
-  it('keeps curated collection counts aligned with the current collection data', async () => {
+  it('keeps llms-full aligned with the current core marketplace routes', async () => {
     const mod = await import('../../src/pages/llms-full.txt');
     const response = await mod.GET({} as never);
     const body = await readBody(response);
 
-    expect(body).toContain(
-      '| Top AI Agent Skills | 7 | https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools |',
-    );
-    expect(body).not.toContain('https://killer-skills.com/en/collections/top-ai-agent-platforms-orchestration-tools/');
-    expect(body).toContain(
-      '| Top Developer Tools | 12 | https://killer-skills.com/en/collections/top-developer-tooling-ai-agent-work |',
-    );
-    expect(body).toContain(
-      '| Top Workflow Automation Skills | 9 | https://killer-skills.com/en/collections/top-agent-workflow-automation-tools |',
-    );
-    expect(body).toContain(
-      '| Top Python Skills | 12 | https://killer-skills.com/en/collections/top-python-ai-agent-tools-developer-workflows |',
-    );
-    expect(body).toContain(
-      '| Top React Skills | 12 | https://killer-skills.com/en/collections/top-react-ai-tools-ui-workflows-component-development |',
-    );
-    expect(body).toContain(
-      '| Top TypeScript Skills | 12 | https://killer-skills.com/en/collections/top-typescript-ai-tools-developer-workflows |',
-    );
-    expect(body).toContain(
-      '| Top DevOps Skills | 6 | https://killer-skills.com/en/collections/top-devops-operations-automation-tools |',
-    );
+    expect(body).toContain('| Home | https://killer-skills.com/en | Marketplace entry |');
+    expect(body).toContain('| Skills | https://killer-skills.com/en/skills | Search and filter the complete directory |');
+    expect(body).toContain('| Rankings | https://killer-skills.com/en/popular | Popular and latest skills |');
+    expect(body).toContain('| Occupations | https://killer-skills.com/en/occupations | Browse skills by role and task |');
+    expect(body).toContain('| Categories | https://killer-skills.com/en/categories | Browse skills by capability |');
+    expect(body).not.toContain('https://killer-skills.com/en/collections/');
+    expect(body).not.toContain('| Top AI Agent Skills |');
     expect(body).not.toContain('| File & Document Automation Tools | 10+ |');
     expect(body).not.toContain('| Top Workflow Automation Skills | 15+ |');
   });

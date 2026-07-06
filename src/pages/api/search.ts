@@ -38,6 +38,20 @@ function normalizeSource(source: unknown): string {
   return source.replace(/^"(.*)"$/, '$1');
 }
 
+function normalizeNumber(value: unknown, fallback = 0): number {
+  const parsed = typeof value === 'number' ? value : Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function trustBoostFrom(data: { rankScore?: unknown; sourceTrust?: unknown; securityLevel?: unknown }): number {
+  const rankScore = Math.max(0, Math.min(normalizeNumber(data.rankScore), 100)) / 100;
+  const sourceBoost = data.sourceTrust === 'T1' ? 0.0025 : data.sourceTrust === 'T2' ? 0.001 : 0;
+  const securityBoost =
+    data.securityLevel === 'S+' ? 0.0025 : data.securityLevel === 'S' ? 0.002 : data.securityLevel === 'A' ? 0.001 : 0;
+
+  return rankScore * 0.004 + sourceBoost + securityBoost;
+}
+
 function sanitizeSearchResult<T extends Record<string, unknown>>(result: T): T {
   return Object.fromEntries(
     Object.entries(result).map(([key, value]) => [
@@ -62,6 +76,9 @@ function mapSkillResult(skill: UnifiedSkill, index: number, total: number, local
     stars: skill.stars || 0,
     category: skill.category || '',
     source: skill.source || 'cache',
+    rankScore: skill.rankScore || skill.qualityScore || 0,
+    securityLevel: skill.securityLevel || 'C',
+    sourceTrust: skill.sourceTrust || 'T3',
   });
 }
 
@@ -128,12 +145,15 @@ export const GET: APIRoute = async ({ request, locals }) => {
                 s.name,
                 s.stars,
                 s.category,
+                s.rank_score AS rankScore,
+                s.security_level AS securityLevel,
+                s.source_trust AS sourceTrust,
                 json_extract(s.data_json, '$.source') AS source,
                 bm25(skills_fts) AS rank
               FROM skills_fts
               JOIN skills s ON s.id = skills_fts.id
               WHERE skills_fts MATCH ?
-              ORDER BY rank
+              ORDER BY rank, COALESCE(s.rank_score, s.quality_score, 0) DESC
               LIMIT ?
             `,
             )
@@ -161,6 +181,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
         category: string;
         stars: number;
         source: string;
+        rankScore: number;
+        securityLevel: string;
+        sourceTrust: string;
       }
     >();
 
@@ -168,13 +191,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
     keywordMatches.forEach((row, index) => {
       const rrfScore = 1 / (rrfK + index + 1); // Exact match rank 1 gets highest RRF score from exact matching
       combinedScores.set(row.id, {
-        score: rrfScore,
+        score: rrfScore + trustBoostFrom(row),
         owner: row.owner,
         repo: row.repo,
         name: row.name || row.repo,
         category: row.category || '',
         stars: Number(row.stars || 0),
         source: normalizeSource(row.source),
+        rankScore: normalizeNumber(row.rankScore),
+        securityLevel: String(row.securityLevel || 'C'),
+        sourceTrust: String(row.sourceTrust || 'T3'),
       });
     });
 
@@ -183,17 +209,20 @@ export const GET: APIRoute = async ({ request, locals }) => {
       const rrfScore = 1.2 / (rrfK + index + 1); // Slight 20% boost to semantic matches
       const existing = combinedScores.get(match.id);
       if (existing) {
-        existing.score += rrfScore; // Additive RRF
+        existing.score += rrfScore + trustBoostFrom(existing); // Additive RRF
       } else {
         const meta = match.metadata || {};
         combinedScores.set(match.id, {
-          score: rrfScore,
+          score: rrfScore + trustBoostFrom(meta),
           owner: (meta.owner as string) || '',
           repo: (meta.repo as string) || '',
           name: (meta.name as string) || (meta.repo as string) || match.id,
           category: (meta.category as string) || '',
           stars: typeof meta.stars === 'number' ? meta.stars : 0,
           source: 'cache',
+          rankScore: normalizeNumber(meta.rankScore),
+          securityLevel: String(meta.securityLevel || 'C'),
+          sourceTrust: String(meta.sourceTrust || 'T3'),
         });
       }
     });
@@ -238,6 +267,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
           stars: data.stars,
           category: data.category,
           source: data.source,
+          rankScore: data.rankScore,
+          securityLevel: data.securityLevel,
+          sourceTrust: data.sourceTrust,
         });
       });
 

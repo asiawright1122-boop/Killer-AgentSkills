@@ -1,0 +1,29 @@
+---
+import SkillCard from './SkillCard.astro';
+import type { UnifiedSkill } from '../lib/public-skill-catalog';
+
+interface Props {
+  skills: UnifiedSkill[];
+  locale: string;
+  messages?: Record<string, any>;
+  emptyTitle?: string;
+  emptyText?: string;
+}
+
+const { skills, locale, messages, emptyTitle, emptyText } = Astro.props;
+---
+
+{
+  skills.length > 0 ? (
+    <div class="marketplace-skill-grid">
+      {skills.map((skill) => (
+        <SkillCard skill={skill} locale={locale} messages={messages} />
+      ))}
+    </div>
+  ) : (
+    <div class="marketplace-empty">
+      <strong>{emptyTitle || (locale.startsWith('zh') ? '暂无结果' : 'No results')}</strong>
+      {emptyText && <span>{emptyText}</span>}
+    </div>
+  )
+}

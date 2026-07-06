@@ -417,7 +417,7 @@ export const authoritySurfacePublicData = {
       title: { en: 'Full Skills Directory', zh: '全量 Skills 目录' },
       description: {
         en: 'Browse the full skills directory when you want wider coverage after checking curated starting points.',
-        zh: '看过精选入口后，如果还需要更广的覆盖范围，可以继续浏览完整 skills 目录。',
+        zh: '需要更广覆盖范围时，可以继续浏览完整 Skills 目录。',
       },
       placements: ['home', 'skills', 'collections', 'solutions'],
     },

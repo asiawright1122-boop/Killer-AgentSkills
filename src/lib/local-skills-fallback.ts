@@ -8,6 +8,7 @@
 
 import type { SkillListingItem } from './kv';
 import type { TrackedSkillFallbackRow } from './skills-fallback';
+import localSkillsSnapshot from './local-skills-snapshot.json';
 
 let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
@@ -41,6 +42,12 @@ export async function getLocalSkillsFallback(): Promise<SkillListingItem[]> {
   const mainCache = await readJsonFile<SkillListingItem[] | { skills: SkillListingItem[] }>('skills-cache.json');
   if (mainCache) {
     _localSkillsCache = Array.isArray(mainCache) ? mainCache : mainCache.skills || [];
+    _localSkillsCacheTime = Date.now();
+    return _localSkillsCache || [];
+  }
+
+  if (Array.isArray(localSkillsSnapshot) && localSkillsSnapshot.length > 0) {
+    _localSkillsCache = localSkillsSnapshot as SkillListingItem[];
     _localSkillsCacheTime = Date.now();
     return _localSkillsCache || [];
   }

@@ -12,6 +12,16 @@ import type { UnifiedSkill } from './skills';
  * Used to break ties when Fuse.js match scores are similar.
  */
 export function calculateQualityScore(skill: UnifiedSkill): number {
+  if (typeof skill.rankScore === 'number') {
+    const rankScore = Math.max(0, Math.min(skill.rankScore / 100, 1));
+    const securityBonus =
+      skill.securityLevel === 'S+' ? 0.12 : skill.securityLevel === 'S' ? 0.1 : skill.securityLevel === 'A' ? 0.06 : 0;
+    const sourceBonus = skill.sourceTrust === 'T1' ? 0.1 : skill.sourceTrust === 'T2' ? 0.05 : 0;
+    const popularityScore = Math.min(Math.log10((skill.stars || 0) + 1) / 5, 1);
+
+    return Math.min(rankScore * 0.75 + securityBonus + sourceBonus + popularityScore * 0.08, 1);
+  }
+
   let qualityScore = 0;
 
   // === Quality score (weight 60%) ===

@@ -72,7 +72,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         const params: (string | number)[] = [];
 
         let joinFts = '';
-        let orderBy = 'ORDER BY quality_score DESC, stars DESC';
+        let orderBy = 'ORDER BY COALESCE(s.rank_score, s.quality_score, 0) DESC, s.stars DESC';
 
         if (query.trim()) {
           // Sanitize and format for FTS5 prefix matching: "word1"* AND "word2"*
@@ -85,7 +85,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
             joinFts = `JOIN skills_fts f ON s.id = f.id`;
             condition += `WHERE skills_fts MATCH ? `;
             params.push(ftsQuery);
-            orderBy = 'ORDER BY f.rank ASC, s.quality_score DESC, s.stars DESC';
+            orderBy = 'ORDER BY f.rank ASC, COALESCE(s.rank_score, s.quality_score, 0) DESC, s.stars DESC';
           }
         }
 
@@ -158,11 +158,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (query.trim()) {
       _skills = searchSkills(_skills, query, locale);
     } else {
-      // No query: sort by source quality then stars
-      const sourceOrder: Record<string, number> = { verified: 3, featured: 2, cache: 1 };
+      // No query: mirror the marketplace trusted-ranking order.
       _skills.sort((a: UnifiedSkill, b: UnifiedSkill) => {
-        const sourceCompare = (sourceOrder[b.source] || 0) - (sourceOrder[a.source] || 0);
-        if (sourceCompare !== 0) return sourceCompare;
+        const rankCompare = (b.rankScore || b.qualityScore || 0) - (a.rankScore || a.qualityScore || 0);
+        if (rankCompare !== 0) return rankCompare;
         return (b.stars || 0) - (a.stars || 0);
       });
     }

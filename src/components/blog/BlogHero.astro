@@ -29,11 +29,11 @@ const displayCategory = post.data.category
 <a
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
   aria-label={t('Blog.readArticle') + ' - ' + post.data.title}
-  class="brut-card group relative block w-full bg-[var(--card)] flex flex-col md:flex-row h-auto md:min-h-[450px]"
+  class="skill-list-card skill-list-card-hover group relative block w-full flex flex-col md:flex-row h-auto md:min-h-[420px] overflow-hidden"
 >
   {/* Image Section */}
   <div
-    class="relative w-full md:w-1/2 h-[300px] md:h-auto border-b-4 md:border-b-0 md:border-r-4 border-[var(--foreground)] overflow-hidden bg-[var(--primary)] flex-shrink-0"
+    class="relative w-full md:w-1/2 h-[300px] md:h-auto border-b md:border-b-0 md:border-r border-[var(--border)] overflow-hidden bg-[var(--muted)] flex-shrink-0"
   >
     {
       post.data.heroImage ? (
@@ -47,8 +47,8 @@ const displayCategory = post.data.category
           decoding="async"
         />
       ) : (
-        <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-6xl tracking-tighter mix-blend-overlay">
-          IMAGE MISSING
+        <div class="w-full h-full bg-[var(--muted)] flex items-center justify-center font-bold text-sm text-[var(--muted-foreground)]">
+          Preview unavailable
         </div>
       )
     }
@@ -58,21 +58,15 @@ const displayCategory = post.data.category
   <div class="p-8 md:p-12 flex flex-col justify-center w-full md:w-1/2">
     <div class="flex flex-wrap items-center gap-3 mb-6">
       <span
-        class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold"
+        class="market-chip px-2 py-1 text-xs bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)]"
       >
-        [{tb.featured}]
+        {tb.featured}
       </span>
-      {
-        post.data.category && (
-          <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
-            {displayCategory}
-          </span>
-        )
-      }
+      {post.data.category && <span class="market-chip px-2 py-1 text-xs">{displayCategory}</span>}
     </div>
 
     <h2
-      class="text-3xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-snug group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit px-1 -ml-1"
+      class="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 leading-snug group-hover:text-[var(--accent)] transition-colors"
     >
       {post.data.title}
     </h2>
@@ -81,16 +75,16 @@ const displayCategory = post.data.category
       {post.data.description}
     </p>
 
-    <div class="flex items-center gap-6 mt-auto border-t-[3px] border-[var(--border)] pt-6">
+    <div class="flex items-center gap-6 mt-auto border-t border-[var(--border)] pt-6">
       <div class="flex items-center gap-2">
         <div
-          class="w-8 h-8 flex items-center justify-center text-xs text-[var(--background)] bg-[var(--foreground)] font-black border-2 border-[var(--foreground)]"
+          class="w-8 h-8 rounded-md flex items-center justify-center text-xs text-[var(--background)] bg-[var(--foreground)] font-bold"
         >
           {post.data.author.charAt(0).toUpperCase()}
         </div>
-        <span class="font-bold text-[var(--foreground)] uppercase text-sm tracking-wider">{post.data.author}</span>
+        <span class="font-bold text-[var(--foreground)] text-sm">{post.data.author}</span>
       </div>
-      <div class="flex items-center gap-2 text-[var(--muted-foreground)] font-mono font-bold text-sm uppercase">
+      <div class="flex items-center gap-2 text-[var(--muted-foreground)] font-mono font-bold text-sm">
         <Calendar size={16} strokeWidth={2.5} />
         <time datetime={post.data.pubDate.toISOString()}>
           {formattedDate}

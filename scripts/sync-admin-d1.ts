@@ -89,13 +89,17 @@ async function run() {
   const stars = escapeNumber(targetSkill.stars);
   const forks = escapeNumber(targetSkill.forks);
   const quality_score = escapeNumber(targetSkill.qualityScore);
+  const security_level = escapeSql(targetSkill.securityLevel || 'C');
+  const source_trust = escapeSql(targetSkill.sourceTrust || 'T3');
+  const rank_score = escapeNumber(targetSkill.rankScore || targetSkill.qualityScore || 0);
+  const last_audited_at = escapeSql(targetSkill.lastAuditedAt || targetSkill.lastSynced || targetSkill.updatedAt);
   const updated_at = escapeSql(targetSkill.updatedAt);
   const last_synced = escapeSql(targetSkill.lastSynced);
   const rawJson = JSON.stringify(targetSkill);
   const content_hash = escapeSql(computePayloadHash(rawJson));
   const data_json = escapeSql(rawJson);
 
-  const sqlContent = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
+  const sqlContent = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, security_level, source_trust, rank_score, last_audited_at, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${security_level}, ${source_trust}, ${rank_score}, ${last_audited_at}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
   const publicOutputIssues = findPublicD1SqlGuardIssues(sqlContent, d1SqlPath);
   if (publicOutputIssues.length > 0) {
     throw new Error(

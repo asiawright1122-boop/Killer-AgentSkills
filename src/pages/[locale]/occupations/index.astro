@@ -1,0 +1,80 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import type { Env } from '../../../lib/kv';
+import { getMarketplaceSkills } from '../../../lib/marketplace-filters';
+import { buildOccupationSummaries } from '../../../lib/occupations';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+]);
+const t = useTranslations(messages);
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const occupations = buildOccupationSummaries(marketplaceSkills, typedLocale).filter((item) => item.skillCount > 0);
+const pageTitle = isZhCopy ? '职业' : 'Occupations';
+const pageDescription = isZhCopy
+  ? '按岗位和任务路径浏览 AI Agent Skills。'
+  : 'Browse AI agent skills by role and task path.';
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', 'occupations');
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? '职业' : 'Occupations'}
+      title={pageTitle}
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? '搜索职业或任务' : 'Search occupation or task'}
+      searchAction={`/${locale}/search`}
+      countLabel={isZhCopy ? `${occupations.length} 个职业入口` : `${occupations.length} occupation paths`}
+      actions={[
+        { href: `/${locale}/skills`, label: 'Skills' },
+        { href: `/${locale}/categories`, label: isZhCopy ? '分类' : 'Categories' },
+      ]}
+    />
+
+    <MarketplaceSection
+      title={isZhCopy ? '全部职业' : 'All Occupations'}
+      description={isZhCopy
+        ? '每个职业页按真实任务拆分，再进入可安装 Skills。'
+        : 'Each occupation page is organized by practical tasks before listing installable skills.'}
+    >
+      <div class="marketplace-card-grid">
+        {
+          occupations.map((occupation) => (
+            <a class="marketplace-card-link" href={occupation.href}>
+              <div class="marketplace-meta-row">
+                <span>{isZhCopy ? `${occupation.skillCount} 个 Skills` : `${occupation.skillCount} skills`}</span>
+              </div>
+              <h3>{occupation.label}</h3>
+              <p>{occupation.description}</p>
+              <div class="marketplace-pill-list">
+                {occupation.tasks.slice(0, 3).map((task) => (
+                  <span class="market-chip px-2 py-1">{task}</span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </MarketplaceSection>
+  </main>
+</Layout>

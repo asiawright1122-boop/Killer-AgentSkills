@@ -82,10 +82,10 @@ describe('GET /api/search', () => {
   it('uses locale governance when building hrefs from D1 keyword matches', async () => {
     const mockDB = createMockD1([
       {
-        id: '00susu00/wiki-idea-llm-harness/wikillm',
-        owner: '00susu00',
-        repo: 'wiki-idea-llm-harness',
-        name: '<thinking>private match notes</thinking>Today',
+        id: 'langgenius/dify/frontend-code-review',
+        owner: 'langgenius',
+        repo: 'dify',
+        name: '<thinking>private match notes</thinking>Code Review',
         stars: 10,
         category: 'Private analysis:\ninternal category\n\ndocumentation',
         source: 'cache',
@@ -103,12 +103,12 @@ describe('GET /api/search', () => {
     const body = (await res.json()) as { results: unknown[] };
     expect(body.results).toEqual([
       expect.objectContaining({
-        id: '00susu00/wiki-idea-llm-harness/wikillm',
-        name: 'Today',
+        id: 'langgenius/dify/frontend-code-review',
+        name: 'Code Review',
         category: 'documentation',
-        routePath: 'wiki-idea-llm-harness/wikillm',
+        routePath: 'dify/frontend-code-review',
         detailLocale: 'en',
-        href: '/en/skills/00susu00/wiki-idea-llm-harness/wikillm',
+        href: '/en/skills/langgenius/dify/frontend-code-review',
       }),
     ]);
   });

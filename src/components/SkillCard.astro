@@ -7,6 +7,7 @@ import { getCategoryDef, normalizeCategoryId } from '../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../lib/skill-locale-link';
 import { sanitizePublicSkillCopy } from '../lib/public-skill-copy';
+import type { RiskFlag, SecurityLevel, SourceTrustLevel } from '../lib/skill-trust';
 import CardOverlayLink from './CardOverlayLink.astro';
 
 // Install command prefix
@@ -24,6 +25,13 @@ interface Props {
     forks?: number;
     topics?: string[];
     category?: string;
+    securityLevel?: SecurityLevel;
+    sourceTrust?: SourceTrustLevel;
+    securityScore?: number;
+    rankScore?: number;
+    riskFlags?: RiskFlag[];
+    securityBrief?: string;
+    sourceKind?: 'official' | 'community';
     verified?: boolean;
     data?: {
       name?: string;
@@ -96,32 +104,40 @@ const noDescriptionLabel = resolveCopy('Common.noDescription', 'No description a
 const copyLabel = resolveCopy('Common.copy', 'COPY');
 const copiedLabel = resolveCopy('Common.copied', 'OK');
 const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
+const isZhLocale = locale.startsWith('zh');
+const securityLevel = skill.securityLevel || (isVerified ? 'S' : 'C');
+const rankScore = typeof skill.rankScore === 'number' ? Math.round(skill.rankScore) : undefined;
+const sourceKind = skill.sourceKind || (isVerified ? 'official' : 'community');
+const sourceKindLabel =
+  sourceKind === 'official' ? (isZhLocale ? '官方' : 'Official') : isZhLocale ? '社区' : 'Community';
+const reviewedLabel = isZhLocale ? '已审查' : 'Reviewed';
+const riskLabels = new Map([
+  ['requires_token', isZhLocale ? 'Token' : 'Token'],
+  ['file_write', isZhLocale ? '写文件' : 'File write'],
+  ['external_network', isZhLocale ? '联网' : 'Network'],
+]);
+const riskEvidence = (skill.riskFlags || [])
+  .map((flag) => riskLabels.get(flag.code))
+  .filter((label, index, labels): label is string => Boolean(label) && labels.indexOf(label) === index)
+  .slice(0, 3);
+const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank score ${rankScore}` : '']
+  .filter(Boolean)
+  .join(' · ');
 ---
 
-<article
-  class="brut-card group relative flex h-full flex-col bg-[var(--background)] p-5 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] transition-all duration-200 hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)]"
-  data-testid="skill-card"
->
+<article class="skill-list-card skill-list-card-hover group relative flex h-full flex-col p-5" data-testid="skill-card">
   <CardOverlayLink href={skillLink} ariaLabel={viewSkillLabel} testId="skill-card-link" />
 
   <!-- Header: Title + Verified Badge -->
   <div class="relative z-0 mb-4 flex items-start justify-between">
-    <h3
-      class="text-xl font-black text-[var(--foreground)] line-clamp-1 pr-2 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight uppercase px-1 -ml-1"
-    >
+    <h3 class="text-lg font-display font-bold text-[var(--foreground)] line-clamp-1 pr-2 transition-colors">
       {name}
     </h3>
-    {
-      badgeType === 'official' && (
-        <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] uppercase tracking-widest">
-          [ {officialLabel} ]
-        </span>
-      )
-    }
+    {badgeType === 'official' && <span class="market-chip shrink-0 px-2 py-1 text-[10px]">{officialLabel}</span>}
     {
       badgeType === 'featured' && (
-        <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-          [ {featuredLabel} ]
+        <span class="market-chip shrink-0 px-2 py-1 text-[10px] bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]">
+          {featuredLabel}
         </span>
       )
     }
@@ -129,7 +145,7 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
 
   <!-- Sub-header: Owner Info -->
   <div class="relative z-0 mb-4 flex items-center gap-3">
-    <div class="w-6 h-6 border-2 border-[var(--foreground)] overflow-hidden bg-white relative">
+    <div class="w-7 h-7 rounded-md border border-[var(--border)] overflow-hidden bg-white relative">
       <img
         data-skill-avatar
         src={avatarUrl}
@@ -143,7 +159,19 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
       <!-- Loading skeleton -->
       <div class="absolute inset-0 bg-[var(--muted)] animate-pulse opacity-100" id={`skeleton-${owner}-${repo}`}></div>
     </div>
-    <span class="text-xs font-bold text-[var(--foreground)]">{owner}</span>
+    <span class="text-xs font-semibold text-[var(--muted-foreground)]">{owner}</span>
+  </div>
+
+  <div class="relative z-0 mb-4 flex flex-wrap gap-1.5 text-[10px] font-mono font-black" title={cardEvidenceTitle}>
+    <span class="market-chip px-2 py-1 text-[10px]">{sourceKindLabel}</span>
+    {securityLevel !== 'D' && <span class="market-chip px-2 py-1 text-[10px]">{reviewedLabel}</span>}
+    {
+      riskEvidence.map((label) => (
+        <span class="market-chip px-2 py-1 text-[10px] border-[var(--border)] bg-transparent text-[var(--muted-foreground)]">
+          {label}
+        </span>
+      ))
+    }
   </div>
 
   <script>
@@ -177,7 +205,7 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
 
   <!-- Description -->
   <p
-    class="relative z-0 mb-6 flex-grow line-clamp-3 text-sm font-bold leading-relaxed text-[var(--foreground)] opacity-80"
+    class="relative z-0 mb-6 flex-grow line-clamp-3 text-sm font-medium leading-relaxed text-[var(--muted-foreground)]"
   >
     {descriptionText}
   </p>
@@ -187,20 +215,20 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
     class="relative z-20 mb-3 opacity-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-16 transition-all duration-200 ease-out pointer-events-none group-hover:pointer-events-auto"
   >
     <button
-      class="install-copy-btn pointer-events-auto w-full cursor-pointer border-2 border-[var(--foreground)] bg-[var(--foreground)] px-3 py-2.5 font-mono text-xs font-black uppercase tracking-wider text-[var(--background)] shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[1px_1px_0px_0px_var(--border)]"
+      class="install-copy-btn pointer-events-auto flex w-full cursor-pointer items-center gap-2 rounded-lg border border-[var(--border-strong)] bg-[var(--secondary)] px-3 py-2.5 font-mono text-xs font-bold text-[var(--secondary-foreground)] transition-all hover:border-[var(--accent)]"
       data-command={`${INSTALL_PREFIX} ${installPath}`}
       title={`${INSTALL_PREFIX} ${installPath}`}
       aria-label={`Copy install command for ${name}`}
     >
-      <span class="shrink-0 text-[var(--primary)] bg-[var(--background)] px-1 text-[10px]">▶</span>
+      <span class="shrink-0 text-[var(--accent)] bg-[var(--background)] px-1 text-[10px]">run</span>
       <span class="truncate">{INSTALL_PREFIX} {installPath}</span>
-      <span class="install-icon shrink-0 ml-auto text-[10px]">⧉ {copyLabel}</span>
-      <span class="install-ok shrink-0 ml-auto text-[10px] hidden">✓ {copiedLabel}</span>
+      <span class="install-icon shrink-0 ml-auto text-[10px]">{copyLabel}</span>
+      <span class="install-ok shrink-0 ml-auto text-[10px] hidden">{copiedLabel}</span>
     </button>
   </div>
 
   <!-- Footer: Stats + Category Tag -->
-  <div class="relative z-0 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4">
+  <div class="relative z-0 mt-auto flex items-center justify-between border-t border-[var(--border)] pt-4">
     <!-- Left: Stats -->
     <div class="flex items-center gap-4 text-xs font-bold text-[var(--foreground)] font-mono">
       <div class="flex items-center gap-1.5">
@@ -266,12 +294,12 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
           if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
         }
 
-        const categoryLink = `/${locale}/skills?category=${displayCat}`;
+        const categoryLink = `/${locale}/categories/${displayCat}`;
 
         return (
           <a
             href={categoryLink}
-            class="pointer-events-auto relative z-20 border-2 border-[var(--border)] bg-[var(--background)] px-2 py-1 text-[10px] font-bold text-[var(--foreground)] transition-colors hover:bg-[var(--primary)]"
+            class="market-chip pointer-events-auto relative z-20 px-2 py-1 text-[10px] hover:border-[var(--accent)]"
           >
             {displayLabel}
           </a>

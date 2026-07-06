@@ -1,5 +1,6 @@
 ---
 import { translateOr } from '../i18n';
+import { getPrimaryNavItems } from '../lib/site-ia';
 
 interface Props {
   locale: string;
@@ -10,10 +11,11 @@ interface Props {
 const { locale, messages, compact = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+const primaryNavItems = getPrimaryNavItems(locale);
 ---
 
 <footer
-  class={`border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 ${compact ? 'py-8' : 'pt-16 pb-8'} ${compact ? 'mt-0' : ''} safe-area-px safe-area-pb`}
+  class={`border-t border-white/10 bg-[oklch(15%_0.035_245)] text-white ${compact ? 'py-8' : 'pt-16 pb-8'} ${compact ? 'mt-0' : ''} safe-area-px safe-area-pb`}
 >
   <div class="max-w-7xl mx-auto px-6">
     {
@@ -22,9 +24,9 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
           {/* Brand */}
           <div class="space-y-4">
             <a href={`/${locale}`} class="flex items-center gap-2 group">
-              <span class="font-black text-2xl tracking-tight uppercase text-[var(--foreground)]">Killer-Skills</span>
+              <span class="font-bold text-2xl text-white">Killer-Skills</span>
             </a>
-            <p class="text-[var(--muted-foreground)] leading-relaxed text-sm font-medium">
+            <p class="text-white/70 leading-relaxed text-sm font-medium">
               {tr('Footer.desc', 'Open-source directory for AI agent skills and IDE workflows.')}
             </p>
             <div class="flex gap-4">
@@ -33,7 +35,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
                 aria-label="Follow us on X (Twitter)"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                class="text-white/50 hover:text-[var(--accent)] transition-colors"
               >
                 <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -44,93 +46,47 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
 
           {/* Product */}
           <nav aria-label="Product">
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{tr('Footer.product', 'Product')}</h4>
-            <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
-              <li>
-                <a
-                  href={`/${locale}/skills`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {tr('Footer.browse', 'Browse skills')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/categories`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {tr('Footer.categories', 'Categories')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/cli`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {tr('Footer.cli', 'CLI')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {locale === 'zh' ? '官方可信工具' : 'Official AI Skills'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {locale === 'zh' ? 'Cursor 兼容工具' : 'Cursor Compatible'}
-                </a>
-              </li>
+            <h4 class="font-bold text-white mb-4">{tr('Footer.product', 'Product')}</h4>
+            <ul class="space-y-3 text-sm text-white/65 font-bold">
+              {primaryNavItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          {/* Resources */}
-          <nav aria-label="Resources">
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{tr('Footer.resources', 'Resources')}</h4>
-            <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
+          {/* Personal */}
+          <nav aria-label="Personal">
+            <h4 class="font-bold text-white mb-4">{locale === 'zh' ? '个人' : 'Personal'}</h4>
+            <ul class="space-y-3 text-sm text-white/65 font-bold">
               <li>
                 <a
-                  href={`/${locale}/docs`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                  href={`/${locale}/favorites`}
+                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {tr('Footer.docs', 'Docs')}
+                  {locale === 'zh' ? '收藏' : 'Favorites'}
                 </a>
               </li>
               <li>
                 <a
-                  href={`/${locale}/community`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                  href={`/${locale}/history`}
+                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {tr('Footer.community', 'Community')}
+                  {locale === 'zh' ? '浏览历史' : 'History'}
                 </a>
               </li>
               <li>
                 <a
-                  href={`/${locale}/blog`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                  href={`/${locale}/skills?source=official`}
+                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {tr('Footer.blog', 'Blog')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/integrations`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {tr('Footer.integrations', 'Integrations')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/collections`}
-                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {tr('Common.collections', 'Collections')}
+                  {locale === 'zh' ? '官方来源' : 'Official sources'}
                 </a>
               </li>
             </ul>
@@ -138,10 +94,8 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
 
           {/* Newsletter */}
           <div>
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">
-              {tr('Footer.stayUpdated', 'Stay Updated')}
-            </h4>
-            <p class="text-sm text-[var(--muted-foreground)] mb-4 font-medium">
+            <h4 class="font-bold text-white mb-4">{tr('Footer.stayUpdated', 'Stay Updated')}</h4>
+            <p class="text-sm text-white/65 mb-4 font-medium">
               {tr('Footer.subscribeDesc', 'Get updates about new skills and workflow guides.')}
             </p>
             <div class="flex gap-2">
@@ -153,11 +107,11 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
                 type="email"
                 autocomplete="email"
                 placeholder={tr('Footer.emailPlaceholder', 'Email')}
-                class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
+                class="bg-white/8 border border-white/15 rounded-md px-3 py-2 text-sm text-white placeholder:text-white/45 w-full focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20 focus:border-[var(--accent)] transition-all"
               />
               <button
                 aria-label={tr('Footer.subscribeBtn', 'Subscribe')}
-                class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                class="bg-[var(--accent)] hover:brightness-95 text-[var(--accent-foreground)] px-3 py-2 rounded-md text-sm font-bold transition-colors"
               >
                 →
               </button>
@@ -169,21 +123,15 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
 
     {/* Bottom */}
     <div
-      class={`flex flex-col md:flex-row items-center justify-between gap-4 ${compact ? '' : 'pt-8 border-t border-slate-200 dark:border-slate-800'}`}
+      class={`flex flex-col md:flex-row items-center justify-between gap-4 ${compact ? '' : 'pt-8 border-t border-white/10'}`}
     >
-      <div class="text-xs text-slate-500 dark:text-slate-500">
+      <div class="text-xs text-white/45">
         © {currentYear} Killer-Skills Inc. {tr('Footer.rights', 'All rights reserved.')}
       </div>
-      <nav aria-label="Legal" class="flex gap-6 text-xs text-slate-500 dark:text-slate-500">
-        <a href={`/${locale}/privacy`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{tr('Footer.privacy', 'Privacy')}</a
-        >
-        <a href={`/${locale}/terms`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{tr('Footer.terms', 'Terms')}</a
-        >
-        <a href={`/${locale}/cookies`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{tr('Footer.cookie', 'Cookies')}</a
-        >
+      <nav aria-label="Legal" class="flex gap-6 text-xs text-white/45">
+        <a href={`/${locale}/privacy`} class="hover:text-white transition-colors">{tr('Footer.privacy', 'Privacy')}</a>
+        <a href={`/${locale}/terms`} class="hover:text-white transition-colors">{tr('Footer.terms', 'Terms')}</a>
+        <a href={`/${locale}/cookies`} class="hover:text-white transition-colors">{tr('Footer.cookie', 'Cookies')}</a>
       </nav>
     </div>
   </div>
