@@ -20,6 +20,34 @@ const readPageSource = (relativePath: string) => {
 };
 const readRepoSource = (relativePath: string) =>
   readFileSync(new URL(`../../${relativePath}`, import.meta.url), 'utf8');
+const stripSourceComments = (source: string) =>
+  source.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+const extractNamedFunctionBody = (source: string, functionName: string) => {
+  const signature = `function ${functionName}(`;
+  const signatureIndex = source.indexOf(signature);
+  if (signatureIndex < 0) {
+    throw new Error(`Unable to find ${functionName} in source`);
+  }
+
+  const openBraceIndex = source.indexOf('{', signatureIndex);
+  if (openBraceIndex < 0) {
+    throw new Error(`Unable to find body for ${functionName}`);
+  }
+
+  let depth = 0;
+  for (let index = openBraceIndex; index < source.length; index += 1) {
+    const char = source[index];
+    if (char === '{') depth += 1;
+    if (char === '}') {
+      depth -= 1;
+      if (depth === 0) {
+        return source.slice(openBraceIndex + 1, index);
+      }
+    }
+  }
+
+  throw new Error(`Unable to match braces for ${functionName}`);
+};
 const readLocaleMessages = (locale: string) =>
   JSON.parse(readFileSync(new URL(`../../src/messages/${locale}.json`, import.meta.url), 'utf8')) as Record<
     string,
@@ -516,8 +544,11 @@ describe('public links and navigation copy', () => {
     expect(headerActionsSource).toContain('data-testid="mobile-menu-overlay"');
     expect(headerActionsSource).toContain('data-testid="mobile-menu-panel"');
     expect(headerActionsSource).toContain('document.body.appendChild(overlay)');
-    expect(headerActionsSource).toContain("overlay?.dataset.state = 'open';");
-    expect(headerActionsSource).toContain("overlay?.dataset.state = 'closed';");
+
+    const openMobileMenuBody = stripSourceComments(extractNamedFunctionBody(headerActionsSource, 'openMobileMenu'));
+    const closeMobileMenuBody = stripSourceComments(extractNamedFunctionBody(headerActionsSource, 'closeMobileMenu'));
+    expect(openMobileMenuBody).toContain("if (overlay) overlay.dataset.state = 'open';");
+    expect(closeMobileMenuBody).toContain("if (overlay) overlay.dataset.state = 'closed';");
 
     const primaryHeaderSource = `${headerSource}\n${headerActionsSource}`;
     expect(primaryHeaderSource).not.toMatch(/专题|热门|探索|文档|Topics|Hot|Explore|Docs/);
