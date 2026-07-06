@@ -17,8 +17,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 >
 > **주요 워크플로우**에 따라 선택하세요, 아니면 이슈를 만들지 마세요. spec-driven agent 워크플로우를 하는 팀은 다른 도구가 필요하고, 빠른 UI 반복을 하는 팀은 다른 도구가 필요합니다. 아래의 매트릭스는 팀 유형을 추천과 매핑합니다.
 
-공개된 출력 경계:
-나가려는 비밀 reasoning, chain-of-thought, private analysis, scratchpad notes, 또는
 ## 2026 년 5 가지 도구
 
 | 도구 | 최적화 | 스킬 포팅성 | 에이전트 워크플로우 깊이 |
@@ -31,8 +29,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 
 포팅성은 중요합니다. **Claude Code에 최적화된 스킬 스택이 Cursor로 자동 포팅되는 것은 아닙니다**. 팀이 여러 IDE를 사용하는 경우, 이는 가장 큰 ẩn결 비용입니다.
 
-공개 출력 경계:
-사용자의 숨겨진 논리, chain-of-thought, 개인 분석, 스케치 패드 노트, 또는 `
 ## How to decide: three questions
 
 ### 1. 첫 설치나 팀 협력에서 병목 현상이 어디인가?
@@ -50,8 +46,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 
 여러 IDE를 사용하는 팀은 포트 비용을 지불합니다. 합리적인 움직임은 **한** 주요 IDE를 표준화하고 나머지 IDE를 두 번째로 만드는 것입니다. 여러 IDE를 사용하는 팀에 대해 Claude Code를 추천하는 것이 합리적이기 때문입니다. 왜냐하면 그 스킬이 MCP layer에서 가장 포트 가능성이 높은 Cursor와 Windsurf도 말할 수 있는 것입니다.
 
-PUBLIC OUTPUT BOUNDARY:
-사용자가 숨겨진 추론, chain-of-thought, 개인 분석, scratchpad 노트, 또는
 ## 추천팀별로
 
 - **독자 창업자, 빠른 배포:** Windsurf. 최저 설정 마찰, 의견된 기본값. [Windsurf 워크플로우 도구](/ko/collections/top-windsurf-skills)로 시작하세요.
@@ -60,8 +54,6 @@ PUBLIC OUTPUT BOUNDARY:
 - **GitHub-기반 기업:** Copilot, Claude Code를 agent 작업을 처리할 수 없는 GitHub의 완성 모델이 처리할 수 없는 경우에 두 번째로 사용하세요.
 - **prompt/eval/research 팀:** Codex. 가장 강한 fit evals, tracing, 및 prompt 반복 — [OpenAI workflow tools collection](/ko/collections/top-openai-powered-ai-agent-tools)을 참조하세요.
 
-공개 출력 경계:
-적어도 숨겨진 논리, chain-of-thought, private 분석, 스케치 패드 노트, 또는
 ## 이 비교는 솔직합니다
 
 우리는 모든 도구가 동일하다는 것을 거짓으로 말하지 않을 것입니다. 세 가지 제한 사항을 명확하게 언급하겠습니다.
@@ -70,8 +62,6 @@ PUBLIC OUTPUT BOUNDARY:
 2. **completion-first 도구 (Copilot)는 agent 워크플로우에 얕습니다.** 작업이 단계가 많은 경우 리뷰 게이트가 있는 경우, 완료만으로는 좌절할 것입니다.
 3. **이 도구들은 실행 속도를 높이지 만, 아키텍처를 높이지 않습니다.** 나쁜 스펙은 나쁜 출력을 생산합니다. [프로세스 자동화 솔루션](/ko/solutions/process-automation)은 SOP을 반복적으로 실행하는 repeatable 실행으로 바꾸는 방법을 설명합니다 — 하지만, 아키텍처는 여전히 사람에 의해 소유됩니다.
 
-PUBLIC OUTPUT BOUNDARY:
-비밀 reasoning, chain-of-thought, private analysis, scratchpad notes, 또는
 ## Next steps
 
 1. **팀 유형을 식별** 하여 기본적인 IDE를 선택하세요.
@@ -79,8 +69,6 @@ PUBLIC OUTPUT BOUNDARY:
 3. **설치**를 `npx killer-skills list`로 확인하세요.
 4. **첫 번째 설치가 성공한 후에만** 리뷰/컨텍스트 규칙을 추가하세요. [CLI 개요](/ko/docs/cli/overview)를 참조하세요.
 
-PUBLIC OUTPUT BOUNDARY:
-사용자에 대한 공개된 결과물 영역은 never reasoning, chain-of-thought, private analysis, scratchpad notes, or
 ## 자주 묻는 질문
 
 **가장 저렴한 것은 무엇입니까?**
@@ -91,5 +79,3 @@ PUBLIC OUTPUT BOUNDARY:
 
 **내 IDE의 다음 버전을 기다려야 합니까?**
 아니요. 대부분의 팀의 bottleneck은 IDE 버전이 아닌 IDE에 설치하고 확인한 disciplined skill stack이 있는지 여하입니다. 하나를 선택하고 시작하세요.
-
-PUBLIC OUTPUT BOUNDARY:
