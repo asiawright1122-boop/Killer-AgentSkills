@@ -1,423 +1,429 @@
 [
   {
+    "owner": "remotion-dev",
+    "repo": "skills",
+    "routePath": "skills/remotion",
+    "updatedAt": "2026-07-06T08:14:25Z"
+  },
+  {
     "owner": "langgenius",
     "repo": "dify",
     "routePath": "dify/frontend-code-review",
-    "updatedAt": "2026-06-26T07:45:17Z"
+    "updatedAt": "2026-07-06T08:08:43Z"
   },
   {
     "owner": "langgenius",
     "repo": "dify",
     "routePath": "dify/frontend-testing",
-    "updatedAt": "2026-06-26T07:45:17Z"
+    "updatedAt": "2026-07-06T08:08:43Z"
   },
   {
     "owner": "langgenius",
     "repo": "dify",
     "routePath": "dify/how-to-write-component",
-    "updatedAt": "2026-06-26T07:45:17Z"
+    "updatedAt": "2026-07-06T08:08:43Z"
   },
   {
     "owner": "langgenius",
     "repo": "dify",
     "routePath": "dify/karpathy-guidelines",
-    "updatedAt": "2026-06-26T07:45:17Z"
+    "updatedAt": "2026-07-06T08:08:43Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/subagent-driven-development",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/writing-skills",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/dispatching-parallel-agents",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/systematic-debugging",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/test-driven-development",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/writing-plans",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/using-git-worktrees",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/receiving-code-review",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/verification-before-completion",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/brainstorming",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/finishing-a-development-branch",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/requesting-code-review",
-    "updatedAt": "2026-06-26T07:39:17Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/executing-plans",
-    "updatedAt": "2026-06-26T07:39:17Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-llm-trainer",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-paper-publisher",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-vision-trainer",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/transformers-js",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-papers",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-trackio",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-community-evals",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/trl-training",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-gradio",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-lora-space-builder",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-spaces",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-zerogpu",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-datasets",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/train-sentence-transformers",
-    "updatedAt": "2026-06-26T07:38:35Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/react-native-best-practices",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/react-navigation",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/github",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/upgrading-react-native",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/github-actions",
-    "updatedAt": "2026-06-26T07:35:13Z"
-  },
-  {
-    "owner": "callstackincubator",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/create-react-native-library",
-    "updatedAt": "2026-06-26T07:35:13Z"
+    "updatedAt": "2026-07-06T08:06:57Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/algorithmic-art",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/docx",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/mcp-builder",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/pdf",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/xlsx",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/internal-comms",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/theme-factory",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/webapp-testing",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/pptx",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/slack-gif-creator",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/web-artifacts-builder",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/canvas-design",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/frontend-design",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "anthropics",
     "repo": "skills",
     "routePath": "skills/brand-guidelines",
-    "updatedAt": "2026-06-26T07:34:39Z"
+    "updatedAt": "2026-07-06T08:04:12Z"
   },
   {
     "owner": "vercel-labs",
     "repo": "skills",
     "routePath": "skills/find-skills",
-    "updatedAt": "2026-06-26T07:28:09Z"
-  },
-  {
-    "owner": "remotion-dev",
-    "repo": "skills",
-    "routePath": "skills/remotion",
-    "updatedAt": "2026-06-26T07:12:00Z"
+    "updatedAt": "2026-07-06T08:00:59Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/flags",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/extract-errors",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/fix",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/flow",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/verify",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/feature-flags",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/test",
-    "updatedAt": "2026-06-26T07:09:39Z"
+    "updatedAt": "2026-07-06T07:49:44Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/sandbox-sdk",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/durable-objects",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/cloudflare-one",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/cloudflare",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/turnstile-spin",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/workers-best-practices",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/wrangler",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/agents-sdk",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "cloudflare",
     "repo": "skills",
     "routePath": "skills/cloudflare-one-migrations",
-    "updatedAt": "2026-06-26T05:45:50Z"
+    "updatedAt": "2026-07-06T03:54:54Z"
   },
   {
     "owner": "supabase",
     "repo": "agent-skills",
     "routePath": "agent-skills/supabase-postgres-best-practices",
-    "updatedAt": "2026-06-25T20:58:30Z"
+    "updatedAt": "2026-07-06T02:06:25Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/react-native-best-practices",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/react-navigation",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/github",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/upgrading-react-native",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/github-actions",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/react-native-tv-best-practices",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "callstackincubator",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/create-react-native-library",
+    "updatedAt": "2026-07-06T02:03:38Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-llm-trainer",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-paper-publisher",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-vision-trainer",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/transformers-js",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-papers",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-trackio",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-community-evals",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/trl-training",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-gradio",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-lora-space-builder",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-spaces",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-zerogpu",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-datasets",
+    "updatedAt": "2026-07-06T01:56:57Z"
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/train-sentence-transformers",
+    "updatedAt": "2026-07-06T01:56:57Z"
   },
   {
     "owner": "go-to-k",
