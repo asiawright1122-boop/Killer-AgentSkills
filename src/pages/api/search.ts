@@ -63,13 +63,30 @@ function trustBoostFrom(data: { rankScore?: unknown; sourceTrust?: unknown; secu
   return rankScore * 0.004 + sourceBoost + securityBoost;
 }
 
-function isMarketplaceMetadataAdmitted(data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown }): boolean {
-  if (data.securityLevel === 'D') return false;
+function isFalseLike(value: unknown): boolean {
+  return value === false || value === 0 || value === '0' || value === 'false';
+}
+
+function hasExplicitAdmissionMetadata(data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown }): boolean {
+  return (
+    Object.prototype.hasOwnProperty.call(data, 'securityLevel') &&
+    data.securityLevel !== null &&
+    data.securityLevel !== undefined &&
+    Object.prototype.hasOwnProperty.call(data, 'isTrustedRankingEligible') &&
+    data.isTrustedRankingEligible !== null &&
+    data.isTrustedRankingEligible !== undefined
+  );
+}
+
+function isMarketplaceMetadataAdmitted(
+  data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown },
+  options: { requireExplicitAdmission?: boolean } = {},
+): boolean {
+  if (options.requireExplicitAdmission && !hasExplicitAdmissionMetadata(data)) return false;
+  if (String(data.securityLevel || '').toUpperCase() === 'D') return false;
   if (
-    data.isTrustedRankingEligible === false ||
-    data.isTrustedRankingEligible === 0 ||
-    data.isTrustedRankingEligible === '0' ||
-    data.isTrustedRankingEligible === 'false'
+    isFalseLike(data.isTrustedRankingEligible) ||
+    (typeof data.isTrustedRankingEligible === 'string' && isFalseLike(data.isTrustedRankingEligible.toLowerCase()))
   ) {
     return false;
   }
@@ -148,7 +165,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           if (vector && Array.isArray(vector)) {
             const vectorizeResp = await env.VECTORIZE!.query(vector, { topK: RESULT_LIMIT, returnMetadata: 'all' });
             semanticMatches = (vectorizeResp.matches || []).filter((match: { metadata?: Record<string, unknown> }) =>
-              isMarketplaceMetadataAdmitted(match.metadata || {}),
+              isMarketplaceMetadataAdmitted(match.metadata || {}, { requireExplicitAdmission: true }),
             );
           }
         } catch (err) {

@@ -224,6 +224,16 @@ describe('GET /api/search', () => {
               },
             },
             {
+              id: 'missing-admission',
+              metadata: {
+                owner: 'missing',
+                repo: 'admission',
+                name: 'Missing Admission',
+                stars: 999,
+                rankScore: 99,
+              },
+            },
+            {
               id: 'allowed',
               metadata: {
                 owner: 'allowed',
