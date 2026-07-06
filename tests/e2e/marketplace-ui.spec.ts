@@ -27,6 +27,10 @@ async function expectCleanPublicCopy(page: Page) {
   expect(bodyText).not.toMatch(hiddenReasoning);
 }
 
+async function waitForHeaderActions(page: Page) {
+  await expect(page.getByTestId('header-actions')).toHaveAttribute('data-initialized', 'true');
+}
+
 type VisibleSkillCard = {
   href: string;
   name: string;
@@ -128,6 +132,7 @@ test.describe('Marketplace UI audit', () => {
   test('mobile drawer opens fully and preserves primary route order', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/zh');
+    await waitForHeaderActions(page);
 
     const overlay = page.getByTestId('mobile-menu-overlay');
     await expect(overlay).toHaveAttribute('data-state', 'closed');
