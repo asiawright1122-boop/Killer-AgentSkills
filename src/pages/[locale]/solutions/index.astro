@@ -1,311 +1,35 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, loadMessages, translateOr, type Locale } from '../../../i18n';
-import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
-import { getPreferredCanonicalLocale, isDirectlyLocalizedVariant } from '../../../lib/seo-locales';
-import { buildKeywordString } from '../../../lib/seo-keywords';
-import { getSolutionIntents, getSolutionSeoEligibleLocales } from '../../../lib/solution-intents';
-
-export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
+import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
 
 const { locale } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const typedLocale = locale as Locale;
-const isZhCopy = typedLocale.startsWith('zh');
-const intents = getSolutionIntents(typedLocale);
-const availableLocales = getSolutionSeoEligibleLocales();
-const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
-const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
-const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
-const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';
-if (robotsContent) {
-  Astro.response.headers.set('X-Robots-Tag', robotsContent);
-}
-
-const messages = await loadMessages(typedLocale);
-const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-
-const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/solutions`;
-const pageTitle = tr('Solutions.pageTitle', 'AI Workflow Solutions for Docs, Browser & Data Automation');
-const pageDescription = tr(
-  'Solutions.pageDescription',
-  'Browse installable AI agent workflow solutions for document, browser, data, and process automation, with clear paths into collections, skills, and installation docs.',
-);
-const pageKeywords = buildKeywordString(
-  (k: string) => tr(k, k),
-  'core',
-  'workflowAutomation',
-  'processAutomation',
-  'ideCompat',
-  tr('Solutions.keyword1', 'skill use cases with clear setup paths'),
-  'Killer-Skills',
-);
-const solutionsAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
-  ids: [
-    'collections-hub',
-    'solutions-hub',
-    'docs-installation',
-    'collection-agent-workflows',
-    'collection-devops',
-    'collection-framework',
-    'collection-nextjs',
-    'collection-react',
-    'collection-community',
-  ],
-});
-const solutionsAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['blog-how-to-install-ai-agent-skills', 'blog-ide-comparison'],
-});
-const solutionsPriorityNextSteps = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['collection-official-trusted-tools', 'docs-installation', 'docs-cli-overview', 'solution-agent-workflows'],
-});
-
-const faqItems = [
-  {
-    question: tr('Solutions.faq1Q', 'Why use solution pages instead of ad-hoc keyword searches?'),
-    answer: tr(
-      'Solutions.faq1A',
-      'Solution pages group related problems and installable skills so people can compare options faster and browse less.',
-    ),
-  },
-  {
-    question: tr('Solutions.faq2Q', 'Which IDEs are supported by these solutions?'),
-    answer: tr(
-      'Solutions.faq2A',
-      'These skills support Claude Code, Cursor, Windsurf, VS Code, and other mainstream IDEs through a unified install flow.',
-    ),
-  },
-  {
-    question: tr('Solutions.faq3Q', 'What should I do next after picking a solution?'),
-    answer: tr(
-      'Solutions.faq3A',
-      'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and a first real task.',
-    ),
-  },
-];
-const solutionsHubUpdatedAt = '2026-04-20';
-const solutionsHubSignificantLinks = solutionsPriorityNextSteps
-  .slice(0, 4)
-  .map((surface) => `https://killer-skills.com${surface.href}`);
+const isZhCopy = locale.startsWith('zh');
+const title = isZhCopy ? '场景' : 'Use Cases';
+const description = isZhCopy
+  ? '从职业、分类或榜单进入实际工作流。'
+  : 'Start from occupations, categories, or rankings.';
 ---
 
-<Layout
-  locale={locale}
-  title={pageTitle}
-  description={pageDescription}
-  keywords={pageKeywords}
-  customCanonical={canonicalUrl}
-  noindex={!isIndexableLocale}
-  robots={robotsContent}
-  availableLocales={availableLocales}
-  xDefaultLocale={canonicalLocale}
->
-  <Fragment slot="head">
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: tr('Common.home', 'Home'),
-            item: `https://killer-skills.com/${locale}`,
-          },
-          { '@type': 'ListItem', position: 2, name: pageTitle, item: canonicalUrl },
-        ],
-      })}
-    />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: pageTitle,
-        description: pageDescription,
-        url: canonicalUrl,
-        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
-        mainEntity: {
-          '@type': 'ItemList',
-          numberOfItems: intents.length,
-          itemListElement: intents.map((item, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name: item.label,
-            url: `https://killer-skills.com${item.href}`,
-          })),
-        },
-      })}
-    />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: pageTitle,
-        description: pageDescription,
-        url: canonicalUrl,
-        inLanguage: typedLocale,
-        dateModified: solutionsHubUpdatedAt,
-        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
-        speakable: {
-          '@type': 'SpeakableSpecification',
-          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
-        },
-        significantLink: solutionsHubSignificantLinks,
-      })}
-    />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqItems.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer,
-          },
-        })),
-      })}
-    />
-  </Fragment>
-
-  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-      <header class="mb-12 border-b-[3px] border-[var(--border)] pb-8">
-        <span
-          class="inline-flex items-center px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
-        >
-          {tr('Solutions.badge', 'Solutions')}
-        </span>
-        <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
-        <p
-          class="seo-intro-paragraph mt-4 max-w-3xl text-base md:text-lg font-medium text-[var(--muted-foreground)] leading-relaxed"
-        >
-          {pageDescription}
-        </p>
-      </header>
-
-      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-        {
-          intents.map((item) => (
-            <a
-              href={item.href}
-              class="brut-card bg-white dark:bg-[#0a0a0a] p-6 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)]"
-            >
-              <div class="inline-flex px-2.5 py-1 border-2 border-[var(--border)] text-[10px] font-black uppercase tracking-widest mb-3">
-                {item.query}
-              </div>
-              <h2 class="text-2xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
-              <p class="text-sm leading-6 font-medium opacity-80">{item.cardDescription}</p>
-              <div class="mt-4 text-xs font-black uppercase tracking-widest">
-                {tr('Solutions.openSolution', 'Open Solution')} →
-              </div>
-            </a>
-          ))
-        }
-      </section>
-
-      <section
-        class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
-      >
-        <div class="max-w-3xl mb-8">
-          <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-            {isZhCopy ? '按场景选择安装路径' : 'Use Cases and Setup Paths'}
-          </div>
-          <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
-            {
-              isZhCopy
-                ? '先用场景页明确问题，再继续进入可信安装和工作流路径'
-                : 'Use Solutions to Narrow the Problem, Then Continue Into Trusted Install and Workflow Paths'
-            }
-          </h2>
-          <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
-            {
-              isZhCopy
-                ? '先选最接近当前问题的场景，再进入官方合集、安装文档、CLI 总览或更具体的方案页。'
-                : 'Choose the use case closest to your current problem, then continue into official collections, installation docs, CLI guidance, or a more specific scenario page.'
-            }
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5">
-          {
-            solutionsAuthoritySurfaces.map((surface) => (
-              <a
-                href={surface.href}
-                class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
-              >
-                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
-                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
-              </a>
-            ))
-          }
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {
-            solutionsAuthorityGuides.map((surface) => (
-              <a
-                href={surface.href}
-                class="border-2 border-[var(--border)] bg-[var(--background)] p-5 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-              >
-                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
-                <p class="text-sm leading-6 font-medium opacity-80">{surface.description}</p>
-              </a>
-            ))
-          }
-        </div>
-      </section>
-
-      <section
-        class="border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
-      >
-        <div class="max-w-3xl mb-6">
-          <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-            {isZhCopy ? '优先安装路径' : 'Priority Setup Paths'}
-          </div>
-          <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
-            {
-              isZhCopy
-                ? '别回到全量目录，直接进入更相关的路径'
-                : 'Skip the Full Directory and Move Into More Useful Paths'
-            }
-          </h2>
-          <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
-            {
-              isZhCopy
-                ? '确定问题类型后，继续进入官方合集、安装文档、CLI 总览或 agent workflow 场景页，而不是重新浏览全量 skills。'
-                : 'Once the problem type is clear, continue into trusted collections, installation docs, CLI guidance, or the agent workflow scenario page instead of the full skills directory.'
-            }
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-          {
-            solutionsPriorityNextSteps.map((surface) => (
-              <a
-                href={surface.href}
-                class="border-[3px] border-[var(--border)] p-5 bg-[var(--background)] hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
-              >
-                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
-                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
-              </a>
-            ))
-          }
-        </div>
-      </section>
-    </main>
-  </div>
+<Layout locale={locale} title={title} description={description} appendBrand={false}>
+  <MarketplaceSimplePage title={title} description={description}>
+    <div class="marketplace-card-grid">
+      <a class="marketplace-card-link" href={`/${locale}/occupations`}>
+        <h3>{isZhCopy ? '职业' : 'Occupations'}</h3>
+        <p>{isZhCopy ? '按岗位进入任务路径。' : 'Browse by role and task path.'}</p>
+      </a>
+      <a class="marketplace-card-link" href={`/${locale}/categories`}>
+        <h3>{isZhCopy ? '分类' : 'Categories'}</h3>
+        <p>{isZhCopy ? '按能力类型进入。' : 'Browse by capability type.'}</p>
+      </a>
+      <a class="marketplace-card-link" href={`/${locale}/popular`}>
+        <h3>{isZhCopy ? '榜单' : 'Rankings'}</h3>
+        <p>{isZhCopy ? '查看热门和最新。' : 'View popular and latest.'}</p>
+      </a>
+    </div>
+  </MarketplaceSimplePage>
 </Layout>

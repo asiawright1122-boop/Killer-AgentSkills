@@ -12,6 +12,7 @@ interface Props {
   universalInstallLabel: string;
   platformSupportLabel: string;
   plusMoreLabel: string;
+  compact?: boolean;
 }
 
 const {
@@ -21,27 +22,34 @@ const {
   universalInstallLabel,
   platformSupportLabel,
   plusMoreLabel,
+  compact = false,
 } = Astro.props;
 ---
 
 <div
-  class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden flex flex-col"
+  class:list={[
+    'overflow-hidden flex flex-col',
+    compact ? 'rounded-md border border-[var(--border)] bg-[var(--background)]' : 'skill-detail-card',
+  ]}
 >
   <div
-    class="bg-[var(--foreground)] text-[var(--background)] px-4 py-3 border-b-4 border-[var(--border)] flex items-center justify-between"
+    class:list={[
+      'bg-[var(--foreground)] text-[var(--background)] flex items-center justify-between',
+      compact ? 'px-3 py-2' : 'px-4 py-3',
+    ]}
   >
     <div class="flex items-center gap-3">
       <Terminal size={18} strokeWidth={3} className="text-[var(--primary)]" />
-      <span class="text-sm font-black uppercase tracking-widest font-mono">{installationLabel}</span>
+      <span class="text-sm font-bold font-mono">{installationLabel}</span>
     </div>
   </div>
 
-  <div class="p-6 relative bg-[var(--background)]">
+  <div class:list={['relative bg-[var(--background)]', compact ? 'p-3' : 'p-6']}>
     {/* Install Button & Deep Links */}
     <div class="mb-5 space-y-3">
       <button
         id="install-btn"
-        class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+        class="market-button w-full px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]"
         data-install-command={installCommand}
       >
         <Download size={18} strokeWidth={3} />
@@ -50,44 +58,48 @@ const {
 
       <div class="grid grid-cols-2 gap-3">
         <button
-          class="ide-deep-link-btn flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold text-xs shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+          class="ide-deep-link-btn flex items-center justify-center gap-2 rounded-md px-3 py-2.5 bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border border-[var(--border)] font-bold text-xs transition-all"
           data-command={installCommand}
           data-scheme="cursor://"
           title="Open in Cursor IDE"
         >
           <Monitor size={14} strokeWidth={3} />
-          <span class="uppercase tracking-wider">Cursor</span>
+          <span>Cursor</span>
         </button>
         <button
-          class="ide-deep-link-btn flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold text-xs shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+          class="ide-deep-link-btn flex items-center justify-center gap-2 rounded-md px-3 py-2.5 bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border border-[var(--border)] font-bold text-xs transition-all"
           data-command={installCommand}
           data-scheme="windsurf://"
           title="Open in Windsurf IDE"
         >
           <Laptop size={14} strokeWidth={3} />
-          <span class="uppercase tracking-wider">Windsurf</span>
+          <span>Windsurf</span>
         </button>
       </div>
     </div>
 
-    <div class="border-4 border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--background)]">
+    <div class="rounded-lg border border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--muted)]">
       <div
-        class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b-2 border-dotted border-[var(--border)] pb-2"
+        class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b border-[var(--border)] pb-2"
       >
-        <div class="flex items-center font-bold uppercase tracking-wider text-xs">
-          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">SYS</span>
+        <div class="flex items-center font-bold text-xs">
+          <span class="market-chip px-2 py-1 mr-2 text-[10px]">CLI</span>
           <span>{universalInstallLabel}</span>
         </div>
       </div>
       <div
-        class="text-[var(--foreground)] break-all select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-base"
+        class="text-[var(--foreground)] select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-sm leading-6"
       >
-        <span class="text-[var(--primary)] bg-[var(--foreground)] px-2 font-black select-none">&gt;</span>
-        <span class="tracking-widest">{installCommand}</span>
+        <span class="text-[var(--accent)] font-bold select-none shrink-0">&gt;</span>
+        <code
+          class="block min-w-0 max-w-full overflow-x-auto whitespace-nowrap pr-12 font-mono text-[0.86rem] sm:text-sm"
+        >
+          {installCommand}
+        </code>
 
         <button
           id="install-copy-btn"
-          class="absolute right-0 top-0 p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--foreground)] border-2 border-[var(--foreground)] transition-all opacity-0 group-hover/cmd:opacity-100 shadow-[2px_2px_0px_0px_var(--border)] translate-x-4 -translate-y-4"
+          class="absolute right-1 top-1 rounded-md p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border border-[var(--foreground)] transition-all opacity-100 sm:opacity-0 sm:group-hover/cmd:opacity-100 focus:opacity-100"
           data-command={installCommand}
         >
           <Copy size={16} strokeWidth={3} />
@@ -96,51 +108,30 @@ const {
     </div>
 
     {/* Supported Platforms */}
-    <div class="mt-4 pt-4 border-t-2 border-dotted border-[var(--border)]">
-      <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
+    <div class="mt-4 pt-4 border-t border-[var(--border)]">
+      <div class="text-xs font-bold text-[var(--muted-foreground)] mb-3">
         {platformSupportLabel}
       </div>
       <div class="flex flex-wrap gap-2">
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="Cursor"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="Cursor">
           <Monitor size={12} strokeWidth={3} /> Cursor
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="Windsurf"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="Windsurf">
           <Laptop size={12} strokeWidth={3} /> Windsurf
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="VS Code"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="VS Code">
           <Code size={12} strokeWidth={3} /> VS Code
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="Trae"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="Trae">
           <Sparkles size={12} strokeWidth={3} /> Trae
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="Claude Code"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="Claude Code">
           <Bot size={12} strokeWidth={3} /> Claude
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold"
-          title="OpenClaw"
-        >
+        <div class="market-chip px-2 py-1 text-xs" title="OpenClaw">
           <Bot size={12} strokeWidth={3} /> OpenClaw
         </div>
-        <div
-          class="flex items-center gap-1 px-2 py-1 bg-[var(--background)] border border-[var(--border)] text-xs font-bold text-[var(--muted-foreground)]"
-          title={plusMoreLabel}
-        >
+        <div class="market-chip px-2 py-1 text-xs text-[var(--muted-foreground)]" title={plusMoreLabel}>
           {plusMoreLabel}
         </div>
       </div>
@@ -167,8 +158,7 @@ const {
 
             // Visual feedback loop
             const originalContent = target.innerHTML;
-            target.innerHTML =
-              '<span class="font-black text-[10px] tracking-widest uppercase">COPIED! LAUNCHING...</span>';
+            target.innerHTML = '<span class="font-bold text-[10px]">Copied, opening IDE...</span>';
             target.style.backgroundColor = 'var(--primary)';
             target.style.color = 'var(--primary-foreground)';
             target.style.borderColor = 'var(--foreground)';

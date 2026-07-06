@@ -1,58 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../i18n';
 
-const locale = 'en';
+const pathLocale = Astro.url.pathname.split('/').filter(Boolean)[0];
+const locale: Locale = SUPPORTED_LOCALES.includes(pathLocale as Locale) ? (pathLocale as Locale) : 'en';
+const isZhCopy = locale === 'zh';
 const robotsContent = 'noindex, nofollow';
+const title = isZhCopy ? '404 - 页面不存在' : '404 - Page Not Found';
+const description = isZhCopy ? '这个页面不存在。' : 'The page you are looking for does not exist.';
 ---
 
-<Layout
-  locale={locale}
-  title="404 - Page Not Found"
-  description="The page you are looking for does not exist."
-  noindex={true}
-  robots={robotsContent}
->
+<Layout locale={locale} title={title} description={description} noindex={true} robots={robotsContent}>
   <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 relative py-20">
-    <div
-      class="brut-card border-4 border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] p-12 md:p-16 max-w-2xl w-full relative"
-    >
-      {/* Decorative Tape/Corner */}
-      <div class="absolute -top-4 -left-4 w-12 h-12 border-t-4 border-l-4 border-[var(--primary)] pointer-events-none">
-      </div>
-      <div
-        class="absolute -bottom-4 -right-4 w-12 h-12 border-b-4 border-r-4 border-[var(--primary)] pointer-events-none"
-      >
-      </div>
-
-      <h1
-        class="text-8xl md:text-9xl font-black text-[var(--foreground)] mb-6 select-none font-mono tracking-tighter mix-blend-difference"
-      >
-        404
+    <div class="skill-detail-surface p-8 md:p-12 max-w-xl w-full">
+      <p class="market-chip px-3 py-1 mb-6">404</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--foreground)] mb-4">
+        {isZhCopy ? '页面不存在' : 'Page Not Found'}
       </h1>
-
-      <h2 class="text-3xl md:text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-6">
-        PAGE NOT FOUND
-      </h2>
-
-      <p
-        class="text-lg text-[var(--foreground)] opacity-80 font-bold mb-10 max-w-md mx-auto leading-relaxed border-y-2 border-dotted border-[var(--border)] py-6"
-      >
-        The skill you are looking for seems to be missing from our database. It might have been moved, deleted, or you
-        found a glitch in the matrix.
+      <p class="text-base text-[var(--muted-foreground)] font-medium mb-8 max-w-md mx-auto leading-relaxed">
+        {
+          isZhCopy
+            ? '这个页面已经不可用。回到首页，或进入 Skills 目录继续筛选。'
+            : 'This page is no longer available. Start from home or continue in the Skills directory.'
+        }
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-        <a
-          href="/"
-          class="w-full sm:w-auto px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
-        >
-          [ Return Home ]
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href={`/${locale}`} class="market-button w-full sm:w-auto px-5 py-3">
+          {isZhCopy ? '返回首页' : 'Return home'}
         </a>
         <a
-          href="/en/skills"
-          class="w-full sm:w-auto px-8 py-4 bg-[var(--background)] text-[var(--foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
+          href={`/${locale}/skills`}
+          class="w-full sm:w-auto px-5 py-3 rounded-md border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] font-bold hover:bg-[var(--muted)] transition-colors"
         >
-          Browse Skills
+          {isZhCopy ? '进入 Skills' : 'Open Skills'}
         </a>
       </div>
     </div>

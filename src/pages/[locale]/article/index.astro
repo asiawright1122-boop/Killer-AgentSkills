@@ -1,0 +1,379 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { getFeaturedSkillsDirect, getLocalizedDescription } from '../../../lib/public-skill-catalog';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import { sanitizePublicSkillCopy } from '../../../lib/public-skill-copy';
+import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+let posts = await getCollection('blog', ({ data }) => data.lang === typedLocale && !data.draft);
+if (posts.length === 0 && typedLocale !== 'en') {
+  posts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
+}
+
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 24);
+const hotSkills = await getFeaturedSkillsDirect(env, 8).catch(() => []);
+const canonicalUrl = `https://killer-skills.com/${locale}/article`;
+const pageTitle = isZhCopy ? '文章' : 'Articles';
+const pageDescription = isZhCopy
+  ? '按发布时间浏览 AI Agent Skills、安装、审核、工作流和 IDE 自动化文章。'
+  : 'Browse dated articles about AI agent skills, installation, review policy, workflows, and IDE automation.';
+const pageKeywords = buildKeywordString(
+  t,
+  'core',
+  'developerExperience',
+  'workflowAutomation',
+  'ideCompat',
+  'AI Agent Skills',
+);
+
+const getPostSlug = (post: (typeof sortedPosts)[number]) =>
+  post.id
+    .split('/')
+    .slice(1)
+    .join('/')
+    .replace(/\.mdx?$/, '');
+const formatDateGroup = (date: Date) =>
+  new Intl.DateTimeFormat(isZhCopy ? 'zh-CN' : 'en-US', {
+    month: isZhCopy ? 'numeric' : 'short',
+    day: 'numeric',
+  }).format(date);
+
+const groupedPosts = sortedPosts.reduce(
+  (groups, post) => {
+    const key = formatDateGroup(post.data.pubDate);
+    if (!groups.some((group) => group.label === key)) groups.push({ label: key, posts: [] as typeof sortedPosts });
+    groups.find((group) => group.label === key)?.posts.push(post);
+    return groups;
+  },
+  [] as Array<{ label: string; posts: typeof sortedPosts }>,
+);
+
+const getSkillName = (skill: any) => skill.name || skill.skillName || skill.repo || 'Skill';
+const getSkillOwner = (skill: any) => skill.owner || '';
+const getSkillRepo = (skill: any) => skill.repo || '';
+const getSkillHref = (skill: any) => {
+  const owner = getSkillOwner(skill);
+  const repo = getSkillRepo(skill);
+  const routePath = getSkillRoutePath({ id: skill.id, owner, repo }) || repo;
+  const detailLocale = resolveSkillDetailLocale(owner, routePath, typedLocale);
+  return buildLocalizedSkillPath(detailLocale, owner, routePath);
+};
+const getSkillDescription = (skill: any) =>
+  sanitizePublicSkillCopy(
+    skill.seo?.definition?.[typedLocale] || getLocalizedDescription(skill.description, typedLocale) || '',
+    isZhCopy ? '暂无描述' : 'No description available',
+  );
+const topicLabelMap: Record<string, string> = {
+  Documentation: '文档',
+  Collaboration: '协作',
+  'Agent Skills': 'Agent Skills',
+  Automation: '自动化',
+  'Skill Development': '技能开发',
+  'AI Engineering': 'AI 工程',
+  'Technical Writing': '技术写作',
+};
+const formatTopicTags = (tags?: string[]) => {
+  const visibleTags = tags?.slice(0, 3) || [];
+  if (visibleTags.length === 0) return 'AI Agent Skills';
+  return visibleTags.map((tag) => (isZhCopy ? topicLabelMap[tag] || tag : tag)).join(' / ');
+};
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  appendBrand={false}
+  customCanonical={canonicalUrl}
+>
+  <main class="article-page">
+    <section class="article-shell article-head" aria-labelledby="article-title">
+      <nav class="article-crumb" aria-label="Breadcrumb">
+        <a href={`/${locale}`}>{isZhCopy ? '榜单' : 'rankings'}</a>
+        <span>/</span>
+        <span>{isZhCopy ? '文章' : 'articles'}</span>
+      </nav>
+      <div class="article-title-row">
+        <h1 id="article-title">{isZhCopy ? '文章' : 'Articles'}</h1>
+        <p>
+          {isZhCopy ? '选型、工作流和更新文章。' : 'Selection, workflow, and update articles.'}
+        </p>
+      </div>
+    </section>
+
+    <section class="article-shell article-layout" aria-label={isZhCopy ? '文章列表' : 'Articles'}>
+      <div class="article-stream">
+        {
+          groupedPosts.map((group) => (
+            <section class="article-day" aria-labelledby={`article-day-${group.label}`}>
+              <h2 id={`article-day-${group.label}`}>{group.label}</h2>
+              <div class="article-list">
+                {group.posts.map((post) => (
+                  <a class="article-entry" href={`/${locale}/article/${getPostSlug(post)}`}>
+                    {post.data.heroImage && <img src={post.data.heroImage} alt="" loading="lazy" decoding="async" />}
+                    <div>
+                      <h3>{post.data.title}</h3>
+                      <p>{post.data.description}</p>
+                      <span>{formatTopicTags(post.data.tags)}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+
+      <aside class="article-rail" aria-label={isZhCopy ? '相关榜单' : 'Related ranking'}>
+        <div class="article-rail-panel">
+          <h2>{isZhCopy ? '相关榜单' : 'Related ranking'}</h2>
+          <div class="article-hot-list">
+            {
+              hotSkills.slice(0, 8).map((skill, index) => (
+                <a href={getSkillHref(skill)}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <strong>{getSkillName(skill)}</strong>
+                  <small>{getSkillDescription(skill)}</small>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <style>
+    .article-page {
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--foreground);
+    }
+
+    .article-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .article-head {
+      border-bottom: 1px solid var(--border);
+      padding-block: clamp(36px, 6vw, 72px) 26px;
+    }
+
+    .article-crumb {
+      display: flex;
+      gap: 8px;
+      color: var(--muted-foreground);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .article-crumb a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .article-title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.62fr);
+      gap: clamp(24px, 6vw, 80px);
+      align-items: end;
+      margin-top: 18px;
+    }
+
+    .article-title-row h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 0.95;
+    }
+
+    .article-title-row p {
+      margin: 0;
+      color: var(--muted-foreground);
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: clamp(28px, 5vw, 64px);
+      padding-block: 28px clamp(48px, 7vw, 78px);
+      align-items: start;
+    }
+
+    .article-day {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 24px;
+      border-top: 1px solid var(--border-strong);
+      padding-top: 22px;
+    }
+
+    .article-day + .article-day {
+      margin-top: 42px;
+    }
+
+    .article-day h2 {
+      position: sticky;
+      top: 86px;
+      margin: 0;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .article-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .article-entry {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      color: var(--foreground);
+      padding: 14px;
+      text-decoration: none;
+    }
+
+    .article-entry img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      background: var(--muted);
+    }
+
+    .article-entry:not(:has(img)) {
+      grid-template-columns: 1fr;
+      padding: 22px;
+    }
+
+    .article-entry h3 {
+      margin: 0;
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      line-height: 1.1;
+    }
+
+    .article-entry p {
+      margin: 10px 0 0;
+      color: var(--muted-foreground);
+      font-weight: 650;
+      line-height: 1.55;
+    }
+
+    .article-entry span {
+      display: inline-flex;
+      margin-top: 16px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .article-rail {
+      position: sticky;
+      top: 86px;
+    }
+
+    .article-rail-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 18px;
+    }
+
+    .article-rail-panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+    }
+
+    .article-hot-list {
+      display: grid;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-hot-list a {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+      padding: 13px 0;
+      text-decoration: none;
+    }
+
+    .article-hot-list span {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-weight: 900;
+    }
+
+    .article-hot-list strong {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .article-hot-list small {
+      grid-column: 2;
+      color: var(--muted-foreground);
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .article-title-row,
+      .article-layout,
+      .article-day {
+        grid-template-columns: 1fr;
+      }
+
+      .article-day h2,
+      .article-rail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .article-shell {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .article-entry {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</Layout>

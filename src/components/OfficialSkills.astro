@@ -31,40 +31,40 @@ const officialRepoOwners = [
 const sortedOwners = await getOfficialSkillCounts(env, officialRepoOwners, 6);
 ---
 
-<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between mb-12">
+<section class="py-16 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between mb-10">
     <div>
-      <div class="flex items-center gap-4 mb-3">
-        <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight">
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-[var(--foreground)] tracking-tight">
           {t('OfficialSkills.title')}
         </h2>
         <span
-          class="px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-black text-[10px] uppercase tracking-widest"
+          class="rounded-full px-3 py-1 bg-[var(--tag-bg)] text-[var(--tag-text)] border border-[var(--tag-border)] font-bold text-xs"
         >
-          [ {t('OfficialSkills.verified')} ]
+          {t('OfficialSkills.verified')}
         </span>
       </div>
-      <p class="text-[var(--muted-foreground)] font-mono text-sm max-w-xl">
+      <p class="text-[var(--muted-foreground)] text-base leading-7 max-w-2xl">
         {t('OfficialSkills.subtitle')}
       </p>
     </div>
     <a
-      href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
-      class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+      href={`/${locale}/search?source=official`}
+      class="hidden md:flex items-center gap-2 rounded-lg px-5 py-3 border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] font-bold hover:border-[var(--accent)] transition-all"
     >
-      {isZhCopy ? '查看可信合集' : 'Open Trusted Collection'}
-      <span class="font-mono ml-2">→</span>
+      {isZhCopy ? '浏览官方技能' : 'Browse official skills'}
+      <span class="font-mono ml-1">→</span>
     </a>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     {
       sortedOwners.length > 0 ? (
         sortedOwners.map(({ owner, count }, index) => (
           <CollectionCard owner={owner} count={count} locale={locale} priority={index < 3} />
         ))
       ) : (
-        <div class="col-span-full text-center py-12 text-slate-500">
+        <div class="col-span-full text-center py-12 text-[var(--muted-foreground)]">
           <p>{t('Skills.noResults')}</p>
         </div>
       )

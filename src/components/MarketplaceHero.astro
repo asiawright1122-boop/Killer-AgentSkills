@@ -1,0 +1,61 @@
+---
+interface Action {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  locale: string;
+  searchPlaceholder?: string;
+  searchAction?: string;
+  actions?: Action[];
+  countLabel?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  locale,
+  searchPlaceholder,
+  searchAction = `/${locale}/search`,
+  actions = [],
+  countLabel,
+} = Astro.props;
+const fallbackPlaceholder = locale.startsWith('zh') ? '搜索 Skills' : 'Search skills';
+---
+
+<section class="marketplace-hero" aria-labelledby="marketplace-hero-title">
+  <div class="marketplace-shell marketplace-hero-grid">
+    <div class="marketplace-hero-copy">
+      {eyebrow && <p class="marketplace-route-label">{eyebrow}</p>}
+      <h1 id="marketplace-hero-title">{title}</h1>
+      {description && <p>{description}</p>}
+    </div>
+    <div class="marketplace-hero-panel">
+      {countLabel && <strong>{countLabel}</strong>}
+      <form action={searchAction} method="get" role="search">
+        <label class="sr-only" for="marketplace-hero-search">{searchPlaceholder || fallbackPlaceholder}</label>
+        <input
+          id="marketplace-hero-search"
+          name="q"
+          type="search"
+          placeholder={searchPlaceholder || fallbackPlaceholder}
+        />
+        <button type="submit">{locale.startsWith('zh') ? '搜索' : 'Search'}</button>
+      </form>
+      {
+        actions.length > 0 && (
+          <div class="marketplace-hero-actions">
+            {actions.map((action) => (
+              <a href={action.href}>{action.label}</a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

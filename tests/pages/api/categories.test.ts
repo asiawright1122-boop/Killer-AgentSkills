@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createAPIContext, createMockEnv } from '../../../src/lib/api-test-utils';
 
 vi.mock('../../../src/lib/public-skill-catalog', () => ({
+  getLightweightSkills: vi.fn(),
   getLightweightSkillsCategorySummary: vi.fn(),
 }));
 
@@ -34,27 +35,52 @@ describe('GET /api/categories', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     expect(getLightweightSkillsCategorySummary).toHaveBeenCalledTimes(1);
-    await expect(response.json()).resolves.toEqual({
-      categories: [
-        { name: 'productivity', count: 3 },
-        { name: 'other', count: 2 },
-      ],
-      total: 2,
-    });
+    const body = await response.json();
+    expect(body.total).toBe(2);
+    expect(body.totalSkillCount).toBe(5);
+    expect(body.categories).toEqual([
+      expect.objectContaining({
+        name: 'productivity',
+        id: 'productivity',
+        label: 'Productivity',
+        count: 3,
+        href: '/en/categories/productivity',
+        icon: 'zap',
+        description: expect.stringContaining('productivity'),
+      }),
+      expect.objectContaining({
+        name: 'other',
+        id: 'other',
+        label: 'Other',
+        count: 2,
+        href: '/en/search',
+        icon: 'layers',
+        description: expect.stringContaining('not yet mapped'),
+      }),
+    ]);
   });
 
-  it('returns an empty payload when runtime env is unavailable', async () => {
+  it('uses the public catalog fallback when runtime env is unavailable', async () => {
+    vi.mocked(getLightweightSkillsCategorySummary).mockResolvedValue({
+      total: 2,
+      categories: [{ category: 'developer', count: 2 }],
+    });
+
     const response = await GET({
       ...createAPIContext({ url: 'http://localhost/api/categories' }),
       locals: {},
     } as any);
 
     expect(response.status).toBe(200);
-    expect(getLightweightSkillsCategorySummary).not.toHaveBeenCalled();
-    await expect(response.json()).resolves.toEqual({
-      categories: [],
-      total: 0,
-    });
+    expect(getLightweightSkillsCategorySummary).toHaveBeenCalledTimes(1);
+    const body = await response.json();
+    expect(body.categories).toEqual([
+      expect.objectContaining({
+        name: 'developer',
+        count: 2,
+      }),
+    ]);
+    expect(body.totalSkillCount).toBe(2);
   });
 
   it('sanitizes hidden reasoning from category names', async () => {
@@ -71,9 +97,8 @@ describe('GET /api/categories', () => {
     );
 
     expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toEqual({
-      categories: [{ name: 'development', count: 1 }],
-      total: 1,
-    });
+    const body = await response.json();
+    expect(body.categories).toEqual([expect.objectContaining({ name: 'developer', count: 1 })]);
+    expect(body.total).toBe(1);
   });
 });

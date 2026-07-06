@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { fetchWithTimeout } from './lib/utils';
 import { getSkillRoutePath, buildLocalizedSkillPath } from '../src/lib/skill-route-paths';
 import { SUPPORTED_LOCALES } from '../src/i18n';
+import { getP0SurfacePathsFromFile } from './lib/authority-surfaces-paths';
 
 const INDEXNOW_KEY = '89cc8ad09dc64e58b25ccb5632573e78';
 const INDEXNOW_KEY_LOCATION = `https://killer-skills.com/${INDEXNOW_KEY}.txt`;
@@ -11,17 +12,10 @@ const HOST = 'killer-skills.com';
 
 // P0 authority surface paths (without locale prefix) to always include
 // in IndexNow submissions. These are the 8 highest-priority pages that
-// need search engine discovery.
-const P0_SURFACE_PATHS = [
-  '',                                                                     // homepage
-  '/collections',                                                         // collections hub
-  '/collections/top-official-ai-skills-trusted-tools',                     // official collection
-  '/collections/top-agent-workflow-building-tools',                        // workflow collection
-  '/collections/top-cursor-compatible-skills-workflow-integrations',       // cursor collection
-  '/docs/installation',                                                   // installation docs
-  '/blog/official-ai-agent-skills-guide',                                 // official skills guide
-  '/blog/claude-code-vs-cursor-vs-windsurf',                              // IDE comparison
-];
+// need search engine discovery. Derived from data/authority-surfaces.json
+// via scripts/lib/authority-surfaces-paths.ts to stay in sync with the
+// authority surface manifest (Phase 1 v5.5).
+const P0_SURFACE_PATHS = getP0SurfacePathsFromFile();
 
 interface SkillRow {
   id: string;

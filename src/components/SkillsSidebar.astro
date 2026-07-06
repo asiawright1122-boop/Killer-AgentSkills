@@ -21,7 +21,7 @@ const views = [
     icon: 'verified',
     count: Object.values(OFFICIAL_REPOS).filter((v) => v.type === 'official').length,
   },
-  { id: 'featured', name: t('Sidebar.views.featured'), icon: 'star' },
+  { id: 'community', name: locale === 'zh' ? '社区来源' : 'Community', icon: 'star' },
   { id: 'latest', name: t('Sidebar.views.latest'), icon: 'clock' },
 ];
 
@@ -53,16 +53,13 @@ if (activeView) {
 ---
 
 <aside class="w-full md:w-72 shrink-0 md:sticky md:top-24 h-fit z-30">
-  <!-- Navigation Card -->
-  <nav
-    class="bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] p-4 overflow-hidden"
-  >
+  <nav class="skill-detail-surface p-3 overflow-hidden">
     <!-- Mobile Toggle Header -->
     <div
-      class="md:hidden p-4 flex items-center justify-between cursor-pointer border-b-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] mb-4"
+      class="md:hidden p-3 flex items-center justify-between cursor-pointer rounded-md bg-[var(--foreground)] text-[var(--background)] mb-3"
       id="sidebar-toggle"
     >
-      <div class="flex items-center gap-3 font-bold uppercase">
+      <div class="flex items-center gap-3 font-bold">
         <svg
           class="w-6 h-6 text-[var(--primary)]"
           fill="none"
@@ -89,31 +86,28 @@ if (activeView) {
     </div>
 
     <!-- Collapsible Content -->
-    <div id="sidebar-content" class="hidden md:block space-y-8">
+    <div id="sidebar-content" class="hidden md:block space-y-6">
       <!-- Discover Section -->
       <div>
-        <h3
-          class="px-2 text-sm font-black uppercase tracking-widest mb-4 font-mono text-[var(--foreground)] flex items-center gap-2"
-        >
-          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1">↓</span>
+        <h3 class="px-2 text-xs font-bold mb-3 text-[var(--muted-foreground)] flex items-center gap-2">
           {t('Sidebar.discover')}
         </h3>
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           {
             views.map((view) => (
               <a
-                href={`/${locale}/skills?view=${view.id}`}
+                href={`/${locale}/skills?${view.id === 'latest' ? 'sort=latest' : `source=${view.id}&sort=popular`}`}
                 class:list={[
-                  'flex items-center justify-between px-4 py-3 border-2 transition-all font-bold uppercase text-[15px] group',
+                  'flex items-center justify-between rounded-md px-3 py-2.5 border transition-all font-bold text-sm group',
                   activeView === view.id
-                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
-                    : 'bg-[var(--background)] text-[var(--foreground)] border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
+                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)]'
+                    : 'bg-transparent text-[var(--foreground)] border-transparent hover:border-[var(--border)] hover:bg-[var(--card-hover)]',
                 ]}
               >
                 <div class="flex items-center gap-3">
-                  {view.icon === 'verified' && <span class="font-mono text-lg">[O]</span>}
-                  {view.icon === 'star' && <span class="font-mono text-lg">[*]</span>}
-                  {view.icon === 'clock' && <span class="font-mono text-lg">[+]</span>}
+                  {view.icon === 'verified' && <span class="h-2 w-2 rounded-full bg-[var(--success)]" />}
+                  {view.icon === 'star' && <span class="h-2 w-2 rounded-full bg-[var(--primary)]" />}
+                  {view.icon === 'clock' && <span class="h-2 w-2 rounded-full bg-[var(--accent)]" />}
                   <span>{view.name}</span>
                 </div>
               </a>
@@ -122,30 +116,27 @@ if (activeView) {
         </div>
       </div>
 
-      <!-- Collections Section -->
+      <!-- Quick filters -->
       <div>
-        <h3
-          class="px-2 text-sm font-black uppercase tracking-widest mb-4 font-mono text-[var(--foreground)] flex items-center gap-2"
-        >
-          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1">↓</span>
-          {locale === 'zh' ? '精选权威合集' : 'Featured Collections'}
+        <h3 class="px-2 text-xs font-bold mb-3 text-[var(--muted-foreground)] flex items-center gap-2">
+          {locale === 'zh' ? '快捷筛选' : 'Quick filters'}
         </h3>
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           <a
-            href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
-            class="flex items-center justify-between px-4 py-3 border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all font-bold uppercase text-[14px]"
+            href={`/${locale}/skills?source=official`}
+            class="flex items-center justify-between rounded-md px-3 py-2.5 border border-transparent hover:border-[var(--border)] hover:bg-[var(--card-hover)] transition-all font-bold text-sm"
           >
             <div class="flex items-center gap-3">
-              <span class="font-mono text-lg">⚙</span>
+              <span class="h-2 w-2 rounded-full bg-[var(--success)]"></span>
               <span>{locale === 'zh' ? '官方可信工具' : 'Official AI Skills'}</span>
             </div>
           </a>
           <a
-            href={`/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`}
-            class="flex items-center justify-between px-4 py-3 border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all font-bold uppercase text-[14px]"
+            href={`/${locale}/skills?q=cursor`}
+            class="flex items-center justify-between rounded-md px-3 py-2.5 border border-transparent hover:border-[var(--border)] hover:bg-[var(--card-hover)] transition-all font-bold text-sm"
           >
             <div class="flex items-center gap-3">
-              <span class="font-mono text-lg">⚡</span>
+              <span class="h-2 w-2 rounded-full bg-[var(--accent)]"></span>
               <span>{locale === 'zh' ? 'Cursor 兼容工具' : 'Cursor Compatible'}</span>
             </div>
           </a>
@@ -153,26 +144,23 @@ if (activeView) {
       </div>
 
       <!-- Separator -->
-      <div class="h-1 mx-2 bg-[var(--border)]"></div>
+      <div class="mx-2 border-t border-[var(--border)]"></div>
 
       <!-- Categories Section -->
       <div>
-        <h3
-          class="px-2 text-sm font-black uppercase tracking-widest mb-4 font-mono text-[var(--foreground)] flex items-center gap-2"
-        >
-          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1">↓</span>
+        <h3 class="px-2 text-xs font-bold mb-3 text-[var(--muted-foreground)] flex items-center gap-2">
           {t('Sidebar.categories.title')}
         </h3>
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           {
             categories.map((category) => (
               <a
-                href={`/${locale}/skills?category=${category.id}`}
+                href={`/${locale}/categories${category.id === 'all' ? '' : `/${category.id}`}`}
                 class:list={[
-                  'flex items-center gap-3 px-4 py-3 border-2 transition-all font-bold uppercase text-[14px] group',
+                  'flex items-center gap-3 rounded-md px-3 py-2.5 border transition-all font-bold text-sm group',
                   activeCategory === category.id
-                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--primary)] translate-x-[-2px] translate-y-[-2px]'
-                    : 'bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
+                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)]'
+                    : 'bg-transparent text-[var(--foreground)] border-transparent hover:border-[var(--border)] hover:bg-[var(--card-hover)]',
                 ]}
               >
                 <span>{category.name}</span>
@@ -183,24 +171,21 @@ if (activeView) {
       </div>
 
       <!-- Separator -->
-      <div class="h-1 mx-2 bg-[var(--border)]"></div>
+      <div class="mx-2 border-t border-[var(--border)]"></div>
 
       <!-- Frameworks Section -->
       <div>
-        <h3
-          class="px-2 text-sm font-black uppercase tracking-widest mb-4 font-mono text-[var(--foreground)] flex items-center gap-2"
-        >
-          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1">↓</span>
+        <h3 class="px-2 text-xs font-bold mb-3 text-[var(--muted-foreground)] flex items-center gap-2">
           {t('Sidebar.frameworks')}
         </h3>
         <div class="flex flex-wrap gap-2 px-2">
           {
             frameworks.map((fw) => (
               <a
-                href={`/${locale}/skills?topic=${fw.id}`}
-                class="px-2.5 py-1 font-mono font-bold text-xs border-2 border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)]"
+                href={`/${locale}/skills?q=${fw.id}`}
+                class="market-chip px-2.5 py-1 font-bold text-xs hover:border-[var(--accent)]"
               >
-                [{fw.name}]
+                {fw.name}
               </a>
             ))
           }

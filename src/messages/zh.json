@@ -189,7 +189,7 @@
     "comparison": {
       "title": "为什么选择 Killer-Skills CLI？",
       "feature": "功能",
-      "ks": "\"Killer-Skills CLI\"\n\n## 规则：\n1。 **SEO 优化 **： 使用用户在 AI 智能体工具和开发者工作流空间中实际搜索的关键词。\n2。 ** 站点主题 **： 这是 AI 智能体技能市场。保持翻译与 AI 智能体、技能、工作流、IDE 集成、MCP 服务器、开发者工具相关。\n3。 ** 长度约束 **： 尽量保持翻译长度与原文相近，以避免 UI 破坏或 SERP 截断。\n4。 **tone**： 专业、技术、但又易于理解。\n5。 ** 品牌术语 **： 保持 \"Killer-Skills\"、\"Claude Code\"、\"Cursor\"、\"Windsurf\"、\"MCP\" 不译。\n6。 **CJK 格式化规则 **（关键）：\n - 对于 CJK 语言（zh、ja、ko）：在 CJK 字符和英语字母/数字/反引号之间留一个半宽空格（例如“在 Cursor 中”）。\n - 中文（zh）：使用全宽标点符号（，。！？：；）。\n - 日文（ja）：使用全宽标点符号和日文逗号（、。！？：；）。\n - 韩文（ko）：保持半宽句号和逗号（。，）但使用全宽惊叹号/问号（！？）。\n7。 ** 词汇对齐 **：\n - \"AI 智能体技能\" -> zh： \"AI 智能体技能\"， ja： \"AI 智能体技能\"， ko： \"AI 智能体技能\"\n - \"AI 智能体\" -> zh： \"AI 智能体\"， ja： \"AI 智能体\"， ko： \"AI 智能体\"\n - \"IDE 集成\" -> zh： \"IDE 集成\"， ja： \"IDE 集成\"， ko： \"IDE 集成\"\n - \"开发者工具\" -> zh： \"开发者工具\"， ja： \"开发者工具\"， ko： \"开发者工具\"\n - \"安装平台\" -> zh： \"安装平台\"， ja： \"安装平台\"， ko： \"安装平台\"\n - \"工作流自动化\" -> zh： \"工作流自动化\"， ja： \"工作流自动化\"， ko： \"工作流自动化\"\n - \"市场\" -> zh： \"市场\"， ja： \"市场\"， ko： \"市场\"\n8。 ** 无废话 **： 不解释。只返回翻译文本。\n\n\"Killer-Skills CLI\"",
+      "ks": "Killer-Skills CLI",
       "others": "手动写 Prompt",
       "row1": "一键安装到 19 个 IDE",
       "row2": "自动调用 (零 Context 浪费)",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI 智能体技能。",
     "heroSubtitle": "安装和管理 AI 智能体技能",
-    "heroTitle": "杀手技能 CLI",
+    "heroTitle": "Killer-Skills CLI",
     "install": "立即安装",
     "latestVersion": "最新版本：",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
@@ -295,7 +295,7 @@
     "faq1Q": "这里有哪些 AI 智能体技能分类？",
     "faq2A": "目前平台已收录 {length}+ 个 AI 智能体技能，热门分类集中在 {topNames}。",
     "faq2Q": "Killer-Skills 一共有多少技能？",
-    "faq3A": "先进入与你当前任务最接近的分类，再在技能目录里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。",
+    "faq3A": "先进入与你当前任务最接近的分类，再在探索页继续按关键词、官方仓库或排行视图筛选。这样通常比直接搜索宽泛词更快找到结果。",
     "faq3Q": "如何按分类查找适合我的技能？",
     "git": "Git",
     "heroDesc": "探索不同类型的 AI 技能，找到最适合你的工具",
@@ -390,10 +390,10 @@
     }
   },
   "Collections": {
-    "backToCollections": "精选合集",
+    "backToCollections": "专题",
     "collection": "合集",
     "collectionsSubtitle": "发现面向可信工具、工作流和 IDE 使用的安装优先合集",
-    "collectionsTitle": "精选合集",
+    "collectionsTitle": "专题",
     "copied": "已复制",
     "copy": "复制",
     "curationCriteriaBody": "Every collection on Killer-Skills is hand-curated， not auto-generated。 We group skills by real workflow patterns — document automation， agent orchestration， IDE-specific integrations — so you can evaluate related tools side-by-side instead of scrolling a raw directory。 Skills that pass our quality review floor (verified schemas， single-command install， no unauthorized data egress) appear in collections and search listings。 Those that don't still have installable detail pages but are excluded from sitemap and index — so what Google shows always carries editorial judgment， not raw repository imports。",
@@ -406,7 +406,7 @@
     "faq3A": "可以。打开合集里的任一技能页，就能在 Claude Code、Cursor、Windsurf 等支持环境中使用对应安装命令。",
     "faq3Q": "合集里的技能能直接装到 Claude Code 或 Cursor 里吗？",
     "featured": "推荐",
-    "heroTitle": "精选合集",
+    "heroTitle": "专题",
     "installAll": "查看安装路径",
     "installHint": "先选一个技能，再复制对应安装命令",
     "items": "项",
@@ -424,7 +424,7 @@
   "Common": {
     "back": "返回",
     "chinese": "简体中文",
-    "collections": "精选合集",
+    "collections": "专题",
     "communityVendor": "社区供应商",
     "copied": "已复制",
     "copy": "复制",
@@ -451,7 +451,7 @@
     "search": "搜索",
     "searchPlaceholder": "搜索技能 (例如 '网页抓取')",
     "skillsCount": "个技能",
-    "skillsMarket": "技能目录",
+    "skillsMarket": "榜单",
     "skipToContent": "跳到内容",
     "theme": "主题",
     "verified": "已认证",
@@ -660,7 +660,7 @@
     "overview": "概览",
     "platformOverview": "技能概览",
     "quickStart": "快速开始",
-    "restApi": "\"REST API\"\n\n## 规则：\n1。 **SEO 优化 **： 使用 zh 用户在 AI 智能体工具和开发者工作流空间中实际搜索的关键词。\n2。 ** 站点主题 **： 这是 AI 智能体技能市场。保持翻译与 AI 智能体、技能、工作流、IDE 集成、MCP 服务器、开发者工具相关。\n3。 ** 长度限制 **： 保持翻译长度接近原文，以避免 UI 破坏或 SERP 截断。\n4。 **tone**： 专业、技术、但易于理解。\n5。 ** 品牌术语 **： 保持 \"Killer-Skills\"、\"Claude Code\"、\"Cursor\"、\"Windsurf\"、\"MCP\" 未翻译。\n6。 **CJK 格式化规则（关键）**：\n - 对 CJK 语言 (zh、ja、ko)：在 CJK 字符和英文字母/数字/反引号之间留半宽空格 (e.g。 \"在 Cursor 中\")。\n - 中文 (zh)：使用全宽符号 (， 。 ！ ？ ： ；)。\n - 日语 (ja)：使用全宽符号与日语逗号 (、 。 ！ ？ ： ；)。\n - 韩语 (ko)：保持半宽句号和逗号 (。，) 但使用全宽惊叹号/问号 (！ ？)。\n7。 ** 词汇表对齐 **：\n - \"AI 智能体技能\" -> zh： \"AI 智能体技能\"， ja： \"AI 智能体技能\"， ko： \"AI 智能体技能\"\n - \"AI 智能体\" -> zh： \"AI 智能体\"， ja： \"AI 智能体\"， ko： \"AI 智能体\"\n - \"IDE 集成\" -> zh： \"IDE 集成\"， ja： \"IDE 集成\"， ko： \"IDE 集成\"\n - \"开发者工具\" -> zh： \"开发者工具\"， ja： \"开发者工具\"， ko： \"开发者工具\"\n - \"安装平台\" -> zh： \"安装平台\"， ja： \"安装平台\"， ko： \"安装平台\"\n - \"工作流自动化\" -> zh： \"工作流自动化\"， ja： \"工作流自动化\"， ko： \"工作流自动化\"\n - \"市场\" -> zh： \"市场\"， ja： \"市场\"， ko： \"市场\"\n8。 ** 无废话 **： 不解释。只返回翻译文本。",
+    "restApi": "REST API",
     "security": "安全",
     "skills": "技能 (Skills)",
     "tools": "工具 (Tools)",
@@ -668,7 +668,7 @@
   },
   "Footer": {
     "blog": "博客",
-    "browse": "浏览技能",
+    "browse": "查看榜单",
     "categories": "分类",
     "cli": "CLI 工具",
     "community": "社区",
@@ -693,14 +693,7 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能 ... 例如：PDF 处理、数据分析",
     "subtitle": "探索无限可能，赋能你的 AI 助手",
-    "suggestions": [
-      "PDF 处理",
-      "图像生成",
-      "数据分析",
-      "浏览器自动化",
-      "代码审查",
-      "文档处理"
-    ],
+    "suggestions": ["PDF 处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
     "title": "发现 AI 智能体技能",
     "titleHighlight": "AI 智能体"
   },
@@ -708,18 +701,18 @@
     "cta": {
       "title": "开始使用 Killer Skills",
       "subtitle": "一行命令安装技能，让你的 AI 助手更加强大",
-      "browse": "浏览技能目录",
+      "browse": "查看榜单",
       "docs": "查看文档"
     },
     "editorialCurationBody": "我们优先收录来自官方源（Anthropic、Vercel、Cloudflare、Sentry）和高星社区仓库的技能，并通过质量审核基线。每个被索引的技能都有第一方推荐层，说明其适用场景、真实用例和局限性。未达到此标准的技能仍可作为安装参考访问，但不会出现在搜索列表中——因此 Google 索引到的内容始终带有编辑判断，而非原始 GitHub 导入。",
     "editorialCurationLink": "查看我们的选择标准",
     "editorialCurationTitle": "为什么优先推荐这些工具",
-    "editorialParagraph1": "随着 Claude Code、Cursor 和 Windsurf 等 AI 编码助手的兴起，Model Context Protocol (MCP) 已成为连接大语言模型（LLM）与本地/远程开发环境的标准桥梁。然而，在 GitHub 上直接搜寻未经整理的原始仓库，往往面临配置碎片化、静默执行失败以及本地系统越权访问等重大安全隐患。Killer-Skills 目录正是为了解决这一核心痛点而生。",
-    "editorialParagraph2": "收录在 Killer-Skills 开放目录中的每一个 AI 技能和 MCP 服务器都必须通过我们严苛的多阶段自动测试与人工筛选管道。我们基于三大工程支柱评估每个工具：安全性（Safety）、IDE 原生兼容性（Native IDE Compatibility）以及依赖极简化（Dependency Leanness）。我们的系统会持续监控技能是否声明了正确的参数 Schema 规范，防止越权的本地数据静默流出，并确保其可以通过单条标准化命令完成无缝安装。同时，我们定期运行爬行健康（Crawl-health）验证，确保索引中没有任何失效死链，保障您的本地开发环境绝对安全。",
-    "editorialParagraph3": "通过将 3,400+ 个开源技能归纳、洗净并沉淀为场景化的精选合集，我们帮助工程师安全地增强 AI 开发助手的开发极限，而无需在原始仓库的调试上浪费宝贵时间。我们把技能划分为针对实际开发任务的专业版块，如文档自动化处理（xlsx、docx 和 pdf 深度操作）、创意生成艺术以及 DevOps。无论您是需要利用 OCR 自动生成 PDF 复杂账单、编写自动化单元测试，还是在 IDE 终端内安全管理云端容器部署，Killer-Skills 都为您提供干净、合规且高权威的安装入口。每一条发布路径都受到我们边缘重定向中间件（Edge Middleware）的严密保护，确保您下载并安装的皆是活跃、合规的最新优质代码。",
-    "editorialSubtitle": "专为开发者打造的技能目录，确保安全、环境兼容与极致的执行精度。",
+    "editorialParagraph1": "随着 Claude Code、Cursor 和 Windsurf 等 AI 编码助手的兴起，Model Context Protocol (MCP) 已成为连接大语言模型（LLM）与本地/远程开发环境的标准桥梁。然而，在 GitHub 上直接搜寻未经整理的原始仓库，往往面临配置碎片化、静默执行失败以及本地系统越权访问等重大安全隐患。Killer-Skills 正是为了解决这一核心痛点而生。",
+    "editorialParagraph2": "收录在 Killer-Skills 开放榜单中的每一个 AI 技能和 MCP 服务器都必须通过我们严苛的多阶段自动测试与人工筛选管道。我们基于三大工程支柱评估每个工具：安全性（Safety）、IDE 原生兼容性（Native IDE Compatibility）以及依赖极简化（Dependency Leanness）。我们的系统会持续监控技能是否声明了正确的参数 Schema 规范，防止越权的本地数据静默流出，并确保其可以通过单条标准化命令完成无缝安装。同时，我们定期运行爬行健康（Crawl-health）验证，确保索引中没有任何失效死链，保障您的本地开发环境绝对安全。",
+    "editorialParagraph3": "通过将 3,400+ 个开源技能归纳、洗净并沉淀为场景化的工作流专题，我们帮助工程师安全地增强 AI 开发助手的开发极限，而无需在原始仓库的调试上浪费宝贵时间。我们把技能划分为针对实际开发任务的专业版块，如文档自动化处理（xlsx、docx 和 pdf 深度操作）、创意生成艺术以及 DevOps。无论您是需要利用 OCR 自动生成 PDF 复杂账单、编写自动化单元测试，还是在 IDE 终端内安全管理云端容器部署，Killer-Skills 都为您提供干净、合规且高权威的安装入口。每一条发布路径都受到我们边缘重定向中间件（Edge Middleware）的严密保护，确保您下载并安装的皆是活跃、合规的最新优质代码。",
+    "editorialSubtitle": "专为开发者打造的榜单与探索入口，确保安全、环境兼容与极致的执行精度。",
     "editorialTitle": "为什么可复用的 MCP 技能如此重要及我们的测试标准",
-    "faq1A": "Killer-Skills 是一个开放的 AI 智能体技能目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。",
+    "faq1A": "Killer-Skills 是一个开放的 AI 智能体技能榜单、搜索与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。",
     "faq1Q": "Killer-Skills 是什么？",
     "faq2A": "大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持统一的安装流程。",
     "faq2Q": "这些技能支持哪些 IDE？",
@@ -767,16 +760,11 @@
     },
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能，例如：网页爬取、数据可视化",
-    "seoDescription": "浏览 3,400+ 个 AI 智能体技能与 MCP 服务器。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放 AI 智能体技能目录，支持可信工具发现与一键安装。",
-    "seoIntro": "Killer-Skills 是一个收录 3,400+ AI 智能体技能的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。",
-    "seoTitle": "AI 智能体技能开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
+    "seoDescription": "按排行、来源、场景和安装风险搜索 AI 智能体技能。Killer-Skills 面向 Claude Code、Cursor、Windsurf 与 19+ IDE 提供榜单、搜索、分类和安全入口。",
+    "seoIntro": "Killer-Skills 是 AI Agent Skills 的开源目录、榜单、搜索、分类和安全入口。开发者可以先看排行，再按来源、场景和安装风险继续筛选。",
+    "seoTitle": "AI Agent Skills 榜单：Claude Code、Cursor 与 Windsurf 技能入口",
     "stable": "稳定",
-    "tags": [
-      "研究",
-      "编程",
-      "营销",
-      "分析"
-    ],
+    "tags": ["研究", "编程", "营销", "分析"],
     "trendingSubtitle": "由社区评选的顶级技能。",
     "trendingTitle": "精选技能",
     "viewAll": "查看全部"
@@ -893,13 +881,13 @@
   },
   "Metadata": {
     "Skills": {
-      "title": "技能目录 - 发现 AI 智能体技能",
-      "description": "浏览和安装 Killer-Skills 目录中的数千个 AI 智能体技能。支持 Claude Code、Windsurf、Cursor 等。"
+      "title": "AI Agent Skills 榜单与探索",
+      "description": "按排行、来源和场景探索 Killer-Skills 中的 AI 智能体技能。支持 Claude Code、Windsurf、Cursor 等。"
     },
     "description": "发现、安装和管理 AI 智能体技能，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
     "keywords": "agent skills， claude code， AI 智能体， cursor， windsurf， antigravity， ai skills， 编程技能， AI 助手， 代码生成",
-    "template": "\"%s | Killer-Skills\" \n\n翻译后： \"%s | Killer-Skills\"",
-    "title": "Killer-Skills - AI 智能体技能目录"
+    "template": "%s | Killer-Skills",
+    "title": "Killer-Skills - AI Agent Skills 榜单"
   },
   "Navigation": {
     "blog": "博客",
@@ -910,7 +898,7 @@
     "github": "GitHub",
     "history": "浏览历史",
     "home": "首页",
-    "marketplace": "技能",
+    "marketplace": "榜单",
     "submitSkill": "提交技能"
   },
   "OfficialSkills": {
@@ -926,7 +914,7 @@
     "historyCount": "{count} 个技能",
     "myFavorites": "我的收藏",
     "noFavorites": "暂无收藏",
-    "noFavoritesHint": "浏览技能目录，点击心形图标收藏喜欢的技能",
+    "noFavoritesHint": "先从榜单或探索页找到合适技能，再点击心形图标收藏。",
     "noHistory": "暂无浏览历史",
     "noHistoryHint": "浏览技能详情页后，历史记录将显示在这里",
     "removeFavorite": "移除",
@@ -1005,7 +993,7 @@
       "templates": "技能模板， 工作流技能模板， 自动化技能模板， 可复用 Agent 手册",
       "ideCompat": "Claude Code 技能， Cursor 技能， Windsurf 技能， VS Code AI 智能体技能",
       "cli": "AI 智能体技能 CLI， killer-skills add， 技能安装 CLI， 面向可安装技能的命令行",
-      "docs": "AI 智能体技能文档， 技能配置文档， Claude Code 安装文档， 开发者技能文档",
+      "docs": "AI 智能体技能文档， 技能配置说明， Claude Code 安全检查， 开发者技能文档",
       "developerExperience": "开发者工作流技能， 编码自动化技能， 开发效率技能， 面向编码的 AI 开发工具",
       "enterpriseWorkflows": "团队工作流技能， 运营自动化技能， 业务流程技能， 面向 AI 智能体的运营手册",
       "creativeWorkflows": "创意工作流技能， 设计自动化技能， 内容创作流程技能， 面向 AI 智能体的创意工具"
@@ -1025,7 +1013,8 @@
       "documentation": "文档处理",
       "devops": "DevOps & 云服务",
       "security": "安全 & 认证",
-      "communication": "通讯 & 社交"
+      "communication": "通讯 & 社交",
+      "other": "其他"
     },
     "discover": "发现",
     "frameworks": "框架",
@@ -1067,7 +1056,7 @@
   "Solutions": {
     "backToSolutions": "返回解决方案",
     "badge": "解决方案",
-    "browseSkills": "浏览全部技能目录",
+    "browseSkills": "查看全部榜单",
     "faq1A": "场景页会把相关问题和最值得看的技能整理在一起，方便你更快对比并选出合适方案。",
     "faq1Q": "为什么要用场景页而不是直接搜关键词？",
     "faq1QTemplate": "{label} 场景通常解决什么问题？",
@@ -1081,7 +1070,7 @@
     "openSolution": "进入场景",
     "pageDescription": "按具体场景浏览可安装 AI 智能体技能，覆盖工作流、流程、文档、浏览器自动化与数据提取。",
     "pageTitle": "可安装自动化方案：AI 智能体技能",
-    "readDocs": "查看安装文档",
+    "readDocs": "查看安全检查",
     "solutions": "解决方案",
     "tryDemo": "在线试用 Skill Demo"
   },

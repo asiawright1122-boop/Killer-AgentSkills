@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const waitForHeaderActions = async (page: Page) => {
-  await expect(page.getByTestId('header-actions')).toHaveAttribute('data-mounted', 'true');
+  await expect(page.getByTestId('header-actions')).toHaveAttribute('data-initialized', 'true');
 };
 
 test.describe('Navigation & i18n E2E', () => {
@@ -13,25 +13,35 @@ test.describe('Navigation & i18n E2E', () => {
     expect(response?.status()).toBeLessThan(400);
   });
 
-  test('desktop navigation should click through to the collections page', async ({ page }) => {
+  test('desktop navigation should click through the marketplace primary routes', async ({ page }) => {
     await page.goto('/en');
-    await page.locator('nav[aria-label="Main navigation"] a[href="/en/collections"]').click();
-    await expect(page).toHaveURL(/\/en\/collections$/);
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await waitForHeaderActions(page);
+    const nav = page.getByTestId('desktop-primary-nav');
+    await expect(nav).toBeVisible();
+
+    await Promise.all([page.waitForURL(/\/en\/skills$/), nav.locator('a[href="/en/skills"]').click()]);
+    await waitForHeaderActions(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Skills Directory' })).toBeVisible();
+
+    await Promise.all([page.waitForURL(/\/en\/popular$/), nav.locator('a[href="/en/popular"]').click()]);
+    await waitForHeaderActions(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Popular Skills' })).toBeVisible();
+
+    await Promise.all([page.waitForURL(/\/en\/occupations$/), nav.locator('a[href="/en/occupations"]').click()]);
+    await waitForHeaderActions(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Occupations' })).toBeVisible();
+
+    await Promise.all([page.waitForURL(/\/en\/categories$/), nav.locator('a[href="/en/categories"]').click()]);
+    await waitForHeaderActions(page);
+    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
   });
 
-  test('collection cards should navigate when clicking the card body', async ({ page }) => {
+  test('collections bridge page should route into the new marketplace structure', async ({ page }) => {
     await page.goto('/en/collections');
-
-    const collectionCard = page.getByTestId('collection-card').first();
-    await expect(collectionCard).toBeVisible();
-
-    const href = await collectionCard.locator('a[href^="/en/collections/"]').first().getAttribute('href');
-    expect(href).toBeTruthy();
-
-    await collectionCard.click();
-    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
-    await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toBeVisible();
+    const categoriesLink = page.locator('a[href="/en/categories"]').first();
+    await expect(categoriesLink).toBeVisible();
+    await Promise.all([page.waitForURL(/\/en\/categories$/), categoriesLink.click()]);
+    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
   });
 
   test('desktop locale switch should update the route and document language', async ({ page }) => {
@@ -55,18 +65,15 @@ test.describe('Navigation & i18n E2E', () => {
     await menuToggle.click();
     await expect(overlay).toHaveAttribute('data-state', 'open');
 
-    await page.getByTestId('mobile-menu-panel').locator('a[href="/en/collections"]').click();
-    await expect(page).toHaveURL(/\/en\/collections$/);
+    const categoriesLink = page.getByTestId('mobile-menu-panel').locator('a[href="/en/categories"]');
+    await Promise.all([page.waitForURL(/\/en\/categories$/), categoriesLink.click()]);
     await expect(overlay).toHaveAttribute('data-state', 'closed');
+    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
 
-    const collectionCard = page.getByTestId('collection-card').first();
-    await expect(collectionCard).toBeVisible();
-
-    const href = await collectionCard.locator('a[href^="/en/collections/"]').first().getAttribute('href');
-    expect(href).toBeTruthy();
-
-    await collectionCard.click();
-    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
+    await menuToggle.click();
+    await expect(overlay).toHaveAttribute('data-state', 'open');
+    await page.locator('.header-mobile-backdrop').click({ position: { x: 8, y: 8 } });
+    await expect(overlay).toHaveAttribute('data-state', 'closed');
   });
 
   test('skill cards should navigate when local listing data is available', async ({ page }) => {
@@ -80,8 +87,10 @@ test.describe('Navigation & i18n E2E', () => {
     const href = await skillCard.locator('a[href*="/en/skills/"]').first().getAttribute('href');
     expect(href).toBeTruthy();
 
-    await skillCard.click();
-    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
+    await Promise.all([
+      page.waitForURL(new RegExp(escapeRegExp(href!))),
+      skillCard.locator('a[href*="/en/skills/"]').first().click(),
+    ]);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 

@@ -42,18 +42,18 @@ describe('skill detail link resolution', () => {
     expect(
       resolveSkillDetailLink(
         {
-          id: '00susu00/wiki-idea-llm-harness/wikillm',
-          owner: '00susu00',
-          repo: 'wiki-idea-llm-harness',
-          routePath: 'wiki-idea-llm-harness/wikillm',
+          id: 'langgenius/dify/frontend-code-review',
+          owner: 'langgenius',
+          repo: 'dify',
+          routePath: 'dify/frontend-code-review',
         },
         'ja',
       ),
     ).toEqual({
-      owner: '00susu00',
-      routePath: 'wiki-idea-llm-harness/wikillm',
+      owner: 'langgenius',
+      routePath: 'dify/frontend-code-review',
       detailLocale: 'en',
-      href: '/en/skills/00susu00/wiki-idea-llm-harness/wikillm',
+      href: '/en/skills/langgenius/dify/frontend-code-review',
     });
   });
 });

@@ -74,8 +74,8 @@ export const POST: APIRoute = async ({ locals }) => {
     // Batch upsert into D1
     const stmt = env.DB.prepare(`
       INSERT OR REPLACE INTO skills 
-      (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (id, category, owner, repo, repo_path, name, stars, forks, quality_score, security_level, source_trust, rank_score, last_audited_at, updated_at, last_synced, content_hash, data_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const batches = [];
@@ -97,6 +97,10 @@ export const POST: APIRoute = async ({ locals }) => {
           skill.stars || 0,
           skill.forks || 0,
           skill.qualityScore || 0,
+          skill.securityLevel || 'C',
+          skill.sourceTrust || 'T3',
+          skill.rankScore || skill.qualityScore || 0,
+          skill.lastAuditedAt || skill.lastSynced || skill.updatedAt || new Date().toISOString(),
           skill.updatedAt || new Date().toISOString(),
           skill.lastSynced || new Date().toISOString(),
           skill.contentHash || '',

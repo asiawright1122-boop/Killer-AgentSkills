@@ -8,46 +8,42 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<div
-  class="h-full flex flex-col rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d1117] transition-colors duration-300"
->
-  <div
-    class="flex items-center gap-2 px-6 py-4 bg-slate-50 dark:bg-[#161b22] border-b border-slate-200 dark:border-slate-800"
-  >
-    <h2 class="text-sm font-mono font-bold text-slate-900 dark:text-white tracking-wide uppercase">
+<div class="skill-detail-card h-full flex flex-col overflow-hidden transition-colors duration-300">
+  <div class="flex items-center gap-2 px-6 py-4 bg-[var(--muted)] border-b border-[var(--border)]">
+    <h2 class="text-sm font-mono font-bold text-[var(--foreground)]">
       {t('CLI.comparison.title')}
     </h2>
   </div>
 
-  <div class="flex-1 p-0 bg-white dark:bg-slate-900/50 overflow-x-auto">
+  <div class="flex-1 p-0 bg-[var(--card)] overflow-x-auto">
     <table class="w-full text-left text-sm h-full min-w-[400px]">
-      <thead class="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+      <thead class="bg-[var(--muted)] border-b border-[var(--border)]">
         <tr>
-          <th class="p-4 font-medium text-slate-500 dark:text-slate-400">Feature</th>
-          <th class="p-4 font-bold text-cyan-600 dark:text-cyan-400">{t('CLI.comparison.ks')}</th>
-          <th class="p-4 font-medium text-slate-500 dark:text-slate-400">{t('CLI.comparison.others')}</th>
+          <th class="p-4 font-medium text-[var(--muted-foreground)]">Feature</th>
+          <th class="p-4 font-bold text-[var(--accent)]">{t('CLI.comparison.ks')}</th>
+          <th class="p-4 font-medium text-[var(--muted-foreground)]">{t('CLI.comparison.others')}</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
+      <tbody class="divide-y divide-[var(--border)] bg-[var(--card)]">
         <tr>
-          <td class="p-4 text-slate-900 dark:text-white font-medium">{t('CLI.comparison.row1')}</td>
-          <td class="p-4"><Check className="w-5 h-5 text-cyan-600 dark:text-cyan-400" /></td>
-          <td class="p-4"><X className="w-5 h-5 text-slate-400" /></td>
+          <td class="p-4 text-[var(--foreground)] font-medium">{t('CLI.comparison.row1')}</td>
+          <td class="p-4"><Check className="w-5 h-5 text-[var(--accent)]" /></td>
+          <td class="p-4"><X className="w-5 h-5 text-[var(--muted-foreground)]" /></td>
         </tr>
         <tr>
-          <td class="p-4 text-slate-900 dark:text-white font-medium">{t('CLI.comparison.row2')}</td>
-          <td class="p-4"><Check className="w-5 h-5 text-cyan-600 dark:text-cyan-400" /></td>
-          <td class="p-4"><X className="w-5 h-5 text-slate-400" /></td>
+          <td class="p-4 text-[var(--foreground)] font-medium">{t('CLI.comparison.row2')}</td>
+          <td class="p-4"><Check className="w-5 h-5 text-[var(--accent)]" /></td>
+          <td class="p-4"><X className="w-5 h-5 text-[var(--muted-foreground)]" /></td>
         </tr>
         <tr>
-          <td class="p-4 text-slate-900 dark:text-white font-medium">{t('CLI.comparison.row3')}</td>
-          <td class="p-4"><Check className="w-5 h-5 text-cyan-600 dark:text-cyan-400" /></td>
-          <td class="p-4"><X className="w-5 h-5 text-slate-400" /></td>
+          <td class="p-4 text-[var(--foreground)] font-medium">{t('CLI.comparison.row3')}</td>
+          <td class="p-4"><Check className="w-5 h-5 text-[var(--accent)]" /></td>
+          <td class="p-4"><X className="w-5 h-5 text-[var(--muted-foreground)]" /></td>
         </tr>
         <tr>
-          <td class="p-4 text-slate-900 dark:text-white font-medium">{t('CLI.comparison.row4')}</td>
-          <td class="p-4"><Check className="w-5 h-5 text-cyan-600 dark:text-cyan-400" /></td>
-          <td class="p-4"><Minus className="w-5 h-5 text-slate-400" /></td>
+          <td class="p-4 text-[var(--foreground)] font-medium">{t('CLI.comparison.row4')}</td>
+          <td class="p-4"><Check className="w-5 h-5 text-[var(--accent)]" /></td>
+          <td class="p-4"><Minus className="w-5 h-5 text-[var(--muted-foreground)]" /></td>
         </tr>
       </tbody>
     </table>

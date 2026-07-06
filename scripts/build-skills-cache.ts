@@ -41,6 +41,7 @@ import {
 import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
 import { getNonTargetSkillReason, POSITIVE_THEME_KEYWORDS, isOfficialRepo } from '../src/lib/shared/validation';
 import { sanitizePublicAIOutputValue } from '../src/lib/public-ai-output';
+import { assessSkillTrust } from '../src/lib/skill-trust';
 import { isSkillFullyOptimized, collectOptimizationIssues, DEFAULT_REGEN_BATCH_SIZE } from './lib/skill-quality';
 import { writeRegenerationBaselineReport } from './lib/regeneration-report';
 import { getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
@@ -270,6 +271,10 @@ function sharedCalculateQualityScore(skill: any): number {
   else if (skill.stars && skill.stars > 20) score += 5;
 
   return Math.min(100, score);
+}
+
+function attachTrustProfile<T extends SkillCache>(skill: T): T {
+  return Object.assign(skill, assessSkillTrust(skill));
 }
 
 // ===== Category Determination =====
@@ -1121,6 +1126,7 @@ async function buildCache(): Promise<void> {
 
               console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
               skill.qualityScore = calculateQualityScore(skill);
+              attachTrustProfile(skill);
               skills.push(skill);
               globalSkillsRef = skills; // Update reference
 
@@ -1179,6 +1185,7 @@ async function buildCache(): Promise<void> {
               }
 
               skill.qualityScore = calculateQualityScore(skill);
+              attachTrustProfile(skill);
               skills.push(skill);
               globalSkillsRef = skills; // Update reference
 
@@ -1282,6 +1289,7 @@ async function buildCache(): Promise<void> {
           };
 
           skill.qualityScore = calculateQualityScore(skill);
+          attachTrustProfile(skill);
           skills.push(skill);
           globalSkillsRef = skills; // Update reference
 
@@ -1582,6 +1590,7 @@ async function buildCache(): Promise<void> {
             };
 
             skill.qualityScore = calculateQualityScore(skill);
+            attachTrustProfile(skill);
 
             // 收录门槛：score > 0 即为结构有效的 SKILL.md（score=0 = 无名字/可疑/空内容）
             if ((skill.qualityScore || 0) <= 0) {
@@ -2043,7 +2052,9 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
   }
 
   const cleanedSkills = Array.from(idMap.values()).sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
-  const normalizedSkills = cleanedSkills.map((skill) => toPublicSkillCache(ensureSkillMdContent(skill)));
+  const normalizedSkills = cleanedSkills.map((skill) =>
+    toPublicSkillCache(attachTrustProfile(ensureSkillMdContent(skill))),
+  );
   console.log(`   → Removed ${beforeCount - cleanedSkills.length} low-quality/duplicate skills`);
   console.log(`   → Final count: ${normalizedSkills.length}`);
 
@@ -2143,7 +2154,7 @@ async function saveStateOnly(skills: SkillCache[], runtimeStatus: 'running' | 'p
   // allSkillsMap is already deduped by ID — no secondary dedup needed.
   // Each skill has a unique ID; name collisions across repos are intentional (different pages).
   const uniqueSkills = Array.from(allSkillsMap.values()).map((skill) =>
-    toPublicSkillCache(ensureSkillMdContent(skill)),
+    toPublicSkillCache(attachTrustProfile(ensureSkillMdContent(skill))),
   );
 
   const cacheData: CacheData = {

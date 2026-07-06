@@ -145,16 +145,16 @@ export default function CommandBar({ locale }: CommandBarProps) {
 
       {/* Modal / Dialog */}
       <div
-        className="relative w-full max-w-2xl bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[12px_12px_0px_0px_var(--border)] overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-200"
+        className="skill-detail-card relative w-full max-w-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-200"
         role="dialog"
         aria-modal="true"
       >
         {/* Search Input Header */}
-        <div className="flex items-center px-4 py-4 border-b-4 border-[var(--border)] relative bg-[var(--background)]">
+        <div className="flex items-center px-4 py-4 border-b border-[var(--border)] relative bg-[var(--background)]">
           <Search className="w-6 h-6 text-[var(--foreground)] shrink-0 ml-2" strokeWidth={3} />
           <input
             ref={inputRef}
-            className="flex-1 w-full bg-transparent border-none text-lg md:text-xl font-black px-4 py-2 outline-none text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:ring-0 placeholder:font-bold"
+            className="flex-1 w-full bg-transparent border-none text-lg md:text-xl font-bold px-4 py-2 outline-none text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:ring-0 placeholder:font-bold"
             placeholder={
               locale === 'zh' ? '搜索 AI Skills, 仓库或命令...' : 'Search AI Skills, repositories, or commands...'
             }
@@ -166,7 +166,7 @@ export default function CommandBar({ locale }: CommandBarProps) {
           />
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border-2 border-transparent hover:border-[var(--border)] transition-colors shrink-0 mr-1"
+            className="p-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border border-transparent hover:border-[var(--border)] transition-colors shrink-0 mr-1"
           >
             <X className="w-5 h-5" strokeWidth={3} />
           </button>
@@ -175,17 +175,17 @@ export default function CommandBar({ locale }: CommandBarProps) {
         {/* Loading Indicator */}
         {loading && (
           <div className="absolute top-[72px] left-0 w-full h-[3px] bg-transparent z-10 overflow-hidden">
-            <div className="h-full bg-cyan-500 w-1/3 animate-[slide_1s_ease-in-out_infinite]" />
+            <div className="h-full bg-[var(--accent)] w-1/3 animate-[slide_1s_ease-in-out_infinite]" />
           </div>
         )}
 
         {/* Results Body */}
-        <div className="flex-1 overflow-y-auto min-h-[100px] bg-gray-50/50 dark:bg-[#0c0c0c]/50 p-2">
+        <div className="flex-1 overflow-y-auto min-h-[100px] bg-[var(--background)] p-2">
           {!query.trim() && !loading && (
             <div className="py-14 text-center flex flex-col items-center justify-center opacity-70">
               <Terminal className="w-12 h-12 text-[var(--muted-foreground)] mb-4" strokeWidth={1.5} />
               <p className="text-sm font-mono font-bold text-[var(--muted-foreground)]">
-                {locale === 'zh' ? '输入关键词以探索 Agent 宇宙' : 'Type to explore the Agent universe'}
+                {locale === 'zh' ? '输入关键词搜索 Skills' : 'Type a keyword to search skills'}
               </p>
             </div>
           )}
@@ -210,24 +210,24 @@ export default function CommandBar({ locale }: CommandBarProps) {
                 return (
                   <li key={result.id}>
                     <button
-                      className={`w-full text-left px-4 py-4 flex items-center gap-4 border-2 transition-all ${
+                      className={`w-full text-left px-4 py-4 flex items-center gap-4 rounded-lg border transition-all ${
                         isSelected
-                          ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--border)] translate-x-1 shadow-[4px_4px_0px_0px_var(--primary)]'
+                          ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)]'
                           : 'bg-transparent border-transparent text-[var(--foreground)] hover:bg-[var(--border)] hover:bg-opacity-10'
                       }`}
                       onClick={() => navigateToResult(index)}
                       onMouseEnter={() => setSelectedIndex(index)}
                     >
                       <div
-                        className={`p-2 border-2 ${isSelected ? 'bg-[var(--background)] text-[var(--foreground)] border-transparent' : 'bg-transparent border-[var(--border)] text-[var(--foreground)]'}`}
+                        className={`p-2 rounded-md border ${isSelected ? 'bg-[var(--background)] text-[var(--foreground)] border-transparent' : 'bg-transparent border-[var(--border)] text-[var(--foreground)]'}`}
                       >
                         <Terminal size={20} strokeWidth={2.5} />
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col gap-1">
                         <div className="flex justify-between items-baseline gap-2">
-                          <span className="font-black text-base truncate">{result.name}</span>
+                          <span className="font-bold text-base truncate">{result.name}</span>
                           <span
-                            className={`text-xs font-mono font-bold tracking-widest uppercase shrink-0 px-1.5 py-0.5 border-2 ${isSelected ? 'border-[var(--background)] opacity-90' : 'border-[var(--border)]'}`}
+                            className={`text-xs font-mono font-bold shrink-0 px-1.5 py-0.5 rounded border ${isSelected ? 'border-[var(--background)] opacity-90' : 'border-[var(--border)]'}`}
                           >
                             {result.category || 'Tool'}
                           </span>
@@ -258,7 +258,7 @@ export default function CommandBar({ locale }: CommandBarProps) {
         </div>
 
         {/* Footer */}
-        <div className="hidden sm:flex items-center justify-between px-4 py-3 border-t-4 border-[var(--border)] bg-[var(--background)] font-mono text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider">
+        <div className="hidden sm:flex items-center justify-between px-4 py-3 border-t border-[var(--border)] bg-[var(--background)] font-mono text-xs font-bold text-[var(--muted-foreground)]">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
               <kbd className="px-1.5 py-0.5 min-w-[20px] text-center border-2 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)]">

@@ -1,0 +1,291 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Info from '../../../components/Info.astro';
+import MarkdownH1AsH2 from '../../../components/blog/MarkdownH1AsH2.astro';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import { getBlogKeywordClusters, getBlogLongTailKeywords, getBlogMetaOverride } from '../../../lib/blog-seo-intent';
+import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  return allPosts.map((post) => {
+    const firstSlash = post.id.indexOf('/');
+    const locale = firstSlash > 0 ? post.id.slice(0, firstSlash) : post.data.lang || 'en';
+    const slug = firstSlash > 0 ? post.id.slice(firstSlash + 1) : post.id;
+    return { params: { locale, slug } };
+  });
+}
+
+const { locale, slug } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const post = (await getCollection('blog', ({ id, data }) => id === `${locale}/${slug}` && !data.draft))[0];
+if (!post) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const siblingPosts = await getCollection('blog', ({ id, data }) => {
+  const firstSlash = id.indexOf('/');
+  if (firstSlash < 0) return false;
+  return id.slice(firstSlash + 1) === slug && !data.draft;
+});
+const availableArticleLocales = Array.from(
+  new Set(
+    siblingPosts
+      .map((entry) => entry.id.slice(0, entry.id.indexOf('/')))
+      .filter((candidate): candidate is Locale => SUPPORTED_LOCALES.includes(candidate as Locale)),
+  ),
+);
+
+const messages = await loadMessages(typedLocale);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+const { Content } = await render(post);
+const category = post.data.category;
+const metaOverride = getBlogMetaOverride(slug, (key: string) => translateOr(messages, key, key));
+const seoTitle = normalizePublicTitle(metaOverride?.title || post.data.title, 72) || post.data.title;
+const seoDescription =
+  normalizePublicSummary(metaOverride?.description || post.data.description, 158) || post.data.description;
+const pageKeywords = buildKeywordString(
+  (key: string) => translateOr(messages, key, key),
+  'core',
+  'workflowAutomation',
+  ...getBlogKeywordClusters(category, slug),
+  ...(post.data.tags || []),
+  ...getBlogLongTailKeywords(slug, (key: string) => translateOr(messages, key, key)),
+  category ? [tr(`Blog.categories.${category}`, category)] : [],
+  'Killer-Skills',
+);
+
+const canonicalUrl = `https://killer-skills.com/${locale}/article/${slug}`;
+const formattedDate = post.data.pubDate.toLocaleDateString(locale, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const readTime = Math.max(1, Math.ceil((post.body || '').split(/\s+/g).length / 220));
+const ogImage = post.data.heroImage || new URL(`/og-image.webp`, Astro.url).toString();
+---
+
+<Layout
+  locale={locale}
+  title={seoTitle}
+  description={seoDescription}
+  keywords={pageKeywords}
+  image={ogImage}
+  ogType="article"
+  appendBrand={false}
+  customCanonical={canonicalUrl}
+  availableLocales={availableArticleLocales.length > 0 ? availableArticleLocales : [typedLocale]}
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.data.title,
+        description: seoDescription,
+        datePublished: post.data.pubDate.toISOString(),
+        dateModified: (post.data.updatedDate || post.data.pubDate).toISOString(),
+        author: { '@type': 'Person', name: post.data.author },
+        image: ogImage,
+        url: canonicalUrl,
+        inLanguage: locale,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Killer-Skills',
+          url: 'https://killer-skills.com',
+        },
+      })}
+    />
+  </Fragment>
+
+  <main class="article-detail">
+    <section class="article-detail-shell article-detail-hero">
+      <nav class="article-detail-crumb" aria-label="Breadcrumb">
+        <a href={`/${locale}`}>{typedLocale.startsWith('zh') ? '榜单' : 'rankings'}</a>
+        <span>/</span>
+        <a href={`/${locale}/article`}>{typedLocale.startsWith('zh') ? '文章' : 'articles'}</a>
+      </nav>
+      <div class="article-detail-title">
+        <div>
+          <h1>{post.data.title}</h1>
+          <p>{post.data.description}</p>
+        </div>
+        <aside aria-label={typedLocale.startsWith('zh') ? '文章信息' : 'Article information'}>
+          <span>{formattedDate}</span>
+          <span>{readTime} min</span>
+          <span>{post.data.author}</span>
+        </aside>
+      </div>
+    </section>
+
+    {
+      post.data.heroImage && (
+        <figure class="article-detail-shell article-detail-image">
+          <img src={post.data.heroImage} alt="" width="1400" height="788" decoding="async" />
+        </figure>
+      )
+    }
+
+    <section class="article-detail-shell article-detail-body">
+      <article>
+        <Content components={{ Info, h1: MarkdownH1AsH2 }} />
+      </article>
+    </section>
+  </main>
+
+  <style>
+    .article-detail {
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--foreground);
+    }
+
+    .article-detail-shell {
+      width: min(960px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .article-detail-hero {
+      padding-block: clamp(34px, 6vw, 72px) 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-detail-crumb {
+      display: flex;
+      gap: 8px;
+      color: var(--muted-foreground);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 850;
+    }
+
+    .article-detail-crumb a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .article-detail-title {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: clamp(24px, 5vw, 56px);
+      align-items: end;
+      margin-top: 22px;
+    }
+
+    .article-detail-title h1 {
+      max-width: 14ch;
+      margin: 0;
+      font-size: clamp(2.45rem, 6vw, 5.4rem);
+      line-height: 0.96;
+    }
+
+    .article-detail-title p {
+      max-width: 68ch;
+      margin: 18px 0 0;
+      color: var(--muted-foreground);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      font-weight: 750;
+      line-height: 1.55;
+    }
+
+    .article-detail-title aside {
+      display: grid;
+      gap: 10px;
+      border-top: 1px solid var(--border-strong);
+      padding-top: 14px;
+      color: var(--foreground);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 850;
+    }
+
+    .article-detail-image {
+      margin-block: 28px 0;
+    }
+
+    .article-detail-image img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+
+    .article-detail-body {
+      padding-block: 34px clamp(56px, 8vw, 92px);
+    }
+
+    .article-detail-body article {
+      color: var(--foreground);
+      font-size: clamp(1.03rem, 1.4vw, 1.14rem);
+      line-height: 1.75;
+    }
+
+    .article-detail-body article :global(h1),
+    .article-detail-body article :global(h2),
+    .article-detail-body article :global(h3) {
+      margin: 2.2em 0 0.65em;
+      line-height: 1.12;
+    }
+
+    .article-detail-body article :global(h2) {
+      border-top: 1px solid var(--border);
+      padding-top: 1.2em;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+    }
+
+    .article-detail-body article :global(p),
+    .article-detail-body article :global(li) {
+      color: var(--muted-foreground);
+      font-weight: 650;
+    }
+
+    .article-detail-body article :global(a) {
+      color: var(--foreground);
+      font-weight: 850;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .article-detail-body article :global(pre) {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 18px;
+      color: var(--foreground);
+    }
+
+    .article-detail-body article :global(code) {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 760px) {
+      .article-detail-shell {
+        width: min(100% - 24px, 960px);
+      }
+
+      .article-detail-title {
+        grid-template-columns: 1fr;
+      }
+
+      .article-detail-title h1 {
+        max-width: none;
+      }
+    }
+  </style>
+</Layout>

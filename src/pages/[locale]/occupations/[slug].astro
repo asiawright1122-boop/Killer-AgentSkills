@@ -1,0 +1,111 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, type Locale } from '../../../i18n';
+import { getCategoryLabel } from '../../../lib/category-taxonomy';
+import type { Env } from '../../../lib/kv';
+import { buildOccupationDetail } from '../../../lib/occupations';
+import { getMarketplaceSkills } from '../../../lib/marketplace-filters';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+
+const { locale, slug } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+]);
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const occupation = buildOccupationDetail(marketplaceSkills, slug || '', typedLocale);
+if (!occupation) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const t = (key: string) => {
+  const segments = key.split('.');
+  let value: any = messages;
+  for (const segment of segments) value = value && typeof value === 'object' ? value[segment] : undefined;
+  return typeof value === 'string' ? value : key;
+};
+const relatedCategories = occupation.relatedCategories.map((category) => ({
+  id: category,
+  label: getCategoryLabel(category, t) || category,
+}));
+const pageTitle = `${occupation.label} ${isZhCopy ? 'Skills' : 'Skills'}`;
+const pageDescription = occupation.description;
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', occupation.id);
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? '职业' : 'Occupation'}
+      title={occupation.label}
+      description={occupation.description}
+      searchPlaceholder={isZhCopy ? `搜索 ${occupation.label}` : `Search ${occupation.label}`}
+      searchAction={`/${locale}/search`}
+      countLabel={isZhCopy ? `${occupation.skillCount} 个 Skills` : `${occupation.skillCount} skills`}
+      actions={[
+        { href: `/${locale}/skills?occupation=${occupation.id}`, label: isZhCopy ? '筛选目录' : 'Filter directory' },
+        { href: `/${locale}/occupations`, label: isZhCopy ? '全部职业' : 'All occupations' },
+      ]}
+    />
+
+    <MarketplaceSection title={isZhCopy ? '任务' : 'Tasks'}>
+      <div class="marketplace-card-grid">
+        {
+          occupation.taskClusters.map((task) => (
+            <div class="marketplace-card-link">
+              <div class="marketplace-meta-row">
+                <span>{isZhCopy ? `${task.skills.length} 个 Skills` : `${task.skills.length} skills`}</span>
+              </div>
+              <h3>{task.label}</h3>
+              <div class="marketplace-pill-list">
+                {task.skills.slice(0, 4).map((skill) => (
+                  <span class="market-chip px-2 py-1">{skill.name || skill.skillName}</span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </MarketplaceSection>
+
+    {
+      relatedCategories.length > 0 && (
+        <MarketplaceSection title={isZhCopy ? '相关分类' : 'Related Categories'}>
+          <div class="marketplace-tabbar">
+            {relatedCategories.map((category) => (
+              <a href={`/${locale}/categories/${category.id}`}>{category.label}</a>
+            ))}
+          </div>
+        </MarketplaceSection>
+      )
+    }
+
+    <MarketplaceSection
+      title={isZhCopy ? '热门' : 'Popular'}
+      actionHref={`/${locale}/skills?occupation=${occupation.id}`}
+      actionLabel={isZhCopy ? '打开目录' : 'Open directory'}
+    >
+      <MarketplaceSkillList skills={occupation.popularSkills} locale={locale} messages={messages} />
+    </MarketplaceSection>
+
+    <MarketplaceSection title={isZhCopy ? '最新' : 'Latest'}>
+      <MarketplaceSkillList skills={occupation.latestSkills} locale={locale} messages={messages} />
+    </MarketplaceSection>
+  </main>
+</Layout>

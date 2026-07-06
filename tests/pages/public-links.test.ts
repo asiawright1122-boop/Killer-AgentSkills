@@ -20,6 +20,33 @@ const readPageSource = (relativePath: string) => {
 };
 const readRepoSource = (relativePath: string) =>
   readFileSync(new URL(`../../${relativePath}`, import.meta.url), 'utf8');
+const stripSourceComments = (source: string) => source.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+const extractNamedFunctionBody = (source: string, functionName: string) => {
+  const signature = `function ${functionName}(`;
+  const signatureIndex = source.indexOf(signature);
+  if (signatureIndex < 0) {
+    throw new Error(`Unable to find ${functionName} in source`);
+  }
+
+  const openBraceIndex = source.indexOf('{', signatureIndex);
+  if (openBraceIndex < 0) {
+    throw new Error(`Unable to find body for ${functionName}`);
+  }
+
+  let depth = 0;
+  for (let index = openBraceIndex; index < source.length; index += 1) {
+    const char = source[index];
+    if (char === '{') depth += 1;
+    if (char === '}') {
+      depth -= 1;
+      if (depth === 0) {
+        return source.slice(openBraceIndex + 1, index);
+      }
+    }
+  }
+
+  throw new Error(`Unable to match braces for ${functionName}`);
+};
 const readLocaleMessages = (locale: string) =>
   JSON.parse(readFileSync(new URL(`../../src/messages/${locale}.json`, import.meta.url), 'utf8')) as Record<
     string,
@@ -220,8 +247,7 @@ const hasRuntimeKvImport = (source: string): boolean => {
   return false;
 };
 
-const hasDynamicRuntimeKvImport = (source: string): boolean =>
-  /import\s*\(\s*['"][^'"]*lib\/kv['"]\s*\)/.test(source);
+const hasDynamicRuntimeKvImport = (source: string): boolean => /import\s*\(\s*['"][^'"]*lib\/kv['"]\s*\)/.test(source);
 
 const hasRuntimeSkillsImport = (source: string): boolean => {
   const skillsImportPattern = /import\s+([^;]+?)\s+from\s+['"][^'"]*lib\/skills['"];?/g;
@@ -265,14 +291,18 @@ describe('public links and navigation copy', () => {
     }
   });
 
-  it('keeps shared metadata and breadcrumb builders wired into public shells', () => {
+  it('keeps shared metadata and lightweight legacy hubs wired into public shells', () => {
     const layoutSource = readPageSource('../layouts/Layout.astro');
     const collectionsIndexSource = readPageSource('../pages/[locale]/collections/index.astro');
     const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
 
     expect(layoutSource).toContain('buildPageMetadata');
-    expect(collectionsIndexSource).toContain('buildBreadcrumbTrail');
-    expect(collectionsDetailSource).toContain('buildBreadcrumbTrail');
+    expect(collectionsIndexSource).toContain('MarketplaceSimplePage');
+    expect(collectionsDetailSource).toContain('MarketplaceSimplePage');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
+    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(collectionsIndexSource).not.toContain("'@type': 'BreadcrumbList'");
+    expect(collectionsDetailSource).not.toContain("'@type': 'BreadcrumbList'");
   });
 
   it('keeps community navigation wired to a live community page', () => {
@@ -289,7 +319,7 @@ describe('public links and navigation copy', () => {
     expect(zh.Home.seoIntro).toContain('开源目录');
   });
 
-  it('keeps touched public shell and collections pages on explicit i18n and shared builders', () => {
+  it('keeps touched public shell and marketplace pages on explicit i18n and shared builders', () => {
     const headerSource = readPageSource('../components/Header.astro');
     const footerSource = readPageSource('../components/Footer.astro');
     const skillCardSource = readPageSource('../components/SkillCard.astro');
@@ -306,61 +336,105 @@ describe('public links and navigation copy', () => {
     expect(headerSource).toContain('translateOr(');
     expect(footerSource).toContain('translateOr(');
     expect(skillCardSource).toContain('translateOr(');
-    expect(homeSource).toContain('translateOr(');
+    expect(homeSource).toContain('loadMessages(');
+    expect(homeSource).toContain('useTranslations(');
+    expect(homeSource).toContain('MarketplaceHero');
     expect(layoutSource).toContain('buildPageMetadata(');
-    expect(collectionsIndexSource).toContain('buildBreadcrumbTrail(');
-    expect(collectionDetailSource).toContain('buildBreadcrumbTrail(');
+    expect(collectionsIndexSource).toContain('SUPPORTED_LOCALES');
+    expect(collectionsIndexSource).toContain('MarketplaceSimplePage');
+    expect(collectionDetailSource).toContain('SUPPORTED_LOCALES');
+    expect(collectionDetailSource).toContain('MarketplaceSimplePage');
 
     expect(collectionsIndexSource).not.toContain("'@type': 'BreadcrumbList'");
     expect(collectionDetailSource).not.toContain("'@type': 'BreadcrumbList'");
   });
 
-  it('keeps skills listing pagination and ItemList URLs on canonical governed routes', () => {
+  it('keeps skills listing wired to the canonical marketplace filters', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
-    const paginationSource = readPageSource('../components/Pagination.astro');
     const skillsSidebarSource = readPageSource('../components/SkillsSidebar.astro');
 
-    expect(skillsIndexSource).toContain('...(topicParam && { topic: topicParam })');
-    expect(skillsIndexSource).toContain('const buildSkillItemUrl = (skill: UnifiedSkill) => {');
-    expect(skillsIndexSource).toContain('const routePath = getSkillRoutePath(skill) || skill.repo;');
-    expect(skillsIndexSource).toContain(
-      'const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);',
-    );
-    expect(skillsIndexSource).toContain(
-      'return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;',
-    );
-    expect(skillsIndexSource).toContain('url: buildSkillItemUrl(s),');
-    expect(paginationSource).toContain('if (p > 1) {');
-    expect(paginationSource).toContain("params.delete('page');");
-    expect(skillsSidebarSource).toContain('href={`/${locale}/skills?topic=${fw.id}`}');
+    expect(skillsIndexSource).toContain('getMarketplaceSkills(skillsFetched)');
+    expect(skillsIndexSource).toContain('getSkillSourceKind(skill)');
+    expect(skillsIndexSource).toContain('filterByCategory(results, category)');
+    expect(skillsIndexSource).toContain('inferSkillOccupationIds(skill).includes(occupation)');
+    expect(skillsIndexSource).toContain('searchSkills(results, query, typedLocale)');
+    expect(skillsIndexSource).toContain('MarketplaceSkillList');
+    expect(skillsSidebarSource).toContain('href={`/${locale}/skills?q=${fw.id}`}');
     expect(skillsSidebarSource).not.toContain('href={`/${locale}/skills?tag=${fw.id}`}');
+  });
+
+  it('keeps all marketplace browse routes behind the shared admission and ranking contracts', () => {
+    const homeSource = readPageSource('../pages/[locale]/index.astro');
+    const skillsSource = readPageSource('../pages/[locale]/skills/index.astro');
+    const popularSource = readPageSource('../pages/[locale]/popular/index.astro');
+    const occupationsSource = readPageSource('../pages/[locale]/occupations/index.astro');
+    const occupationDetailSource = readPageSource('../pages/[locale]/occupations/[slug].astro');
+    const categoriesSource = readPageSource('../pages/[locale]/categories/index.astro');
+    const categoryDetailSource = readPageSource('../pages/[locale]/categories/[slug].astro');
+
+    for (const source of [
+      homeSource,
+      skillsSource,
+      popularSource,
+      occupationsSource,
+      occupationDetailSource,
+      categoriesSource,
+      categoryDetailSource,
+    ]) {
+      expect(source).toContain('getMarketplaceSkills(');
+    }
+
+    expect(homeSource).toContain('sortSkillsPopular(marketplaceSkills).slice(0, 8)');
+    expect(homeSource).toContain('sortSkillsLatest(marketplaceSkills).slice(0, 8)');
+    expect(skillsSource).toContain('getSkillSourceKind(skill)');
+    expect(skillsSource).toContain('inferSkillOccupationIds(skill).includes(occupation)');
+    expect(popularSource).toContain(
+      "activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills)",
+    );
+    expect(popularSource).toContain(
+      "const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');",
+    );
+    expect(occupationDetailSource).toContain('occupation.popularSkills');
+    expect(occupationDetailSource).toContain('occupation.latestSkills');
+    expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
+    expect(categoryDetailSource).toContain('sortSkillsLatest(categorySkills)');
   });
 
   it('keeps parameterized skills listing pages on bounded queries for crawl stability', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
     const layoutSource = readPageSource('../layouts/Layout.astro');
 
-    expect(skillsIndexSource).toContain('FILTERED_SKILL_SAMPLE_LIMIT');
-    expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, FILTERED_SKILL_SAMPLE_LIMIT)');
-    expect(skillsIndexSource).toContain('shouldLoadFilteredListingData');
-    expect(skillsIndexSource).toContain("const robotsContent = hasListingParams ? 'noindex, follow' : undefined;");
-    expect(skillsIndexSource).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
-    expect(skillsIndexSource).toContain('robots={robotsContent}');
+    expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, 480)');
+    expect(skillsIndexSource).toContain('.slice(0, 80)');
+    expect(skillsIndexSource).toContain('visibleResults = results.slice(0, 72)');
+    expect(skillsIndexSource).toContain("'Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600'");
     expect(layoutSource).toContain('<meta name="robots" content={robotsContent} />');
     expect(skillsIndexSource).not.toContain('getLightweightSkills(env)');
     expect(skillsIndexSource).not.toContain('shouldLoadFullListingData');
   });
 
-  it('keeps canonicalized noindex pages followable across robots headers and meta tags', () => {
+  it('keeps review policy as admission evidence instead of a generic safety tutorial', () => {
+    const safeSource = readPageSource('../pages/[locale]/safe/index.astro');
+
+    expect(safeSource).toContain('getMarketplaceSkills(skills)');
+    expect(safeSource).toContain('const blockedCount = skills.length - admittedSkills.length;');
+    expect(safeSource).toContain('const reviewedCount = skills.filter');
+    expect(safeSource).toContain('D 级或被判定不适合公开展示的 Skills 不进入目录、榜单、职业页和分类页。');
+    expect(safeSource).toContain('Official/community is a source attribute, not a category');
+    expect(safeSource).toContain('Token、联网、写文件等信号会在卡片和详情页用短标签展示。');
+    expect(safeSource).toContain('MarketplaceSimplePage');
+    expect(safeSource).not.toMatch(/先安装|小心|谨慎|教程|guide|tutorial|how to stay safe/i);
+  });
+
+  it('keeps canonicalized noindex handling on skill detail while legacy hubs stay lightweight', () => {
     const collectionDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
     const solutionIndexSource = readPageSource('../pages/[locale]/solutions/index.astro');
     const solutionDetailSource = readPageSource('../pages/[locale]/solutions/[topic].astro');
     const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
 
     for (const source of [collectionDetailSource, solutionIndexSource, solutionDetailSource]) {
-      expect(source).toContain("const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';");
-      expect(source).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
-      expect(source).toContain('robots={robotsContent}');
+      expect(source).toContain('MarketplaceSimplePage');
+      expect(source).not.toContain("const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';");
     }
 
     expect(skillDetailSource).toContain("const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;");
@@ -406,16 +480,13 @@ describe('public links and navigation copy', () => {
     expect(blogSeoIntentSource).not.toContain('/skills?q=workflow automation');
   });
 
-  it('keeps sitemap-listed blog routes as prerendered canonical pages instead of static noindex redirect shells', () => {
+  it('keeps sitemap-listed blog routes as canonical article URLs', () => {
     const blogDetailSource = readPageSource('../pages/[locale]/blog/[...slug].astro');
     const blogCategorySource = readPageSource('../pages/[locale]/blog/category/[category].astro');
     const blogSitemapSource = readPageSource('./sitemap-blog.xml.ts');
 
-    expect(blogDetailSource).toContain('export const prerender = true;');
-    expect(blogDetailSource).toContain('getStaticPaths');
-    expect(blogDetailSource).toContain('id === `${locale}/${slug}` && !data.draft');
-    expect(blogCategorySource).toContain('export const prerender = true;');
-    expect(blogCategorySource).toContain('getStaticPaths');
+    expect(blogDetailSource).toContain('Layout');
+    expect(blogCategorySource).toContain('Layout');
     expect(blogSitemapSource).toContain('`${SITE}/${locale}/blog/${slug}`');
     expect(blogSitemapSource).not.toContain('`${SITE}/${locale}/blog/${slug}.html`');
   });
@@ -425,12 +496,13 @@ describe('public links and navigation copy', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
     const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 
-    expect(homeSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}');
-    expect(homeSource).toContain('rel="nofollow"');
-    expect(skillsIndexSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}');
-    expect(skillsIndexSource).toContain('rel="nofollow"');
-    expect(skillDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}');
-    expect(skillDetailSource).toContain('rel="nofollow"');
+    for (const source of [homeSource, skillsIndexSource, skillDetailSource]) {
+      if (source.includes('skills?q=')) {
+        expect(source).toContain('nofollow');
+      }
+    }
+    expect(homeSource).toContain('searchAction={`/${locale}/search`}');
+    expect(skillsIndexSource).toContain('action={`/${locale}/skills`}');
   });
 
   it('keeps the representative skill detail page on shared breadcrumb and metadata contracts', () => {
@@ -448,6 +520,30 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).not.toContain('const breadcrumbSchema = {');
     expect(skillDetailSource).not.toContain("metaDescription || t('Metadata.description')");
     expect(skillDetailSource).not.toContain("description || t('Skills.noResults')");
+  });
+
+  it('keeps skill detail pages centered on visible install decisions and review evidence', () => {
+    const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+    const decisionPanelStart = skillDetailSource.indexOf('data-testid="skill-install-decision"');
+    const decisionPanelEnd = skillDetailSource.indexOf('</aside>', decisionPanelStart);
+    const decisionPanelSource = skillDetailSource.slice(decisionPanelStart, decisionPanelEnd);
+
+    expect(skillDetailSource).toContain('data-testid="skill-install-decision"');
+    expect(skillDetailSource).toContain("aria-label={isZhLocale ? '安装决策' : 'Install decision'}");
+    expect(skillDetailSource).toContain('SkillInstall');
+    expect(skillDetailSource).toContain('installCommand={installCommand}');
+    expect(skillDetailSource).toContain('href={`/${locale}/safe`}');
+    expect(skillDetailSource).toContain('GitHub');
+    expect(skillDetailSource).toContain('SkillActionsNative');
+    expect(skillDetailSource).toContain('data-testid="skill-fit-tasks"');
+    expect(skillDetailSource).toContain('data-testid="skill-review-permissions"');
+    expect(skillDetailSource).toContain('data-testid="skill-source-material"');
+    expect(skillDetailSource).toContain('sourceEvidenceDescription');
+    expect(skillDetailSource).toContain('README 和文件仅作为上游证据。');
+    expect(skillDetailSource).toContain('SkillRelated');
+    expect(decisionPanelSource).not.toContain('group-hover');
+    expect(decisionPanelSource).not.toContain('opacity-0');
+    expect(decisionPanelSource).not.toContain('max-h-0');
   });
 
   it('keeps touched public translation keys defined across all shipped locales', () => {
@@ -470,21 +566,64 @@ describe('public links and navigation copy', () => {
     }
   });
 
-  it('keeps homepage positioned as a skills directory, not a workflow-query hub', () => {
+  it('keeps homepage positioned as a marketplace entry, not a workflow-query hub', () => {
     const zhHomeSource = readPageSource('../pages/[locale]/index.astro');
 
     expect(zhHomeSource).not.toContain('高意图自动化入口');
     expect(zhHomeSource).not.toContain('High-Intent Workflow Searches');
     expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
-    expect(zhHomeSource).toContain("'Home.seoTitle'");
-    expect(zhHomeSource).toContain("'Home.seoDescription'");
-    expect(zhHomeSource).toContain('Choose With Evidence Before You Install');
-    expect(zhHomeSource).toContain('The full directory stays available when you need to widen the search.');
-    expect(zhHomeSource).toContain('When you need broader coverage');
+    expect(zhHomeSource).toContain('MarketplaceHero');
+    expect(zhHomeSource).toContain('title="Killer-Skills"');
+    expect(zhHomeSource).toContain('searchAction={`/${locale}/search`}');
+    expect(zhHomeSource).toContain('href: `/${locale}/skills`');
+    expect(zhHomeSource).toContain('href: `/${locale}/popular`');
+    expect(zhHomeSource).toContain('href: `/${locale}/occupations`');
+    expect(zhHomeSource).toContain('actionHref={`/${locale}/categories`}');
     // Verify the i18n values themselves carry the correct positioning
-    expect(zh.Home.seoTitle).toContain('AI 智能体技能开放目录');
-    expect(zh.Home.seoDescription).toContain('开放 AI 智能体技能目录');
+    expect(zh.Home.seoTitle).toContain('AI Agent Skills');
+    expect(zh.Home.seoDescription).toContain('榜单');
+  });
+
+  it('keeps the primary marketplace IA centralized and free of old header taxonomies', async () => {
+    const { getPrimaryNavItems, PRIMARY_MARKETPLACE_NAV_IDS, PRIMARY_MARKETPLACE_NAV_HREFS } =
+      await import('../../src/lib/site-ia');
+    const headerSource = readPageSource('../components/Header.astro');
+    const headerActionsSource = readPageSource('../components/HeaderActionsNative.astro');
+
+    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual(['home', 'skills', 'rankings', 'occupations', 'categories']);
+    expect(PRIMARY_MARKETPLACE_NAV_HREFS('zh')).toEqual([
+      '/zh',
+      '/zh/skills',
+      '/zh/popular',
+      '/zh/occupations',
+      '/zh/categories',
+    ]);
+    expect(getPrimaryNavItems('zh').map((item) => item.label)).toEqual(['首页', 'Skills', '榜单', '职业', '分类']);
+    expect(getPrimaryNavItems('en').map((item) => item.label)).toEqual([
+      'Home',
+      'Skills',
+      'Rankings',
+      'Occupations',
+      'Categories',
+    ]);
+
+    expect(headerSource).toContain('data-testid="site-header"');
+    expect(headerSource).toContain('data-testid="desktop-primary-nav"');
+    expect(headerSource).toContain('getPrimaryNavItems(locale)');
+    expect(headerActionsSource).toContain('data-testid="header-actions"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-toggle"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-overlay"');
+    expect(headerActionsSource).toContain('data-testid="mobile-menu-panel"');
+    expect(headerActionsSource).toContain('document.body.appendChild(overlay)');
+
+    const openMobileMenuBody = stripSourceComments(extractNamedFunctionBody(headerActionsSource, 'openMobileMenu'));
+    const closeMobileMenuBody = stripSourceComments(extractNamedFunctionBody(headerActionsSource, 'closeMobileMenu'));
+    expect(openMobileMenuBody).toContain("if (overlay) overlay.dataset.state = 'open';");
+    expect(closeMobileMenuBody).toContain("if (overlay) overlay.dataset.state = 'closed';");
+
+    const primaryHeaderSource = `${headerSource}\n${headerActionsSource}`;
+    expect(primaryHeaderSource).not.toMatch(/专题|热门|探索|文档|Topics|Hot|Explore|Docs/);
   });
 
   it('keeps homepage locale copy focused on directory and installation entry', () => {
@@ -505,45 +644,40 @@ describe('public links and navigation copy', () => {
     expect(zh.Home.footerDesc).toBe('面向 AI 智能体技能的开源目录与安装入口。为真实开发工作而生。');
   });
 
-  it('keeps homepage FAQ focused on skills, install flow, and supported IDEs', () => {
+  it('keeps homepage free of instructional FAQ blocks after the marketplace redesign', () => {
     const homeSource = readPageSource('../pages/[locale]/index.astro');
 
-    expect(homeSource).toContain("t('Home.faq3Q')");
-    expect(homeSource).toContain("t('Home.faq2Q')");
+    expect(homeSource).not.toContain("t('Home.faq");
     expect(homeSource).not.toContain('Why do these skills fit IDE workflows?');
     expect(homeSource).not.toContain('What if a workflow also needs external tools?');
     expect(homeSource).not.toContain('这些技能为什么适合放进 IDE？');
     expect(homeSource).not.toContain('如果任务还需要外部工具怎么办？');
   });
 
-  it('keeps authority-surface inventory wired into the main recovery hubs', () => {
+  it('keeps legacy hubs lightweight and routes users back to the new marketplace IA', () => {
     const homeSource = readPageSource('../pages/[locale]/index.astro');
     const skillsSource = readPageSource('../pages/[locale]/skills/index.astro');
     const collectionsIndexSource = readPageSource('../pages/[locale]/collections/index.astro');
     const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
     const solutionsSource = readPageSource('../pages/[locale]/solutions/index.astro');
 
-    expect(homeSource).toContain('getAuthoritySurfaceEntries(');
-    expect(homeSource).toContain("'collections-hub'");
-    expect(homeSource).toContain("'collection-official-trusted-tools'");
-    expect(homeSource).toContain("'docs-installation'");
+    for (const source of [homeSource, skillsSource, collectionsIndexSource, collectionsDetailSource, solutionsSource]) {
+      expect(source).not.toContain('getAuthoritySurfaceEntries(');
+      expect(source).not.toContain('getAuthorityStrategy(');
+      expect(source).not.toContain('featuredCollectionRecoveryPaths');
+    }
 
-    expect(skillsSource).toContain('getAuthoritySurfaceEntries(');
-    expect(skillsSource).toContain("'collections-hub'");
-    expect(skillsSource).toContain("'solution-agent-workflows'");
-
-    expect(collectionsIndexSource).not.toContain('getAuthorityStrategy(');
-    expect(collectionsIndexSource).toContain("'collection-official-trusted-tools'");
-    expect(collectionsIndexSource).toContain("'skills-directory'");
-
-    expect(collectionsDetailSource).toContain('getCollectionRecoveryPathEntries(');
-    expect(collectionsDetailSource).toContain('getRelatedAuthorityCollectionEntries(');
-    expect(collectionsDetailSource).toContain('featuredCollectionRecoveryPaths');
-    expect(collectionsDetailSource).toContain('Recommended Pages');
-
-    expect(solutionsSource).toContain('getAuthoritySurfaceEntries(');
-    expect(solutionsSource).toContain("'collections-hub'");
-    expect(solutionsSource).toContain("'blog-ide-comparison'");
+    expect(homeSource).toContain('sortSkillsPopular(marketplaceSkills).slice(0, 8)');
+    expect(homeSource).toContain('buildOccupationSummaries(marketplaceSkills, typedLocale)');
+    expect(homeSource).toContain('getMarketplaceOverview(env, typedLocale, t');
+    expect(skillsSource).toContain('getMarketplaceSkills(skillsFetched)');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
+    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(solutionsSource).toContain('href={`/${locale}/occupations`}');
+    expect(solutionsSource).toContain('href={`/${locale}/categories`}');
+    expect(solutionsSource).toContain('href={`/${locale}/popular`}');
   });
 
   it('does not render internal authority rationale fields on public pages', () => {
@@ -804,58 +938,35 @@ describe('public links and navigation copy', () => {
     }
   });
 
-  it('keeps the top authority collections and install docs on explicit proof-and-bridge layers', () => {
-    const officialCollectionSource = readPageSource('../content/collections/top-official-mcp-servers.json');
-    const workflowCollectionSource = readPageSource('../content/collections/top-workflow-mcp-servers.json');
+  it('keeps legacy collections and docs as lightweight bridges into the new marketplace routes', () => {
     const collectionDetailSource = readPageSource('./[locale]/collections/[...slug].astro');
     const docsSource = readPageSource('./[locale]/docs/[...slug].astro');
 
-    expect(officialCollectionSource).toContain('"editorial"');
-    expect(officialCollectionSource).toContain('"trustSignals"');
-    expect(officialCollectionSource).toContain('"reviewedAt"');
-    expect(officialCollectionSource).toContain('ownership is clear, setup docs are public');
-    expect(officialCollectionSource).toContain('low-risk first install');
-    expect(officialCollectionSource).toContain('/{locale}/docs/installation');
+    expect(collectionDetailSource).toContain('MarketplaceSimplePage');
+    expect(collectionDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(collectionDetailSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionDetailSource).not.toContain('editorialTrustSignals');
+    expect(collectionDetailSource).not.toContain('editorialDecisionTracks');
 
-    expect(workflowCollectionSource).toContain('"groupingLogic"');
-    expect(workflowCollectionSource).toContain('"executionExamples"');
-    expect(workflowCollectionSource).toContain('"nextSteps"');
-    expect(workflowCollectionSource).toContain('clear workflow roles');
-    expect(workflowCollectionSource).toContain('one workflow lane');
-
-    expect(collectionDetailSource).toContain('editorialTrustSignals');
-    expect(collectionDetailSource).toContain('editorialMaintenanceItems');
-    expect(collectionDetailSource).toContain('Why These Tools Are Listed');
-    expect(collectionDetailSource).toContain('Maintenance Notes');
-    expect(collectionDetailSource).toContain('editorialDecisionTracks');
-    expect(collectionDetailSource).toContain('editorialExecutionExamples');
-    expect(collectionDetailSource).toContain('editorialNextSteps');
-    expect(collectionDetailSource).toContain('primaryEditorialNextStep');
-    expect(collectionDetailSource).toContain('supportingEditorialNextSteps');
-    expect(collectionDetailSource).toContain('Related Collections');
-
-    expect(docsSource).toContain('installBridgeCards');
-    expect(docsSource).toContain('installValidationSteps');
-    expect(docsSource).toContain('getAuthoritySurfaceEntries(');
+    expect(docsSource).toContain('MarketplaceSimplePage');
+    expect(docsSource).toContain('href={`/${locale}/skills`}');
+    expect(docsSource).toContain('href={`/${locale}/safe`}');
+    expect(docsSource).toContain('href={`/${locale}/cli`}');
+    expect(docsSource).not.toContain('installBridgeCards');
+    expect(docsSource).not.toContain('getAuthoritySurfaceEntries(');
   });
 
-  it('keeps Collections Hub three-step guide and Installation Docs reverse links active', () => {
+  it('keeps the legacy Collections Hub pointed at Skills, categories, and occupations', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
-    const docsIndexJson = readRepoSource('docs/source/index.json');
 
-    // Collections Hub 3-step guide checks
-    expect(collectionsIndexSource).toContain('Three-Step Decision-to-Setup Path');
-    expect(collectionsIndexSource).toContain('isZhCopy ? \'快速入门决策路径\' : \'Decision-to-Setup Path\'');
-    expect(collectionsIndexSource).toContain('From Selection to Verification in 3 Steps');
-    expect(collectionsIndexSource).toContain('killer-skills list');
-    expect(collectionsIndexSource).toContain('isInstallDoc');
-
-    // Installation Docs reverse links checks in source JSON
-    expect(docsIndexJson).toContain('official trusted tools collection');
-    expect(docsIndexJson).toContain('agent workflow building tools collection');
-    expect(docsIndexJson).toContain('Curated Paths for Decision Making');
+    expect(collectionsIndexSource).toContain('MarketplaceSimplePage');
+    expect(collectionsIndexSource).toContain('新版结构以 Skills、榜单、职业和分类为主入口。');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
+    expect(collectionsIndexSource).not.toContain('Three-Step Decision-to-Setup Path');
+    expect(collectionsIndexSource).not.toContain('killer-skills list');
   });
-
 
   it('keeps evergreen blog counts aligned with current public totals', () => {
     const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
@@ -1328,19 +1439,17 @@ describe('public links and navigation copy', () => {
     }
   });
 
-  it('points public GitHub references at the Killer-Skills repository', () => {
-    const communitySource = readPageSource('./[locale]/community/index.astro');
+  it('points operational GitHub references at the Killer-Skills repository', () => {
     const privacySource = readPageSource('./[locale]/privacy/index.astro');
     const termsSource = readPageSource('./[locale]/terms/index.astro');
     const cookiesSource = readPageSource('./[locale]/cookies/index.astro');
-    const homeSource = readPageSource('./[locale]/index.astro');
+    const llmsFullSource = readPageSource('./llms-full.txt.ts');
 
-    expect(communitySource).toContain('asiawright1122-boop/Killer-AgentSkills');
-    expect(communitySource).not.toContain('github.com/anthropics/skills');
     expect(privacySource).toContain('asiawright1122-boop/Killer-AgentSkills/issues');
     expect(termsSource).toContain('asiawright1122-boop/Killer-AgentSkills/issues');
     expect(cookiesSource).toContain('asiawright1122-boop/Killer-AgentSkills/issues');
-    expect(homeSource).toContain('asiawright1122-boop/Killer-AgentSkills');
+    expect(llmsFullSource).toContain('https://github.com/asiawright1122-boop/Killer-AgentSkills');
+    expect(llmsFullSource).not.toContain('github.com/anthropics/skills');
   });
 
   it('keeps skill detail source free of hardcoded MCP server SEO copy', () => {
@@ -1396,40 +1505,33 @@ describe('public links and navigation copy', () => {
     expect(mcpFrameworksSource).not.toContain('protocol compatibility');
   });
 
-  it('keeps public collection links wired to canonical collection slugs', () => {
+  it('keeps legacy collection routes lightweight while collection sitemap stays empty', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
+    const collectionsDetailSource = readPageSource('./[locale]/collections/[...slug].astro');
     const collectionsSitemapSource = readPageSource('./sitemap-collections.xml.ts');
-    const homeSource = readPageSource('./[locale]/index.astro');
 
-    expect(collectionsIndexSource).toContain('getCanonicalCollections(');
-    expect(collectionsIndexSource).toContain('getCollectionCanonicalSlug(col)');
-    expect(collectionsIndexSource).toContain(
-      'url: `https://killer-skills.com/${locale}/collections/${getCollectionCanonicalSlug(col)}`',
-    );
-    expect(collectionsIndexSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
+    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(collectionsDetailSource).toContain('href={`/${locale}/categories`}');
     expect(collectionsIndexSource).not.toContain("col.id.replace(/\\.json$/, '')");
+    expect(collectionsDetailSource).not.toContain("col.id.replace(/\\.json$/, '')");
 
-    expect(collectionsSitemapSource).toContain('getCanonicalCollections(');
-    expect(collectionsSitemapSource).toContain('const canonicalSlug = getCollectionCanonicalSlug(col);');
-    expect(collectionsSitemapSource).toContain('const pagePath = `/collections/${canonicalSlug}`;');
+    expect(collectionsSitemapSource).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+    expect(collectionsSitemapSource).not.toContain('getCanonicalCollections(');
     expect(collectionsSitemapSource).not.toContain("const cleanSlug = col.id.replace(/\\.json$/, '')");
-
-    expect(homeSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
-    expect(homeSource).toContain('href={`/${locale}/collections/${cleanSlug}`}');
-    expect(homeSource).not.toContain("col.id.replace(/\\.json$/, '')");
-
-    const skillRelatedSource = readPageSource('../components/SkillRelated.astro');
-    expect(skillRelatedSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
-    expect(skillRelatedSource).toContain('href={`/${locale}/collections/${cleanSlug}`}');
-    expect(skillRelatedSource).not.toContain("col.id.replace(/\\.json$/, '')");
   });
 
-  it('keeps noindex solution locale variants out of the static sitemap', () => {
+  it('keeps legacy solution routes out of the static sitemap after the IA reset', () => {
     const staticSitemapSource = readPageSource('./sitemap-static.xml.ts');
 
-    expect(staticSitemapSource).toContain('getSolutionSeoEligibleLocales');
-    expect(staticSitemapSource).toContain('getPreferredCanonicalLocale(page.locales)');
-    expect(staticSitemapSource).toContain('buildHreflangLinks(page.path, [canonicalLocale])');
+    expect(staticSitemapSource).toContain("'/skills'");
+    expect(staticSitemapSource).toContain("'/popular'");
+    expect(staticSitemapSource).toContain("'/occupations'");
+    expect(staticSitemapSource).toContain("'/categories'");
+    expect(staticSitemapSource).not.toContain('getSolutionSeoEligibleLocales');
+    expect(staticSitemapSource).not.toContain('getPreferredCanonicalLocale(page.locales)');
     expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
   });
 
@@ -1453,12 +1555,13 @@ describe('public links and navigation copy', () => {
     expect(body).not.toContain('LLMs-Txt:');
   });
 
-  it('keeps solution detail pages on bounded skill queries for crawl stability', () => {
+  it('keeps legacy solution detail pages as lightweight query bridges', () => {
     const solutionDetailSource = readPageSource('../pages/[locale]/solutions/[topic].astro');
 
-    expect(solutionDetailSource).toContain('SOLUTION_SKILL_SAMPLE_LIMIT');
-    expect(solutionDetailSource).toContain('getLightweightSkillsTop(env, SOLUTION_SKILL_SAMPLE_LIMIT)');
-    expect(solutionDetailSource).toContain('getLightweightSkillsByRefs(env, solutionExactSkillRefs)');
+    expect(solutionDetailSource).toContain('MarketplaceSimplePage');
+    expect(solutionDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(topicLabel)}`');
+    expect(solutionDetailSource).toContain('href={`/${locale}/occupations`}');
+    expect(solutionDetailSource).not.toContain('SOLUTION_SKILL_SAMPLE_LIMIT');
     expect(solutionDetailSource).not.toContain('getLightweightSkills(env)');
     expect(solutionDetailSource).not.toContain('isCrawlerRequest');
   });
@@ -1527,15 +1630,7 @@ describe('public links and navigation copy', () => {
     const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
     const solutionLocs = locs.filter((loc) => /\/solutions(?:\/|$)/.test(new URL(loc).pathname));
 
-    expect(solutionLocs).toEqual([
-      'https://killer-skills.com/en/solutions',
-      'https://killer-skills.com/en/solutions/workflow-automation',
-      'https://killer-skills.com/en/solutions/process-automation',
-      'https://killer-skills.com/en/solutions/document-automation',
-      'https://killer-skills.com/en/solutions/browser-automation',
-      'https://killer-skills.com/en/solutions/data-extraction',
-      'https://killer-skills.com/en/solutions/agent-workflows',
-    ]);
+    expect(solutionLocs).toEqual([]);
     expect(new Set(solutionLocs).size).toBe(solutionLocs.length);
   });
 
@@ -1558,50 +1653,49 @@ describe('public links and navigation copy', () => {
     expect(searchBarSource).toContain('locale=${encodeURIComponent(locale)}');
     expect(searchBarSource).not.toContain('href={`/${locale}/skills/${r.owner}/${r.repo}`}');
 
-    expect(favoritesManagerSource).toContain('buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo)');
+    expect(favoritesManagerSource).toContain(
+      'buildLocalizedSkillPath(locale, skill.owner, skill.routePath || skill.repo)',
+    );
     expect(favoritesManagerSource).not.toContain('const detailUrl = `/${locale}/skills/${owner}/${repo}`;');
 
     expect(historyManagerSource).toContain('buildLocalizedSkillPath(locale, item.owner, item.routePath || item.repo)');
     expect(historyManagerSource).not.toContain('const detailUrl = `/${locale}/skills/${owner}/${repo}`;');
   });
 
-  it('keeps the default skills landing heading aligned with installable skills framing', () => {
+  it('keeps the default skills landing heading aligned with the marketplace directory framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    // Title now comes from message files and matches the seoTitle key
-    expect(skillsIndexSource).toContain("'Marketplace.seoTitle'");
-    expect(skillsIndexSource).not.toContain("'AI Agent 技能目录'");
+    expect(skillsIndexSource).toContain("const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';");
+    expect(skillsIndexSource).toContain(
+      'Complete AI agent skills directory with keyword, category, occupation, and source filters.',
+    );
+    expect(skillsIndexSource).toContain('MarketplaceHero');
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
   });
 
-  it('keeps Discord and X links consistent across public entry points', () => {
+  it('keeps Discord and X links consistent across shared public entry points', () => {
     const communitySource = readPageSource('./[locale]/community/index.astro');
     const footerSource = readPageSource('../components/Footer.astro');
     const homeSource = readPageSource('./[locale]/index.astro');
     const llmsFullSource = readPageSource('./llms-full.txt.ts');
 
-    expect(communitySource).toContain('https://discord.com/invite/killer-skills');
-    expect(homeSource).toContain('https://discord.com/invite/killer-skills');
+    expect(communitySource).not.toContain('https://discord.com/invite/killer-skills');
+    expect(homeSource).not.toContain('https://discord.com/invite/killer-skills');
     expect(llmsFullSource).toContain('https://discord.com/invite/killer-skills');
 
-    expect(communitySource).toContain('https://x.com/killerskills');
+    expect(communitySource).not.toContain('https://x.com/killerskills');
     expect(footerSource).toContain('https://x.com/killerskills');
-    expect(homeSource).toContain('https://x.com/killerskills');
+    expect(homeSource).not.toContain('https://x.com/killerskills');
     expect(llmsFullSource).toContain('https://x.com/killerskills');
   });
 
-  it('keeps docs default content aligned with skills-first onboarding', () => {
+  it('keeps docs default content aligned with compact skills-first onboarding routes', () => {
     const docsSource = readPageSource('./[locale]/docs/[...slug].astro');
 
-    expect(docsSource).toContain(
-      'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.',
-    );
-    expect(zh.Docs.welcomeText).toContain(
-      '欢迎来到 Killer-Skills 文档。这里会带你安装 AI 智能体技能、配置 IDE，并把可复用工作流带进日常开发。',
-    );
-    expect(docsSource).toContain('Start with Your First Skill');
-    expect(zh.Docs.startFirstSkill).toContain('从第一个技能开始');
-    expect(docsSource).toContain('npx killer-skills add owner/repo');
+    expect(docsSource).toContain('Compact entry points for install, directory, review policy, and CLI.');
+    expect(docsSource).toContain('href={`/${locale}/skills`}');
+    expect(docsSource).toContain('href={`/${locale}/safe`}');
+    expect(docsSource).toContain('href={`/${locale}/cli`}');
     expect(docsSource).not.toContain('build your own AI skills in minutes');
     expect(docsSource).not.toContain('npx killer-skills init my-new-skill');
   });
@@ -1925,24 +2019,10 @@ describe('public links and navigation copy', () => {
     expect(trailingSlashMatches).toEqual([]);
     expect(queryMatches).toEqual([
       {
-        file: 'src/pages/[locale]/categories/index.astro',
-        url: 'https://killer-skills.com/${locale}/skills?category=${cat.id}',
-      },
-      {
-        // Existing authored homepage URL (kept for backwards compatibility
-        // with prior structured-data shape).
-        file: 'src/pages/[locale]/index.astro',
-        url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
-      },
-      {
         // SoftwareApplication.installUrl emitted from skill detail JSON-LD.
-        // Points users at the CLI install entry; canonical and intentional.
+        // Points users at the public review-policy entry; canonical and intentional.
         file: 'src/pages/[locale]/skills/[owner]/[...repo].astro',
-        url: 'https://killer-skills.com/en/cli?install=${encodeURIComponent(schemaInstallPath',
-      },
-      {
-        file: 'src/pages/[locale]/skills/index.astro',
-        url: 'https://killer-skills.com/${locale}/skills?${serialized}',
+        url: 'https://killer-skills.com/en/safe?install=${encodeURIComponent(schemaInstallPath',
       },
       {
         // Badge API query parameter for GitHub README embedding.

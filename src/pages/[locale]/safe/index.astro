@@ -1,0 +1,102 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { getMarketplaceSkills } from '../../../lib/marketplace-filters';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const skills = await getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]);
+const admittedSkills = getMarketplaceSkills(skills);
+const blockedCount = skills.length - admittedSkills.length;
+const reviewedCount = skills.filter((skill) => skill.securityLevel || skill.sourceTrust || skill.rankScore).length;
+const auditTimes = skills
+  .map((skill) => Date.parse(skill.lastAuditedAt || skill.lastSynced || skill.updatedAt || ''))
+  .filter((time) => Number.isFinite(time));
+const latestAuditLabel = auditTimes.length
+  ? new Intl.DateTimeFormat(typedLocale, { dateStyle: 'medium' }).format(new Date(Math.max(...auditTimes)))
+  : isZhCopy
+    ? '暂无'
+    : 'Not available';
+
+const pageTitle = isZhCopy ? '审核政策' : 'Review Policy';
+const pageDescription = isZhCopy
+  ? '公开目录只展示通过基础准入的 Skills；来源、结构、风险信号会进入排序和展示证据。'
+  : 'Public listings only show skills that pass baseline admission; source, structure, and risk signals feed ranking evidence.';
+const metrics = isZhCopy
+  ? [
+      { label: '已收录', value: admittedSkills.length },
+      { label: '已审查', value: reviewedCount },
+      { label: '未公开展示', value: blockedCount },
+      { label: '最近审核', value: latestAuditLabel },
+    ]
+  : [
+      { label: 'Listed', value: admittedSkills.length },
+      { label: 'Reviewed', value: reviewedCount },
+      { label: 'Not publicly listed', value: blockedCount },
+      { label: 'Latest audit', value: latestAuditLabel },
+    ];
+const rules = isZhCopy
+  ? [
+      ['准入', 'D 级或被判定不适合公开展示的 Skills 不进入目录、榜单、职业页和分类页。'],
+      ['来源', '官方/社区是来源属性，不是分类；官方来源会显示为证据标签。'],
+      ['风险', 'Token、联网、写文件等信号会在卡片和详情页用短标签展示。'],
+    ]
+  : [
+      ['Admission', 'D-level or ineligible skills are excluded from directory, rankings, occupations, and categories.'],
+      [
+        'Source',
+        'Official/community is a source attribute, not a category; official sources appear as evidence labels.',
+      ],
+      ['Signals', 'Token, network, and file-write signals are shown as concise evidence labels.'],
+    ];
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  appendBrand={false}
+  customCanonical={`https://killer-skills.com/${locale}/safe`}
+>
+  <MarketplaceSimplePage title={pageTitle} description={pageDescription}>
+    <div class="marketplace-card-grid">
+      {
+        metrics.map((metric) => (
+          <div class="marketplace-card-link">
+            <span class="marketplace-route-label">{metric.label}</span>
+            <h3>{metric.value}</h3>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="marketplace-card-grid">
+      {
+        rules.map(([title, text]) => (
+          <div class="marketplace-card-link">
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="marketplace-tabbar">
+      <a href={`/${locale}/skills`}>Skills</a>
+      <a href={`/${locale}/popular`}>{isZhCopy ? '榜单' : 'Rankings'}</a>
+    </div>
+  </MarketplaceSimplePage>
+</Layout>

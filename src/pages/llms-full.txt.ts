@@ -36,7 +36,7 @@ In Killer-Skills, MCP is a runtime integration layer rather than the site's prim
 ## Platform Statistics
 
 - **3,400+ skills** indexed from open-source GitHub repositories
-- **30+ curated collections** organized by use case and technology
+- **Core routes** organized around home, skills, rankings, occupations, and categories
 - **10 languages**: English, Chinese (zh), Japanese (ja), Korean (ko), Spanish (es), French (fr), German (de), Portuguese (pt), Russian (ru), Arabic (ar)
 - **19+ IDEs** supported via universal CLI
 - **Quality scoring**: AI-powered 0-100 quality score for every skill
@@ -96,17 +96,15 @@ The CLI automatically detects the user's IDE and writes skills to the correct fi
 | Documentation | API docs, technical writing, README generation | 150+ |
 | Productivity | Workflow automation, task management, project planning | 300+ |
 
-## Top Curated Collections
+## Core Routes
 
-| Collection | Skills | URL |
-|-----------|--------|-----|
-| Top AI Agent Skills | 7 | ${SITE_URL}/en/collections/top-agentic-ai-platforms-orchestration-tools |
-| Top Developer Tools | 12 | ${SITE_URL}/en/collections/top-developer-tooling-ai-agent-work |
-| Top Workflow Automation Skills | 9 | ${SITE_URL}/en/collections/top-agent-workflow-automation-tools |
-| Top Python Skills | 12 | ${SITE_URL}/en/collections/top-python-ai-agent-tools-developer-workflows |
-| Top React Skills | 12 | ${SITE_URL}/en/collections/top-react-ai-tools-ui-workflows-component-development |
-| Top TypeScript Skills | 12 | ${SITE_URL}/en/collections/top-typescript-ai-tools-developer-workflows |
-| Top DevOps Skills | 6 | ${SITE_URL}/en/collections/top-devops-operations-automation-tools |
+| Route | Purpose | URL |
+|-------|---------|-----|
+| Home | Marketplace entry, search, and featured paths | ${SITE_URL}/en |
+| Skills | Complete directory with keyword, source, occupation, and category filters | ${SITE_URL}/en/skills |
+| Rankings | Popular and latest skills | ${SITE_URL}/en/popular |
+| Occupations | Role and task based browsing | ${SITE_URL}/en/occupations |
+| Categories | Capability category browsing | ${SITE_URL}/en/categories |
 
 ## API Endpoints
 
@@ -126,14 +124,11 @@ Returns machine-readable skill metadata and a short summary. Use the public skil
 
 | Page | URL | Description |
 |------|-----|-------------|
-| Home | ${SITE_URL}/en | Search and discover AI agent skills |
-| Skills Directory | ${SITE_URL}/en/skills | Browse all 3,400+ skills with filters |
-| Categories | ${SITE_URL}/en/categories | Browse skills by category |
-| Collections | ${SITE_URL}/en/collections | 30+ curated skill collections |
-| CLI Docs | ${SITE_URL}/en/cli | CLI installation and usage guide |
-| Blog | ${SITE_URL}/en/blog | Tutorials, guides, and industry news |
-| Integrations | ${SITE_URL}/en/integrations | IDE and platform integrations |
-| Documentation | ${SITE_URL}/en/docs | Technical documentation |
+| Home | ${SITE_URL}/en | Marketplace entry |
+| Skills | ${SITE_URL}/en/skills | Search and filter the complete directory |
+| Rankings | ${SITE_URL}/en/popular | Popular and latest skills |
+| Occupations | ${SITE_URL}/en/occupations | Browse skills by role and task |
+| Categories | ${SITE_URL}/en/categories | Browse skills by capability |
 
 ## Frequently Asked Questions
 

@@ -41,11 +41,11 @@ const displayCategory = post.data.category
 
 <a
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
-  class="brut-card group relative flex flex-col h-full bg-[var(--card)] w-full overflow-hidden border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] transition-all hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)]"
+  class="skill-list-card skill-list-card-hover group relative flex flex-col h-full w-full overflow-hidden"
 >
   {/* Image Section */}
   <div
-    class="aspect-video w-full overflow-hidden relative border-b-4 border-[var(--foreground)] bg-[var(--primary)] flex-shrink-0"
+    class="aspect-video w-full overflow-hidden relative border-b border-[var(--border)] bg-[var(--muted)] flex-shrink-0"
   >
     {
       post.data.heroImage ? (
@@ -59,8 +59,8 @@ const displayCategory = post.data.category
           decoding="async"
         />
       ) : (
-        <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-4xl tracking-tighter mix-blend-overlay">
-          IMG
+        <div class="w-full h-full bg-[var(--muted)] flex items-center justify-center font-bold text-sm text-[var(--muted-foreground)]">
+          Preview
         </div>
       )
     }
@@ -69,15 +69,9 @@ const displayCategory = post.data.category
     {
       (post.data.category || (post.data.tags && post.data.tags.length > 0)) && (
         <div class="absolute top-4 left-4 flex gap-2 z-10">
-          {post.data.category && (
-            <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
-              {displayCategory}
-            </span>
-          )}
+          {post.data.category && <span class="market-chip px-2 py-1 text-xs">{displayCategory}</span>}
           {!post.data.category && post.data.tags && post.data.tags.length > 0 && (
-            <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold border-2 border-[var(--background)] shadow-[2px_2px_0px_0px_var(--background)]">
-              {post.data.tags[0]}
-            </span>
+            <span class="market-chip px-2 py-1 text-xs">{post.data.tags[0]}</span>
           )}
         </div>
       )
@@ -89,7 +83,7 @@ const displayCategory = post.data.category
     <div>
       {/* Title */}
       <h3
-        class="text-xl font-black text-[var(--foreground)] uppercase mb-4 leading-tight group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight px-1 -ml-1 line-clamp-3 w-fit"
+        class="text-xl font-bold text-[var(--foreground)] mb-4 leading-tight group-hover:text-[var(--accent)] transition-colors line-clamp-3"
       >
         {post.data.title}
       </h3>
@@ -104,7 +98,7 @@ const displayCategory = post.data.category
       {/* Author */}
       <div class="flex items-center gap-2 mb-4">
         <div
-          class="w-6 h-6 flex items-center justify-center text-[10px] bg-[var(--foreground)] text-[var(--background)] font-black border-2 border-[var(--foreground)]"
+          class="w-6 h-6 rounded-md flex items-center justify-center text-[10px] bg-[var(--foreground)] text-[var(--background)] font-bold"
         >
           {post.data.author.charAt(0).toUpperCase()}
         </div>
@@ -114,7 +108,7 @@ const displayCategory = post.data.category
       </div>
 
       {/* Footer Meta */}
-      <div class="flex items-center justify-between border-t-[3px] border-[var(--border)] pt-4">
+      <div class="flex items-center justify-between border-t border-[var(--border)] pt-4">
         <div class="flex items-center gap-4 text-xs font-mono font-bold text-[var(--muted-foreground)]">
           <div class="flex items-center gap-1.5">
             <Calendar size={14} strokeWidth={2.5} />

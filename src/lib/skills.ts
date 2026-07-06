@@ -19,6 +19,27 @@ import { getLocalSkillsFallback } from './skills-fallback';
 import { OFFICIAL_REPOS } from './skills-config';
 import { getNonTargetSkillReason } from './shared/validation';
 import { sanitizePublicAIOutput, sanitizePublicAIOutputValue } from './public-ai-output';
+import type { RiskFlag, SecurityLevel, SourceTrustLevel } from './skill-trust';
+
+const _loggedMissingSkillsTableContexts = new Set<string>();
+
+function isMissingSkillsTableError(error: unknown): boolean {
+  const message =
+    error instanceof Error ? `${error.message} ${(error as Error & { cause?: unknown }).cause || ''}` : String(error);
+  return message.includes('no such table: skills');
+}
+
+function logSkillsD1Fallback(context: string, error: unknown): void {
+  if (isMissingSkillsTableError(error)) {
+    if (!_loggedMissingSkillsTableContexts.has(context)) {
+      _loggedMissingSkillsTableContexts.add(context);
+      console.warn(`[D1] ${context}; local skills table is missing, using bundled skills fallback`);
+    }
+    return;
+  }
+
+  console.error(`[D1] ${context}:`, error);
+}
 
 export interface UnifiedSkill {
   id: string;
@@ -57,6 +78,19 @@ export interface UnifiedSkill {
     useCases: string[] | Record<string, string[]>;
     limitations: string[] | Record<string, string[]>;
   };
+  securityLevel?: SecurityLevel;
+  sourceTrust?: SourceTrustLevel;
+  securityScore?: number;
+  sourceScore?: number;
+  rankScore?: number;
+  isTrustedRankingEligible?: boolean;
+  riskFlags?: RiskFlag[];
+  securityBrief?: string;
+  primaryTrustReason?: string;
+  lastAuditedAt?: string;
+  occupationIds?: string[];
+  taskClusterIds?: string[];
+  sourceKind?: 'official' | 'community';
 }
 
 /**
@@ -215,11 +249,13 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   const raw = await getSkillsListing(env);
   const skills = normalizePublicSkills(raw as UnifiedSkill[]);
 
-  _cachedLightSkills = skills;
-  _cacheLightTs = Date.now();
+  if (skills.length > 0) {
+    _cachedLightSkills = skills;
+    _cacheLightTs = Date.now();
+  }
 
   // 4. Save to Cache API
-  if (cache) {
+  if (cache && skills.length > 0) {
     try {
       const response = new Response(JSON.stringify(skills), {
         headers: {
@@ -303,7 +339,12 @@ export async function getSkillByOwnerRepo(env: Env, owner: string, repo: string)
  */
 export async function getFeaturedSkills(env: Env, limit: number = 10): Promise<UnifiedSkill[]> {
   const skills = await getLightweightSkills(env);
-  return skills.sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, limit);
+  return skills
+    .sort(
+      (a, b) =>
+        (b.rankScore || b.qualityScore || 0) - (a.rankScore || a.qualityScore || 0) || (b.stars || 0) - (a.stars || 0),
+    )
+    .slice(0, limit);
 }
 
 /**
@@ -317,14 +358,18 @@ export async function getFeaturedSkillsDirect(env: Env, limit: number = 6): Prom
   }
 
   try {
-    const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`).bind(limit).all();
+    const result = await env.DB.prepare(
+      `SELECT data_json FROM skills ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC LIMIT ?`,
+    )
+      .bind(limit)
+      .all();
 
     if (result.success && result.results) {
       return normalizePublicSkills(result.results.map((row: any) => JSON.parse(row.data_json) as UnifiedSkill));
     }
     return [];
   } catch (e) {
-    console.error('[D1] getFeaturedSkillsDirect error:', e);
+    logSkillsD1Fallback('getFeaturedSkillsDirect error', e);
     return getFeaturedSkills(env, limit);
   }
 }
@@ -371,7 +416,7 @@ export async function getOfficialSkillCounts(
     }
     return [];
   } catch (e) {
-    console.error('[D1] getOfficialSkillCounts error:', e);
+    logSkillsD1Fallback('getOfficialSkillCounts error', e);
     return [];
   }
 }

@@ -1,0 +1,146 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MarketplaceHero from '../../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
+import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
+import { getMarketplaceSkills, sortSkillsLatest, sortSkillsPopular } from '../../../lib/marketplace-filters';
+import { filterByCategory } from '../../../lib/search';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import type { Env } from '../../../lib/kv';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const url = Astro.url;
+const category = normalizeCategoryId(url.searchParams.get('category') || '');
+const requestedRank = (url.searchParams.get('rank') || 'popular').toLowerCase();
+const activeRank = requestedRank === 'latest' ? 'latest' : 'popular';
+const hasListingParams = Boolean(category || activeRank !== 'popular');
+const canonicalUrl = `https://killer-skills.com/${locale}/popular`;
+
+if (hasListingParams) {
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
+}
+
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+]);
+const t = useTranslations(messages);
+const overview = await getMarketplaceOverview(env, typedLocale, t, {
+  includeEmptyCategories: true,
+  includeOtherCategory: false,
+  topCategoryLimit: 12,
+}).catch(() => ({
+  categories: [],
+  topCategories: [],
+  totalSkillCount: skillsFetched.length,
+  featuredRoutes: [],
+  featuredCollections: [],
+  solutionEntries: [],
+}));
+
+let rankedSkills = getMarketplaceSkills(skillsFetched);
+if (category) {
+  rankedSkills = filterByCategory(rankedSkills, category);
+}
+rankedSkills = activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills);
+
+const totalResults = rankedSkills.length;
+const visibleSkills = rankedSkills.slice(0, 72);
+const pageTitle =
+  activeRank === 'latest' ? (isZhCopy ? '最新 Skills' : 'Latest Skills') : isZhCopy ? '热门 Skills' : 'Popular Skills';
+const pageDescription = isZhCopy
+  ? '只展示通过基础准入的热门与最新 AI Agent Skills。'
+  : 'Popular and latest AI agent skills that pass the baseline admission check.';
+const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', category, activeRank);
+const categoryLabel = category ? getCategoryLabel(category, t) || category : '';
+const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
+const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');
+const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) => {
+  const params = new URLSearchParams();
+  if (rank !== 'popular') params.set('rank', rank);
+  if (nextCategory) params.set('category', nextCategory);
+  const serialized = params.toString().replace(/\+/g, '%20');
+  return `/${locale}/popular${serialized ? `?${serialized}` : ''}`;
+};
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  appendBrand={false}
+  customCanonical={hasListingParams ? canonicalUrl : undefined}
+  noindex={hasListingParams}
+  robots={hasListingParams ? 'noindex, follow' : undefined}
+>
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? '榜单' : 'Rankings'}
+      title={pageTitle}
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? '搜索榜单内 Skills' : 'Search ranked skills'}
+      searchAction={`/${locale}/search`}
+      countLabel={countLabel}
+      actions={[
+        { href: `/${locale}/skills`, label: 'Skills' },
+        { href: `/${locale}/occupations`, label: isZhCopy ? '职业' : 'Occupations' },
+      ]}
+    />
+
+    <MarketplaceSection
+      title={listTitle}
+      description={isZhCopy
+        ? '热门按综合排名排序；最新按更新时间排序。'
+        : 'Popular is sorted by overall ranking; latest is sorted by update time.'}
+    >
+      <div class="marketplace-tabbar" aria-label={isZhCopy ? '榜单类型' : 'Ranking type'}>
+        <a href={buildPopularHref('popular')} aria-current={activeRank === 'popular' ? 'page' : undefined}>
+          {isZhCopy ? '热门' : 'Popular'}
+        </a>
+        <a href={buildPopularHref('latest')} aria-current={activeRank === 'latest' ? 'page' : undefined}>
+          {isZhCopy ? '最新' : 'Latest'}
+        </a>
+      </div>
+
+      <div class="marketplace-tabbar" aria-label={isZhCopy ? '分类' : 'Categories'}>
+        <a href={buildPopularHref(activeRank, '')} aria-current={!category ? 'page' : undefined}>
+          {isZhCopy ? '全部' : 'All'}
+        </a>
+        {
+          overview.categories.slice(0, 12).map((item) => (
+            <a href={buildPopularHref(activeRank, item.id)} aria-current={category === item.id ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-5">
+        <MarketplaceSkillList
+          skills={visibleSkills}
+          locale={locale}
+          messages={messages}
+          emptyTitle={isZhCopy ? '没有榜单结果' : 'No ranking results'}
+          emptyText={isZhCopy ? '换一个分类。' : 'Try another category.'}
+        />
+      </div>
+    </MarketplaceSection>
+  </main>
+</Layout>

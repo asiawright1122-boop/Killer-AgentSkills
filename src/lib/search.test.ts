@@ -150,6 +150,31 @@ describe('searchSkills', () => {
     // Both React and Vue match; React should rank higher due to more stars
   });
 
+  it('should prefer trusted ranking signals over raw popularity for close matches', () => {
+    const trusted = makeSkill({
+      id: 'trusted-review',
+      name: 'Review Skill',
+      description: 'Review pull requests and summarize risky changes',
+      stars: 12,
+      rankScore: 96,
+      securityLevel: 'S+',
+      sourceTrust: 'T1',
+    });
+    const popular = makeSkill({
+      id: 'popular-review',
+      name: 'Review Skill',
+      description: 'Review pull requests and summarize risky changes',
+      stars: 120000,
+      rankScore: 38,
+      securityLevel: 'C',
+      sourceTrust: 'T3',
+    });
+
+    const result = searchSkills([popular, trusted], 'review');
+
+    expect(result[0].id).toBe('trusted-review');
+  });
+
   it('should handle empty skills array', () => {
     const result = searchSkills([], 'test');
     expect(result).toEqual([]);

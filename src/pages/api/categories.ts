@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { type Env } from '../../lib/kv';
-import { getLightweightSkillsCategorySummary } from '../../lib/public-skill-catalog';
 import { errorResponse, jsonResponse } from '../../lib/api-utils';
-import { sanitizePublicAIOutput } from '../../lib/public-ai-output';
+import { getMarketplaceOverview } from '../../lib/marketplace-overview';
 import { withPublicApiHeaders } from '../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
@@ -13,17 +13,31 @@ export const prerender = false;
  *
  * Returns all skill categories with counts and descriptions.
  */
-export const GET: APIRoute = async ({ locals }) => {
+function resolveLocale(request: Request): Locale {
+  const url = new URL(request.url);
+  const requested = url.searchParams.get('locale') || DEFAULT_LOCALE;
+  return SUPPORTED_LOCALES.includes(requested as Locale) ? (requested as Locale) : DEFAULT_LOCALE;
+}
+
+export const GET: APIRoute = async ({ locals, request }) => {
   try {
-    const env = await getRuntimeEnv<Env>(locals);
-    const summary = env ? await getLightweightSkillsCategorySummary(env) : { total: 0, categories: [] };
-    const categories = summary.categories.map((item) => ({
-      name: sanitizePublicAIOutput(item.category) || 'other',
-      count: item.count,
+    const locale = resolveLocale(request);
+    const [env, messages] = await Promise.all([getRuntimeEnv<Env>(locals), loadMessages(locale)]);
+    const overview = await getMarketplaceOverview(env, locale, useTranslations(messages), {
+      includeOtherCategory: true,
+    });
+    const categories = overview.categories.map((category) => ({
+      name: category.id,
+      id: category.id,
+      label: category.label,
+      icon: category.icon,
+      href: category.href,
+      description: category.seoDescription,
+      count: category.count,
     }));
 
     return jsonResponse(
-      { categories, total: categories.length },
+      { categories, total: categories.length, totalSkillCount: overview.totalSkillCount },
       200,
       withPublicApiHeaders({ 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' }),
     );

@@ -59,7 +59,13 @@
         "en": "This is the strongest sitewide signal for what Killer-Skills considers its best public entry points.",
         "zh": "这是站点层面最强的信号，用来告诉 Google 和用户 Killer-Skills 真正重视哪些公开入口。"
       },
-      "placements": ["report", "collections", "skills", "solutions", "docs"]
+      "placements": [
+        "report",
+        "collections",
+        "skills",
+        "solutions",
+        "docs"
+      ]
     },
     {
       "id": "collections-hub",
@@ -79,7 +85,12 @@
         "en": "Collections are the cleanest scalable way to show selection, grouping, and user intent without reopening the thin-detail trap.",
         "zh": "Collections 是当前最适合规模化承接流量的页面形态，既能体现筛选能力，又不会重新掉回薄弱详情页陷阱。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-official-trusted-tools",
@@ -99,7 +110,12 @@
         "en": "Trusted-brand collections are the fastest way to rebuild authority after pruning.",
         "zh": "围绕官方工具的编辑型合集，是裁剪后最快能重建权威感的页面形态。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-agent-workflows",
@@ -119,7 +135,12 @@
         "en": "Workflow collections add first-party judgment that generic skill detail pages struggle to communicate.",
         "zh": "工作流合集能补上一手判断，而这恰恰是普通 skill 详情页最难说清楚的部分。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-claude-code",
@@ -139,7 +160,12 @@
         "en": "Platform collections let the site recover with narrower, more trustworthy topical intent.",
         "zh": "平台合集能让站点用更窄、更可信的主题意图恢复流量。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-cursor",
@@ -159,7 +185,12 @@
         "en": "Editor-specific demand should land on curated surfaces, not random repo coverage.",
         "zh": "编辑器型需求应该落到精选页，而不是随机 repo 覆盖页。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-windsurf",
@@ -179,7 +210,12 @@
         "en": "The more specific the editor intent, the more important curated selection becomes.",
         "zh": "越具体的编辑器意图，越需要精选筛选而不是平铺式目录。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-gemini",
@@ -199,7 +235,12 @@
         "en": "Gemini demand is easier to trust when it lands on a curated shortlist instead of a loose compatibility wrapper.",
         "zh": "Gemini 相关需求落到精选候选集上，比落到松散的兼容性包装页上更容易建立信任。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-opencode",
@@ -219,7 +260,12 @@
         "en": "OpenCode-intent users need a tighter curated bridge than a broad integrations list can provide.",
         "zh": "OpenCode 意图用户需要比宽泛 integrations 列表更紧凑的精选承接桥梁。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-nextjs",
@@ -239,7 +285,12 @@
         "en": "Framework-specific collections create stronger topical authority than broad developer-tool roundups.",
         "zh": "框架型精选合集比泛开发工具榜单更容易建立清晰的主题权威。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-python",
@@ -259,7 +310,12 @@
         "en": "Python demand converts better when the site looks like an install guide with judgment, not a bulk package mirror.",
         "zh": "Python 需求更适合落在带判断力的安装型精选页上，而不是像大体量包镜像站的页面。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-react",
@@ -279,7 +335,12 @@
         "en": "React demand deserves its own curated surface instead of being buried inside generic frontend inventory.",
         "zh": "React 相关需求应该拥有独立精选入口，而不是埋在泛前端库存页里。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-typescript",
@@ -299,7 +360,12 @@
         "en": "TypeScript intent is strong enough to support a dedicated authority page instead of another mixed language roundup.",
         "zh": "TypeScript 意图足够强，值得用独立 authority 页承接，而不是继续放进混杂的语言榜单。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-rust",
@@ -319,7 +385,12 @@
         "en": "Rust traffic is more valuable when it lands on a systems-aware shortlist instead of a generic language wrapper.",
         "zh": "Rust 流量落到理解系统工程语境的精选页上，比落到泛语言包装页上更有价值。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-devops",
@@ -339,7 +410,12 @@
         "en": "Operational intent is high value and should be routed into curated workflow picks instead of generic tool sprawl.",
         "zh": "运维型需求价值很高，应该导向精选工作流候选，而不是继续落到泛工具堆叠页。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-framework",
@@ -359,7 +435,12 @@
         "en": "Framework intent strengthens the site's product judgment and reduces the mirror-site posture.",
         "zh": "Framework 型需求能强化站点的产品判断，也更有助于摆脱镜像站姿态。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-community",
@@ -379,7 +460,12 @@
         "en": "Community demand can still look authoritative when it is filtered through explicit curation and rollout logic.",
         "zh": "社区型需求只要经过明确筛选和落地逻辑，也能建立足够强的权威感。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-productivity",
@@ -399,7 +485,12 @@
         "en": "Productivity framing helps the site compete on utility instead of volume.",
         "zh": "生产力 framing 能让站点靠实用性竞争，而不是靠语料体量竞争。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solutions-hub",
@@ -419,7 +510,12 @@
         "en": "This is the bridge between topical demand and installable next steps.",
         "zh": "这是从主题型需求走向可安装下一步动作的桥梁。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solution-agent-workflows",
@@ -439,7 +535,11 @@
         "en": "High-intent solution pages are safer recovery surfaces than broad skill detail expansion.",
         "zh": "高意图 solution 页面，比继续扩张宽泛的 skill 详情页更适合做恢复入口。"
       },
-      "placements": ["home", "skills", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "solutions"
+      ]
     },
     {
       "id": "solution-workflow-automation",
@@ -459,7 +559,11 @@
         "en": "Workflow automation demand is easier to satisfy with curated intent clusters than with flat directory coverage.",
         "zh": "工作流自动化需求更适合用精选意图簇来满足，而不是靠扁平目录覆盖。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solution-process-automation",
@@ -479,7 +583,11 @@
         "en": "Operational intent deserves a stronger bridge than generic tooling lists can provide.",
         "zh": "运营型意图需要比通用工具列表更强的承接桥梁。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solution-document-automation",
@@ -499,7 +607,11 @@
         "en": "Document-intent users respond better to workflow framing than to flat inventories.",
         "zh": "文档型意图更适合承接到 workflow framing，而不是扁平库存页。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solution-browser-automation",
@@ -519,7 +631,11 @@
         "en": "Browser workflows need intent-rich context, not just broad skill coverage.",
         "zh": "浏览器工作流需要高意图上下文，而不只是宽泛 skill 覆盖。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "solution-data-extraction",
@@ -539,7 +655,11 @@
         "en": "Data-heavy search demand is easier to recover through focused solution pages than through generic directories.",
         "zh": "重数据搜索需求更适合由聚焦的 solution 页面承接，而不是继续落到通用目录。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "docs-installation",
@@ -559,7 +679,12 @@
         "en": "Users and crawlers both need a clear bridge from discovery into practical setup.",
         "zh": "无论用户还是爬虫，都需要从发现页进入实际配置流程的清晰桥梁。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "docs-cli-overview",
@@ -579,7 +704,11 @@
         "en": "CLI documentation proves the site has operational depth beyond discovery wrappers.",
         "zh": "CLI 文档能证明站点除了发现层之外，还有明确的操作深度。"
       },
-      "placements": ["home", "collections", "solutions"]
+      "placements": [
+        "home",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "blog-official-ai-agent-skills-guide",
@@ -599,7 +728,12 @@
         "en": "Editorial guides let the site lead with reasoning instead of raw inventory.",
         "zh": "编辑型指南能让站点靠判断力，而不是靠原始库存数量来建立地位。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "blog-how-to-install-ai-agent-skills",
@@ -619,7 +753,11 @@
         "en": "Installation intent is one of the site's clearest forms of first-party utility.",
         "zh": "安装意图本身，就是这个站最清晰的一手价值之一。"
       },
-      "placements": ["home", "skills", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "solutions"
+      ]
     },
     {
       "id": "blog-ide-comparison",
@@ -639,7 +777,11 @@
         "en": "Comparisons make Killer-Skills look editorial-first instead of repo-wrapper-first.",
         "zh": "对比页能让 Killer-Skills 更像 editorial-first 的站，而不是 repo-wrapper-first 的站。"
       },
-      "placements": ["home", "skills", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "solutions"
+      ]
     },
     {
       "id": "blog-mcp-vs-rest-api",
@@ -659,7 +801,11 @@
         "en": "Protocol comparisons build authority with original reasoning, not just inventory coverage.",
         "zh": "协议对比依赖原创判断，而不是单纯的库存覆盖，因此更能建立权威。"
       },
-      "placements": ["home", "skills", "collections"]
+      "placements": [
+        "home",
+        "skills",
+        "collections"
+      ]
     },
     {
       "id": "skills-directory",
@@ -679,7 +825,12 @@
         "en": "The directory is useful, but it should not carry the whole recovery strategy on its own.",
         "zh": "目录有用，但它不该继续独自承担整个恢复策略。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-go",
@@ -699,7 +850,12 @@
         "en": "Go command-line utility tools represent a high-growth developer cluster requiring dedicated curation.",
         "zh": "Go 语言编写的命令行实用工具在开发者中增长迅速，需要专用的精选合集进行梳理。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-java",
@@ -719,7 +875,12 @@
         "en": "Enterprise Java backend requirements demand dedicated curation for enterprise-grade execution stability.",
         "zh": "企业级 Java 后端开发需求对执行稳定性要求极高，需要独立的高质量精选进行承接。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     },
     {
       "id": "collection-mobile",
@@ -739,7 +900,372 @@
         "en": "Mobile developer ecosystems require targeted curation to address Swift and Kotlin integration patterns.",
         "zh": "移动端开发生态需要针对性的精选合集，以解决 Swift 与 Kotlin 相关的集成模式。"
       },
-      "placements": ["home", "skills", "collections", "solutions"]
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-agent-workflow-automation-tools",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-agent-workflow-automation-tools",
+      "title": {
+        "en": "Agent Workflow Automation Tools to Install First",
+        "zh": "优先安装的 Agent 工作流自动化工具",
+        "ja": "注目のエージェント向けワークフロー自動化ツール",
+        "ko": "주목할 만한 에이전트 워크플로 자동화 도구",
+        "es": "herramientas de automatización de flujos para agentes",
+        "fr": "outils d’automatisation des workflows d’agents",
+        "de": "Top-Tools für Agenten-Workflow-Automatisierung",
+        "pt": "ferramentas de automação de fluxos para agentes",
+        "ru": "инструменты автоматизации агентных процессов",
+        "ar": "أدوات أتمتة سير العمل للوكلاء الذكيين"
+      },
+      "description": {
+        "en": "Agent Workflow Automation Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 Agent 工作流自动化工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "注目のエージェント向けワークフロー自動化ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "주목할 만한 에이전트 워크플로 자동화 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "herramientas de automatización de flujos para agentes. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "outils d’automatisation des workflows d’agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Top-Tools für Agenten-Workflow-Automatisierung. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "ferramentas de automação de fluxos para agentes. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "инструменты автоматизации агентных процессов. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "أدوات أتمتة سير العمل للوكلاء الذكيين. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-agent-workflow-automation-tools; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-ai-assistant-workflow-tools-developers",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-ai-assistant-workflow-tools-developers",
+      "title": {
+        "en": "AI Assistant Workflow Tools for Developers to Install First",
+        "zh": "开发者优先安装的 AI 助手工作流工具",
+        "ja": "開発者向け AI アシスタント・ワークフローツール",
+        "ko": "개발자를 위한 AI 어시스턴트 워크플로우 도구",
+        "es": "Herramientas de workflow para asistentes de IA",
+        "fr": "Outils de workflow pour assistants IA",
+        "de": "Workflow-Tools für KI-Assistenten",
+        "pt": "Ferramentas de workflow para assistentes de IA",
+        "ru": "Инструменты workflow для AI-ассистентов",
+        "ar": "أدوات سير العمل لمساعدي الذكاء الاصطناعي"
+      },
+      "description": {
+        "en": "AI Assistant Workflow Tools for Developers to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "开发者优先安装的 AI 助手工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "開発者向け AI アシスタント・ワークフローツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "개발자를 위한 AI 어시스턴트 워크플로우 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "Herramientas de workflow para asistentes de IA. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "Outils de workflow pour assistants IA. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Workflow-Tools für KI-Assistenten. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "Ferramentas de workflow para assistentes de IA. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "Инструменты workflow для AI-ассистентов. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "أدوات سير العمل لمساعدي الذكاء الاصطناعي. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-ai-assistant-workflow-tools-developers; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-cli-terminal-ai-agent-tools",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-cli-terminal-ai-agent-tools",
+      "title": {
+        "en": "CLI Workflow Tools to Install First",
+        "zh": "优先安装的 CLI 工作流工具",
+        "ja": "CLI ・ターミナル向け AI エージェントツール 12 選",
+        "ko": "CLI·터미널 AI 에이전트 도구 12선",
+        "es": "12 herramientas de IA para agentes en CLI y terminal",
+        "fr": "12 outils d’agents IA pour CLI et terminal",
+        "de": "12 KI-Agent-Tools für CLI und Terminal",
+        "pt": "12 ferramentas de agentes de IA para CLI e terminal",
+        "ru": "12 инструментов AI-агентов для CLI и терминала",
+        "ar": "12 أداة وكلاء ذكاء اصطناعي للـ CLI والطرفية"
+      },
+      "description": {
+        "en": "CLI Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 CLI 工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "CLI ・ターミナル向け AI エージェントツール 12 選を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "CLI·터미널 AI 에이전트 도구 12선: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "12 herramientas de IA para agentes en CLI y terminal. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "12 outils d’agents IA pour CLI et terminal. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "12 KI-Agent-Tools für CLI und Terminal. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "12 ferramentas de agentes de IA para CLI e terminal. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "12 инструментов AI-агентов для CLI и терминала. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "12 أداة وكلاء ذكاء اصطناعي للـ CLI والطرفية. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-cli-terminal-ai-agent-tools; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-codex-workflow-skills-developer-integrations",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-codex-workflow-skills-developer-integrations",
+      "title": {
+        "en": "Best Codex Workflow Tools to Install First",
+        "zh": "优先安装的 Codex 工作流工具",
+        "ja": "Codex 向けワークフロースキル＆開発連携",
+        "ko": "Codex 워크플로우 스킬 & 개발 연동",
+        "es": "Skills e integraciones de workflow para Codex",
+        "fr": "Skills et intégrations workflow pour Codex",
+        "de": "Codex-Workflow-Skills und Entwickler-Integrationen",
+        "pt": "Skills e integrações de workflow para Codex",
+        "ru": "Workflow skills и интеграции для Codex",
+        "ar": "مهارات workflow وتكاملات للمطورين مع Codex"
+      },
+      "description": {
+        "en": "Best Codex Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 Codex 工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "Codex 向けワークフロースキル＆開発連携を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "Codex 워크플로우 스킬 & 개발 연동: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "Skills e integraciones de workflow para Codex. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "Skills et intégrations workflow pour Codex. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Codex-Workflow-Skills und Entwickler-Integrationen. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "Skills e integrações de workflow para Codex. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "Workflow skills и интеграции для Codex. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "مهارات workflow وتكاملات للمطورين مع Codex. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-codex-workflow-skills-developer-integrations; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-developer-tooling-ai-agent-work",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-developer-tooling-ai-agent-work",
+      "title": {
+        "en": "Developer Workflow Tools to Install First",
+        "zh": "优先安装的开发工作流工具",
+        "ja": "AI エージェント開発を支える注目ツール群",
+        "ko": "AI 에이전트 개발을 위한 핵심 개발 도구",
+        "es": "herramientas de desarrollo para trabajo con agentes de IA",
+        "fr": "outils développeur pour le travail avec agents IA",
+        "de": "Top-Entwicklertools für die Arbeit mit KI-Agenten",
+        "pt": "ferramentas de desenvolvimento para agentes de IA",
+        "ru": "инструменты разработки для работы с ИИ-агентами",
+        "ar": "أدوات المطورين للعمل مع وكلاء الذكاء الاصطناعي"
+      },
+      "description": {
+        "en": "Developer Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的开发工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "AI エージェント開発を支える注目ツール群を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "AI 에이전트 개발을 위한 핵심 개발 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "herramientas de desarrollo para trabajo con agentes de IA. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "outils développeur pour le travail avec agents IA. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Top-Entwicklertools für die Arbeit mit KI-Agenten. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "ferramentas de desenvolvimento para agentes de IA. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "инструменты разработки для работы с ИИ-агентами. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "أدوات المطورين للعمل مع وكلاء الذكاء الاصطناعي. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-developer-tooling-ai-agent-work; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-gemini-cli-workflow-tools-terminal-automation-skills",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-gemini-cli-workflow-tools-terminal-automation-skills",
+      "title": {
+        "en": "Gemini CLI Workflow Tools to Install First",
+        "zh": "优先安装的 Gemini CLI 工作流工具",
+        "ja": "Gemini CLI 向けワークフローツール＆ターミナル自動化スキル",
+        "ko": "Gemini CLI 워크플로우 도구 & 터미널 자동화 스킬",
+        "es": "Herramientas de workflow y automatización terminal para Gemini CLI",
+        "fr": "Outils workflow et automatisation terminal pour Gemini CLI",
+        "de": "Gemini CLI Workflow-Tools und Terminal-Automation-Skills",
+        "pt": "Ferramentas de workflow e automação de terminal para Gemini CLI",
+        "ru": "Workflow-инструменты и terminal automation skills для Gemini CLI",
+        "ar": "أدوات workflow ومهارات أتمتة الطرفية لـ Gemini CLI"
+      },
+      "description": {
+        "en": "Gemini CLI Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 Gemini CLI 工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "Gemini CLI 向けワークフローツール＆ターミナル自動化スキルを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "Gemini CLI 워크플로우 도구 & 터미널 자동화 스킬: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "Herramientas de workflow y automatización terminal para Gemini CLI. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "Outils workflow et automatisation terminal pour Gemini CLI. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Gemini CLI Workflow-Tools und Terminal-Automation-Skills. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "Ferramentas de workflow e automação de terminal para Gemini CLI. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "Workflow-инструменты и terminal automation skills для Gemini CLI. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "أدوات workflow ومهارات أتمتة الطرفية لـ Gemini CLI. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-gemini-cli-workflow-tools-terminal-automation-skills; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-github-copilot-companion-skills-dev-tools",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-github-copilot-companion-skills-dev-tools",
+      "title": {
+        "en": "Copilot Workflow Tools to Install First",
+        "zh": "优先安装的 Copilot 工作流工具",
+        "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツール",
+        "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구",
+        "es": "Skills y herramientas companion para GitHub Copilot",
+        "fr": "Skills et outils companion pour GitHub Copilot",
+        "de": "Companion-Skills und Dev-Tools für GitHub Copilot",
+        "pt": "Skills e ferramentas companion para GitHub Copilot",
+        "ru": "Companion skills и dev-инструменты для GitHub Copilot",
+        "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot"
+      },
+      "description": {
+        "en": "Copilot Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 Copilot 工作流工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "Skills y herramientas companion para GitHub Copilot. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "Skills et outils companion pour GitHub Copilot. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Companion-Skills und Dev-Tools für GitHub Copilot. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "Skills e ferramentas companion para GitHub Copilot. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "Companion skills и dev-инструменты для GitHub Copilot. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-github-copilot-companion-skills-dev-tools; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-openai-powered-ai-agent-tools",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-openai-powered-ai-agent-tools",
+      "title": {
+        "en": "OpenAI Workflow Tools for Prompt, Eval, and Agent Teams",
+        "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具",
+        "ja": "OpenAI 活用 AI エージェントツール 12 選",
+        "ko": "OpenAI 기반 AI 에이전트 도구 12선",
+        "es": "12 herramientas de agentes de IA con tecnología OpenAI",
+        "fr": "12 outils d’agents IA propulsés par OpenAI",
+        "de": "12 OpenAI-gestützte KI-Agent-Tools",
+        "pt": "12 ferramentas de agentes de IA com OpenAI",
+        "ru": "12 инструментов AI-агентов на базе OpenAI",
+        "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI"
+      },
+      "description": {
+        "en": "OpenAI Workflow Tools for Prompt, Eval, and Agent Teams. Compare setup quality, use cases, and IDE fit.",
+        "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "OpenAI 活用 AI エージェントツール 12 選を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "OpenAI 기반 AI 에이전트 도구 12선: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "12 herramientas de agentes de IA con tecnología OpenAI. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "12 outils d’agents IA propulsés par OpenAI. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "12 OpenAI-gestützte KI-Agent-Tools. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "12 ferramentas de agentes de IA com OpenAI. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "12 инструментов AI-агентов на базе OpenAI. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-openai-powered-ai-agent-tools; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
+    },
+    {
+      "id": "collection-orchestration-platforms-agent-execution",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-orchestration-platforms-agent-execution",
+      "title": {
+        "en": "Agent Orchestration Tools to Install First",
+        "zh": "优先安装的 Agent 编排执行工具",
+        "ja": "注目のエージェント実行オーケストレーション基盤",
+        "ko": "주목할 만한 에이전트 실행 오케스트레이션 플랫폼",
+        "es": "plataformas de orquestación para ejecución de agentes",
+        "fr": "Meilleures plateformes d’orchestration pour exécution d’agents",
+        "de": "Top-Orchestrierungsplattformen für Agenten-Ausführung",
+        "pt": "plataformas de orquestração para execução de agentes",
+        "ru": "платформы оркестрации выполнения агентов",
+        "ar": "منصات التنسيق لتنفيذ الوكلاء الذكيين"
+      },
+      "description": {
+        "en": "Agent Orchestration Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+        "zh": "优先安装的 Agent 编排执行工具，查看安装路径、实际用途和适合的开发环境。",
+        "ja": "注目のエージェント実行オーケストレーション基盤を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
+        "ko": "주목할 만한 에이전트 실행 오케스트레이션 플랫폼: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+        "es": "plataformas de orquestación para ejecución de agentes. Compara instalación, casos de uso y encaje con tu IDE.",
+        "fr": "Meilleures plateformes d’orchestration pour exécution d’agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+        "de": "Top-Orchestrierungsplattformen für Agenten-Ausführung. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+        "pt": "plataformas de orquestração para execução de agentes. Compare instalação, casos de uso e encaixe no IDE.",
+        "ru": "платформы оркестрации выполнения агентов. Сравните установку, сценарии и совместимость с IDE.",
+        "ar": "منصات التنسيق لتنفيذ الوكلاء الذكيين. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
+      },
+      "rationale": {
+        "en": "Backfilled from disk collection top-orchestration-platforms-agent-execution; meets editorial + reviewedAt quality gate."
+      },
+      "placements": [
+        "home",
+        "skills",
+        "collections",
+        "solutions"
+      ]
     }
   ],
   "editorialQueue": [

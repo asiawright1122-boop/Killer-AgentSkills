@@ -1,774 +1,157 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import SkillCard from '../../components/SkillCard.astro';
-import OfficialSkills from '../../components/OfficialSkills.astro';
-import SearchBarNative from '../../components/SearchBarNative.astro';
-import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../i18n';
-import { getFeaturedSkillsDirect } from '../../lib/public-skill-catalog';
-import { buildKeywordString } from '../../lib/seo-keywords';
-import { getAuthoritySurfaceEntries } from '../../lib/authority-surfaces';
-import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
-import { getCollectionsFromRuntime } from '../../lib/collections-runtime';
+import MarketplaceHero from '../../components/MarketplaceHero.astro';
+import MarketplaceSection from '../../components/MarketplaceSection.astro';
+import MarketplaceSkillList from '../../components/MarketplaceSkillList.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import type { Env } from '../../lib/kv';
+import { getMarketplaceOverview } from '../../lib/marketplace-overview';
+import { getMarketplaceSkills, sortSkillsLatest, sortSkillsPopular } from '../../lib/marketplace-filters';
+import { buildOccupationSummaries } from '../../lib/occupations';
+import { getLightweightSkillsTop, type UnifiedSkill } from '../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../lib/runtime-env';
+import { buildKeywordString } from '../../lib/seo-keywords';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 
-// Validate locale
 const { locale } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const typedLocale = locale as Locale;
-const canonicalUrl = `https://killer-skills.com/${locale}`;
 const isZhCopy = typedLocale.startsWith('zh');
-
-// Get env from Cloudflare runtime
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
-
-// Load featured skills directly from D1 with LIMIT (optimized — no full table scan)
-let featuredSkills: any[] = [];
-try {
-  featuredSkills = await getFeaturedSkillsDirect(env, 6);
-} catch (e) {
-  console.error('[Index] Error fetching featured skills:', e);
-}
-
-// Load translations
-let messages: Record<string, any> = {};
-try {
-  messages = await loadMessages(typedLocale);
-} catch (e) {
-  console.error(`[Index] Error loading translations for ${typedLocale}:`, e);
-}
+const [messages, skillsFetched] = await Promise.all([
+  loadMessages(typedLocale),
+  getLightweightSkillsTop(env, 360).catch(() => [] as UnifiedSkill[]),
+]);
 const t = useTranslations(messages);
-const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-
-const homeAuthoritySurfaceIds = [
-  'collections-hub',
-  'docs-installation',
-  'collection-official-trusted-tools',
-  'solution-agent-workflows',
-  'collection-agent-workflows',
-  'solutions-hub',
-  'collection-claude-code',
-  'collection-windsurf',
-];
-const homeFeaturedCollectionIds = [
-  'collection-nextjs',
-  'collection-python',
-  'collection-react',
-  'collection-typescript',
-  'collection-rust',
-  'collection-devops',
-  'collection-framework',
-  'collection-community',
-  'collection-claude-code',
-  'collection-windsurf',
-  'collection-gemini',
-  'collection-opencode',
-];
-
-// Load collections for Featured Collections section
-const allCollections = getCanonicalCollections(await getCollectionsFromRuntime(env));
-const homeFeaturedCollectionPriority = new Map(
-  getAuthoritySurfaceEntries(typedLocale, { ids: homeFeaturedCollectionIds })
-    .filter((surface) => surface.surfaceClass === 'collection')
-    .map((surface, index) => [surface.href.split('/').pop() || '', index]),
-);
-const homeCollections = [...allCollections]
-  .sort((a, b) => {
-    const aSlug = getCollectionCanonicalSlug(a);
-    const bSlug = getCollectionCanonicalSlug(b);
-    const aPriority = homeFeaturedCollectionPriority.get(aSlug);
-    const bPriority = homeFeaturedCollectionPriority.get(bSlug);
-
-    if (aPriority !== undefined && bPriority !== undefined && aPriority !== bPriority) {
-      return aPriority - bPriority;
-    }
-
-    if (aPriority !== undefined) return -1;
-    if (bPriority !== undefined) return 1;
-
-    return b.data.skills.length - a.data.skills.length;
-  })
+const marketplaceSkills = getMarketplaceSkills(skillsFetched);
+const popularSkills = sortSkillsPopular(marketplaceSkills).slice(0, 8);
+const latestSkills = sortSkillsLatest(marketplaceSkills).slice(0, 8);
+const occupationSummaries = buildOccupationSummaries(marketplaceSkills, typedLocale)
+  .filter((occupation) => occupation.skillCount > 0)
   .slice(0, 8);
-
-// SEO: homepage metadata from i18n messages
-const homeSeoTitle = tr(
-  'Home.seoTitle',
-  'Killer-Skills - AI Agent Skills Directory for Claude Code, Cursor & Windsurf',
-);
-const homeSeoDescription = tr(
-  'Home.seoDescription',
-  'Browse 3,400+ AI agent skills and MCP servers, compare trusted tools for Claude Code, Cursor, and Windsurf, and install them in 19+ IDEs.',
-);
-const homeSeoKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
-const faqItems = [
-  { question: t('Home.faq1Q'), answer: t('Home.faq1A') },
-  { question: t('Home.faq2Q'), answer: t('Home.faq2A') },
-  { question: t('Home.faq3Q'), answer: t('Home.faq3A') },
-  { question: t('Home.faq4Q'), answer: t('Home.faq4A') },
-  { question: t('Home.faq5Q'), answer: t('Home.faq5A') },
-  { question: t('Home.faq6Q'), answer: t('Home.faq6A') },
-];
-const seoIntro = tr(
-  'Home.seoIntro',
-  'Killer-Skills is an open directory and installation entry point for 3,400+ AI agent skills. Developers use it to find trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow.',
-);
-const homeAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
-  ids: homeAuthoritySurfaceIds,
-});
-const homeSurfaceCopyOverrides = isZhCopy
-  ? {
-      'collections-hub': {
-        title: '先看精选路径',
-        description: '按任务场景查看经过整理的技能组合，先缩小选择范围再安装。',
-      },
-      'docs-installation': {
-        title: '确认安装步骤',
-        description: '查看 CLI 命令、IDE 兼容性和安装前需要确认的设置。',
-      },
-      'collection-official-trusted-tools': {
-        title: '优先查看官方工具',
-        description: '从官方项目和维护信息更清楚的工具开始，降低试错成本。',
-      },
-      'solution-agent-workflows': {
-        title: '按工作流继续选择',
-        description: '围绕具体任务查看工具怎样组合，再决定下一步安装什么。',
-      },
-    }
-  : {
-      'collections-hub': {
-        title: 'Start With Curated Paths',
-        description: 'Narrow the shortlist with task-based skill groups before you install.',
-      },
-      'docs-installation': {
-        title: 'Check Setup Steps',
-        description: 'Review CLI commands, IDE compatibility, and setup notes before changing a project.',
-      },
-      'collection-official-trusted-tools': {
-        title: 'Prioritize Official Tools',
-        description: 'Begin with official projects and clearer maintenance signals to reduce trial-and-error.',
-      },
-      'solution-agent-workflows': {
-        title: 'Choose by Workflow',
-        description: 'See how tools fit a concrete job before deciding what to install next.',
-      },
-    };
-const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
-  ...surface,
-  ...(homeSurfaceCopyOverrides[surface.id as keyof typeof homeSurfaceCopyOverrides] ?? {}),
+const overview = await getMarketplaceOverview(env, typedLocale, t, {
+  includeEmptyCategories: false,
+  includeOtherCategory: false,
+  topCategoryLimit: 8,
+}).catch(() => ({
+  categories: [],
+  topCategories: [],
+  totalSkillCount: marketplaceSkills.length,
+  featuredRoutes: [],
+  featuredCollections: [],
+  solutionEntries: [],
 }));
 
-const homeSelectionGuidance = isZhCopy
-  ? [
-      {
-        title: '先按选择标准缩小范围',
-        description: '首页优先引导你看官方来源、维护状态、IDE 兼容性和适用场景，而不是直接进入完整列表。',
-      },
-      {
-        title: '再确认安装路径',
-        description: '安装文档会说明 CLI 命令、支持的 IDE 和配置方式，帮助你在改动项目之前确认步骤。',
-      },
-      {
-        title: '最后按任务继续深入',
-        description: '当你已经知道任务方向时，再进入合集、方案页或具体技能页，比较能直接落地的下一步。',
-      },
-    ]
-  : [
-      {
-        title: 'Narrow by Selection Criteria',
-        description:
-          'The homepage starts with official sources, maintenance signals, IDE fit, and use-case clarity before sending you into broad browsing.',
-      },
-      {
-        title: 'Confirm the Setup Path',
-        description:
-          'Installation docs show CLI commands, supported IDEs, and configuration notes so you can check the path before touching a project.',
-      },
-      {
-        title: 'Move Into the Right Task',
-        description:
-          'Once the job is clear, continue into collections, solution pages, or skill details that match the work you are trying to finish.',
-      },
-    ];
-
-const homeAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['blog-official-ai-agent-skills-guide', 'blog-how-to-install-ai-agent-skills', 'blog-ide-comparison'],
-});
-const homePrimaryCtaSurfaces = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['collection-official-trusted-tools', 'docs-installation', 'solution-agent-workflows'],
-});
-const homeSupportingSurface = getAuthoritySurfaceEntries(typedLocale, {
-  ids: ['skills-directory'],
-  includeSupporting: true,
-})[0];
-
-// Features data with SVG paths (Lucide icons style)
-const features = [
-  {
-    iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', // Shield
-    color: 'sky',
-  },
-  {
-    iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z', // Zap (Standard Protocol)
-    color: 'cyan',
-  },
-  {
-    iconPath:
-      'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3 3a2.21 2.21 0 0 0-.2 2.9c.76 1.45 3.2 2.6 3.2 2.6s1.15-2.44 2.6-3.2a2.21 2.21 0 0 0 2.9-.2l3-3M22 5V2l-5.83 5.83a2.21 2.21 0 0 0 0 3.12c1.45 1.45 2.6 3.2 2.6 3.2s-2.43 1.15-3.2 2.6a2.21 2.21 0 0 0-3.12 0l-1.04 1.05a7.22 7.22 0 0 1-2.18-4.57 6.13 6.13 0 0 1 .47-3.9 6.55 6.55 0 0 1 3.9-.47l1.05-1.04a2.21 2.21 0 0 0 0-3.12L7 11 3 7', // Rocket
-    color: 'teal',
-  },
-  {
-    iconPath:
-      'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', // Bulb
-    color: 'blue',
-  },
-];
+const pageTitle = isZhCopy ? 'Killer-Skills - AI Agent Skills 市场' : 'Killer-Skills - AI Agent Skills Marketplace';
+const pageDescription = isZhCopy
+  ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和分类快速进入。'
+  : 'Discover, filter, and install baseline-reviewed AI agent skills by rankings, occupations, and categories.';
+const pageKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'developerExperience');
+const countLabel = isZhCopy
+  ? `${marketplaceSkills.length} 个已收录 Skills`
+  : `${marketplaceSkills.length} listed skills`;
 ---
 
 <Layout
   locale={locale}
-  title={homeSeoTitle}
-  description={homeSeoDescription}
-  keywords={homeSeoKeywords}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
   appendBrand={false}
-  customCanonical={canonicalUrl}
+  customCanonical={`https://killer-skills.com/${locale}`}
 >
-  {/* GEO: Speakable Schema — tells AI engines which content to quote */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: tr('Metadata.title', 'Killer-Skills'),
-      speakable: {
-        '@type': 'SpeakableSpecification',
-        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
-      },
-      url: canonicalUrl,
-    })}
-  />
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqItems.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-    })}
-  />
-  {/* Organization JSON-LD for Knowledge Panel */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      '@id': 'https://killer-skills.com/#organization',
-      name: 'Killer-Skills',
-      alternateName: 'Killer Skills',
-      url: 'https://killer-skills.com',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://killer-skills.com/og-image.webp',
-        width: 1200,
-        height: 630,
-      },
-      description: tr(
-        'Metadata.description',
-        'Browse 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and Windsurf. Open directory with one-command installation.',
-      ),
-      foundingDate: '2025',
-      knowsAbout: [
-        'AI Agent Skills',
-        'IDE Workflows',
-        'Claude Code',
-        'Cursor',
-        'Windsurf',
-        'AI Coding Assistants',
-        'Developer Tools',
-      ],
-      sameAs: [
-        'https://github.com/asiawright1122-boop/Killer-AgentSkills',
-        'https://www.npmjs.com/package/killer-skills',
-        'https://discord.com/invite/killer-skills',
-        'https://x.com/killerskills',
-      ],
-    })}
-  />
-  {/* WebSite JSON-LD with SearchAction — enables Google sitelinks search box */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      '@id': 'https://killer-skills.com/#website',
-      url: 'https://killer-skills.com',
-      name: 'Killer-Skills',
-      alternateName: 'Killer Skills — AI Agent Skill Directory',
-      inLanguage: locale,
-      publisher: { '@id': 'https://killer-skills.com/#organization' },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `https://killer-skills.com/${locale}/skills?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
-    })}
-  />
-  <main class="flex-1 w-full" itemscope itemtype="https://schema.org/WebPage">
-    <!-- Hero Section -->
-    <section
-      class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32 border-b-[3px] border-[var(--border)]"
-      aria-label="Hero"
+  <main>
+    <MarketplaceHero
+      locale={locale}
+      eyebrow={isZhCopy ? 'AI Agent Skills 市场' : 'AI Agent Skills Marketplace'}
+      title="Killer-Skills"
+      description={pageDescription}
+      searchPlaceholder={isZhCopy ? '搜索 Skill、MCP、Claude Code、Cursor' : 'Search Skill, MCP, Claude Code, Cursor'}
+      searchAction={`/${locale}/search`}
+      countLabel={countLabel}
+      actions={[
+        { href: `/${locale}/skills`, label: 'Skills' },
+        { href: `/${locale}/popular`, label: isZhCopy ? '榜单' : 'Rankings' },
+        { href: `/${locale}/occupations`, label: isZhCopy ? '职业' : 'Occupations' },
+      ]}
+    />
+
+    <MarketplaceSection
+      title={isZhCopy ? '热门 Skills' : 'Popular Skills'}
+      description={isZhCopy
+        ? '按审查分、安装可用性、维护信号和社区热度排序。'
+        : 'Ranked by review score, installability, maintenance signals, and community traction.'}
+      actionHref={`/${locale}/popular`}
+      actionLabel={isZhCopy ? '查看榜单' : 'View rankings'}
     >
-      <!-- Background Gradients Removed - Relying on Noise Filter from global CSS -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div
-          class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-widest mb-8 shadow-[2px_2px_0px_0px_var(--border)]"
-        >
-          <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
-          {t('Home.heroBadge')}
-        </div>
+      <MarketplaceSkillList skills={popularSkills} locale={locale} messages={messages} />
+    </MarketplaceSection>
 
-        <h1
-          class="text-6xl md:text-8xl md:leading-[1.1] font-black tracking-tighter text-[var(--foreground)] mb-8 text-balance uppercase animate-slide-up"
-        >
-          {t('Home.heroTitle')}
-          <br class="hidden md:block" />
-          <span class="text-gradient px-2 inline-block -skew-x-[10deg]">
-            {t('Home.heroTitleHighlight')}
-          </span>
-        </h1>
-
-        <p class="text-xl md:text-2xl text-[var(--muted-foreground)] max-w-2xl mx-auto mb-4 text-balance font-bold">
-          {t('Home.heroDesc1')}
-        </p>
-        <p class="text-lg text-[var(--muted-foreground)] max-w-2xl mx-auto mb-6 text-balance font-mono">
-          {t('Home.heroDesc2')}
-        </p>
-        {/* GEO: AI-quotable definition paragraph — direct answer for "What is Killer-Skills?" */}
-        <p
-          class="seo-intro-paragraph text-sm text-[var(--muted-foreground)] max-w-2xl mx-auto mb-10 leading-relaxed opacity-80"
-        >
-          {seoIntro}
-        </p>
-
-        <!-- Search Bar (Astro native — no React runtime) -->
-        <div class="max-w-xl mx-auto">
-          <SearchBarNative
-            locale={locale}
-            placeholder={t('Home.searchPlaceholder')}
-            buttonText={t('Home.searchButton')}
-          />
-          <div
-            class="flex items-center justify-center gap-3 mt-4 text-xs font-mono font-bold text-[var(--foreground)] uppercase"
-          >
-            <span>{t('Hero.hotTags')}</span>
-            {
-              (Array.isArray(messages.Home?.tags)
-                ? messages.Home.tags
-                : ['Research', 'Coding', 'Marketing', 'Analysis']
-              ).map((tag: string) => (
-                <a
-                  href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
-                  rel="nofollow"
-                  class="border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors"
-                >
-                  [{tag}]
-                </a>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 md:py-20 border-b-[3px] border-[var(--border)] bg-[var(--background)] cv-auto">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] mb-10">
-          <div>
-            <span
-              class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-4"
-            >
-              {isZhCopy ? '推荐起点' : 'Recommended Start'}
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
-              {isZhCopy ? '先看选择标准，再决定安装什么' : 'Choose With Evidence Before You Install'}
-            </h2>
-            <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
-              {
-                isZhCopy
-                  ? '首页优先展示经过整理的入口：官方与高信任工具、安装说明、场景方案和精选合集。完整目录仍然可用，但更适合在你需要扩展搜索范围时再打开。'
-                  : 'The homepage leads with maintained starting points: official and higher-confidence tools, setup guidance, use-case pages, and curated collections. The full directory stays available when you need to widen the search.'
-              }
-            </p>
-          </div>
-          <div class="grid gap-4">
-            {
-              homeSelectionGuidance.map((item) => (
-                <div class="border-[3px] border-[var(--border)] bg-[var(--background)] p-4 shadow-[4px_4px_0px_0px_var(--border)]">
-                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-2">
-                    {item.title}
-                  </div>
-                  <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.description}</p>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-
-        {/* Editorial curation rationale — first-party voice explaining selection criteria */}
-        <div class="mt-8 border-l-4 border-[var(--primary)] pl-6 py-2">
-          <h3 class="text-lg font-black uppercase tracking-tight mb-2">
-            {tr('Home.editorialCurationTitle', 'Why These Tools First')}
-          </h3>
-          <p class="text-sm leading-7 text-[var(--muted-foreground)] font-medium">
-            {tr('Home.editorialCurationBody', '')}
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {
-            homeDisplaySurfaces.map((surface) => (
-              <a
-                href={surface.href}
-                class="brut-card group bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"
-              >
-                <h3 class="text-xl font-black uppercase tracking-tight mb-3">{surface.title}</h3>
-                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{surface.description}</p>
-                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)]">
-                  {isZhCopy ? '查看路径' : 'View path'} →
-                </div>
-              </a>
-            ))
-          }
-        </div>
-
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {
-            homeAuthorityGuides.map((surface) => (
-              <a
-                href={surface.href}
-                class="border-2 border-[var(--border)] bg-[var(--background)] p-5 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-              >
-                <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
-                <p class="text-sm leading-6 font-medium opacity-80">{surface.description}</p>
-              </a>
-            ))
-          }
-        </div>
-
+    <MarketplaceSection
+      title={isZhCopy ? '按职业进入' : 'Browse By Occupation'}
+      description={isZhCopy
+        ? '从你的工作场景进入，直接看到对应任务和可安装 Skills。'
+        : 'Start from the job context, then compare matching tasks and installable skills.'}
+      actionHref={`/${locale}/occupations`}
+      actionLabel={isZhCopy ? '全部职业' : 'All occupations'}
+    >
+      <div class="marketplace-card-grid">
         {
-          homeSupportingSurface && (
-            <div class="mt-8 flex flex-wrap items-center gap-3 border-t-[3px] border-[var(--border)] pt-6">
-              <span class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                {isZhCopy ? '需要更广覆盖时' : 'When you need broader coverage'}
-              </span>
-              <a
-                href={homeSupportingSurface.href}
-                class="inline-flex items-center px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] text-xs font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors"
-              >
-                {homeSupportingSurface.title} →
-              </a>
-            </div>
-          )
-        }
-      </div>
-    </section>
-
-    <!-- Official Skills Section -->
-    <OfficialSkills locale={locale} />
-
-    <!-- Stats Section -->
-    <section class="border-y-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)]">
-      <div class="max-w-7xl mx-auto px-0 md:px-6">
-        <div
-          class="grid grid-cols-2 md:grid-cols-4 md:gap-px bg-[var(--border)] border-x-[3px] border-[var(--border)] md:border-none"
-        >
-          <div
-            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]"
-          >
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
-              3,400+
-            </div>
-            <div
-              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
-            >
-              [ {t('Stats.totalSkills')} ]
-            </div>
-          </div>
-          <div
-            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] md:border-none border-[var(--border)]"
-          >
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
-              50k+
-            </div>
-            <div
-              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
-            >
-              [ {t('Stats.totalDownloads')} ]
-            </div>
-          </div>
-          <div
-            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-r-[3px] md:border-none border-[var(--border)]"
-          >
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
-              120+
-            </div>
-            <div
-              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
-            >
-              [ {t('Stats.activeCreators')} ]
-            </div>
-          </div>
-          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center">
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">19+</div>
-            <div
-              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
-            >
-              [ {t('Stats.supportedIDEs')} ]
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Skills -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between mb-8 border-b-[3px] border-[var(--border)] pb-4">
-        <div>
-          <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">
-            {t('Home.trendingTitle')}
-          </h2>
-          <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
-        </div>
-        <a
-          href={`/${locale}/collections`}
-          class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-        >
-          {isZhCopy ? '浏览精选合集' : 'Browse Collections'}
-          <span class="font-mono ml-2">→</span>
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {
-          featuredSkills.length > 0 ? (
-            featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)
-          ) : (
-            <div class="col-span-full text-center py-12 text-[var(--muted-foreground)] font-mono border-2 border-[var(--border)] border-dashed">
-              <p>{t('Skills.noResults')}</p>
-            </div>
-          )
-        }
-      </div>
-    </section>
-
-    <!-- Features Grid -->
-    <section class="bg-[var(--card)] py-16 border-t-[3px] border-[var(--border)] cv-auto">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="text-center max-w-3xl mx-auto mb-16 border-[3px] border-[var(--border)] p-8 bg-[var(--background)] shadow-[6px_6px_0px_0px_var(--border)]"
-        >
-          <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">
-            {t('Home.featuresTitle')}
-          </h2>
-          <p class="text-[var(--muted-foreground)] font-mono text-lg">{t('Home.featuresSubtitle')}</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            features.map((feature, i) => (
-              <div class="brut-card p-6 flex flex-col items-center text-center bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all">
-                <div class="w-16 h-16 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_var(--border)]">
-                  <svg
-                    class="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    aria-hidden="true"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" d={feature.iconPath} />
-                  </svg>
-                </div>
-                <h3 class="text-xl font-black text-[var(--foreground)] uppercase mb-3">
-                  {t(`Home.features.${i}.title`)}
-                </h3>
-                <p class="text-[var(--muted-foreground)] leading-relaxed font-medium">{t(`Home.features.${i}.desc`)}</p>
+          occupationSummaries.map((occupation) => (
+            <a class="marketplace-card-link" href={occupation.href}>
+              <div class="marketplace-meta-row">
+                <span>{isZhCopy ? `${occupation.skillCount} 个 Skills` : `${occupation.skillCount} skills`}</span>
               </div>
-            ))
-          }
-        </div>
+              <h3>{occupation.label}</h3>
+              <p>{occupation.description}</p>
+              <div class="marketplace-pill-list">
+                {occupation.tasks.slice(0, 3).map((task) => (
+                  <span class="market-chip px-2 py-1">{task}</span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
       </div>
-    </section>
+    </MarketplaceSection>
 
-    <!-- Editorial Guidelines & Standards Section -->
-    <section class="py-16 md:py-20 border-t-[3px] border-[var(--border)] bg-[var(--background)] cv-auto">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="border-[3px] border-[var(--border)] bg-[var(--card)] p-8 md:p-12 shadow-[8px_8px_0px_0px_var(--border)]"
-        >
-          <span
-            class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-6"
-          >
-            {isZhCopy ? '编辑部专栏与测试标准' : 'Editorial Column'}
-          </span>
-          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
-            {tr('Home.editorialTitle', 'Why Reusable MCP Skills Matter & Our Testing Standards')}
-          </h2>
-          <p class="text-base md:text-lg font-mono font-bold text-[var(--primary)] mb-8">
-            {
-              tr(
-                'Home.editorialSubtitle',
-                'A developer-first directory ensuring safety, compatibility, and execution precision.',
-              )
-            }
-          </p>
-          <div class="space-y-6 text-sm md:text-base leading-relaxed text-[var(--muted-foreground)] font-medium">
-            <p>{tr('Home.editorialParagraph1', '')}</p>
-            <p>{tr('Home.editorialParagraph2', '')}</p>
-            <p>{tr('Home.editorialParagraph3', '')}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Collections Section -->
-    <section class="py-16 md:py-20 border-t-[3px] border-[var(--border)] bg-[var(--background)] cv-auto">
-      <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-between mb-8 border-b-[3px] border-[var(--border)] pb-6">
-          <div>
-            <span
-              class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-[3px] border-[var(--primary)] mb-4 inline-block"
-            >
-              {t('Collections.editorPicks')}
-            </span>
-            <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase">
-              {t('Collections.collectionsTitle')}
-            </h2>
-          </div>
-          <a
-            href={`/${locale}/collections`}
-            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-[3px] border-[var(--foreground)] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-          >
-            {t('Collections.viewAllCollections')} →
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {
-            homeCollections.map((col: any) => {
-              const colTitle =
-                typeof col.data.title === 'object'
-                  ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
-                  : col.data.title;
-              const cleanSlug = getCollectionCanonicalSlug(col);
-              return (
-                <a
-                  href={`/${locale}/collections/${cleanSlug}`}
-                  class="brut-card group p-5 flex items-center gap-4 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"
-                >
-                  <div class="w-10 h-10 shrink-0 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center group-hover:bg-[var(--background)] group-hover:text-[var(--foreground)] transition-colors shadow-[2px_2px_0px_0px_var(--border)]">
-                    <span class="font-black text-sm">{col.data.skills.length}</span>
-                  </div>
-                  <div class="min-w-0">
-                    <h3 class="font-black text-sm uppercase tracking-wide truncate">{colTitle}</h3>
-                    <p class="text-xs font-mono font-bold opacity-60 mt-0.5">
-                      {col.data.skills.length} {t('Collections.items')}
-                    </p>
-                  </div>
-                </a>
-              );
-            })
-          }
-        </div>
-
-        <div class="mt-8 text-center md:hidden">
-          <a
-            href={`/${locale}/collections`}
-            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-bold text-sm uppercase border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-          >
-            {t('Collections.viewAllCollections')} →
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section
-      class="py-16 border-t-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] cv-auto"
+    <MarketplaceSection
+      title={isZhCopy ? '最新收录' : 'Latest Additions'}
+      description={isZhCopy
+        ? '只展示通过基础准入的最新 Skills。'
+        : 'Newest skills that pass the baseline admission check.'}
+      actionHref={`/${locale}/popular?rank=latest`}
+      actionLabel={isZhCopy ? '查看最新' : 'View latest'}
     >
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-10">
-          <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-            {isZhCopy ? '先选对安装路径，再继续安装' : 'Choose the Right Setup Path Before You Install'}
-          </h2>
-          <p class="text-lg md:text-2xl font-mono font-bold opacity-80">
-            {
-              isZhCopy
-                ? '先从官方合集、场景方案和安装文档开始，比直接翻完整目录更快找到可用技能。'
-                : 'Start with official collections, scenario pages, and install guidance to find usable skills faster than browsing the full directory.'
-            }
-          </p>
-        </div>
+      <MarketplaceSkillList skills={latestSkills} locale={locale} messages={messages} />
+    </MarketplaceSection>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {
-            homePrimaryCtaSurfaces.map((surface) => (
-              <a
-                href={surface.href}
-                class="bg-[var(--background)] text-[var(--foreground)] border-[3px] border-[var(--foreground)] p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.38)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,0.45)] transition-all"
-              >
-                <h3 class="text-2xl font-black uppercase tracking-tight mb-3">{surface.title}</h3>
-                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{surface.description}</p>
-                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)]">
-                  {isZhCopy ? '立即查看' : 'Open'} →
-                </div>
-              </a>
-            ))
-          }
-        </div>
+    <MarketplaceSection
+      title={isZhCopy ? '分类' : 'Categories'}
+      description={isZhCopy
+        ? '按能力类型浏览，适合已经知道要找哪类工具的用户。'
+        : 'Browse by capability when you already know the tool type you need.'}
+      actionHref={`/${locale}/categories`}
+      actionLabel={isZhCopy ? '全部分类' : 'All categories'}
+    >
+      <div class="marketplace-card-grid">
+        {
+          overview.topCategories.map((category) => (
+            <a class="marketplace-card-link" href={`/${locale}/categories/${category.id}`}>
+              <div class="marketplace-meta-row">
+                <span>{isZhCopy ? `${category.count} 个 Skills` : `${category.count} skills`}</span>
+              </div>
+              <h3>{category.label}</h3>
+              <p>{category.seoDescription}</p>
+            </a>
+          ))
+        }
       </div>
-    </section>
-
-    <section class="border-t-[3px] border-[var(--border)] bg-[var(--background)] py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-10 max-w-3xl">
-          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)]">
-            {t('Home.faqTitle')}
-          </h2>
-          <p class="mt-3 text-[var(--muted-foreground)] font-mono text-sm md:text-base">
-            {t('Home.faqSubtitle')}
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {
-            faqItems.map((item) => (
-              <article class="brut-card bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)]">
-                <h3 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h3>
-                <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.answer}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+    </MarketplaceSection>
   </main>
 </Layout>

@@ -105,7 +105,7 @@ let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 let _sitemapSkillsLoadTime = 0;
 const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
-const EDGE_CACHE_VERSION = 'v3';
+const EDGE_CACHE_VERSION = 'v16';
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
   // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
@@ -499,8 +499,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     !pathname.startsWith('/api/') &&
     !pathname.startsWith('/admin') &&
     !context.isPrerendered;
+  const shouldUseEdgeCache = isCacheableRequest && !import.meta.env.DEV && typeof caches !== 'undefined';
 
-  if (isCacheableRequest && typeof caches !== 'undefined') {
+  if (shouldUseEdgeCache) {
     try {
       const cache = (caches as unknown as { default: Cache }).default;
       const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
@@ -829,62 +830,84 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   }
 
-  // 3c. Redirect legacy ?tag= parameter to ?topic= (consolidate duplicate params)
+  // 3c. Normalize skill listing params into the current directory filter contract.
   const searchParams = context.url.searchParams;
-  if (searchParams.has('tag')) {
-    const tagValue = searchParams.get('tag')!;
-    const newUrl = new URL(context.url);
-    newUrl.searchParams.delete('tag');
-    newUrl.searchParams.set('topic', tagValue);
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: newUrl.pathname + newUrl.search,
-        'Cache-Control': 'public, s-maxage=86400',
-      },
-    });
-  }
-
-  // 3c.1 Normalize skill listing params (strip unknown params; prefer q over query)
-  if (/^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0) {
-    const allowedSkillsParams = new Set(['q', 'query', 'category', 'view', 'owner', 'topic', 'page']);
+  const skillsRootMatch = pathname.match(/^\/([a-z]{2})\/skills$/);
+  if (skillsRootMatch && searchParams.size > 0) {
     const normalizedUrl = new URL(context.url);
+    const normalizedParams = normalizedUrl.searchParams;
     let changed = false;
-    for (const key of Array.from(normalizedUrl.searchParams.keys())) {
-      if (!allowedSkillsParams.has(key)) {
-        normalizedUrl.searchParams.delete(key);
-        changed = true;
-      }
+
+    const viewParam = (normalizedParams.get('view') || '').toLowerCase();
+    if (viewParam === 'official' && normalizedParams.get('source') !== 'official') {
+      normalizedParams.set('source', 'official');
+      changed = true;
     }
-    // Canonicalize `query` -> `q` to prevent duplicate parameter URLs.
-    const rawQ = normalizedUrl.searchParams.get('q');
-    const rawQuery = normalizedUrl.searchParams.get('query');
-    const normalizedQ = String(rawQ || rawQuery || '')
+    if (viewParam === 'latest' && normalizedParams.get('sort') !== 'latest') {
+      normalizedParams.set('sort', 'latest');
+      changed = true;
+    }
+
+    // Canonicalize legacy `query`, `owner`, `topic`, and `tag` aliases into `q`.
+    const rawQ = normalizedParams.get('q');
+    const legacyQuery =
+      normalizedParams.get('query') ||
+      normalizedParams.get('owner') ||
+      normalizedParams.get('topic') ||
+      normalizedParams.get('tag') ||
+      '';
+    const normalizedQ = String(rawQ || legacyQuery || '')
       .trim()
       .replace(/\s+/g, ' ');
 
     if (normalizedQ.length > 0) {
       const cappedQ = normalizedQ.slice(0, 80);
-      if (rawQ !== cappedQ || normalizedUrl.searchParams.has('query')) {
-        normalizedUrl.searchParams.set('q', cappedQ);
-        normalizedUrl.searchParams.delete('query');
+      if (rawQ !== cappedQ) {
+        normalizedParams.set('q', cappedQ);
         changed = true;
       }
-    } else if (rawQ !== null || rawQuery !== null) {
-      normalizedUrl.searchParams.delete('q');
-      normalizedUrl.searchParams.delete('query');
+    } else if (rawQ !== null) {
+      normalizedParams.delete('q');
       changed = true;
     }
-    const rawPage = normalizedUrl.searchParams.get('page');
+
+    for (const legacyKey of ['query', 'owner', 'topic', 'tag', 'view']) {
+      if (normalizedParams.has(legacyKey)) {
+        normalizedParams.delete(legacyKey);
+        changed = true;
+      }
+    }
+
+    const allowedSkillsParams = new Set(['q', 'category', 'occupation', 'source', 'sort', 'page']);
+    for (const key of Array.from(normalizedParams.keys())) {
+      if (!allowedSkillsParams.has(key)) {
+        normalizedParams.delete(key);
+        changed = true;
+      }
+    }
+
+    const sourceParam = normalizedParams.get('source');
+    if (sourceParam !== null && !['official', 'community'].includes(sourceParam)) {
+      normalizedParams.delete('source');
+      changed = true;
+    }
+
+    const sortParam = normalizedParams.get('sort');
+    if (sortParam !== null && !['popular', 'latest'].includes(sortParam)) {
+      normalizedParams.delete('sort');
+      changed = true;
+    }
+
+    const rawPage = normalizedParams.get('page');
     if (rawPage !== null) {
       const parsedPage = Number.parseInt(rawPage, 10);
       if (!Number.isFinite(parsedPage) || parsedPage <= 1) {
-        normalizedUrl.searchParams.delete('page');
+        normalizedParams.delete('page');
         changed = true;
       } else {
         const normalizedPage = String(parsedPage);
         if (rawPage !== normalizedPage) {
-          normalizedUrl.searchParams.set('page', normalizedPage);
+          normalizedParams.set('page', normalizedPage);
           changed = true;
         }
       }
@@ -1098,8 +1121,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (context.request.method === 'GET') {
       const contentType = response.headers.get('content-type') || '';
       if (contentType.includes('text/html')) {
-        const htmlCacheControl =
-          routeBucket === 'skills_detail'
+        const htmlCacheControl = import.meta.env.DEV
+          ? 'no-store'
+          : routeBucket === 'skills_detail'
             ? 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400'
             : 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
         response.headers.set('Cache-Control', htmlCacheControl);
@@ -1108,7 +1132,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     // +++ EDGE CACHE: store HTML responses in CF Cache API +++
     // This is what actually makes s-maxage work — CF Workers don't auto-cache SSR.
-    if (isCacheableRequest && typeof caches !== 'undefined' && response.status < 500) {
+    if (shouldUseEdgeCache && response.status < 500) {
       try {
         const cc = response.headers.get('Cache-Control') || '';
         // Only cache if the response explicitly opts in with s-maxage

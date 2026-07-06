@@ -13,7 +13,6 @@ import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skil
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import { getSitemapSkills } from '../../../../lib/sitemap-skills-runtime';
 import { getRelatedSkillsLookup } from '../../../../lib/related-skills-runtime';
-import { getSkillCollectionLookup } from '../../../../lib/skill-collection-lookup-runtime';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -38,6 +37,7 @@ import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexabi
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
 import { isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
 import { getSitemapBlocklist } from '../../../../lib/sitemap-blocklist-runtime';
+import { buildDetailRiskChips, getDetailSourceKind, pickDetailTaskChips } from '../../../../lib/skill-detail-view';
 import {
   sanitizePublicSkillCopy,
   sanitizePublicSkillCopyList,
@@ -50,11 +50,11 @@ import SkillActionsNative from '../../../../components/SkillActionsNative.astro'
 import SkillReadmeNative from '../../../../components/SkillReadmeNative.astro';
 import SkillFileManagerNative from '../../../../components/SkillFileManagerNative.astro';
 import SkillCard from '../../../../components/SkillCard.astro';
+import type { RiskFlag, RiskFlagCode, SecurityLevel, SourceTrustLevel } from '../../../../lib/skill-trust';
 import '../../../../styles/prism-tokens.css';
-import { Star, GitFork, Calendar, CheckCircle2, Zap, Bot, ChevronRight } from 'lucide-react';
+import { Star, GitFork, Calendar, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
 import { trackDirectoryView } from '../../../../lib/analytics';
-import { getCollectionsFromRuntime } from '../../../../lib/collections-runtime';
 
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -99,7 +99,7 @@ const typedLocale = locale as Locale;
 const isZhLocale = typedLocale.startsWith('zh');
 
 // env already resolved above for blocklist; reuse it here (no second getRuntimeEnv call)
-const runtimeEnv = env as unknown as Record<string, unknown>;
+const runtimeEnv = (env ?? {}) as unknown as Record<string, unknown>;
 type RepoDirectorySkill = UnifiedSkill | SkillListingItem;
 
 const normalizeFlag = (value: unknown) =>
@@ -299,32 +299,6 @@ if (renderRepoDirectory) {
   trackDirectoryView(Astro.locals, Astro.request, locale, owner, repo);
 }
 
-// Build related collections from the skill-collection lookup (parallel KV reads)
-const [allCollections, skillCollectionLookup] = await Promise.all([
-  getCollectionsFromRuntime(env),
-  getSkillCollectionLookup(env),
-]);
-const skillRefKey = `${owner}/${repo}`;
-const skillPathRefKey = canonicalRoutePath ? `${owner}/${canonicalRoutePath}` : skillRefKey;
-const collectionSlugs =
-  (skillCollectionLookup as Record<string, string[]>)[skillPathRefKey] ||
-  (skillCollectionLookup as Record<string, string[]>)[skillRefKey] ||
-  [];
-const relatedCollections = collectionSlugs
-  .map((slug) =>
-    allCollections.find((c) => {
-      const cSlug =
-        (c.data as any).canonicalSlug ||
-        c.id
-          .split('/')
-          .pop()
-          ?.replace(/\.json$/, '');
-      return cSlug === slug;
-    }),
-  )
-  .filter((c): c is NonNullable<typeof c> => Boolean(c))
-  .slice(0, 5);
-
 // Determine verified status (mirrors SkillCard.astro logic)
 const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
 const isVerified = (skill as any).verified ?? officialConfig?.verified ?? false;
@@ -348,10 +322,10 @@ const firstNonEmpty = (...values: Array<string | undefined>) =>
   values.find((value) => typeof value === 'string' && value.trim().length > 0) || '';
 const repoDisplayName = `${owner}/${repo}`;
 const repoDirectorySkillCount = repoDirectorySkills.length;
-const repoDirectoryTitle = isZhLocale ? `${repoDisplayName} 技能目录` : `${repoDisplayName} Skills Directory`;
+const repoDirectoryTitle = isZhLocale ? `${repoDisplayName} 仓库榜单` : `${repoDisplayName} Repository Ranking`;
 const repoDirectoryDescription = isZhLocale
-  ? `该仓库包含多个子技能。先选择与你当前工作流匹配的技能，再查看适用场景与安装路径。`
-  : `This repository contains multiple skills. Choose the one that matches your workflow before opening the installation path.`;
+  ? `该仓库包含多个子技能，可按名称、描述和文件结构直接进入详情。`
+  : `This repository contains multiple skills with direct detail pages by name, description, and file structure.`;
 const repoDirectoryIntro = isZhLocale
   ? `该仓库共有 ${repoDirectorySkillCount} 个技能。`
   : `This repository contains ${repoDirectorySkillCount} skills.`;
@@ -625,27 +599,24 @@ const n8nInternalLinks = isN8nRepoPage
           ]
         : []),
       {
-        href: `/${locale}/solutions/workflow-automation`,
-        label: tr('Detail.browseWorkflowSolutions', 'Browse workflow automation solutions'),
-        description: tr(
-          'Detail.exploreWorkflowUseCases',
-          'Explore workflow automation use cases, related skills, and install-ready solution paths.',
-        ),
+        href: `/${locale}/skills?q=workflow-automation`,
+        label: tr('Detail.browseWorkflowSolutions', 'Workflow skills'),
+        description: tr('Detail.exploreWorkflowUseCases', 'Search adjacent workflow automation skills.'),
       },
       {
-        href: `/${locale}/cli`,
-        label: tr('Detail.seeCliInstall', 'See CLI install and management'),
+        href: `/${locale}/safe`,
+        label: tr('Detail.seeCliInstall', 'Review policy'),
         description: tr(
           'Detail.learnHowToInstall',
-          'Learn how to install, sync, and manage this skill through the Killer-Skills CLI.',
+          'Check the command, write paths, and credential boundaries before install.',
         ),
       },
       {
-        href: `/${locale}/integrations`,
-        label: tr('Detail.checkIdeSupport', 'Check IDE integration support'),
+        href: `/${locale}/skills?q=ide`,
+        label: tr('Detail.checkIdeSupport', 'IDE skills'),
         description: tr(
           'Detail.confirmHowThisSkill',
-          'Confirm how this skill fits Claude Code, Cursor, Windsurf, and other supported IDEs.',
+          'Filter skills for Claude Code, Cursor, Windsurf, and related IDE workflows.',
         ),
       },
     ]
@@ -741,7 +712,7 @@ const schema = buildSkillSoftwareApplicationSchema({
   owner,
   updatedAt: skill.updatedAt,
   lastSynced: skill.lastSynced,
-  installUrl: `https://killer-skills.com/en/cli?install=${encodeURIComponent(schemaInstallPath)}`,
+  installUrl: `https://killer-skills.com/en/safe?install=${encodeURIComponent(schemaInstallPath)}`,
 });
 const buildRepoSkillUrl = (item: { id?: string; owner?: string; repo?: string }) => {
   const itemOwner = item.owner || owner;
@@ -768,8 +739,8 @@ const repoDirectorySchema = {
 const breadcrumb = buildBreadcrumbTrail(
   [
     { label: tr('Common.home', 'Home'), href: `/${locale}` },
-    { label: tr('Common.skillsMarket', 'Skills'), href: `/${locale}/skills` },
-    ...(skill.category && category ? [{ label: category, href: `/${locale}/skills?category=${skill.category}` }] : []),
+    { label: 'Skills', href: `/${locale}/skills` },
+    ...(skill.category && category ? [{ label: category, href: `/${locale}/categories/${skill.category}` }] : []),
     { label: skillDisplayName },
   ],
   { currentUrl: canonicalSkillUrl },
@@ -777,7 +748,7 @@ const breadcrumb = buildBreadcrumbTrail(
 const repoDirectoryBreadcrumb = buildBreadcrumbTrail(
   [
     { label: tr('Common.home', 'Home'), href: `/${locale}` },
-    { label: tr('Common.skillsMarket', 'Skills'), href: `/${locale}/skills` },
+    { label: 'Skills', href: `/${locale}/skills` },
     { label: repoDisplayName },
   ],
   { currentUrl: requestedSkillUrl },
@@ -921,12 +892,74 @@ const speakableSelectors = renderRepoDirectory
 // Format stars
 const starsDisplay =
   (skill.stars || 0) > 1000 ? ((skill.stars || 0) / 1000).toFixed(1) + 'k' : String(skill.stars || 0);
+const skillSecurityLevel = (skill.securityLevel || (isVerified ? 'S' : 'C')) as SecurityLevel;
+const skillSourceTrust = (skill.sourceTrust || (isVerified ? 'T1' : 'T3')) as SourceTrustLevel;
+const skillRankScore = Math.round(skill.rankScore || skill.qualityScore || 0);
+const skillRiskFlags = ((skill.riskFlags || []) as RiskFlag[]).filter((flag) => flag.severity !== 'info');
+const riskFlagLabels: Record<RiskFlagCode, string> = isZhLocale
+  ? {
+      requires_token: '凭证要求',
+      external_network: '外部网络',
+      destructive_shell: '破坏性命令',
+      credential_capture: '凭证抓取',
+      file_write: '本地写入',
+      thin_source: '材料过薄',
+      stale_source: '长期未更新',
+      unstructured_skill: '结构不足',
+    }
+  : {
+      requires_token: 'Credentials',
+      external_network: 'External network',
+      destructive_shell: 'Destructive shell',
+      credential_capture: 'Credential capture',
+      file_write: 'Local writes',
+      thin_source: 'Thin source',
+      stale_source: 'Stale source',
+      unstructured_skill: 'Unstructured',
+    };
+const trustReviewRows = [
+  { label: isZhLocale ? '安全等级' : 'Security', value: skillSecurityLevel },
+  { label: isZhLocale ? '来源等级' : 'Source', value: skillSourceTrust },
+  { label: isZhLocale ? '可信分' : 'Trust', value: String(skillRankScore) },
+  {
+    label: isZhLocale ? '风险旗标' : 'Risks',
+    value: skillRiskFlags.length ? String(skillRiskFlags.length) : isZhLocale ? '无阻断' : 'No blockers',
+  },
+];
+const visibleRiskLabels = skillRiskFlags.slice(0, 3).map((flag) => riskFlagLabels[flag.code] || flag.label);
 
 // GitHub URL
 const githubUrl = `https://github.com/${owner}/${repo}`;
 
 // Topics
 const rawTopics: string[] = skill.topics || [];
+const detailTaskChips = pickDetailTaskChips({
+  useCases: renderedUseCases,
+  features: renderedFeatures,
+  topics: rawTopics,
+  limit: 6,
+});
+const detailSourceKind = getDetailSourceKind({
+  isVerified,
+  sourceKind: (skill as { sourceKind?: string }).sourceKind,
+});
+const detailSourceLabel =
+  detailSourceKind === 'official'
+    ? isZhLocale
+      ? '官方来源'
+      : 'Official source'
+    : isZhLocale
+      ? '社区来源'
+      : 'Community source';
+const detailRiskChips = buildDetailRiskChips({ visibleRiskLabels, riskFlags: skillRiskFlags }).slice(0, 4);
+const detailReviewStatus =
+  skillSecurityLevel === 'D'
+    ? isZhLocale
+      ? '未进入推荐目录'
+      : 'Not promoted'
+    : isZhLocale
+      ? '已通过基础审核'
+      : 'Baseline reviewed';
 
 const maxReadmeRenderBudget = isCrawlerRequest ? maxReadmeRenderBytesCrawler : maxReadmeRenderBytes;
 const readmeRenderBudget = truncateMarkdownForSsr(readmeContentSource, maxReadmeRenderBudget);
@@ -1080,34 +1113,18 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
       })}
     />
   </Fragment>
-  <div
-    class="min-h-screen bg-gray-50 dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-cyan-200 overflow-x-hidden transition-colors duration-300"
-  >
-    {/* Ambient Glows - Adjusted for Light Mode */}
-    <div
-      class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/5 dark:bg-purple-900/10 blur-[150px] pointer-events-none rounded-full"
-    >
-    </div>
-    <div
-      class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-cyan-500/5 dark:bg-cyan-900/10 blur-[150px] pointer-events-none rounded-full"
-    >
-    </div>
-
-    <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 md:py-8 relative z-10">
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans overflow-x-hidden">
+    <main class="max-w-[1160px] mx-auto px-4 sm:px-6 py-6 md:py-8 relative z-10">
       <Breadcrumb items={activeBreadcrumb.items} />
 
       {
         renderRepoDirectory ? (
           <section class="space-y-8">
-            <div class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden group">
-              <div
-                class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-                style="background-image: var(--background-pattern)"
-              />
+            <div class="skill-detail-hero overflow-hidden">
               <div class="relative z-10 flex flex-col gap-6">
                 <div class="flex items-start justify-between flex-wrap gap-4">
                   <div class="min-w-0">
-                    <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase break-words">
+                    <h1 class="text-3xl md:text-5xl font-bold text-[var(--foreground)] break-words">
                       {repoDisplayName}
                     </h1>
                     <p class="repo-directory-intro text-lg md:text-xl font-mono text-[var(--muted-foreground)] mt-3">
@@ -1118,21 +1135,21 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                     </p>
                   </div>
                   <div class="flex items-center gap-3 flex-wrap">
-                    <span class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
+                    <span class="market-chip px-2 py-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]">
                       {repoDirectorySkillCount} {isZhLocale ? '个技能' : 'Skills'}
                     </span>
                     <a
                       href={githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+                      class="market-button px-4 py-2 text-xs"
                     >
                       <Github size={14} className="text-current" />
                       <span>GitHub</span>
                     </a>
                   </div>
                 </div>
-                <div class="flex items-center justify-between flex-wrap gap-3 text-xs font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-widest">
+                <div class="flex items-center justify-between flex-wrap gap-3 text-xs font-mono font-bold text-[var(--muted-foreground)]">
                   <span>{tr('Detail.chooseSkill', 'Choose a skill')}</span>
                   <span>{tr('Detail.sortedByStars', 'Sorted by stars')}</span>
                 </div>
@@ -1151,44 +1168,112 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
           </section>
         ) : (
           <Fragment>
-            {/* Header Section - Bento Hero Block */}
-            <div class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group">
-              {/* Decorative Grid Background */}
-              <div
-                class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-                style="background-image: var(--background-pattern)"
-              />
-              {/* Info */}
-              <div class="w-full relative z-10">
-                <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
-                  <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
-                    <div class="w-full md:w-auto">
-                      <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase leading-none">
-                        {skillDisplayName}
-                      </h1>
-                      {heroTagline && (
-                        <p class="mt-2 text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
-                          {heroTagline}
-                        </p>
-                      )}
-                    </div>
-                    <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
-                      {isVerified && (
-                        <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
-                          <CheckCircle2 size={14} strokeWidth={3} className="w-3.5 h-3.5" />
-                          {verifiedLabel}
-                        </div>
-                      )}
-                      <span class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase">
-                        v{version}
+            <section class="mb-8 border-b border-[var(--border)] pb-8">
+              <div class="skill-decision-shell">
+                <div class="min-w-0">
+                  <div class="mb-4 flex flex-wrap items-center gap-2">
+                    <span class="market-chip px-2 py-1 text-xs">{detailSourceLabel}</span>
+                    {category && (
+                      <a class="market-chip px-2 py-1 text-xs" href={`/${locale}/categories/${skill.category}`}>
+                        {category}
+                      </a>
+                    )}
+                    <span class="market-chip px-2 py-1 text-xs">v{version}</span>
+                    {isVerified && (
+                      <span class="market-chip px-2 py-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]">
+                        {verifiedLabel}
                       </span>
+                    )}
+                  </div>
+
+                  <h1 class="text-3xl md:text-5xl font-bold leading-tight text-[var(--foreground)] break-words">
+                    {skillDisplayName}
+                  </h1>
+
+                  {heroTagline && (
+                    <p class="mt-2 text-sm md:text-base font-mono font-bold text-[var(--muted-foreground)]">
+                      {heroTagline}
+                    </p>
+                  )}
+
+                  <p class="seo-intro-paragraph mt-4 max-w-3xl text-lg md:text-xl font-semibold leading-snug text-[var(--foreground)]">
+                    {renderedRecommendation || heroIntro}
+                  </p>
+
+                  {renderedSuitability && (
+                    <p class="mt-3 max-w-3xl text-sm md:text-base leading-relaxed text-[var(--muted-foreground)]">
+                      {renderedSuitability}
+                    </p>
+                  )}
+
+                  {n8nInternalLinks.length > 0 && (
+                    <div class="mt-5 grid gap-2 md:grid-cols-3">
+                      {n8nInternalLinks.map((item) => (
+                        <a
+                          href={item.href}
+                          rel={item.href.includes('/skills?q=') ? 'nofollow' : undefined}
+                          class="rounded-md border border-[var(--border)] bg-[var(--card)] px-3 py-3 text-sm font-bold transition-colors hover:border-[var(--accent)] hover:bg-[var(--card-hover)]"
+                        >
+                          <span class="flex items-center justify-between gap-2">
+                            {item.label}
+                            <ChevronRight size={15} strokeWidth={3} className="shrink-0" />
+                          </span>
+                        </a>
+                      ))}
                     </div>
+                  )}
+
+                  {detailTaskChips.length > 0 && (
+                    <div class="mt-5 flex flex-wrap gap-2">
+                      {detailTaskChips.map((chip) => (
+                        <span class="market-chip px-2.5 py-1.5 text-xs">{chip}</span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[var(--border)] pt-5 text-sm font-bold text-[var(--foreground)]">
+                    <a
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex min-w-0 items-center gap-2 hover:text-[var(--accent)]"
+                    >
+                      <img
+                        src={`https://github.com/${owner}.png`}
+                        alt={owner}
+                        width="28"
+                        height="28"
+                        class="h-8 w-8 shrink-0 rounded-md border border-[var(--border)]"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span class="truncate">{owner}</span>
+                    </a>
+                    <span class="flex items-center gap-2">
+                      <Star size={16} strokeWidth={3} />
+                      {starsDisplay}
+                    </span>
+                    <span class="flex items-center gap-2">
+                      <GitFork size={16} strokeWidth={3} />
+                      {skill.forks || 0}
+                    </span>
+                    <span class="flex items-center gap-2">
+                      <Calendar size={16} strokeWidth={3} />
+                      {updatedLabel}: {new Date(skill.updatedAt).toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
 
-                {/* Mobile Actions (Under Title) */}
-                <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
-                  <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
+                <aside
+                  data-testid="skill-install-decision"
+                  class="skill-decision-panel p-4 lg:sticky lg:top-24"
+                  aria-label={isZhLocale ? '安装决策' : 'Install decision'}
+                >
+                  <div class="mb-4 flex items-start justify-between gap-3">
+                    <div>
+                      <h2 class="text-lg font-bold">{isZhLocale ? '安装决策' : 'Install Decision'}</h2>
+                      <p class="mt-1 text-sm font-semibold text-[var(--muted-foreground)]">{detailReviewStatus}</p>
+                    </div>
                     <SkillActionsNative
                       skillId={fullId}
                       skillName={skillDisplayName}
@@ -1204,149 +1289,180 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       variant="button"
                     />
                   </div>
-                  <a
-                    href={githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
-                  >
-                    <Github size={16} className="text-current" />
-                    <span>GitHub</span>
-                  </a>
-                </div>
 
-                <div class="flex flex-col lg:flex-row items-start justify-between gap-4 lg:gap-6 mt-4">
-                  <div class="flex-1 w-full min-w-0">
-                    <h2 class="sr-only">{t('Detail.about')}</h2>
-
-                    {/* GEO: AI-quotable intro paragraph with seo-intro-paragraph class for Speakable schema */}
-
-                    <p class="seo-intro-paragraph text-lg md:text-xl text-[var(--foreground)] font-mono font-bold leading-snug max-w-4xl mb-5 break-words">
-                      {heroIntro}
-                    </p>
-
-                    {n8nInternalLinks.length > 0 && (
-                      <section class="mb-6 border-[3px] border-[var(--border)] bg-[var(--background)] shadow-[6px_6px_0px_0px_var(--border)] p-4">
-                        <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">→</span>
-                          {tr('Detail.relatedPaths', 'Related Paths')}
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                          {n8nInternalLinks.map((item) => (
-                            <a
-                              href={item.href}
-                              class="group block border-2 border-[var(--border)] bg-[var(--background)] px-4 py-4 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px]"
-                            >
-                              <div class="flex items-start justify-between gap-3 mb-2">
-                                <span class="text-sm font-black uppercase tracking-wide leading-tight">
-                                  {item.label}
-                                </span>
-                                <ChevronRight size={16} strokeWidth={3} className="shrink-0 mt-0.5" />
-                              </div>
-                              <p class="text-xs font-mono leading-relaxed opacity-80">{item.description}</p>
-                            </a>
-                          ))}
-                        </div>
-                      </section>
-                    )}
-
-                    {/* AI Features */}
-                    {features.length > 0 && (
-                      <section class="mb-10">
-                        <h2 class="sr-only">{t('Detail.features')}</h2>
-                        <div class="flex flex-wrap gap-2">
-                          {renderedFeatures.map((feature: string) => (
-                            <div class="flex items-center gap-1.5 text-xs font-bold text-[var(--primary-foreground)] bg-[var(--primary)] px-2.5 py-1.5 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
-                              <Zap size={12} strokeWidth={3} className="shrink-0" />
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </section>
-                    )}
-
-                    <div class="flex items-center flex-wrap gap-y-4 gap-x-6 text-sm font-black uppercase tracking-wider font-mono text-[var(--foreground)] pt-6 w-full max-w-4xl border-t-4 border-[var(--border)]">
-                      <div class="flex items-center gap-3 group cursor-pointer">
-                        <img
-                          src={`https://github.com/${owner}.png`}
-                          alt={owner}
-                          width="28"
-                          height="28"
-                          class="w-10 h-10 rounded-none border-[3px] border-[var(--border)] group-hover:shadow-[4px_4px_0px_0px_var(--border)] group-hover:-translate-y-1 transition-all grayscale group-hover:grayscale-0"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <span class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-2 py-0.5 text-base transition-colors font-black">
-                          {owner}
+                  <div class="grid grid-cols-2 gap-2">
+                    {trustReviewRows.map((row) => (
+                      <div class="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2">
+                        <span class="block text-[10px] font-mono font-black text-[var(--muted-foreground)]">
+                          {row.label}
                         </span>
+                        <strong class="mt-1 block text-base font-black">{row.value}</strong>
                       </div>
-                      <div class="w-1 h-6 bg-[var(--border)]" />
-                      <div class="flex items-center gap-2 group cursor-help">
-                        <Star size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                        <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">
-                          [{starsDisplay}]
-                        </span>
-                      </div>
-                      <div class="flex items-center gap-2 group cursor-help">
-                        <GitFork size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                        <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">
-                          [{skill.forks || 0}]
-                        </span>
-                      </div>
-                      <div class="flex items-center gap-2 group cursor-help">
-                        <Calendar size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                        <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">
-                          {updatedLabel}: {new Date(skill.updatedAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
 
-                  {/* Actions Column - Hidden on mobile, shown on lg screens */}
-                  <div class="hidden lg:flex items-center gap-4 shrink-0 self-start mt-4 lg:mt-0">
-                    <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all">
-                      <SkillActionsNative
-                        skillId={fullId}
-                        skillName={skillDisplayName}
-                        owner={owner}
-                        repo={repo}
-                        description={description && typeof description === 'string' ? description : ''}
-                        locale={locale}
-                        variant="button"
-                      />
+                  {detailRiskChips.length > 0 && (
+                    <div class="mt-3 flex flex-wrap gap-2">
+                      {detailRiskChips.map((label) => (
+                        <span class="market-chip px-2 py-1 text-[10px]">{label}</span>
+                      ))}
                     </div>
+                  )}
+
+                  <div class="mt-4">
+                    <SkillInstall
+                      installCommand={installCommand}
+                      installationLabel={t('Detail.installation')}
+                      installNowLabel={installNowLabel}
+                      universalInstallLabel={tr('Detail.universalInstall', 'Universal Install (Auto-Detect)')}
+                      platformSupportLabel={platformSupportLabel}
+                      plusMoreLabel={plusMoreLabel}
+                      compact={true}
+                    />
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-2 gap-2">
                     <a
                       href={githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="group flex items-center gap-3 px-6 py-3 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
+                      class="market-button px-3 py-2 text-sm"
                     >
-                      <Github size={18} strokeWidth={3} className="text-current" />
+                      <Github size={16} className="text-current" />
                       <span>GitHub</span>
                     </a>
+                    <a
+                      href={`/${locale}/safe`}
+                      class="market-button px-3 py-2 text-sm bg-[var(--card)] text-[var(--foreground)]"
+                    >
+                      <span>{isZhLocale ? '审核政策' : 'Review policy'}</span>
+                    </a>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <div class="space-y-8 pb-14">
+              <section data-testid="skill-fit-tasks" class="skill-detail-surface p-5 md:p-6">
+                <div class="mb-5 flex items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
+                  <div>
+                    <h2 class="text-2xl font-bold">{isZhLocale ? '适合什么任务' : 'Fit and Tasks'}</h2>
+                    <p class="mt-1 text-sm font-semibold text-[var(--muted-foreground)]">
+                      {isZhLocale ? '先看它能解决什么问题，再决定是否安装。' : 'Understand the job before installing.'}
+                    </p>
+                  </div>
+                  <Bot size={28} strokeWidth={3} className="shrink-0 text-[var(--accent)]" />
+                </div>
+
+                <div class="grid gap-4 md:grid-cols-2">
+                  <div class="rounded-md border border-[var(--border)] bg-[var(--card)] p-4">
+                    <h3 class="text-sm font-bold">{isZhLocale ? '核心价值' : 'Core value'}</h3>
+                    <p class="mt-2 text-base font-semibold leading-relaxed">{renderedRecommendation || heroIntro}</p>
+                  </div>
+                  <div class="rounded-md border border-[var(--border)] bg-[var(--card)] p-4">
+                    <h3 class="text-sm font-bold">
+                      {tr('Detail.suitability', isZhLocale ? '适用 Agent 类型' : 'Ideal agent fit')}
+                    </h3>
+                    <p class="mt-2 text-base font-semibold leading-relaxed">{renderedSuitability}</p>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Main Layout: Two Column - Install + Explorer | Overview + Readme */}
-            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 pb-16">
-              {/* Left: Install + Explorer Column */}
-              <aside class="w-full lg:w-[320px] shrink-0 space-y-6">
-                {/* Install Card */}
-                <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] hover:shadow-[8px_8px_0px_0px_var(--border)] hover:-translate-y-0.5 transition-all duration-200 lg:sticky lg:top-8 p-6 min-h-[500px] flex flex-col justify-center">
-                  <SkillInstall
-                    installCommand={installCommand}
-                    installationLabel={t('Detail.installation')}
-                    installNowLabel={installNowLabel}
-                    universalInstallLabel={tr('Detail.universalInstall', 'Universal Install (Auto-Detect)')}
-                    platformSupportLabel={platformSupportLabel}
-                    plusMoreLabel={plusMoreLabel}
-                  />
+                {renderedUseCases.length > 0 && (
+                  <div class="mt-5">
+                    <h3 class="mb-3 text-sm font-bold">
+                      {tr('Detail.useCases', isZhLocale ? '主要任务' : 'Use cases')}
+                    </h3>
+                    <div class="grid gap-2 md:grid-cols-2">
+                      {renderedUseCases.map((useCase) => (
+                        <div class="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm font-semibold">
+                          {useCase}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {renderedLimitations.length > 0 && (
+                  <div class="mt-5 border-t border-[var(--border)] pt-5">
+                    <h3 class="mb-3 text-sm font-bold text-rose-600 dark:text-rose-400">
+                      {tr('Detail.limitations', isZhLocale ? '使用限制与门槛' : 'Limitations')}
+                    </h3>
+                    <div class="grid gap-2 md:grid-cols-2">
+                      {renderedLimitations.map((limitation) => (
+                        <div class="rounded-md border border-rose-500/30 bg-rose-500/5 px-3 py-2 text-sm font-semibold">
+                          {limitation}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </section>
+
+              <section data-testid="skill-review-permissions" class="skill-detail-surface p-5 md:p-6">
+                <div class="mb-5 flex items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
+                  <div>
+                    <h2 class="text-2xl font-bold">{isZhLocale ? '审核与权限' : 'Review and Permissions'}</h2>
+                    <p class="mt-1 text-sm font-semibold text-[var(--muted-foreground)]">{detailReviewStatus}</p>
+                  </div>
+                  <a
+                    href={`/${locale}/safe`}
+                    class="text-sm font-bold text-[var(--muted-foreground)] underline underline-offset-4"
+                  >
+                    {isZhLocale ? '审核政策' : 'Review policy'}
+                  </a>
                 </div>
 
-                {/* Explorer Card */}
-                <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-4">
+                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  {trustReviewRows.map((row) => (
+                    <div class="rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3">
+                      <span class="block text-xs font-mono font-black text-[var(--muted-foreground)]">{row.label}</span>
+                      <strong class="mt-1 block text-xl font-black">{row.value}</strong>
+                    </div>
+                  ))}
+                </div>
+
+                {detailRiskChips.length > 0 ? (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {detailRiskChips.map((label) => (
+                      <span class="market-chip px-2.5 py-1.5 text-xs">{label}</span>
+                    ))}
+                  </div>
+                ) : (
+                  <p class="mt-4 text-sm font-semibold text-[var(--muted-foreground)]">
+                    {isZhLocale ? '未发现阻断性风险旗标。' : 'No blocking risk flags detected.'}
+                  </p>
+                )}
+              </section>
+
+              {skillTier === 2 && (
+                <div class="rounded-md border border-amber-500/30 bg-amber-500/5 px-4 py-3">
+                  <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">
+                    {isZhLocale
+                      ? '此页面提供安装与来源参考，但不会作为主推荐结果展示。'
+                      : 'This page provides installation and source reference but is not promoted as a primary result.'}
+                  </p>
+                </div>
+              )}
+
+              {!skillIndexability?.isIndexable && (
+                <div class="rounded-md border border-amber-500/40 bg-amber-500/5 px-4 py-3">
+                  <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">
+                    {isZhLocale
+                      ? '来源材料偏薄或未达到推荐标准，页面保留为查阅证据。'
+                      : 'Source material is thin or below promotion standards; this page remains available as evidence.'}
+                    {isThinContent && (isZhLocale ? ' 上游说明文本较短。' : ' Upstream source text is short.')}
+                  </p>
+                </div>
+              )}
+
+              <section data-testid="skill-source-material" class="skill-evidence-shell">
+                <div class="border-b border-[var(--border)] px-5 py-4">
+                  <h2 class="text-2xl font-bold">{isZhLocale ? '来源材料' : sourceEvidenceTitle}</h2>
+                  <p class="mt-1 text-sm font-semibold text-[var(--muted-foreground)]">
+                    {isZhLocale ? 'README 和文件仅作为上游证据。' : sourceEvidenceDescription}
+                  </p>
+                </div>
+                <div class="grid gap-4 p-4 lg:grid-cols-[260px_minmax(0,1fr)]">
                   <SkillFileManagerNative
                     files={files}
                     selectedFile="SKILL.md"
@@ -1355,158 +1471,10 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       project: t('Detail.project'),
                     }}
                   />
-                </div>
-              </aside>
-
-              {/* Right: Overview + Readme */}
-              <article class="flex-1 min-w-0 space-y-6">
-                {/* Public skill overview */}
-                {!renderRepoDirectory && skillIndexability && (
-                  <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5 relative overflow-hidden">
-                    <div
-                      class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-                      style="background-image: var(--background-pattern)"
-                    />
-
-                    <div class="relative z-10 space-y-6">
-                      <div class="flex items-center gap-3 border-b-4 border-[var(--border)] pb-4">
-                        <div class="p-2 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
-                          <Bot size={28} strokeWidth={3} />
-                        </div>
-                        <div>
-                          <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
-                            {tr('Detail.skillOverview', typedLocale === 'zh' ? '技能概览' : 'Skill Overview')}
-                          </h2>
-                          <p class="text-xs font-mono font-bold uppercase tracking-widest text-[var(--muted-foreground)] mt-1">
-                            {tr(
-                              'Detail.skillOverviewSub',
-                              typedLocale === 'zh'
-                                ? '先看适用场景、限制条件和安装路径，再决定是否继续深入。'
-                                : 'Start with fit, limitations, and setup before diving into the repository.',
-                            )}
-                          </p>
-                        </div>
-                      </div>
-
-                      <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                        {heroIntro}
-                      </p>
-
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
-                          <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                            {tr('Detail.recommendation', typedLocale === 'zh' ? '核心价值' : 'Recommendation')}
-                          </h3>
-                          <p class="text-[var(--foreground)] leading-relaxed font-bold">{renderedRecommendation}</p>
-                        </div>
-
-                        <div class="border-l-4 border-purple-500 pl-4 py-1">
-                          <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                            {tr('Detail.suitability', 'Ideal Agent Persona')}
-                          </h3>
-                          <p class="text-[var(--foreground)] font-bold leading-relaxed">{renderedSuitability}</p>
-                        </div>
-                      </div>
-
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
-                        <div>
-                          <h3 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                            <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
-                            {typedLocale === 'zh'
-                              ? `${tr('Detail.useCases', '赋予的主要能力')} · ${skillDisplayName}`
-                              : `${tr('Detail.useCases', 'Use Cases')} for ${skillDisplayName}`}
-                          </h3>
-                          <div class="flex flex-wrap gap-2">
-                            {renderedUseCases.map((useCase) => (
-                              <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
-                                {useCase}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div>
-                          <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
-                            <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
-                            {tr('Detail.limitations', typedLocale === 'zh' ? '使用限制与门槛' : 'Limitations')}
-                          </h3>
-                          <ul class="space-y-2">
-                            {renderedLimitations.map((limitation) => (
-                              <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
-                                <span>{limitation}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-
-                      {/* Tags as simple inline list */}
-                      {rawTopics.length > 0 && (
-                        <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
-                          <div class="flex flex-wrap gap-2">
-                            {rawTopics.map((keyword, index) => {
-                              const translatedTopic = topics[index] || keyword;
-                              return (
-                                <a
-                                  href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}
-                                  rel="nofollow"
-                                  class="px-2 py-1 bg-[var(--foreground)]/5 border border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] transition-colors"
-                                >
-                                  {translatedTopic}
-                                </a>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </section>
-                )}
-
-                {/* Tier 2 — Support Reference notice */}
-                {skillTier === 2 && !renderRepoDirectory && (
-                  <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 mb-4">
-                    <p class="text-sm text-amber-600 dark:text-amber-400 font-medium">
-                      <strong>Support Reference.</strong>{' '}
-                      {typedLocale === 'zh'
-                        ? '此页面提供安装与来源参考，但未在搜索结果中推广。继续使用前，请结合适用场景和限制条件一起判断。'
-                        : 'This page provides installation and source reference but is not promoted in search listings. Compare fit and limitations before relying on it for production workflows.'}
-                    </p>
-                  </div>
-                )}
-
-                {/* Supporting repository material (Tier 3) */}
-                {!skillIndexability?.isIndexable && (
-                  <div class="brut-card border-2 border-amber-500 dark:border-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4">
-                    <h3 class="text-sm font-black text-amber-700 dark:text-amber-500 uppercase tracking-widest mb-1 font-mono">
-                      <span class="bg-amber-700 dark:bg-amber-500 text-white dark:text-black px-1 mr-2 tracking-tighter">
-                        !
-                      </span>
-                      {tr('Detail.sourceNotesWarning', typedLocale === 'zh' ? '来源说明' : 'Source Notes')}
-                    </h3>
-                    <p class="text-sm text-amber-900 dark:text-amber-400/90 font-medium font-mono leading-relaxed mt-2">
-                      {typedLocale === 'zh'
-                        ? '此页面仍可作为安装与查阅参考。继续使用前，请结合上方适用场景、限制条件和上游仓库说明一起判断。'
-                        : 'This page is still useful for installation and source reference. Before using it, compare the fit, limitations, and upstream repository notes above.'}
-                    </p>
-                    {isThinContent && (
-                      <p class="text-xs text-amber-900 dark:text-amber-300 font-mono font-bold leading-relaxed mt-3">
-                        {typedLocale === 'zh'
-                          ? '补充提示：该仓库提供的源材料本身也偏薄，继续使用前建议仔细查看上游说明。'
-                          : 'Additional note: the upstream repository material is also relatively thin, so check the upstream notes carefully before using it.'}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* Source Material: Readme Only */}
-                <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden">
                   {isCrawlerRequest ? (
-                    <div class="bg-[var(--background)]">
-                      <pre class="m-0 max-h-none whitespace-pre-wrap break-words border-0 bg-[var(--background)] p-5 md:p-8 text-sm md:text-base leading-7 text-[var(--foreground)] shadow-none">
-                        {crawlerSourceEvidenceContent}
-                      </pre>
-                    </div>
+                    <pre class="m-0 max-h-none whitespace-pre-wrap break-words border border-[var(--border)] bg-[var(--background)] p-5 text-sm leading-7 text-[var(--foreground)]">
+                      {crawlerSourceEvidenceContent}
+                    </pre>
                   ) : (
                     <SkillReadmeNative
                       initialContent={publicReadmeContent}
@@ -1516,7 +1484,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                         'package.json': JSON.stringify(
                           {
                             name: `${owner}-${repo}-skill`,
-                            version: version,
+                            version,
                             description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
                             keywords: topics,
                             author: owner,
@@ -1536,8 +1504,8 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       sourceFilePath={skill.filePath || 'SKILL.md'}
                     />
                   )}
-                </section>
-              </article>
+                </div>
+              </section>
             </div>
 
             {/* FAQ Section */}
@@ -1554,14 +1522,13 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
       }
     </main>
 
-    {/* Related Skills + Collections */}
+    {/* Related Skills */}
     {
       !renderRepoDirectory && (
         <SkillRelated
           locale={locale}
           typedLocale={typedLocale}
           relatedSkills={relatedSkills}
-          relatedCollections={relatedCollections}
           skillName={skillDisplayName}
           repo={repo}
           category={category}

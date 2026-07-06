@@ -1,7 +1,5 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
-import { getSolutionSeoEligibleLocales, SOLUTION_INTENT_SLUGS, type SolutionSlug } from '../lib/solution-intents';
-import { getPreferredCanonicalLocale } from '../lib/seo-locales';
 import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
@@ -10,13 +8,12 @@ const SITE = SITE_URL;
 const STATIC_PAGES = [
   '', // Home
   '/skills',
+  '/popular',
+  '/occupations',
   '/categories',
-  '/collections',
-  '/blog',
-  '/docs',
-  '/cli',
-  '/community',
-  '/integrations',
+  '/search',
+  '/safe',
+  '/article',
   '/privacy',
   '/terms',
   '/cookies',
@@ -54,28 +51,6 @@ export const GET: APIRoute = async () => {
 ${buildHreflangLinks(page)}
       </url>`);
     }
-  }
-
-  const solutionPages: Array<{ path: string; locales: readonly string[] }> = [
-    {
-      path: '/solutions',
-      locales: getSolutionSeoEligibleLocales(),
-    },
-    ...SOLUTION_INTENT_SLUGS.map((slug: SolutionSlug) => ({
-      path: `/solutions/${slug}`,
-      locales: getSolutionSeoEligibleLocales(slug),
-    })),
-  ];
-
-  for (const page of solutionPages) {
-    const canonicalLocale = getPreferredCanonicalLocale(page.locales);
-    urls.push(`<url>
-<loc>${normalizeUrl(`${SITE}/${canonicalLocale}${page.path}`)}</loc>
-<lastmod>${today}</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-${buildHreflangLinks(page.path, [canonicalLocale])}
-</url>`);
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,9 +1,11 @@
+import type { RiskFlag, SecurityLevel, SourceTrustLevel } from '../../src/lib/skill-trust';
+
 export interface SeoData {
-    title: Record<string, string>;
-    description: Record<string, string>;
-    definition: Record<string, string>;
-    features: Record<string, string[]>;
-    keywords: Record<string, string[]>;
+  title: Record<string, string>;
+  description: Record<string, string>;
+  definition: Record<string, string>;
+  features: Record<string, string[]>;
+  keywords: Record<string, string[]>;
 }
 
 /**
@@ -12,53 +14,63 @@ export interface SeoData {
  * - Translated: Record<string, string> / Record<string, string[]> (from translateAgentAnalysis)
  */
 export interface AgentAnalysis {
-    suitability: string | Record<string, string>;
-    recommendation: string | Record<string, string>;
-    useCases: string[] | Record<string, string[]>;
-    limitations: string[] | Record<string, string[]>;
-    version?: number; // 1 = legacy, 2 = SEO-optimized, 3 = quality audit (Feb 2026)
+  suitability: string | Record<string, string>;
+  recommendation: string | Record<string, string>;
+  useCases: string[] | Record<string, string[]>;
+  limitations: string[] | Record<string, string[]>;
+  version?: number; // 1 = legacy, 2 = SEO-optimized, 3 = quality audit (Feb 2026)
 }
 
 export interface TranslateContext {
-    name?: string;
-    topics?: string[];
-    bodyPreview?: string;
-    category?: string;
+  name?: string;
+  topics?: string[];
+  bodyPreview?: string;
+  category?: string;
 }
 
 export interface SkillCache {
-    id: string;
+  id: string;
+  name: string;
+  description: string | Record<string, string>;
+  owner: string;
+  repo: string;
+  repoPath: string;
+  filePath?: string;
+  stars: number;
+  forks: number;
+  updatedAt: string;
+  topics: string[];
+  skillMd?: {
     name: string;
-    description: string | Record<string, string>;
-    owner: string;
-    repo: string;
-    repoPath: string;
-    filePath?: string;
-    stars: number;
-    forks: number;
-    updatedAt: string;
-    topics: string[];
-    skillMd?: {
-        name: string;
-        description: string;
-        version?: string;
-        tags?: string[];
-        bodyPreview: string;
-        body?: string;
-    };
-    contentHash?: string;
-    repoEtag?: string;
-    qualityScore?: number;
-    category?: string;
-    lastSynced: string;
-    seo?: SeoData;
-    agentAnalysis?: AgentAnalysis;
-    verified?: boolean;
+    description: string;
+    version?: string;
+    tags?: string[];
+    bodyPreview: string;
+    body?: string;
+  };
+  contentHash?: string;
+  repoEtag?: string;
+  qualityScore?: number;
+  category?: string;
+  lastSynced: string;
+  seo?: SeoData;
+  agentAnalysis?: AgentAnalysis;
+  verified?: boolean;
+  securityLevel?: SecurityLevel;
+  sourceTrust?: SourceTrustLevel;
+  securityScore?: number;
+  sourceScore?: number;
+  rankScore?: number;
+  isTrustedRankingEligible?: boolean;
+  riskFlags?: RiskFlag[];
+  securityBrief?: string;
+  primaryTrustReason?: string;
+  lastAuditedAt?: string;
 }
 
 export interface CacheData {
-    version: number;
-    lastUpdated: string;
-    totalCount: number;
-    skills: SkillCache[];
+  version: number;
+  lastUpdated: string;
+  totalCount: number;
+  skills: SkillCache[];
 }

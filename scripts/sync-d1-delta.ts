@@ -146,6 +146,10 @@ function buildUpsertStatement(rawSkill: SkillCache): { sql: string; skipped: boo
   const stars = escapeNumber(skill.stars);
   const forks = escapeNumber(skill.forks);
   const qualityScore = escapeNumber(skill.qualityScore || 0);
+  const securityLevel = escapeSql(skill.securityLevel || 'C');
+  const sourceTrust = escapeSql(skill.sourceTrust || 'T3');
+  const rankScore = escapeNumber(skill.rankScore || skill.qualityScore || 0);
+  const lastAuditedAt = escapeSql(skill.lastAuditedAt || skill.lastSynced || skill.updatedAt || '');
   const updatedAt = escapeSql(skill.updatedAt || '');
   const lastSynced = escapeSql(skill.lastSynced || skill.updatedAt || '');
 
@@ -154,7 +158,7 @@ function buildUpsertStatement(rawSkill: SkillCache): { sql: string; skipped: boo
   const dataJson = escapeSql(rawJson);
   const searchText = escapeSql(buildSearchText(skill));
 
-  const sql = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repoPath}, ${name}, ${stars}, ${forks}, ${qualityScore}, ${updatedAt}, ${lastSynced}, ${contentHash}, ${dataJson});\nDELETE FROM skills_fts WHERE id = ${id};\nINSERT INTO skills_fts (id, name, owner, repo, category, search_text) VALUES (${id}, ${name}, ${owner}, ${repo}, ${category}, ${searchText});`;
+  const sql = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, security_level, source_trust, rank_score, last_audited_at, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repoPath}, ${name}, ${stars}, ${forks}, ${qualityScore}, ${securityLevel}, ${sourceTrust}, ${rankScore}, ${lastAuditedAt}, ${updatedAt}, ${lastSynced}, ${contentHash}, ${dataJson});\nDELETE FROM skills_fts WHERE id = ${id};\nINSERT INTO skills_fts (id, name, owner, repo, category, search_text) VALUES (${id}, ${name}, ${owner}, ${repo}, ${category}, ${searchText});`;
 
   if (reduced) {
     console.warn(`⚠️ Reduced oversized payload for ${skill.id}`);

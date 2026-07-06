@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<main class="marketplace-simple">
+  <div class="marketplace-shell">
+    <header>
+      <h1>{title}</h1>
+      {description && <p>{description}</p>}
+    </header>
+    <div class="marketplace-simple-body">
+      <slot />
+    </div>
+  </div>
+</main>
