@@ -424,4 +424,24 @@ describe('marketplace metadata admission', () => {
       }),
     ).toBe(false);
   });
+
+  it('normalizes metadata casing and parses stringified blocker flags', () => {
+    expect(
+      isMarketplaceMetadataAdmitted({
+        securityLevel: 'a',
+        sourceTrust: 't2',
+        isTrustedRankingEligible: true,
+      }),
+    ).toBe(true);
+    expect(
+      isMarketplaceMetadataAdmitted({
+        securityLevel: 'A',
+        sourceTrust: 'T2',
+        isTrustedRankingEligible: true,
+        riskFlags: JSON.stringify([
+          { code: 'credential_capture', severity: 'Blocker', label: 'credential capture pattern' },
+        ]),
+      }),
+    ).toBe(false);
+  });
 });

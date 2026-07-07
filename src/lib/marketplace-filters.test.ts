@@ -73,6 +73,13 @@ describe('marketplace filters', () => {
     expect(sortSkillsPopular([starred, trusted]).map((item) => item.name)).toEqual(['trusted', 'starred']);
   });
 
+  it('sorts popular after filtering quarantined high-rank inputs', () => {
+    const quarantined = skill({ name: 'quarantined', rankScore: 999, sourceTrust: 'T3' });
+    const approved = skill({ name: 'approved', rankScore: 50, stars: 1 });
+
+    expect(sortSkillsPopular([quarantined, approved]).map((item) => item.name)).toEqual(['approved']);
+  });
+
   it('sorts popular by quality score when rank score ties', () => {
     const higherQuality = skill({ name: 'higher-quality', rankScore: 88, qualityScore: 77, stars: 5 });
     const higherStars = skill({ name: 'higher-stars', rankScore: 88, qualityScore: 60, stars: 500 });
@@ -96,6 +103,13 @@ describe('marketplace filters', () => {
     const newer = skill({ name: 'newer', updatedAt: '2026-07-01T00:00:00.000Z' });
 
     expect(sortSkillsLatest([older, newer]).map((item) => item.name)).toEqual(['newer', 'older']);
+  });
+
+  it('sorts latest after filtering quarantined newer inputs', () => {
+    const quarantined = skill({ name: 'quarantined', updatedAt: '2026-07-02T00:00:00.000Z', securityLevel: 'D' });
+    const approved = skill({ name: 'approved', updatedAt: '2026-07-01T00:00:00.000Z' });
+
+    expect(sortSkillsLatest([quarantined, approved]).map((item) => item.name)).toEqual(['approved']);
   });
 
   it('sorts latest ties by popular order', () => {

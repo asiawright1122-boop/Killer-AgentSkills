@@ -26,6 +26,71 @@ vi.mock('../../../src/lib/search', async () => {
   };
 });
 
+function createPolicySensitiveSearchD1(options: {
+  blockedName: string;
+  blockedSecurityLevel?: string;
+  blockedSourceTrust?: string;
+  blockedEligibility?: unknown;
+  blockedRiskFlags?: unknown;
+}) {
+  const allowedRow = {
+    id: 'allowed/skill',
+    owner: 'allowed',
+    repo: 'skill',
+    name: 'Allowed Skill',
+    stars: 10,
+    category: 'documentation',
+    source: 'cache',
+    rankScore: 60,
+    qualityScore: 50,
+    securityLevel: 'A',
+    sourceTrust: 'T1',
+    isTrustedRankingEligible: true,
+    riskFlags: '[]',
+  };
+
+  const prepare = vi.fn((sql: string) => {
+    const selectsSecurityFallback =
+      /json_extract\(s\.data_json,\s*'\$\.securityLevel'\)[\s\S]*AS securityLevel/i.test(sql);
+    const selectsSourceTrustFallback =
+      /json_extract\(s\.data_json,\s*'\$\.sourceTrust'\)[\s\S]*AS sourceTrust/i.test(sql);
+    const selectsRiskFlags = /AS riskFlags\b/i.test(sql);
+
+    const blockedRow = {
+      id: 'blocked/skill',
+      owner: 'blocked',
+      repo: 'skill',
+      name: options.blockedName,
+      stars: 999,
+      category: 'documentation',
+      source: 'cache',
+      rankScore: 99,
+      qualityScore: 99,
+      securityLevel: selectsSecurityFallback ? (options.blockedSecurityLevel ?? 'A') : 'A',
+      sourceTrust: selectsSourceTrustFallback ? (options.blockedSourceTrust ?? 'T1') : 'T1',
+      isTrustedRankingEligible: options.blockedEligibility ?? true,
+      riskFlags: selectsRiskFlags ? (options.blockedRiskFlags ?? '[]') : '[]',
+    };
+
+    return {
+      bind: vi.fn().mockReturnValue({
+        all: vi.fn(async () => ({
+          success: true,
+          results: [allowedRow, blockedRow] as Record<string, unknown>[],
+          meta: {},
+        })),
+      }),
+    };
+  });
+
+  return {
+    prepare,
+    dump: vi.fn(),
+    batch: vi.fn(),
+    exec: vi.fn(),
+  } as unknown as D1Database;
+}
+
 describe('GET /api/search', () => {
   let GET: typeof import('../../../src/pages/api/search').GET;
 
@@ -200,6 +265,80 @@ describe('GET /api/search', () => {
       createAPIContext({
         url: 'http://localhost/api/search?q=skill&locale=en',
         env: createMockEnv({ DB: mockDB as unknown as D1Database }),
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { results: Array<{ name: string }> };
+    expect(body.results.map((result) => result.name)).toEqual(['Allowed Skill']);
+  });
+
+  it('filters D1 keyword matches when JSON-only security level is D', async () => {
+    const mockDB = createPolicySensitiveSearchD1({
+      blockedName: 'Blocked Security',
+      blockedSecurityLevel: 'D',
+    });
+
+    const res = await GET(
+      createAPIContext({
+        url: 'http://localhost/api/search?q=skill&locale=en',
+        env: createMockEnv({ DB: mockDB }),
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { results: Array<{ name: string }> };
+    expect(body.results.map((result) => result.name)).toEqual(['Allowed Skill']);
+  });
+
+  it('filters D1 keyword matches when JSON-only source trust is T3', async () => {
+    const mockDB = createPolicySensitiveSearchD1({
+      blockedName: 'Blocked Trust',
+      blockedSourceTrust: 'T3',
+    });
+
+    const res = await GET(
+      createAPIContext({
+        url: 'http://localhost/api/search?q=skill&locale=en',
+        env: createMockEnv({ DB: mockDB }),
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { results: Array<{ name: string }> };
+    expect(body.results.map((result) => result.name)).toEqual(['Allowed Skill']);
+  });
+
+  it('filters D1 keyword matches when JSON-only blocker severity is case-varied', async () => {
+    const mockDB = createPolicySensitiveSearchD1({
+      blockedName: 'Blocked Risk',
+      blockedRiskFlags: JSON.stringify([
+        { code: 'credential_capture', severity: 'Blocker', label: 'credential capture pattern' },
+      ]),
+    });
+
+    const res = await GET(
+      createAPIContext({
+        url: 'http://localhost/api/search?q=skill&locale=en',
+        env: createMockEnv({ DB: mockDB }),
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { results: Array<{ name: string }> };
+    expect(body.results.map((result) => result.name)).toEqual(['Allowed Skill']);
+  });
+
+  it('filters D1 keyword matches when JSON-only trusted-ranking eligibility is false-like', async () => {
+    const mockDB = createPolicySensitiveSearchD1({
+      blockedName: 'Blocked Eligibility',
+      blockedEligibility: '0',
+    });
+
+    const res = await GET(
+      createAPIContext({
+        url: 'http://localhost/api/search?q=skill&locale=en',
+        env: createMockEnv({ DB: mockDB }),
       }),
     );
 

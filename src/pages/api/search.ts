@@ -22,8 +22,8 @@ import { getRuntimeEnv } from '../../lib/runtime-env';
 const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
 const MARKETPLACE_ADMISSION_SQL = `
-  (s.security_level IS NULL OR s.security_level != 'D')
-  AND COALESCE(s.source_trust, json_extract(s.data_json, '$.sourceTrust'), '') IN ('T1', 'T2')
+  COALESCE(NULLIF(UPPER(TRIM(s.security_level)), ''), UPPER(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT)), '') != 'D'
+  AND COALESCE(NULLIF(UPPER(TRIM(s.source_trust)), ''), UPPER(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT)), '') IN ('T1', 'T2')
   AND (
     json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
     OR (
@@ -34,7 +34,7 @@ const MARKETPLACE_ADMISSION_SQL = `
   AND NOT EXISTS (
     SELECT 1
     FROM json_each(COALESCE(json_extract(s.data_json, '$.riskFlags'), '[]')) AS risk
-    WHERE json_extract(risk.value, '$.severity') = 'blocker'
+    WHERE LOWER(CAST(json_extract(risk.value, '$.severity') AS TEXT)) = 'blocker'
   )
 `;
 
@@ -167,9 +167,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
                 s.category,
                 s.rank_score AS rankScore,
                 s.quality_score AS qualityScore,
-                s.security_level AS securityLevel,
-                s.source_trust AS sourceTrust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(s.security_level)), ''),
+                  UPPER(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT))
+                ) AS securityLevel,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(s.source_trust)), ''),
+                  UPPER(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))
+                ) AS sourceTrust,
                 json_extract(s.data_json, '$.isTrustedRankingEligible') AS isTrustedRankingEligible,
+                json_extract(s.data_json, '$.riskFlags') AS riskFlags,
                 json_extract(s.data_json, '$.source') AS source,
                 bm25(skills_fts) AS rank
               FROM skills_fts

@@ -80,11 +80,39 @@ function skillDisplayName(skill: UnifiedSkill): string {
 }
 
 function isFalseyRankingEligibility(value: unknown): boolean {
-  return value === false || value === 0 || value === '0' || value === 'false';
+  if (value === false || value === 0) return true;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    return normalized === '0' || normalized === 'false';
+  }
+  return false;
 }
 
 function hasBlockerRisk(flags: RiskFlag[] | undefined): boolean {
-  return (flags || []).some((flag) => flag.severity === 'blocker');
+  return (flags || []).some((flag) => typeof flag?.severity === 'string' && flag.severity.toLowerCase() === 'blocker');
+}
+
+function normalizeUpperCode(value: unknown): string {
+  return typeof value === 'string' ? value.trim().toUpperCase() : '';
+}
+
+function parseRiskFlags(value: unknown): RiskFlag[] {
+  if (Array.isArray(value)) {
+    return value.filter((flag): flag is RiskFlag => Boolean(flag && typeof flag === 'object'));
+  }
+
+  if (typeof value !== 'string' || value.trim() === '') {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed)
+      ? parsed.filter((flag): flag is RiskFlag => Boolean(flag && typeof flag === 'object'))
+      : [];
+  } catch {
+    return [];
+  }
 }
 
 function hasUsefulPublicSourceMaterial(skill: UnifiedSkill): boolean {
@@ -279,8 +307,10 @@ export function getSkillSourceKind(skill: UnifiedSkill): SourceKind {
 
 export function getMarketplaceAdmission(skill: UnifiedSkill): MarketplaceAdmission {
   const reasons: MarketplaceQuarantineReasonCode[] = [];
+  const securityLevel = normalizeUpperCode(skill.securityLevel);
+  const sourceTrust = normalizeUpperCode(skill.sourceTrust);
 
-  if (skill.securityLevel === 'D') {
+  if (securityLevel === 'D') {
     reasons.push('security_level_d');
   }
 
@@ -292,7 +322,7 @@ export function getMarketplaceAdmission(skill: UnifiedSkill): MarketplaceAdmissi
     reasons.push('not_trusted_ranking_eligible');
   }
 
-  if (skill.sourceTrust !== 'T1' && skill.sourceTrust !== 'T2') {
+  if (sourceTrust !== 'T1' && sourceTrust !== 'T2') {
     reasons.push('source_trust_t3');
   }
 
@@ -400,9 +430,9 @@ export function isMarketplaceMetadataAdmitted(
     if (!hasRequiredFields) return false;
   }
 
-  const securityLevel = (data.securityLevel as SecurityLevel | undefined) || 'A';
-  const sourceTrust = (data.sourceTrust as SourceTrustLevel | undefined) || 'T3';
-  const riskFlags = Array.isArray(data.riskFlags) ? (data.riskFlags as RiskFlag[]) : [];
+  const securityLevel = (normalizeUpperCode(data.securityLevel) || 'A') as SecurityLevel;
+  const sourceTrust = (normalizeUpperCode(data.sourceTrust) || 'T3') as SourceTrustLevel;
+  const riskFlags = parseRiskFlags(data.riskFlags);
   const isTrustedRankingEligible = data.isTrustedRankingEligible as UnifiedSkill['isTrustedRankingEligible'];
 
   if (securityLevel === 'D') return false;
