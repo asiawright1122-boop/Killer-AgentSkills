@@ -267,7 +267,17 @@ const isZh = locale === 'zh';
 
         try {
           const res = await fetch(`/api/skills/submit?url=${encodeURIComponent(currentUrl)}`);
-          const data = await res.json();
+          const data = (await res.json()) as {
+            skill?: {
+              frontmatter?: {
+                name?: string;
+                description?: string;
+              };
+              name?: string;
+              description?: string;
+              owner?: string;
+            };
+          };
 
           if (!res.ok) {
             errorEl.textContent = getPublicApiError(
