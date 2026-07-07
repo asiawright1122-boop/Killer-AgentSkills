@@ -4,12 +4,17 @@ const INSTRUCTION_LINE_PATTERNS = [
   /\bcritical\s+guidelines?\b/i,
   /\brequired\s+features?\b/i,
   /\bvariable\s*\(/i,
+  /^\s*(?:phase|pass)\s+\d+\s*[:—-]/i,
   /\bavoid\s+redundancy\b/i,
   /\bavoid\s+repeating\b/i,
   /\bavoid\s+copying\b/i,
   /\bdo\s+not\s+copy\b/i,
+  /\bdo\s+not\s+pad\b/i,
   /\bmust\s+emphasize\b/i,
   /\buse\s+when\b/i,
+  /\byou\s+are\s+auditing\b/i,
+  /\bdispatch\b[^.。!?]*\bsubagents?\b/i,
+  /\bshared\s+instructions?\b/i,
   /\beach\s+reference\s+file\s+follows\b/i,
   /\bquick\s+(?:pattern|command|config|reference)\b/i,
   /\bdeep\s+dive\b/i,
@@ -19,18 +24,27 @@ const INSTRUCTION_LINE_PATTERNS = [
   /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
 ];
 
+const BLOCKED_PUBLIC_COPY_PATTERNS = [
+  /\breference-only\b/i,
+  /\btrusted\s+next\s+steps?\b/i,
+  /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
+  /恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
+];
+
 const SOURCE_INSTRUCTION_SECTION_PATTERNS = [
   /^(?:#{1,6}\s*)?critical\s+guidelines?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?required\s+features?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?variables?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?fixed\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?skill\s+format\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?output\s+schema\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?review\s+guardrails?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?priority-ordered\s+guidelines?\s*:?\s*$/i,
 ];
 
 const SOURCE_INSTRUCTION_LINE_PATTERNS = [
   ...INSTRUCTION_LINE_PATTERNS,
+  ...BLOCKED_PUBLIC_COPY_PATTERNS,
   /^\s*(?:[-*]\s*)?(?:variable|fixed)\s*(?:\(|:)/i,
   /\bthe\s+template\s+is\s+the\s+starting\s+point\b/i,
   /\boutput\s+\.(?:md|html|js)\s+files?\b/i,
@@ -80,6 +94,7 @@ function polishCopy(value: string): string {
 
 export function sanitizePublicSkillCopy(value: unknown, fallback = ''): string {
   if (typeof value !== 'string') return fallback;
+  if (BLOCKED_PUBLIC_COPY_PATTERNS.some((pattern) => pattern.test(value))) return fallback;
 
   const safeValue = sanitizePublicAIOutput(value);
   const cleaned = normalizeCopyWhitespace(polishCopy(stripInstructionSentences(stripInstructionFragments(safeValue))));

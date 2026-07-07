@@ -23,6 +23,15 @@ describe('public skill copy sanitizer', () => {
     ).toEqual(['Requires p5.js and browser rendering support.']);
   });
 
+  it('drops reference-only review fragments from generated FAQ copy', () => {
+    expect(
+      sanitizePublicSkillCopyList([
+        'App handles, private helpers, and framework-only machinery. "reference-only": it appears only via generated API references.',
+        'Requires access to the upstream Home Assistant documentation and source tree.',
+      ]),
+    ).toEqual(['Requires access to the upstream Home Assistant documentation and source tree.']);
+  });
+
   it('removes hidden reasoning sections from public generated copy', () => {
     expect(
       sanitizePublicSkillCopy(`Chain of thought:
@@ -126,5 +135,31 @@ VARIABLE (must be filled in by the model): Color palette`),
 
 - Creates interactive browser-based sketches.
 - Requires p5.js and browser rendering support.`);
+  });
+
+  it('removes subagent audit instructions from public source excerpts', () => {
+    expect(
+      sanitizePublicSkillSourceExcerpt(`# Doc Coverage Review
+
+Verify user-facing documentation coverage for a framework.
+
+Phase 1: Dispatch Inventory Agents
+For each area, dispatch a **Sonnet** subagent with these shared instructions:
+- "reference-only": it appears only via the auto-generated API.
+Report every missing/reference-only item as a gap. Do NOT pad the report.
+
+## Output schema
+{"status": {"enum": ["missing", "reference-only"]}}
+
+## Usage
+
+Summarize documentation gaps for user-facing APIs.`),
+    ).toBe(`# Doc Coverage Review
+
+Verify user-facing documentation coverage for a framework.
+
+## Usage
+
+Summarize documentation gaps for user-facing APIs.`);
   });
 });
