@@ -9,8 +9,10 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const title = isZhCopy ? '文章' : 'Articles';
-const description = isZhCopy ? 'Killer-Skills 文章入口。' : 'Killer-Skills article entry.';
+const title = isZhCopy ? '指南与文章' : 'Guides & Articles';
+const description = isZhCopy
+  ? '阅读 Killer-Skills 的安装指南、工作流文章和 AI Agent Skills 选型内容。'
+  : 'Read Killer-Skills guides for installation, workflows, and AI agent skills selection.';
 ---
 
 <Layout locale={locale} title={title} description={description} appendBrand={false}>

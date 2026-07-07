@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 
 const { locale } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -13,12 +15,16 @@ const title = isZhCopy ? '合集' : 'Collections';
 const description = isZhCopy
   ? '新版结构以 Skills、榜单、职业和分类为主入口。'
   : 'The current structure centers Skills, rankings, occupations, and categories.';
+const breadcrumb = buildBreadcrumbTrail([{ label: isZhCopy ? '首页' : 'Home', href: `/${locale}` }, { label: title }], {
+  currentUrl: `/${locale}/collections`,
+});
 
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 ---
 
-<Layout locale={locale} title={title} description={description} appendBrand={false}>
+<Layout locale={locale} title={title} description={description} appendBrand={false} jsonLd={breadcrumb.jsonLd}>
   <MarketplaceSimplePage title={title} description={description}>
+    <Breadcrumb items={breadcrumb.items} />
     <div class="marketplace-card-grid">
       <a class="marketplace-card-link" href={`/${locale}/skills`}><h3>Skills</h3></a>
       <a class="marketplace-card-link" href={`/${locale}/categories`}><h3>{isZhCopy ? '分类' : 'Categories'}</h3></a>

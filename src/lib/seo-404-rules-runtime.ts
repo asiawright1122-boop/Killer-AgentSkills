@@ -16,9 +16,38 @@ export interface Seo404Rule {
 let _rulesCache: Seo404Rule[] | null = null;
 let _rulesCacheTime = 0;
 
+function shouldPreferLocalRuntimeData(): boolean {
+  return import.meta.env?.DEV === true || typeof process !== 'undefined';
+}
+
+async function readLocalSeo404Rules(): Promise<Seo404Rule[] | null> {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const filePath = path.resolve(process.cwd(), 'data/seo-404-rules.json');
+  if (!fs.existsSync(filePath)) return null;
+
+  const content = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(content) as Seo404Rule[];
+}
+
 export async function getSeo404Rules(env?: { SKILLS_CACHE?: KVNamespace }): Promise<Seo404Rule[]> {
   if (_rulesCache && Date.now() - _rulesCacheTime < 60000) {
     return _rulesCache;
+  }
+
+  const isDevRuntime = shouldPreferLocalRuntimeData();
+
+  if (isDevRuntime) {
+    try {
+      const localRules = await readLocalSeo404Rules();
+      if (localRules) {
+        _rulesCache = localRules;
+        _rulesCacheTime = Date.now();
+        return _rulesCache;
+      }
+    } catch {
+      // Ignore errors and fall through to KV.
+    }
   }
 
   // Try KV first (production)
@@ -36,14 +65,11 @@ export async function getSeo404Rules(env?: { SKILLS_CACHE?: KVNamespace }): Prom
   }
 
   // Fallback: local file (dev mode)
-  if (import.meta.env.DEV) {
+  if (isDevRuntime) {
     try {
-      const fs = await import('node:fs');
-      const path = await import('node:path');
-      const filePath = path.resolve(process.cwd(), 'data/seo-404-rules.json');
-      if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        _rulesCache = JSON.parse(content) as Seo404Rule[];
+      const localRules = await readLocalSeo404Rules();
+      if (localRules) {
+        _rulesCache = localRules;
         _rulesCacheTime = Date.now();
         return _rulesCache;
       }

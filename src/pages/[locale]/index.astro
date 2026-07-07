@@ -47,14 +47,45 @@ const overview = await getMarketplaceOverview(env, typedLocale, t, {
   solutionEntries: [],
 }));
 
-const pageTitle = isZhCopy ? 'Killer-Skills - AI Agent Skills 市场' : 'Killer-Skills - AI Agent Skills Marketplace';
+const pageTitle = isZhCopy
+  ? 'Killer-Skills - AI Agent Skills / AI 智能体技能市场'
+  : 'Killer-Skills - AI Agent Skills Marketplace';
 const pageDescription = isZhCopy
-  ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和分类快速进入。'
+  ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和分类快速进入，适合在 Claude Code、Cursor 与 Windsurf 中对比使用。'
   : 'Discover, filter, and install baseline-reviewed AI agent skills by rankings, occupations, and categories.';
 const pageKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'developerExperience');
 const countLabel = isZhCopy
   ? `${marketplaceSkills.length} 个已收录 Skills`
   : `${marketplaceSkills.length} listed skills`;
+const canonicalUrl = `https://killer-skills.com/${locale}`;
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://killer-skills.com/#website',
+      name: 'Killer-Skills',
+      url: 'https://killer-skills.com',
+      inLanguage: typedLocale,
+      description: pageDescription,
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: typedLocale,
+      isPartOf: {
+        '@id': 'https://killer-skills.com/#website',
+      },
+      about: {
+        '@type': 'Thing',
+        name: 'AI Agent Skills',
+      },
+    },
+  ],
+};
 ---
 
 <Layout
@@ -63,7 +94,8 @@ const countLabel = isZhCopy
   description={pageDescription}
   keywords={pageKeywords}
   appendBrand={false}
-  customCanonical={`https://killer-skills.com/${locale}`}
+  customCanonical={canonicalUrl}
+  jsonLd={pageJsonLd}
 >
   <main>
     <MarketplaceHero

@@ -14,6 +14,20 @@ export const skillLocaleGovernanceMap = new Map<string, SkillLocaleGovernanceRec
 let _governanceLoaded = false;
 let _governanceLoadPromise: Promise<void> | null = null;
 
+function shouldPreferLocalRuntimeData(): boolean {
+  return import.meta.env?.DEV === true || typeof process !== 'undefined';
+}
+
+async function readLocalSkillLocaleGovernance(): Promise<unknown | null> {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const localPath = path.resolve(process.cwd(), 'data/seo-skill-locale-governance.json');
+  if (!fs.existsSync(localPath)) return null;
+
+  const content = fs.readFileSync(localPath, 'utf-8');
+  return JSON.parse(content);
+}
+
 /**
  * Load skill locale governance data from KV (production) or local file (dev).
  * Populates the shared `skillLocaleGovernanceMap`.
@@ -24,6 +38,21 @@ export async function loadSkillLocaleGovernance(env: { SKILLS_CACHE?: KVNamespac
 
   _governanceLoadPromise = (async () => {
     try {
+      const isDevRuntime = shouldPreferLocalRuntimeData();
+
+      if (isDevRuntime) {
+        try {
+          const localData = await readLocalSkillLocaleGovernance();
+          if (localData) {
+            populateGovernanceMap(localData);
+            _governanceLoaded = true;
+            return;
+          }
+        } catch {
+          // Ignore local fallback errors
+        }
+      }
+
       // Try KV first (production)
       if (env?.SKILLS_CACHE) {
         const raw = await env.SKILLS_CACHE.get('seo-skill-locale-governance');
@@ -36,15 +65,11 @@ export async function loadSkillLocaleGovernance(env: { SKILLS_CACHE?: KVNamespac
       }
 
       // Fallback: local file (dev mode only)
-      if (import.meta.env.DEV) {
+      if (isDevRuntime) {
         try {
-          const fs = await import('node:fs');
-          const path = await import('node:path');
-          const localPath = path.resolve(process.cwd(), 'data/seo-skill-locale-governance.json');
-          if (fs.existsSync(localPath)) {
-            const content = fs.readFileSync(localPath, 'utf-8');
-            const data = JSON.parse(content);
-            populateGovernanceMap(data);
+          const localData = await readLocalSkillLocaleGovernance();
+          if (localData) {
+            populateGovernanceMap(localData);
             _governanceLoaded = true;
             return;
           }
@@ -115,7 +140,7 @@ export function setSkillLocaleGovernanceCache(data: unknown): void {
  * Local dev eager load: populate governance map from local file on import in dev mode.
  * This ensures synchronous access works in local dev without KV.
  */
-if (import.meta.env.DEV) {
+if (shouldPreferLocalRuntimeData()) {
   loadSkillLocaleGovernance({}).catch(() => {
     // Ignore — will retry on first request
   });

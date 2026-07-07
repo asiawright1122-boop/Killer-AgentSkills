@@ -12,7 +12,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import 'dotenv/config'; // Load env vars
 import * as dotenv from 'dotenv';
-import { KV_NAMESPACE_ID } from './lib/constants';
+import { KV_NAMESPACE_ID as DEFAULT_KV_NAMESPACE_ID } from './lib/constants';
 
 // Load .env.local if exists (override existing)
 if (fs.existsSync('.env.local')) {
@@ -25,12 +25,34 @@ if (fs.existsSync('.env.local')) {
 // Cloudflare API 配置
 const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const KV_NAMESPACE_ID = resolveSkillsCacheNamespaceId();
 let hadSyncError = false;
 let kvNamespaceUnavailable = false;
 
 if (!CF_API_TOKEN || !CF_ACCOUNT_ID) {
   console.error('❌ 请设置环境变量: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID');
   process.exit(1);
+}
+
+function resolveSkillsCacheNamespaceId(): string {
+  const wranglerPath = path.join(process.cwd(), 'wrangler.toml');
+  if (fs.existsSync(wranglerPath)) {
+    const wranglerToml = fs.readFileSync(wranglerPath, 'utf-8');
+    const bindingMatch = wranglerToml.match(
+      /\[\[kv_namespaces\]\][\s\S]*?binding\s*=\s*["']SKILLS_CACHE["'][\s\S]*?id\s*=\s*["']([^"']+)["']/,
+    );
+    const wranglerNamespaceId = bindingMatch?.[1]?.trim();
+    if (wranglerNamespaceId) {
+      if (DEFAULT_KV_NAMESPACE_ID !== wranglerNamespaceId) {
+        console.warn(
+          `⚠️ CLOUDFLARE_SKILLS_CACHE_NAMESPACE_ID (${DEFAULT_KV_NAMESPACE_ID}) differs from wrangler.toml SKILLS_CACHE (${wranglerNamespaceId}); using wrangler.toml.`,
+        );
+      }
+      return wranglerNamespaceId;
+    }
+  }
+
+  return DEFAULT_KV_NAMESPACE_ID;
 }
 
 /**
@@ -247,6 +269,7 @@ async function main() {
   //   SKILLS_CACHE KV 存储:
   //     - doc:{lang}:{slug}        → 文档页面内容
   //     - sitemap-skills           → 站点地图
+  //     - seo-skill-locale-governance → skill locale canonical governance
   //     - skill-collection-lookup  → skill→collection 反查 (18K)
   //     - related-skills-lookup    → related skills 查询表 (3.4M)
   //     - seo-sitemap-blocklist    → 低质量 skill 屏蔽列表 (103K)
@@ -276,6 +299,7 @@ async function main() {
   // 2. Sitemap key and related runtime data keys (written in syncSitemapData)
   activeKeys.add('collections');
 	  activeKeys.add('sitemap-skills');
+  activeKeys.add('seo-skill-locale-governance');
   activeKeys.add('skill-collection-lookup');
   activeKeys.add('related-skills-lookup');
   activeKeys.add('seo-sitemap-blocklist');
@@ -458,6 +482,24 @@ async function syncCollections() {
     }
   } else {
     console.warn('⚠️  sitemap-skills.json not found');
+  }
+
+  // ── seo-skill-locale-governance (~2 MiB) ──
+  // Used by middleware before skill pages render. Keeping this key in sync
+  // prevents stale KV governance from redirecting canonical pages to noindex locales.
+  console.log('\n🌐 Syncing seo-skill-locale-governance...');
+  const localeGovernancePath = path.join(process.cwd(), 'data/seo-skill-locale-governance.json');
+  if (fs.existsSync(localeGovernancePath)) {
+    const data = fs.readFileSync(localeGovernancePath, 'utf-8');
+    const success = await writeToKV([{ key: 'seo-skill-locale-governance', value: data }]);
+    if (success) {
+      console.log('✅ seo-skill-locale-governance synced to KV');
+    } else {
+      console.error('❌ Failed to sync seo-skill-locale-governance');
+      hadSyncError = true;
+    }
+  } else {
+    console.warn('⚠️  seo-skill-locale-governance.json not found');
   }
 
   // ── skill-collection-lookup (18 KiB) ──

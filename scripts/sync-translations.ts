@@ -1,8 +1,8 @@
 /**
  * sync-translations.ts
- * 
+ *
  * Auto-syncs all locale UI dictionaries based on a baseline (en.json).
- * Any missing keys in other locales will be populated with the English equivalent, 
+ * Any missing keys in other locales will be populated with the English equivalent,
  * marking a baseline structure for all 10 supported languages, eliminating UI crashes.
  */
 
@@ -12,10 +12,11 @@ import { cleanTypography, postProcessPhrasing } from './lib/typography';
 
 const LOCALES = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'ja', 'ko', 'pt', 'ru'];
 const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
+const PRESERVE_RAW_PHRASING_PATHS = new Set(['zh.Home.seoTitle']);
 
 async function main() {
   console.log('🔄 Starting Translation Synchronization...');
-  
+
   // 1. Read EN and ZH because zh currently holds lots of super keys not even in EN
   const enRaw = await fs.readFile(path.join(MESSAGES_DIR, 'en.json'), 'utf-8');
   const zhRaw = await fs.readFile(path.join(MESSAGES_DIR, 'zh.json'), 'utf-8');
@@ -52,7 +53,7 @@ async function main() {
 
     const locPath = path.join(MESSAGES_DIR, `${code}.json`);
     let locDict: Record<string, Record<string, string>> = {};
-    
+
     try {
       const raw = await fs.readFile(locPath, 'utf-8');
       locDict = JSON.parse(raw);
@@ -75,17 +76,19 @@ async function main() {
       }
     }
 
-    function deepClean(val: any): any {
+    function deepClean(val: any, pathParts: string[] = []): any {
       if (typeof val === 'string') {
-        return cleanTypography(postProcessPhrasing(val, code), code);
+        const pathKey = `${code}.${pathParts.join('.')}`;
+        const phrased = PRESERVE_RAW_PHRASING_PATHS.has(pathKey) ? val : postProcessPhrasing(val, code);
+        return cleanTypography(phrased, code);
       }
       if (Array.isArray(val)) {
-        return val.map(deepClean);
+        return val.map((item, index) => deepClean(item, [...pathParts, String(index)]));
       }
       if (val && typeof val === 'object') {
         const res: Record<string, any> = {};
         for (const k of Object.keys(val)) {
-          res[k] = deepClean(val[k]);
+          res[k] = deepClean(val[k], [...pathParts, k]);
         }
         return res;
       }
@@ -94,22 +97,26 @@ async function main() {
 
     // Advanced: sorting keys alphabetically to preserve Git cleanliness
     const orderedDict: typeof locDict = {};
-    Object.keys(enDict).sort().forEach(ns => {
-      orderedDict[ns] = {};
-      Object.keys(enDict[ns]).sort().forEach(key => {
-        const originalVal = locDict[ns]?.[key] || enDict[ns][key];
-        let val = originalVal;
+    Object.keys(enDict)
+      .sort()
+      .forEach((ns) => {
+        orderedDict[ns] = {};
+        Object.keys(enDict[ns])
+          .sort()
+          .forEach((key) => {
+            const originalVal = locDict[ns]?.[key] || enDict[ns][key];
+            let val = originalVal;
 
-        if (code === 'zh' || code === 'ja' || code === 'ko') {
-          val = deepClean(originalVal);
-          if (JSON.stringify(val) !== JSON.stringify(originalVal)) {
-            modified = true;
-          }
-        }
+            if (code === 'zh' || code === 'ja' || code === 'ko') {
+              val = deepClean(originalVal, [ns, key]);
+              if (JSON.stringify(val) !== JSON.stringify(originalVal)) {
+                modified = true;
+              }
+            }
 
-        orderedDict[ns][key] = val;
+            orderedDict[ns][key] = val;
+          });
       });
-    });
 
     if (modified || Object.keys(locDict).length !== Object.keys(orderedDict).length) {
       await fs.writeFile(locPath, JSON.stringify(orderedDict, null, 2) + '\n', 'utf-8');
@@ -118,11 +125,11 @@ async function main() {
       console.log(`👍 [ ${code.toUpperCase()} ] is structurally sound.`);
     }
   }
-  
+
   console.log('🚀 Synchronization Sequence Completed.');
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error('Fatal Sync Error:', e);
   process.exit(1);
 });

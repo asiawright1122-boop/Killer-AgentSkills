@@ -981,6 +981,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       ownerSegment && routeSegment
         ? isSitemapSkillBlocked(ownerSegment, routeSegment, getMiddlewareBlocklist())
         : false;
+    const hasRouteMap = canonicalSkillRouteMap.size > 0 || knownRepoKeySet.size > 0;
 
     // If the skill is blocklisted AND has an explicit 410 Gone rule, return 410 immediately.
     // This covers takedown requests and other forced-removal cases where noindex is insufficient.
@@ -996,7 +997,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
 
     if (routeSegment.includes('/')) {
-      if (!directCanonical && !isSitemapSuppressedSkill) {
+      if (hasRouteMap && !directCanonical && !isSitemapSuppressedSkill) {
         return new Response(null, {
           status: 404,
           statusText: 'Not Found',
@@ -1007,10 +1008,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
         });
       }
     } else {
+      // Repo-root paths may need page-level data fallbacks to decide between
+      // a repository directory, a sole-skill 301, or a real 404. Do not let
+      // crawler-only middleware turn a potentially canonicalizable repo root
+      // into a premature 404 when runtime sitemap data is unavailable.
       const isForcedOpen =
         process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
       const repoKey = `${ownerSegment.toLowerCase()}/${routeSegment.toLowerCase()}`;
-      if (!directCanonical && !repoFallbackRouteMap.has(repoKey) && !(isForcedOpen && knownRepoKeySet.has(repoKey))) {
+      if (
+        hasRouteMap &&
+        !directCanonical &&
+        !repoFallbackRouteMap.has(repoKey) &&
+        !(isForcedOpen && knownRepoKeySet.has(repoKey))
+      ) {
         return new Response(null, {
           status: knownRepoKeySet.has(repoKey) ? 410 : 404,
           statusText: knownRepoKeySet.has(repoKey) ? 'Gone' : 'Not Found',

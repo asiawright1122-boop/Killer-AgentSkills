@@ -26,6 +26,10 @@ export interface SitemapSkillEntry {
 let _sitemapSkillsCache: SitemapSkillEntry[] | null = null;
 let _sitemapSkillsCacheTime = 0;
 
+function shouldPreferLocalRuntimeData(): boolean {
+  return import.meta.env?.DEV === true || typeof process !== 'undefined';
+}
+
 async function readLocalSitemapSkills(): Promise<SitemapSkillEntry[]> {
   const fs = await import('node:fs');
   const path = await import('node:path');
@@ -47,6 +51,24 @@ export async function getSitemapSkills(env?: { SKILLS_CACHE?: KVNamespace }): Pr
     return _sitemapSkillsCache;
   }
 
+  const isDevRuntime = shouldPreferLocalRuntimeData();
+
+  // Local dev / CI preview smoke tests use repository data as the source of
+  // truth. Prefer it over any bound KV so request-side routing and test samples
+  // cannot diverge when a remote KV snapshot is stale.
+  if (isDevRuntime) {
+    try {
+      const localSkills = await readLocalSitemapSkills();
+      if (localSkills.length > 0) {
+        _sitemapSkillsCache = localSkills;
+        _sitemapSkillsCacheTime = Date.now();
+        return _sitemapSkillsCache;
+      }
+    } catch {
+      // Ignore errors and fall through to KV.
+    }
+  }
+
   // Try KV first (production)
   if (env?.SKILLS_CACHE) {
     try {
@@ -62,7 +84,7 @@ export async function getSitemapSkills(env?: { SKILLS_CACHE?: KVNamespace }): Pr
   }
 
   // Fallback: local file (dev mode)
-  if (import.meta.env.DEV) {
+  if (isDevRuntime) {
     try {
       _sitemapSkillsCache = await readLocalSitemapSkills();
       _sitemapSkillsCacheTime = Date.now();

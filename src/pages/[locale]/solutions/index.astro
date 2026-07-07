@@ -9,10 +9,10 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const title = isZhCopy ? '场景' : 'Use Cases';
+const title = isZhCopy ? '自动化解决方案' : 'Automation Solutions';
 const description = isZhCopy
-  ? '从职业、分类或榜单进入实际工作流。'
-  : 'Start from occupations, categories, or rankings.';
+  ? '从职业、分类或榜单进入实际工作流，按任务场景找到可安装的 AI Agent Skills。'
+  : 'Start from occupations, categories, or rankings to find installable AI agent skills for real automation workflows.';
 ---
 
 <Layout locale={locale} title={title} description={description} appendBrand={false}>

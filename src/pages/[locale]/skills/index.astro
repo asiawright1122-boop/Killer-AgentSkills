@@ -84,16 +84,26 @@ if (query && activeSort === 'latest') {
 const totalResults = results.length;
 const visibleResults = results.slice(0, 72);
 const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';
+const seoPageTitle = isZhCopy ? 'AI Agent Skills 目录' : pageTitle;
 const pageDescription = isZhCopy
   ? '完整 AI Agent Skills 目录，支持关键词、分类、职业和来源筛选。'
   : 'Complete AI agent skills directory with keyword, category, occupation, and source filters.';
+const seoPageDescription = isZhCopy
+  ? '完整 AI Agent Skills 目录，支持关键词、分类、职业、来源和排序筛选，适合快速对比可安装技能。'
+  : pageDescription;
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', query, category, occupation);
 const categoryLabel = category ? getCategoryLabel(category, t) : '';
 const activeOccupation = occupations.find((item) => item.id === occupation);
 const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+<Layout
+  locale={locale}
+  title={seoPageTitle}
+  description={seoPageDescription}
+  keywords={pageKeywords}
+  appendBrand={false}
+>
   <main>
     <MarketplaceHero
       locale={locale}

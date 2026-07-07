@@ -157,11 +157,59 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
+if (!subSkillName && skillResult?.id) {
+  const resolvedOwner = String(skillResult.owner || owner).trim();
+  const resolvedRepo = String(skillResult.repo || repo).trim();
+  const resolvedRoutePath = getSkillRoutePath({
+    id: skillResult.id,
+    owner: resolvedOwner,
+    repo: resolvedRepo,
+  });
+
+  if (resolvedOwner && resolvedRoutePath && resolvedRoutePath.toLowerCase() !== canonicalRoutePath.toLowerCase()) {
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: buildLocalizedSkillPath(locale, resolvedOwner, resolvedRoutePath),
+        'Cache-Control': 'public, s-maxage=86400',
+      },
+    });
+  }
+}
+
 const rawSitemapSkillsData = await getSitemapSkills(env);
 const rawSitemapSkills = Array.isArray(rawSitemapSkillsData)
   ? (rawSitemapSkillsData as Array<{ owner?: string; routePath?: string; updatedAt?: string }>)
   : ((rawSitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
     []);
+
+if (!subSkillName) {
+  const ownerLower = owner.toLowerCase();
+  const repoLower = repo.toLowerCase();
+  const solePublicRepoRoutes = rawSitemapSkills.filter((entry) => {
+    const entryOwner = String(entry.owner || '').trim();
+    const routePath = String(entry.routePath || '').trim();
+    if (!entryOwner || !routePath) return false;
+    if (entryOwner.toLowerCase() !== ownerLower) return false;
+    if (isSitemapSkillBlocked(entryOwner, routePath, sitemapBlocklist)) return false;
+    const routeSegments = routePath.split('/').filter(Boolean);
+    return routeSegments.length >= 2 && routeSegments[0]?.toLowerCase() === repoLower;
+  });
+
+  if (solePublicRepoRoutes.length === 1) {
+    const soleRoutePath = String(solePublicRepoRoutes[0].routePath || '').trim();
+    if (soleRoutePath && soleRoutePath.toLowerCase() !== canonicalRoutePath.toLowerCase()) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: buildLocalizedSkillPath(locale, owner, soleRoutePath),
+          'Cache-Control': 'public, s-maxage=86400',
+        },
+      });
+    }
+  }
+}
+
 const exactSitemapSkill =
   !skillResult && (subSkillName || useStaticFallback)
     ? rawSitemapSkills.find((entry) => {
@@ -262,16 +310,9 @@ if (usedSitemapFallback) {
 }
 
 if (!hasSkill && !renderRepoDirectory) {
-  // SEO: If this was a sub-skill path, 301 redirect to parent skill page
-  // to recover link equity instead of returning empty 404
   if (subSkillName) {
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: buildLocalizedSkillPath(locale, owner, repo),
-        'Cache-Control': 'public, s-maxage=86400',
-      },
-    });
+    Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600');
+    return new Response(null, { status: 404, statusText: 'Not Found' });
   }
   if (redirectSingleRepoSkill) {
     const onlySkill = repoDirectorySkills[0];
@@ -665,6 +706,22 @@ const skillLocaleGovernance = renderRepoDirectory
       typedLocale,
       SUPPORTED_LOCALES,
     );
+
+if (
+  !renderRepoDirectory &&
+  skillLocaleGovernance &&
+  !skillLocaleGovernance.publishedLocales.includes(typedLocale) &&
+  skillLocaleGovernance.canonicalLocale !== typedLocale
+) {
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: buildLocalizedSkillPath(skillLocaleGovernance.canonicalLocale, owner, canonicalRoutePath),
+      'Cache-Control': 'public, s-maxage=86400',
+    },
+  });
+}
+
 // Use the locale governance to determine which locales actually have
 // translated content. Only declare hreflang for locales with real content
 // (translated README body or high-quality translated metadata). Declaring

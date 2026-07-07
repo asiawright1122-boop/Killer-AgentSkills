@@ -1039,19 +1039,22 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
       dbId = rawKey.substring(6);
     }
 
-    let match = all.find((s) => s.id === dbId);
+    const dbIdLower = dbId.toLowerCase();
+    let match = all.find((s) => String(s.id || '').toLowerCase() === dbIdLower);
     if (match) return match;
 
     const segments = dbId.split('/');
     if (segments.length >= 2) {
-      const owner = segments[0];
-      const repo = segments[1];
+      const owner = segments[0].toLowerCase();
+      const repo = segments[1].toLowerCase();
 
       // IMPORTANT: only owner/repo lookups are allowed to fall back to owner+repo.
       // For sub-skill lookups (owner/repo/sub-skill), we must not return a random sibling
       // because that creates false-positive 200 pages for non-existent URLs.
       if (segments.length === 2) {
-        match = all.find((s) => s.owner === owner && s.repo === repo);
+        match = all.find(
+          (s) => String(s.owner || '').toLowerCase() === owner && String(s.repo || '').toLowerCase() === repo,
+        );
         if (match) return match;
       }
     }

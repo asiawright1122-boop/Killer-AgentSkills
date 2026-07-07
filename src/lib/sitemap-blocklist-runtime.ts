@@ -11,9 +11,38 @@ import { compileSitemapBlocklist, type CompiledSitemapBlocklist } from './sitema
 let _blocklistCache: CompiledSitemapBlocklist | null = null;
 let _blocklistCacheTime = 0;
 
+function shouldPreferLocalRuntimeData(): boolean {
+  return import.meta.env?.DEV === true || typeof process !== 'undefined';
+}
+
+async function readLocalSitemapBlocklist(): Promise<CompiledSitemapBlocklist | null> {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const filePath = path.resolve(process.cwd(), 'data/seo-sitemap-blocklist.json');
+  if (!fs.existsSync(filePath)) return null;
+
+  const content = fs.readFileSync(filePath, 'utf-8');
+  return compileSitemapBlocklist(JSON.parse(content));
+}
+
 export async function getSitemapBlocklist(env?: { SKILLS_CACHE?: KVNamespace }): Promise<CompiledSitemapBlocklist> {
   if (_blocklistCache && Date.now() - _blocklistCacheTime < 60000) {
     return _blocklistCache;
+  }
+
+  const isDevRuntime = shouldPreferLocalRuntimeData();
+
+  if (isDevRuntime) {
+    try {
+      const localBlocklist = await readLocalSitemapBlocklist();
+      if (localBlocklist) {
+        _blocklistCache = localBlocklist;
+        _blocklistCacheTime = Date.now();
+        return _blocklistCache;
+      }
+    } catch {
+      // Ignore errors and fall through to KV.
+    }
   }
 
   // Try KV first (production)
@@ -31,14 +60,11 @@ export async function getSitemapBlocklist(env?: { SKILLS_CACHE?: KVNamespace }):
   }
 
   // Fallback: local file (dev mode)
-  if (import.meta.env.DEV) {
+  if (isDevRuntime) {
     try {
-      const fs = await import('node:fs');
-      const path = await import('node:path');
-      const filePath = path.resolve(process.cwd(), 'data/seo-sitemap-blocklist.json');
-      if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        _blocklistCache = compileSitemapBlocklist(JSON.parse(content));
+      const localBlocklist = await readLocalSitemapBlocklist();
+      if (localBlocklist) {
+        _blocklistCache = localBlocklist;
         _blocklistCacheTime = Date.now();
         return _blocklistCache;
       }

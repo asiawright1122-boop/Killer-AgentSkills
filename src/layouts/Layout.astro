@@ -76,6 +76,22 @@ const metadata = buildPageMetadata({
 const robotsContent =
   robots ||
   (noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${metadata.canonicalUrl}#webpage`,
+  url: metadata.canonicalUrl,
+  name: metadata.socialTitle,
+  description: metadata.description,
+  inLanguage: locale,
+  isPartOf: {
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    name: 'Killer-Skills',
+    url: SITE_URL,
+  },
+};
+const resolvedJsonLd = jsonLd || defaultJsonLd;
 ---
 
 <!doctype html>
@@ -203,11 +219,10 @@ const robotsContent =
 
     <title>{metadata.documentTitle}</title>
 
-    {
-      jsonLd && (
-        <script type="application/ld+json" set:html={typeof jsonLd === 'string' ? jsonLd : JSON.stringify(jsonLd)} />
-      )
-    }
+    <script
+      type="application/ld+json"
+      set:html={typeof resolvedJsonLd === 'string' ? resolvedJsonLd : JSON.stringify(resolvedJsonLd)}
+    />
 
     <!-- AdSense: deferred to reduce initial network contention -->
     <script is:inline>

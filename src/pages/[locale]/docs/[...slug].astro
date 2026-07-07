@@ -2,6 +2,17 @@
 import Layout from '../../../layouts/Layout.astro';
 import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import docsCache from '../../../../data/docs-cache.json';
+
+type DocsCachePage = {
+  slug?: string;
+};
+
+const validDocsSlugs = new Set(
+  ((docsCache as { pages?: DocsCachePage[] }).pages || [])
+    .map((page) => (typeof page.slug === 'string' ? page.slug.trim().toLowerCase() : ''))
+    .filter(Boolean),
+);
 
 const { locale, slug } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -9,29 +20,87 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const title = isZhCopy ? '文档' : 'Docs';
-const description = isZhCopy
+const slugLabel = Array.isArray(slug) ? slug.join('/') : slug || 'index';
+const normalizedSlug = slugLabel
+  .split('/')
+  .map((segment) => segment.trim())
+  .filter(Boolean)
+  .join('/')
+  .toLowerCase();
+const isKnownDocsSlug = normalizedSlug === 'index' || validDocsSlugs.has(normalizedSlug);
+const robotsContent = isKnownDocsSlug ? undefined : 'noindex, nofollow';
+
+if (!isKnownDocsSlug) {
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not Found';
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+}
+
+const title = isKnownDocsSlug ? (isZhCopy ? '文档' : 'Docs') : isZhCopy ? '404 - 页面不存在' : '404 - Page Not Found';
+const description = isKnownDocsSlug
+  ? isZhCopy
+    ? '安装、目录、审核政策和 CLI 的简明入口。'
+    : 'Compact entry points for install, directory, review policy, and CLI.'
+  : isZhCopy
+    ? '这个文档页面不存在。'
+    : 'This documentation page does not exist.';
+const bridgeDescription = isZhCopy
   ? '安装、目录、审核政策和 CLI 的简明入口。'
   : 'Compact entry points for install, directory, review policy, and CLI.';
-const slugLabel = Array.isArray(slug) ? slug.join('/') : slug || 'index';
 ---
 
-<Layout locale={locale} title={title} description={description} appendBrand={false}>
-  <MarketplaceSimplePage title={title} description={description}>
-    <div class="marketplace-card-grid">
-      <a class="marketplace-card-link" href={`/${locale}/skills`}>
-        <span class="marketplace-route-label">{slugLabel}</span>
-        <h3>Skills</h3>
-        <p>{isZhCopy ? '打开完整目录和筛选器。' : 'Open the complete directory and filters.'}</p>
-      </a>
-      <a class="marketplace-card-link" href={`/${locale}/safe`}>
-        <h3>{isZhCopy ? '审核政策' : 'Review Policy'}</h3>
-        <p>{isZhCopy ? '查看公开展示的基础准入规则。' : 'See the public listing admission rules.'}</p>
-      </a>
-      <a class="marketplace-card-link" href={`/${locale}/cli`}>
-        <h3>CLI</h3>
-        <p>{isZhCopy ? '查看一行安装命令。' : 'View the one-command install path.'}</p>
-      </a>
-    </div>
-  </MarketplaceSimplePage>
+<Layout
+  locale={locale}
+  title={title}
+  description={description}
+  appendBrand={false}
+  noindex={!isKnownDocsSlug}
+  robots={robotsContent}
+>
+  {
+    isKnownDocsSlug ? (
+      <MarketplaceSimplePage title={title} description={bridgeDescription}>
+        <div class="marketplace-card-grid">
+          <a class="marketplace-card-link" href={`/${locale}/skills`}>
+            <span class="marketplace-route-label">{slugLabel}</span>
+            <h3>Skills</h3>
+            <p>{isZhCopy ? '打开完整目录和筛选器。' : 'Open the complete directory and filters.'}</p>
+          </a>
+          <a class="marketplace-card-link" href={`/${locale}/safe`}>
+            <h3>{isZhCopy ? '审核政策' : 'Review Policy'}</h3>
+            <p>{isZhCopy ? '查看公开展示的基础准入规则。' : 'See the public listing admission rules.'}</p>
+          </a>
+          <a class="marketplace-card-link" href={`/${locale}/cli`}>
+            <h3>CLI</h3>
+            <p>{isZhCopy ? '查看一行安装命令。' : 'View the one-command install path.'}</p>
+          </a>
+        </div>
+      </MarketplaceSimplePage>
+    ) : (
+      <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 relative py-20">
+        <div class="skill-detail-surface p-8 md:p-12 max-w-xl w-full">
+          <p class="market-chip px-3 py-1 mb-6">404</p>
+          <h1 class="text-4xl md:text-5xl font-bold text-[var(--foreground)] mb-4">
+            {isZhCopy ? '页面不存在' : 'Page Not Found'}
+          </h1>
+          <p class="text-base text-[var(--muted-foreground)] font-medium mb-8 max-w-md mx-auto leading-relaxed">
+            {isZhCopy
+              ? '这个文档页面已经不可用。回到首页，或进入 Skills 目录继续筛选。'
+              : 'This documentation page is no longer available. Start from home or continue in the Skills directory.'}
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href={`/${locale}`} class="market-button w-full sm:w-auto px-5 py-3">
+              {isZhCopy ? '返回首页' : 'Return home'}
+            </a>
+            <a
+              href={`/${locale}/skills`}
+              class="w-full sm:w-auto px-5 py-3 rounded-md border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] font-bold hover:bg-[var(--muted)] transition-colors"
+            >
+              {isZhCopy ? '进入 Skills' : 'Open Skills'}
+            </a>
+          </div>
+        </div>
+      </div>
+    )
+  }
 </Layout>
