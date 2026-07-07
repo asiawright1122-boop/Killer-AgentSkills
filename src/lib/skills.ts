@@ -10,6 +10,7 @@ import {
   getSkillsKV,
   getSkillsListing,
   getSkillsListingByRefs,
+  getMarketplaceSkillsListingPage,
   getSkillsListingPage,
   getSkillsListingTop,
   type SkillsCategorySummary,
@@ -279,6 +280,20 @@ export async function getLightweightSkillsPage(
   pageSize: number,
 ): Promise<{ skills: UnifiedSkill[]; total: number; page: number; pageSize: number }> {
   const paged: SkillsListingPageResult = await getSkillsListingPage(env, page, pageSize);
+  return {
+    skills: normalizePublicSkills(paged.items as UnifiedSkill[]),
+    total: paged.total,
+    page: paged.page,
+    pageSize: paged.pageSize,
+  };
+}
+
+export async function getLightweightMarketplaceSkillsPage(
+  env: Env,
+  page: number,
+  pageSize: number,
+): Promise<{ skills: UnifiedSkill[]; total: number; page: number; pageSize: number }> {
+  const paged: SkillsListingPageResult = await getMarketplaceSkillsListingPage(env, page, pageSize);
   return {
     skills: normalizePublicSkills(paged.items as UnifiedSkill[]),
     total: paged.total,

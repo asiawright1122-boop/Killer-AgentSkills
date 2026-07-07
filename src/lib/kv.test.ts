@@ -4,6 +4,7 @@ import {
   setKV,
   getSkillsFromKV,
   getSkillsKV,
+  getMarketplaceSkillsListingPage,
   getSkillsListingTop,
   getSitemapSkillsFromKV,
   _clearSitemapSkillsCacheForTest,
@@ -505,6 +506,138 @@ describe('getSkillsListingTop', () => {
     expect(skill.isTrustedRankingEligible).toBe(true);
     expect(skill.riskFlags?.[0]?.code).toBe('file_write');
     expect(skill.securityBrief).toBe('S security: local file write.');
+  });
+});
+
+describe('getMarketplaceSkillsListingPage', () => {
+  it('uses admitted COUNT plus LIMIT/OFFSET over admitted rows', async () => {
+    const sqlLog: string[] = [];
+    const pageRows = [
+      {
+        id: 'owner/admitted-1',
+        owner: 'owner',
+        repo: 'admitted-1',
+        name: 'Admitted One',
+        category: 'developer',
+        stars: 50,
+        quality_score: 40,
+        security_level: 'A',
+        source_trust: 'T2',
+        rank_score: 90,
+        last_audited_at: '2026-07-05T00:00:00.000Z',
+        updated_at: '2026-07-04T00:00:00.000Z',
+        skillName: 'Admitted One',
+        description: JSON.stringify({ en: 'Admitted one' }),
+        topics: JSON.stringify(['agent']),
+        source: 'cache',
+        qualityScore: 40,
+        securityScore: 80,
+        sourceScore: 70,
+        isTrustedRankingEligible: true,
+        riskFlags: JSON.stringify([]),
+        securityBrief: 'Clean',
+        primaryTrustReason: 'Reviewed',
+        filePath: '.claude/skills/admitted-1/SKILL.md',
+        seoDefinition: JSON.stringify({ en: 'Admitted one' }),
+      },
+      {
+        id: 'owner/admitted-2',
+        owner: 'owner',
+        repo: 'admitted-2',
+        name: 'Admitted Two',
+        category: 'developer',
+        stars: 49,
+        quality_score: 39,
+        security_level: 'A',
+        source_trust: 'T1',
+        rank_score: 89,
+        last_audited_at: '2026-07-05T00:00:00.000Z',
+        updated_at: '2026-07-04T00:00:00.000Z',
+        skillName: 'Admitted Two',
+        description: JSON.stringify({ en: 'Admitted two' }),
+        topics: JSON.stringify(['agent']),
+        source: 'cache',
+        qualityScore: 39,
+        securityScore: 79,
+        sourceScore: 69,
+        isTrustedRankingEligible: true,
+        riskFlags: JSON.stringify([]),
+        securityBrief: 'Clean',
+        primaryTrustReason: 'Reviewed',
+        filePath: '.claude/skills/admitted-2/SKILL.md',
+        seoDefinition: JSON.stringify({ en: 'Admitted two' }),
+      },
+    ];
+
+    const env = createMockEnv({
+      DB: {
+        prepare: vi.fn((sql: string) => {
+          sqlLog.push(sql);
+          return {
+            bind: vi.fn((...args: any[]) => ({
+              first: vi.fn(async () => {
+                expect(args).toEqual([]);
+                return { total: 3 };
+              }),
+              all: vi.fn(async () => {
+                expect(args).toEqual([2, 0]);
+                return { success: true, results: pageRows };
+              }),
+            })),
+            first: vi.fn(async () => ({ total: 3 })),
+            all: vi.fn(async () => ({ success: true, results: pageRows })),
+          };
+        }),
+      } as unknown as D1Database,
+    });
+
+    const result = await getMarketplaceSkillsListingPage(env, 1, 2);
+
+    expect(result.total).toBe(3);
+    expect(result.page).toBe(1);
+    expect(result.pageSize).toBe(2);
+    expect(result.items.map((item) => item.name)).toEqual(['Admitted One', 'Admitted Two']);
+
+    const countSql = sqlLog.find((sql) => sql.includes('COUNT(*) as total'));
+    expect(countSql).toContain('FROM skills');
+    expect(countSql).toContain("json_extract(data_json, '$.securityLevel')");
+    expect(countSql).toContain("json_extract(data_json, '$.sourceTrust')");
+    expect(countSql).toContain("json_extract(data_json, '$.isTrustedRankingEligible')");
+    expect(countSql).toContain("json_each(COALESCE(json_extract(data_json, '$.riskFlags'), '[]'))");
+
+    const pageSql = sqlLog.find((sql) => sql.includes('LIMIT ?1 OFFSET ?2'));
+    expect(pageSql).toContain('FROM skills');
+    expect(pageSql).toContain("json_extract(data_json, '$.skillName') as skillName");
+    expect(pageSql).toContain("json_extract(data_json, '$.riskFlags') as riskFlags");
+    expect(pageSql).toContain('ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC');
+  });
+
+  it('uses the local fallback only when D1 is unavailable and filters to admitted rows before slicing', async () => {
+    const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
+
+    const result = await getMarketplaceSkillsListingPage(env, 1, 3);
+    expect(result.page).toBe(1);
+    expect(result.pageSize).toBe(3);
+    expect(result.items.length).toBeLessThanOrEqual(3);
+    expect(result.total).toBeGreaterThanOrEqual(result.items.length);
+    expect(result.items.every((item) => item.securityLevel !== 'D')).toBe(true);
+    expect(result.items.every((item) => ['T1', 'T2'].includes(String(item.sourceTrust)))).toBe(true);
+    expect(
+      result.items.every(
+        (item) =>
+          !item.riskFlags?.some(
+            (flag) =>
+              String(flag.severity || '')
+                .trim()
+                .toLowerCase() === 'blocker',
+          ),
+      ),
+    ).toBe(true);
+    expect(
+      result.items.every(
+        (item) => !['0', 'false'].includes(String(item.isTrustedRankingEligible).trim().toLowerCase()),
+      ),
+    ).toBe(true);
   });
 });
 
