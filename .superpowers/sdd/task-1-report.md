@@ -1,0 +1,82 @@
+Status: DONE
+
+Summary:
+- Added `src/lib/marketplace-policy.ts` with baseline marketplace admission, source-kind detection, public ranking helpers, compact card trust signals, localized detail trust rows, and metadata-only admission checks.
+- Added `src/lib/marketplace-policy.test.ts` from the brief and executed the required red/green TDD cycle.
+
+TDD Evidence:
+1. Red:
+   - Ran `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Failed as expected with `Cannot find module './marketplace-policy'`.
+2. Green:
+   - Ran `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Result: `14 passed (14)`.
+
+Notes:
+- `isMarketplaceMetadataAdmitted()` intentionally evaluates explicit trust metadata without requiring full public listing structure, matching the brief’s metadata-only test case.
+- No unrelated files were modified.
+
+Commit:
+- `feat: add trusted marketplace policy`
+
+---
+
+Fix round: review findings
+
+What I fixed:
+- Hardened `getMarketplaceAdmission()` so baseline review only admits `sourceTrust: 'T1'` or `sourceTrust: 'T2'`; missing and unknown trust values now quarantine.
+- Tightened `getSkillSourceKind()` so official classification comes only from explicit `sourceKind: 'official'`, `source: 'verified'`, or an exact `owner/repo` match in `OFFICIAL_REPOS`.
+- Updated detail trust copy so quarantined skills report quarantined status and no longer claim they are listed because they passed baseline review.
+
+Red/green test evidence:
+1. Red
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `3 failed | 14 passed (17)`
+   - Failing cases:
+     - missing or unknown source trust was still admitted
+     - unrelated repo under a verified owner was classified as official
+     - quarantined detail trust still rendered admitted/listed copy
+2. Green
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `17 passed (17)`
+
+Files changed:
+- `src/lib/marketplace-policy.ts`
+- `src/lib/marketplace-policy.test.ts`
+- `.superpowers/sdd/task-1-report.md`
+
+Self-review notes:
+- Kept the quarantine reason surface unchanged and enforced the stricter gate by admitting only `T1`/`T2`.
+- Updated metadata-only admission checks to use the same trust gate as the full marketplace admission path.
+- Scoped the fix to the allowed files only and left unrelated marketplace filter code untouched.
+
+---
+
+Fix round: remaining re-review findings
+
+What I fixed:
+- Updated the exported marketplace trust contracts so badges expose `id`/`label`/`tone`, card trust exposes `sourceKind` and `admitted`, and detail trust now includes `sourceKind`, `badges`, `riskLabels`, and `quarantineReasons` alongside the existing display fields.
+- Added `missing_install_path` to `MarketplaceQuarantineReasonCode` and tightened `getMarketplaceAdmission()` with an install-path gate that requires enough source structure to install from owner/repo/file path metadata.
+- Reused the richer badge construction in both `buildMarketplaceCardTrust()` and `buildMarketplaceDetailTrust()` so the compact and detail trust surfaces stay aligned.
+
+Red/green evidence:
+1. Red
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `4 failed | 14 passed (18)`
+   - Failing cases:
+     - missing install path was still admitted
+     - card trust did not expose required `sourceKind`/`admitted` fields or badge `id`/`tone`
+     - detail trust did not expose `sourceKind`, `badges`, `riskLabels`, or `quarantineReasons`
+2. Green
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `18 passed (18)`
+
+Files changed:
+- `src/lib/marketplace-policy.ts`
+- `src/lib/marketplace-policy.test.ts`
+- `.superpowers/sdd/task-1-report.md`
+
+Self-review notes:
+- Kept the new contract additive where useful, but made the required brief fields explicit and covered them with direct assertions.
+- Used a shared badge builder so card/detail outputs cannot drift on badge ids, labels, or tones.
+- Limited the write scope to the approved files only.

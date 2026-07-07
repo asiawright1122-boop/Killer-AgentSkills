@@ -9,6 +9,7 @@ export type MarketplaceQuarantineReasonCode =
   | 'blocker_risk'
   | 'not_trusted_ranking_eligible'
   | 'source_trust_t3'
+  | 'missing_install_path'
   | 'unstructured_source';
 
 export interface MarketplaceAdmission {
@@ -17,11 +18,14 @@ export interface MarketplaceAdmission {
 }
 
 export interface MarketplaceBadge {
-  code: 'official' | 'community' | 'reviewed' | 'requires_token' | 'external_network' | 'file_write' | 'recent';
+  id: string;
   label: string;
+  tone: 'neutral' | 'positive' | 'warning';
 }
 
 export interface MarketplaceCardTrust {
+  sourceKind: SourceKind;
+  admitted: boolean;
   title: string;
   badges: MarketplaceBadge[];
 }
@@ -33,21 +37,19 @@ export interface MarketplaceDetailTrustRow {
 
 export interface MarketplaceDetailTrust {
   reviewStatus: 'admitted' | 'quarantined';
-  rows: MarketplaceDetailTrustRow[];
-  whyListed: string;
+  sourceKind: SourceKind;
   sourceRepository: string;
   installPath: string;
+  whyListed: string;
+  rows: MarketplaceDetailTrustRow[];
+  badges: MarketplaceBadge[];
+  riskLabels: string[];
+  quarantineReasons: MarketplaceQuarantineReasonCode[];
 }
 
 const OFFICIAL_REPO_KEYS = new Set(Object.values(OFFICIAL_REPOS).map((repo) => `${repo.owner}/${repo.repo}`));
 
 const RECENTLY_UPDATED_DAYS = 30;
-
-const CARD_RISK_BADGES: Record<string, { en: string; zh: string }> = {
-  requires_token: { en: 'Token', zh: 'Token' },
-  external_network: { en: 'Network', zh: '联网' },
-  file_write: { en: 'File write', zh: '写文件' },
-};
 
 const DETAIL_RISK_LABELS: Record<RiskFlagCode, { en: string; zh: string }> = {
   requires_token: { en: 'Token required', zh: '需要 Token' },
@@ -106,9 +108,24 @@ function hasUsefulPublicSourceMaterial(skill: UnifiedSkill): boolean {
   );
 }
 
-function localizedBadge(code: MarketplaceBadge['code'], locale: string): MarketplaceBadge {
+function badgeTone(id: string): MarketplaceBadge['tone'] {
+  if (id === 'reviewed' || id === 'recent') {
+    return 'positive';
+  }
+
+  if (id === 'requires_token' || id === 'external_network' || id === 'file_write') {
+    return 'warning';
+  }
+
+  return 'neutral';
+}
+
+function localizedBadge(
+  id: 'official' | 'community' | 'reviewed' | 'requires_token' | 'external_network' | 'file_write' | 'recent',
+  locale: string,
+): MarketplaceBadge {
   const zh = isZhLocale(locale);
-  const labels: Record<MarketplaceBadge['code'], string> = {
+  const labels: Record<typeof id, string> = {
     official: zh ? '官方' : 'Official',
     community: zh ? '社区' : 'Community',
     reviewed: zh ? '已审查' : 'Reviewed',
@@ -117,7 +134,7 @@ function localizedBadge(code: MarketplaceBadge['code'], locale: string): Marketp
     file_write: zh ? '写文件' : 'File write',
     recent: zh ? '最近更新' : 'Recently updated',
   };
-  return { code, label: labels[code] };
+  return { id, label: labels[id], tone: badgeTone(id) };
 }
 
 function localizedRiskSummary(flags: RiskFlag[] | undefined, locale: string): string {
@@ -130,6 +147,17 @@ function localizedRiskSummary(flags: RiskFlag[] | undefined, locale: string): st
     .map((flag) => DETAIL_RISK_LABELS[flag.code]?.[zh ? 'zh' : 'en'] || flag.label)
     .filter((label, index, labels) => labels.indexOf(label) === index)
     .join(', ');
+}
+
+function localizedRiskLabels(flags: RiskFlag[] | undefined, locale: string): string[] {
+  if (!flags || flags.length === 0) {
+    return [];
+  }
+
+  const zh = isZhLocale(locale);
+  return flags
+    .map((flag) => DETAIL_RISK_LABELS[flag.code]?.[zh ? 'zh' : 'en'] || flag.label)
+    .filter((label, index, labels) => labels.indexOf(label) === index);
 }
 
 function localizedReviewStatus(admission: MarketplaceAdmission, locale: string): string {
@@ -157,6 +185,37 @@ function localizedWhyListed(skill: UnifiedSkill, admission: MarketplaceAdmission
 
 function installPathForSkill(skill: UnifiedSkill, routePath?: string): string {
   return routePath || `${skill.owner}/${skill.repo}`;
+}
+
+function hasInstallPath(skill: UnifiedSkill): boolean {
+  const owner = (skill.owner || '').trim();
+  const repo = (skill.repo || '').trim();
+  const filePath = (skill.filePath || '').trim();
+  const id = (skill.id || '').trim();
+
+  return Boolean(owner && filePath && (repo || id.includes('/')));
+}
+
+function buildMarketplaceBadges(skill: UnifiedSkill, locale: string, now: Date, admitted: boolean): MarketplaceBadge[] {
+  const badges: MarketplaceBadge[] = [localizedBadge(getSkillSourceKind(skill), locale)];
+
+  if (admitted) {
+    badges.push(localizedBadge('reviewed', locale));
+  }
+
+  for (const flag of skill.riskFlags || []) {
+    if (flag.code === 'requires_token' || flag.code === 'external_network' || flag.code === 'file_write') {
+      if (!badges.some((badge) => badge.id === flag.code)) {
+        badges.push(localizedBadge(flag.code, locale));
+      }
+    }
+  }
+
+  if (now.getTime() - dateSortValue(skill.updatedAt) <= RECENTLY_UPDATED_DAYS * 86_400_000) {
+    badges.push(localizedBadge('recent', locale));
+  }
+
+  return badges;
 }
 
 export function compareMarketplaceSkillsPopular(a: UnifiedSkill, b: UnifiedSkill): number {
@@ -200,6 +259,10 @@ export function getMarketplaceAdmission(skill: UnifiedSkill): MarketplaceAdmissi
     reasons.push('source_trust_t3');
   }
 
+  if (!hasInstallPath(skill)) {
+    reasons.push('missing_install_path');
+  }
+
   if (!hasUsefulPublicSourceMaterial(skill)) {
     reasons.push('unstructured_source');
   }
@@ -238,29 +301,19 @@ export function buildMarketplaceCardTrust(
   options: { locale: string; now?: Date },
 ): MarketplaceCardTrust {
   const now = options.now || new Date();
-  const badges: MarketplaceBadge[] = [
-    localizedBadge(getSkillSourceKind(skill), options.locale),
-    localizedBadge('reviewed', options.locale),
-  ];
-
-  for (const flag of skill.riskFlags || []) {
-    if (flag.code in CARD_RISK_BADGES) {
-      const badgeCode = flag.code as 'requires_token' | 'external_network' | 'file_write';
-      if (!badges.some((badge) => badge.code === badgeCode)) {
-        badges.push(localizedBadge(badgeCode, options.locale));
-      }
-    }
-  }
-
-  if (now.getTime() - dateSortValue(skill.updatedAt) <= RECENTLY_UPDATED_DAYS * 86_400_000) {
-    badges.push(localizedBadge('recent', options.locale));
-  }
+  const admission = getMarketplaceAdmission(skill);
+  const sourceKind = getSkillSourceKind(skill);
+  const badges = buildMarketplaceBadges(skill, options.locale, now, admission.admitted);
 
   const title = isZhLocale(options.locale)
-    ? '该技能已通过基础审查并显示紧凑信任信号。'
-    : 'This reviewed skill shows compact trust signals for the marketplace.';
+    ? admission.admitted
+      ? '该技能已通过基础审查并显示紧凑信任信号。'
+      : '该技能显示来源与风险信号，但尚未通过市场准入。'
+    : admission.admitted
+      ? 'This reviewed skill shows compact trust signals for the marketplace.'
+      : 'This skill shows source and risk signals but is not admitted to the marketplace.';
 
-  return { title, badges };
+  return { sourceKind, admitted: admission.admitted, title, badges };
 }
 
 export function buildMarketplaceDetailTrust(
@@ -268,7 +321,9 @@ export function buildMarketplaceDetailTrust(
   options: { locale: string; routePath?: string; now?: Date },
 ): MarketplaceDetailTrust {
   const locale = options.locale;
+  const now = options.now || new Date();
   const admission = getMarketplaceAdmission(skill);
+  const sourceKind = getSkillSourceKind(skill);
   const rows: MarketplaceDetailTrustRow[] = [
     { label: isZhLocale(locale) ? '安全等级' : 'Safety level', value: skill.securityLevel || 'Unknown' },
     { label: isZhLocale(locale) ? '来源等级' : 'Source trust', value: skill.sourceTrust || 'Unknown' },
@@ -276,16 +331,20 @@ export function buildMarketplaceDetailTrust(
     { label: isZhLocale(locale) ? '风险信号' : 'Risk flags', value: localizedRiskSummary(skill.riskFlags, locale) },
     {
       label: isZhLocale(locale) ? '最后审查' : 'Last audited',
-      value: skill.lastAuditedAt || (options.now || new Date()).toISOString(),
+      value: skill.lastAuditedAt || now.toISOString(),
     },
   ];
 
   return {
     reviewStatus: admission.admitted ? 'admitted' : 'quarantined',
-    rows,
-    whyListed: localizedWhyListed(skill, admission, locale),
+    sourceKind,
     sourceRepository: `${skill.owner}/${skill.repo}`,
     installPath: installPathForSkill(skill, options.routePath),
+    whyListed: localizedWhyListed(skill, admission, locale),
+    rows,
+    badges: buildMarketplaceBadges(skill, locale, now, admission.admitted),
+    riskLabels: localizedRiskLabels(skill.riskFlags, locale),
+    quarantineReasons: [...admission.reasons],
   };
 }
 

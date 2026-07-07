@@ -113,6 +113,20 @@ describe('marketplace policy admission', () => {
     expect(admission.reasons).toContain('unstructured_source');
   });
 
+  it('quarantines skills missing an install path', () => {
+    const admission = getMarketplaceAdmission(
+      baseSkill({
+        owner: '',
+        repo: '',
+        id: 'standalone-skill',
+        filePath: '',
+      }),
+    );
+
+    expect(admission.admitted).toBe(false);
+    expect(admission.reasons).toContain('missing_install_path');
+  });
+
   it('keeps official status as source kind but still applies admission', () => {
     const official = baseSkill({ owner: 'anthropics', repo: 'skills', sourceTrust: 'T1' });
     const blockedOfficial = baseSkill({ owner: 'anthropics', repo: 'skills', sourceTrust: 'T1', securityLevel: 'D' });
@@ -184,6 +198,18 @@ describe('marketplace public signals', () => {
       'File write',
       'Recently updated',
     ]);
+    expect(cardTrust).toMatchObject({
+      sourceKind: 'community',
+      admitted: true,
+    });
+    expect(cardTrust.badges).toEqual([
+      { id: 'community', label: 'Community', tone: 'neutral' },
+      { id: 'reviewed', label: 'Reviewed', tone: 'positive' },
+      { id: 'requires_token', label: 'Token', tone: 'warning' },
+      { id: 'external_network', label: 'Network', tone: 'warning' },
+      { id: 'file_write', label: 'File write', tone: 'warning' },
+      { id: 'recent', label: 'Recently updated', tone: 'positive' },
+    ]);
     expect(cardTrust.title).toContain('reviewed');
   });
 
@@ -202,9 +228,17 @@ describe('marketplace public signals', () => {
       '风险信号',
       '最后审查',
     ]);
+    expect(detailTrust.sourceKind).toBe('community');
     expect(detailTrust.whyListed).toContain('T1');
     expect(detailTrust.sourceRepository).toBe('owner/repo');
     expect(detailTrust.installPath).toBe('owner/repo');
+    expect(detailTrust.badges).toEqual([
+      { id: 'community', label: '社区', tone: 'neutral' },
+      { id: 'reviewed', label: '已审查', tone: 'positive' },
+      { id: 'recent', label: '最近更新', tone: 'positive' },
+    ]);
+    expect(detailTrust.riskLabels).toEqual([]);
+    expect(detailTrust.quarantineReasons).toEqual([]);
   });
 
   it('uses quarantined detail trust copy for non-admitted skills', () => {
@@ -217,6 +251,7 @@ describe('marketplace public signals', () => {
     expect(detailTrust.reviewStatus).toBe('quarantined');
     expect(detailTrust.whyListed).not.toContain('passed baseline review');
     expect(detailTrust.whyListed).toContain('quarantined');
+    expect(detailTrust.quarantineReasons).toContain('source_trust_t3');
   });
 });
 
