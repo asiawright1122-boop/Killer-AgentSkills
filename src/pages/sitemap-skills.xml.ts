@@ -166,10 +166,12 @@ export const GET: APIRoute = async () => {
 
     const canonicalLocale =
       typeof indexability.canonicalLocale === 'string' &&
-      SUPPORTED_LOCALES.includes(indexability.canonicalLocale as any)
+      SUPPORTED_LOCALES.includes(indexability.canonicalLocale as any) &&
+      (eligibleLocales.length === 0 || eligibleLocales.includes(indexability.canonicalLocale))
         ? indexability.canonicalLocale
         : typeof governance?.canonicalLocale === 'string' &&
-            SUPPORTED_LOCALES.includes(governance.canonicalLocale as any)
+            SUPPORTED_LOCALES.includes(governance.canonicalLocale as any) &&
+            (eligibleLocales.length === 0 || eligibleLocales.includes(governance.canonicalLocale))
           ? governance.canonicalLocale
           : eligibleLocales.includes('en')
             ? 'en'
