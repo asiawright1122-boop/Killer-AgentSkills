@@ -12,7 +12,6 @@ import { getCategoryLabel } from '../../../../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import { getSitemapSkills } from '../../../../lib/sitemap-skills-runtime';
-import { getRelatedSkillsLookup } from '../../../../lib/related-skills-runtime';
 import staticSitemapSkillsData from '../../../../../data/sitemap-skills.json';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
@@ -45,7 +44,7 @@ import {
   sanitizePublicSkillCopyList,
   sanitizePublicSkillSourceExcerpt,
 } from '../../../../lib/public-skill-copy';
-import type { Env, SkillListingItem } from '../../../../lib/kv';
+import { getRelatedSkillsFast, type Env, type SkillListingItem } from '../../../../lib/kv';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActionsNative from '../../../../components/SkillActionsNative.astro';
@@ -1006,15 +1005,11 @@ if (readmeRenderBudget.truncated) {
   );
 }
 
-// ⚡ Related skills resolved from runtime lookup to prevent static bundle bloat
+// Related skills use a targeted D1 query instead of parsing the 6MB lookup JSON on cold detail requests.
 let relatedSkillsSource: any[] = [];
 if (!renderRepoDirectory) {
   const skillId = skill.id || fullId;
-  const relatedSkillsLookup = await getRelatedSkillsLookup(env);
-  if (relatedSkillsLookup) {
-    const indices = relatedSkillsLookup.lookup[skillId] || [];
-    relatedSkillsSource = indices.map((idx: number) => relatedSkillsLookup.skills[idx]).filter(Boolean);
-  }
+  relatedSkillsSource = await getRelatedSkillsFast(env, skillId, skill.category || '', 4).catch(() => []);
 }
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---

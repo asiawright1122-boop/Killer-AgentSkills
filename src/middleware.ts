@@ -105,7 +105,7 @@ let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 let _sitemapSkillsLoadTime = 0;
 const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
-const EDGE_CACHE_VERSION = 'v19';
+const EDGE_CACHE_VERSION = 'v20';
 
 function buildEdgeCacheKey(url: URL): Request {
   const cacheUrl = new URL(url);
