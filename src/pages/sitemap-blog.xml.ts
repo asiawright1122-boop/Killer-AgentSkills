@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
-import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
 import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
 import { loadJsonDataAtBuildTime } from '../lib/build-time-loader';
+import { loadBlogPostsFromGlob } from '../lib/blog-glob-loader';
 
 export const prerender = true;
 
@@ -36,7 +35,7 @@ function formatDate(date: Date | string): string {
 }
 
 export const GET: APIRoute = async () => {
-  const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft);
+  const allPosts = await loadBlogPostsFromGlob();
   const sitemapBlocklistData = await loadJsonDataAtBuildTime('data/seo-sitemap-blocklist.json');
   const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const urls: string[] = [];
@@ -44,11 +43,12 @@ export const GET: APIRoute = async () => {
   // Group posts by slug and keep per-locale variants.
   const postsBySlug = new Map<string, Map<string, (typeof allPosts)[number]>>();
   for (const post of allPosts) {
-    const parts = post.id.split('/');
-    const slug = parts.length > 1 ? parts.slice(1).join('/').replace(/\.md$/, '') : post.id.replace(/\.md$/, '');
-    // Use directory-based locale (consistent with blog page routing in [...slug].astro)
-    // instead of post.data.lang which defaults to 'en' when frontmatter omits lang field
-    const locale = parts.length > 1 ? parts[0] : post.data.lang;
+    const slug = post.id
+      .split('/')
+      .slice(1)
+      .join('/')
+      .replace(/\.mdx?$/, '');
+    const locale = post.id.split('/')[0] || post.data.lang;
     if (!slug || !locale || !SUPPORTED_LOCALE_SET.has(locale)) continue;
 
     const localeMap = postsBySlug.get(slug) || new Map<string, (typeof allPosts)[number]>();
@@ -94,11 +94,11 @@ ${buildHreflangLinks(slug, availableLocales)}
     for (const locale of SUPPORTED_LOCALES) {
       // Pre-validate: Category must have at least one post in this locale, or fall back to English if it has posts there
       const hasLocalPost = allPosts.some(
-        (post: CollectionEntry<'blog'>) => post.data.category === cat && post.data.lang === locale,
+        (post) => post.data.category === cat && (post.id.split('/')[0] || post.data.lang) === locale,
       );
       const hasEnglishFallback =
         locale !== 'en' &&
-        allPosts.some((post: CollectionEntry<'blog'>) => post.data.category === cat && post.data.lang === 'en');
+        allPosts.some((post) => post.data.category === cat && (post.id.split('/')[0] || post.data.lang) === 'en');
 
       if (!hasLocalPost && !hasEnglishFallback) {
         continue;

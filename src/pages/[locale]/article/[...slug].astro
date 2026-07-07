@@ -1,5 +1,4 @@
 ---
-import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import Info from '../../../components/Info.astro';
 import MarkdownH1AsH2 from '../../../components/blog/MarkdownH1AsH2.astro';
@@ -7,17 +6,12 @@ import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr } from '../..
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getBlogKeywordClusters, getBlogLongTailKeywords, getBlogMetaOverride } from '../../../lib/blog-seo-intent';
 import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
+import { getBlogPostFromGlob, getBlogPostPaths } from '../../../lib/blog-glob-loader';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-  return allPosts.map((post) => {
-    const firstSlash = post.id.indexOf('/');
-    const locale = firstSlash > 0 ? post.id.slice(0, firstSlash) : post.data.lang || 'en';
-    const slug = firstSlash > 0 ? post.id.slice(firstSlash + 1) : post.id;
-    return { params: { locale, slug } };
-  });
+  return getBlogPostPaths();
 }
 
 const { locale, slug } = Astro.params;
@@ -26,27 +20,13 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
 }
 
 const typedLocale = locale as Locale;
-const post = (await getCollection('blog', ({ id, data }) => id === `${locale}/${slug}` && !data.draft))[0];
+const { post, Content, availableBlogLocales } = await getBlogPostFromGlob(locale, slug, Astro);
 if (!post) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const siblingPosts = await getCollection('blog', ({ id, data }) => {
-  const firstSlash = id.indexOf('/');
-  if (firstSlash < 0) return false;
-  return id.slice(firstSlash + 1) === slug && !data.draft;
-});
-const availableArticleLocales = Array.from(
-  new Set(
-    siblingPosts
-      .map((entry) => entry.id.slice(0, entry.id.indexOf('/')))
-      .filter((candidate): candidate is Locale => SUPPORTED_LOCALES.includes(candidate as Locale)),
-  ),
-);
-
 const messages = await loadMessages(typedLocale);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-const { Content } = await render(post);
 const category = post.data.category;
 const metaOverride = getBlogMetaOverride(slug, (key: string) => translateOr(messages, key, key));
 const seoTitle = normalizePublicTitle(metaOverride?.title || post.data.title, 72) || post.data.title;
@@ -82,7 +62,7 @@ const ogImage = post.data.heroImage || new URL(`/og-image.webp`, Astro.url).toSt
   ogType="article"
   appendBrand={false}
   customCanonical={canonicalUrl}
-  availableLocales={availableArticleLocales.length > 0 ? availableArticleLocales : [typedLocale]}
+  availableLocales={availableBlogLocales.length > 0 ? availableBlogLocales : [typedLocale]}
 >
   <Fragment slot="head">
     <script

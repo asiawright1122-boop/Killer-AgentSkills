@@ -1,6 +1,5 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import { getFeaturedSkillsDirect, getLocalizedDescription } from '../../../lib/public-skill-catalog';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
@@ -9,6 +8,7 @@ import { buildKeywordString } from '../../../lib/seo-keywords';
 import { sanitizePublicSkillCopy } from '../../../lib/public-skill-copy';
 import type { Env } from '../../../lib/kv';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { loadBlogPostsFromGlob } from '../../../lib/blog-glob-loader';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -24,9 +24,11 @@ const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
-let posts = await getCollection('blog', ({ data }) => data.lang === typedLocale && !data.draft);
+const allPosts = await loadBlogPostsFromGlob(Astro);
+const getPostLocale = (post: (typeof allPosts)[number]) => post.id.split('/')[0] || post.data.lang || 'en';
+let posts = allPosts.filter((post) => getPostLocale(post) === typedLocale && !post.data.draft);
 if (posts.length === 0 && typedLocale !== 'en') {
-  posts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
+  posts = allPosts.filter((post) => getPostLocale(post) === 'en' && !post.data.draft);
 }
 
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 24);

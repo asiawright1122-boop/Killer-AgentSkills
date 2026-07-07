@@ -1,12 +1,12 @@
 ---
 import { loadMessages, type Locale } from '../../i18n';
-import type { CollectionEntry } from 'astro:content';
 import { Calendar } from 'lucide-react';
 import { getBlogMetaOverride } from '../../lib/blog-seo-intent';
 import { normalizePublicSummary } from '../../lib/public-text';
+import type { BlogGlobEntry } from '../../lib/blog-glob-loader';
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  post: BlogGlobEntry;
   locale: string;
 }
 

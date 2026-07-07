@@ -9,6 +9,7 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './config/locales.mjs';
 
 const isAstroCheck = process.env.npm_lifecycle_event === 'check:astro';
 const isCiAstroDev = process.env.CI === 'true' && process.env.npm_lifecycle_event === 'dev';
+const srcAlias = new URL('./src', import.meta.url).pathname;
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,11 +34,14 @@ export default defineConfig({
       external: ['node:crypto', 'node:fs', 'node:path'],
     },
     resolve: {
-      alias: import.meta.env.PROD
-        ? {
-            'react-dom/server': 'react-dom/server.edge',
-          }
-        : {},
+      alias: {
+        '~': srcAlias,
+        ...(import.meta.env.PROD
+          ? {
+              'react-dom/server': 'react-dom/server.edge',
+            }
+          : {}),
+      },
     },
     build: {
       rollupOptions: {

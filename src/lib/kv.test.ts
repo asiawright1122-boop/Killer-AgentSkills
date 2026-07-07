@@ -17,10 +17,18 @@ process.env.DISABLE_LOCAL_SITEMAP_FALLBACK = '1';
 
 vi.mock('node:fs', async (importOriginal) => {
   const actual = await importOriginal<typeof import('node:fs')>();
+  const isLocalSkillsSnapshotPath = (pathLike: unknown) =>
+    typeof pathLike === 'string' && pathLike.replace(/\\/g, '/').endsWith('/src/lib/local-skills-snapshot.json');
+
   return {
     ...actual,
-    existsSync: vi.fn().mockReturnValue(false),
-    readFileSync: vi.fn(),
+    existsSync: vi.fn((pathLike) => (isLocalSkillsSnapshotPath(pathLike) ? actual.existsSync(pathLike) : false)),
+    readFileSync: vi.fn((pathLike, options) => {
+      if (isLocalSkillsSnapshotPath(pathLike)) {
+        return actual.readFileSync(pathLike, options);
+      }
+      return '';
+    }),
   };
 });
 

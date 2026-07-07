@@ -8,21 +8,15 @@
 
 import type { SkillListingItem } from './kv';
 import type { TrackedSkillFallbackRow } from './skills-fallback';
-import localSkillsSnapshot from './local-skills-snapshot.json';
 
 let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
 
-function getDataDir(): string {
-  // Use a function to prevent static analysis of the path
-  return process.cwd() + '/data';
-}
-
-async function readJsonFile<T>(relativePath: string): Promise<T | null> {
+async function readProjectJsonFile<T>(relativePath: string): Promise<T | null> {
   try {
     const fs = await import('node:fs');
     const path = await import('node:path');
-    const fullPath = path.resolve(getDataDir(), relativePath);
+    const fullPath = path.resolve(process.cwd(), relativePath);
     if (fs.existsSync(fullPath)) {
       const content = fs.readFileSync(fullPath, 'utf-8');
       return JSON.parse(content) as T;
@@ -33,21 +27,26 @@ async function readJsonFile<T>(relativePath: string): Promise<T | null> {
   return null;
 }
 
+function readDataJsonFile<T>(relativePath: string): Promise<T | null> {
+  return readProjectJsonFile<T>(`data/${relativePath}`);
+}
+
 export async function getLocalSkillsFallback(): Promise<SkillListingItem[]> {
   if (_localSkillsCache && Date.now() - _localSkillsCacheTime < 30000) {
     return _localSkillsCache || [];
   }
 
   // Try main cache first
-  const mainCache = await readJsonFile<SkillListingItem[] | { skills: SkillListingItem[] }>('skills-cache.json');
+  const mainCache = await readDataJsonFile<SkillListingItem[] | { skills: SkillListingItem[] }>('skills-cache.json');
   if (mainCache) {
     _localSkillsCache = Array.isArray(mainCache) ? mainCache : mainCache.skills || [];
     _localSkillsCacheTime = Date.now();
     return _localSkillsCache || [];
   }
 
+  const localSkillsSnapshot = await readProjectJsonFile<SkillListingItem[]>('src/lib/local-skills-snapshot.json');
   if (Array.isArray(localSkillsSnapshot) && localSkillsSnapshot.length > 0) {
-    _localSkillsCache = localSkillsSnapshot as SkillListingItem[];
+    _localSkillsCache = localSkillsSnapshot;
     _localSkillsCacheTime = Date.now();
     return _localSkillsCache || [];
   }
@@ -62,7 +61,7 @@ export async function getLocalSkillsFallback(): Promise<SkillListingItem[]> {
   }
 
   // Fallback to expanded-github-skills
-  const trackedData = await readJsonFile<unknown[]>('expanded-github-skills.json');
+  const trackedData = await readDataJsonFile<unknown[]>('expanded-github-skills.json');
   if (trackedData && Array.isArray(trackedData)) {
     const { normalizeTrackedSkillFallback } = await import('./skills-fallback');
     const normalized = trackedData
