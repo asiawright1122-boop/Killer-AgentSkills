@@ -115,3 +115,6 @@ data/embeddings-cache.json
 
 # Claude Code worktree residuals
 .claude/worktrees/
+
+# Codex task worktrees
+.worktrees/
