@@ -96,9 +96,6 @@ function hasUsefulPublicSourceMaterial(skill: UnifiedSkill): boolean {
           .join(' ');
 
   return Boolean(
-    (skill.name || '').trim() ||
-    (skill.skillName || '').trim() ||
-    (skill.repo || '').trim() ||
     description.trim() ||
     (skill.filePath || '').trim() ||
     (skill.skillMd?.name || '').trim() ||
@@ -214,8 +211,12 @@ function installPathForSkill(skill: UnifiedSkill, routePath?: string): string {
   return '';
 }
 
+function intrinsicInstallPathForSkill(skill: UnifiedSkill): string {
+  return installPathForSkill(skill);
+}
+
 function hasInstallPath(skill: UnifiedSkill): boolean {
-  return installPathForSkill(skill) !== '';
+  return intrinsicInstallPathForSkill(skill) !== '';
 }
 
 function lastReviewedValue(skill: UnifiedSkill, locale: string): string {
@@ -375,7 +376,9 @@ export function buildMarketplaceDetailTrust(
     reviewStatus: admission.admitted ? 'admitted' : 'quarantined',
     sourceKind,
     sourceRepository: sourceRepositoryForSkill(skill),
-    installPath: installPathForSkill(skill, options.routePath),
+    installPath: admission.reasons.includes('missing_install_path')
+      ? ''
+      : installPathForSkill(skill, options.routePath),
     whyListed: localizedWhyListed(skill, admission, locale),
     rows,
     badges: buildMarketplaceBadges(skill, locale, now, admission.admitted),

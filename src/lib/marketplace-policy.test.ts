@@ -113,6 +113,25 @@ describe('marketplace policy admission', () => {
     expect(admission.reasons).toContain('unstructured_source');
   });
 
+  it('quarantines repo-only metadata as unstructured source', () => {
+    const admission = getMarketplaceAdmission(
+      baseSkill({
+        name: '',
+        skillName: '',
+        description: '',
+        filePath: '',
+        skillMd: {},
+        owner: 'owner',
+        repo: 'repo-only',
+        id: 'owner/repo-only',
+        sourceTrust: 'T2',
+      }),
+    );
+
+    expect(admission.admitted).toBe(false);
+    expect(admission.reasons).toContain('unstructured_source');
+  });
+
   it('quarantines skills missing an install path', () => {
     const admission = getMarketplaceAdmission(
       baseSkill({
@@ -326,6 +345,26 @@ describe('marketplace public signals', () => {
     expect(detailTrust.reviewStatus).toBe('quarantined');
     expect(detailTrust.installPath).toBe('');
     expect(detailTrust.sourceRepository).toBe('');
+    expect(detailTrust.quarantineReasons).toContain('missing_install_path');
+  });
+
+  it('does not let route path mask missing intrinsic install evidence', () => {
+    const detailTrust = buildMarketplaceDetailTrust(
+      baseSkill({
+        owner: '',
+        repo: '',
+        id: '',
+        filePath: '',
+      }),
+      {
+        locale: 'en',
+        routePath: 'masked/by-route',
+        now: new Date('2026-07-07T00:00:00.000Z'),
+      },
+    );
+
+    expect(detailTrust.reviewStatus).toBe('quarantined');
+    expect(detailTrust.installPath).toBe('');
     expect(detailTrust.quarantineReasons).toContain('missing_install_path');
   });
 });

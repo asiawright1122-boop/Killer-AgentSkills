@@ -140,3 +140,32 @@ Self-review notes:
 - Kept the install-path rule on the shared helper so admission and detail display cannot drift again.
 - Added direct regressions for repo-only, file-path-only, and fully missing install metadata, plus unknown and fallback last-reviewed values.
 - Scoped the work to the allowed files only.
+
+---
+
+Fix round: remaining Task 1 policy evidence findings
+
+What I fixed:
+- Tightened `hasUsefulPublicSourceMaterial()` so repo/name identifiers alone no longer count as public source evidence; admission now requires substantive description text, `skillMd` content, or `filePath`.
+- Preserved route-based detail display for admitted skills, but stopped `buildMarketplaceDetailTrust()` from using `routePath` to mask intrinsic missing install evidence when admission includes `missing_install_path`.
+- Added focused regressions for repo-only metadata being quarantined as `unstructured_source` and for route-path masking leaving quarantined detail `installPath` empty.
+
+Red/green evidence:
+1. Red
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `2 failed | 24 passed (26)`
+   - Failing cases:
+     - repo-only metadata was still admitted instead of quarantined as `unstructured_source`
+     - detail trust still surfaced `routePath` despite intrinsic `missing_install_path`
+2. Green
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `26 passed (26)`
+
+Files changed:
+- `src/lib/marketplace-policy.ts`
+- `src/lib/marketplace-policy.test.ts`
+- `.superpowers/sdd/task-1-report.md`
+
+Self-review notes:
+- Kept the write scope to the approved files only.
+- Used the existing install-path helper for intrinsic evidence checks so admission behavior stays consistent with the detail surface.
