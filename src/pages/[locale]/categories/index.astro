@@ -5,10 +5,6 @@ import MarketplaceSection from '../../../components/MarketplaceSection.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import type { Env } from '../../../lib/kv';
 import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
-import { getMarketplaceSkills, sortSkillsPopular } from '../../../lib/marketplace-filters';
-import { buildOccupationSummaries } from '../../../lib/occupations';
-import { filterByCategory } from '../../../lib/search';
-import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 
@@ -23,28 +19,17 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
-const [messages, skillsFetched] = await Promise.all([
-  loadMessages(typedLocale),
-  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
-]);
+const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
-const marketplaceSkills = getMarketplaceSkills(skillsFetched);
 const overview = await getMarketplaceOverview(env, typedLocale, t, {
   includeEmptyCategories: true,
   includeOtherCategory: false,
   topCategoryLimit: 12,
 });
-const occupations = buildOccupationSummaries(marketplaceSkills, typedLocale).filter((item) => item.skillCount > 0);
 const categories = overview.categories.map((category) => {
-  const skills = sortSkillsPopular(filterByCategory(marketplaceSkills, category.id));
-  const relatedOccupations = occupations
-    .filter((occupation) => occupation.skills.some((skill) => filterByCategory([skill], category.id).length > 0))
-    .slice(0, 3);
   return {
     ...category,
-    count: skills.length,
-    skills: skills.slice(0, 3),
-    relatedOccupations,
+    count: category.count,
   };
 });
 
@@ -87,11 +72,6 @@ const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperi
               </div>
               <h3>{category.label}</h3>
               <p>{category.seoDescription}</p>
-              <div class="marketplace-pill-list">
-                {category.relatedOccupations.map((occupation) => (
-                  <span class="market-chip px-2 py-1">{occupation.label}</span>
-                ))}
-              </div>
             </a>
           ))
         }

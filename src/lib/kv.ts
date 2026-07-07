@@ -1071,6 +1071,11 @@ function parseD1Boolean(value: unknown, fallback = false): boolean {
   return fallback;
 }
 
+function parseOptionalD1Boolean(value: unknown): boolean | undefined {
+  if (value === undefined || value === null) return undefined;
+  return parseD1Boolean(value, false);
+}
+
 function normalizeMarketplaceCode(value: unknown): string {
   return typeof value === 'string' ? value.trim().toUpperCase() : '';
 }
@@ -1101,27 +1106,16 @@ function isMarketplaceListingAdmitted(item: SkillListingItem): boolean {
   return true;
 }
 
+function hasNonEmptyValue(value: unknown): boolean {
+  return value !== undefined && value !== null && String(value).trim() !== '';
+}
+
 function hasPersistedTrustFields(row: Record<string, unknown>): boolean {
-  const hasScoreFields = [
-    row.securityLevel,
-    row.security_level,
-    row.sourceTrust,
-    row.source_trust,
-    row.securityScore,
-    row.security_score,
-    row.sourceScore,
-    row.source_score,
-    row.rankScore,
-    row.rank_score,
-  ].some((value) => value !== undefined && value !== null && String(value).trim() !== '');
-
-  const hasEvidenceFields = [row.riskFlags, row.securityBrief, row.primaryTrustReason].some((value) => {
-    if (value === undefined || value === null) return false;
-    const normalized = String(value).trim();
-    return normalized !== '' && normalized !== '[]' && normalized !== '{}' && normalized !== 'null';
-  });
-
-  return hasScoreFields && hasEvidenceFields;
+  return (
+    hasNonEmptyValue(row.securityLevel ?? row.security_level) &&
+    hasNonEmptyValue(row.sourceTrust ?? row.source_trust) &&
+    hasNonEmptyValue(row.rankScore ?? row.rank_score)
+  );
 }
 
 function withTrustFallback(item: SkillListingItem, row: Record<string, unknown>): SkillListingItem {
@@ -1167,7 +1161,7 @@ function mapD1ListingRow(row: D1Row): SkillListingItem {
     securityScore: Number(row.securityScore ?? row.security_score ?? 0),
     sourceScore: Number(row.sourceScore ?? row.source_score ?? 0),
     rankScore: Number(row.rank_score ?? row.rankScore ?? row.qualityScore ?? row.quality_score ?? 0),
-    isTrustedRankingEligible: parseD1Boolean(row.isTrustedRankingEligible, false),
+    isTrustedRankingEligible: parseOptionalD1Boolean(row.isTrustedRankingEligible),
     riskFlags: row.riskFlags ? tryParseJSON(String(row.riskFlags), []) : [],
     securityBrief: String(row.securityBrief ?? ''),
     primaryTrustReason: String(row.primaryTrustReason ?? ''),
@@ -1198,7 +1192,7 @@ function mapLocalListingRow(row: Record<string, unknown>): SkillListingItem {
     securityScore: Number(row.securityScore ?? row.security_score ?? 0),
     sourceScore: Number(row.sourceScore ?? row.source_score ?? 0),
     rankScore: Number(row.rankScore ?? row.rank_score ?? row.qualityScore ?? row.quality_score ?? 0),
-    isTrustedRankingEligible: parseD1Boolean(row.isTrustedRankingEligible, false),
+    isTrustedRankingEligible: parseOptionalD1Boolean(row.isTrustedRankingEligible),
     riskFlags: (row.riskFlags as SkillListingItem['riskFlags']) || [],
     securityBrief: String(row.securityBrief ?? ''),
     primaryTrustReason: String(row.primaryTrustReason ?? ''),

@@ -1,15 +1,14 @@
 /**
  * Search scoring and filtering logic for skills.
- * Uses Fuse.js for fuzzy, weighted, multi-field natural language search.
+ * Uses lightweight substring scoring so SSR listing routes stay within edge CPU limits.
  */
 
-import Fuse from 'fuse.js';
 import { normalizeCategoryId } from './category-taxonomy';
 import type { UnifiedSkill } from './skills';
 
 /**
  * Calculate a quality/popularity bonus score for secondary ranking.
- * Used to break ties when Fuse.js match scores are similar.
+ * Used to break ties when text match scores are similar.
  */
 export function calculateQualityScore(skill: UnifiedSkill): number {
   if (typeof skill.rankScore === 'number') {
@@ -45,7 +44,7 @@ export function calculateQualityScore(skill: UnifiedSkill): number {
 }
 
 /**
- * Prepare a flat searchable record for Fuse.js from a UnifiedSkill.
+ * Prepare a flat searchable record from a UnifiedSkill.
  * Flattens nested SEO fields and localized descriptions into top-level fields.
  */
 function prepareSearchRecord(skill: UnifiedSkill, locale: string = 'en') {
@@ -54,7 +53,7 @@ function prepareSearchRecord(skill: UnifiedSkill, locale: string = 'en') {
 
   return {
     ...skill,
-    // Flat description fields for Fuse keys
+    // Flat description fields for search matching
     _descEn: typeof skill.description === 'object' ? desc['en'] || '' : descStr,
     _descLocale: typeof skill.description === 'object' ? desc[locale] || '' : '',
     // Flat SEO fields
@@ -67,64 +66,64 @@ function prepareSearchRecord(skill: UnifiedSkill, locale: string = 'en') {
   };
 }
 
-type SearchRecord = ReturnType<typeof prepareSearchRecord>;
-
 /**
- * Search skills by query string using Fuse.js fuzzy matching.
- * Returns results sorted by combined Fuse score + quality/popularity.
+ * Search skills by query string using lightweight substring matching.
+ * Returns results sorted by combined text match score + quality/popularity.
  *
  * Searches across: name, skillName, descriptions (en + locale),
- * SEO keywords, features, definition, topics, and category.
+ * features, topics, and category.
  *
  * @param skills - Array of skills to search
  * @param query - Search query string
  * @param locale - Current locale for localized field matching (default: 'en')
  */
 export function searchSkills(skills: UnifiedSkill[], query: string, locale: string = 'en'): UnifiedSkill[] {
-  if (!query.trim()) return skills;
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return skills;
 
-  // Prepare flattened records for Fuse
-  const records = skills.map((s) => prepareSearchRecord(s, locale));
+  const terms = normalizedQuery
+    .split(/\s+/)
+    .map((term) => term.trim())
+    .filter((term) => term.length >= 2)
+    .slice(0, 6);
+  if (terms.length === 0) return skills;
 
-  // Configure Fuse.js with weighted keys
-  // NOTE: SEO keywords intentionally EXCLUDED — they are AI-generated and contain
-  // spam like "PDF parsing AI" injected into unrelated skills (e.g. orpc-contract-first).
-  // Only use clean data sources: name, skillName, skillMd.description, description, topics.
-  const fuse = new Fuse<SearchRecord>(records, {
-    keys: [
-      { name: 'name', weight: 1.0 },
-      { name: 'skillName', weight: 0.8 },
-      { name: '_descEn', weight: 0.5 },
-      { name: '_descLocale', weight: 0.5 },
-      { name: '_featuresEn', weight: 0.3 },
-      { name: '_featuresLocale', weight: 0.3 },
-      { name: 'topics', weight: 0.3 },
-      { name: 'category', weight: 0.2 },
-    ],
-    // Tighter fuzzy matching to reduce false positives
-    threshold: 0.3, // Stricter: was 0.4
-    distance: 100,
-    minMatchCharLength: 2,
-    includeScore: true,
-    useExtendedSearch: false,
-    ignoreLocation: true,
-  });
+  const scored = skills
+    .map((skill) => {
+      const record = prepareSearchRecord(skill, locale);
+      const name = String(record.name || '').toLowerCase();
+      const skillName = String(record.skillName || '').toLowerCase();
+      const category = String(record.category || '').toLowerCase();
+      const topics = (record.topics || []).join(' ').toLowerCase();
+      const description = [
+        record._descLocale,
+        record._descEn,
+        record._featuresLocale.join(' '),
+        record._featuresEn.join(' '),
+      ]
+        .join(' ')
+        .toLowerCase();
+      const haystack = [name, skillName, category, topics, description].join(' ');
 
-  const fuseResults = fuse.search(query);
+      let matchScore = 0;
+      for (const term of terms) {
+        if (name === term || skillName === term) matchScore += 12;
+        else if (name.includes(term) || skillName.includes(term)) matchScore += 8;
+        else if (topics.includes(term)) matchScore += 4;
+        else if (category.includes(term)) matchScore += 3;
+        else if (description.includes(term)) matchScore += 2;
+        else if (!haystack.includes(term)) matchScore -= 8;
+      }
 
-  // Combine Fuse score with quality/popularity for final ranking
-  // Fuse score: 0 = perfect match, 1 = no match (inverted)
-  const scored = fuseResults.map((result) => {
-    const fuseScore = 1 - (result.score || 0); // Invert: higher = better
-    const qualityScore = calculateQualityScore(result.item as unknown as UnifiedSkill);
-    // 70% match relevance + 30% quality/popularity
-    const combinedScore = fuseScore * 0.7 + qualityScore * 0.3;
-    return { skill: result.item as unknown as UnifiedSkill, combinedScore };
-  });
+      if (matchScore <= 0) return null;
+      return {
+        skill,
+        combinedScore: matchScore + calculateQualityScore(skill) * 4,
+      };
+    })
+    .filter((entry): entry is { skill: UnifiedSkill; combinedScore: number } => Boolean(entry));
 
-  // Sort by combined score (highest first)
   scored.sort((a, b) => b.combinedScore - a.combinedScore);
-
   return scored.map(({ skill }) => skill);
 }
 

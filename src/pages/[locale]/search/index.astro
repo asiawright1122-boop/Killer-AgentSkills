@@ -50,7 +50,7 @@ if (hasListingParams) {
 
 const [messages, skillsFetched] = await Promise.all([
   loadMessages(typedLocale),
-  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+  getLightweightSkillsTop(env, 160).catch(() => [] as UnifiedSkill[]),
 ]);
 const t = useTranslations(messages);
 const marketplaceSkills = getMarketplaceSkills(skillsFetched);
@@ -86,7 +86,7 @@ if (!query || activeSort === 'latest') {
 }
 
 const totalResults = results.length;
-const visibleResults = results.slice(0, 72);
+const visibleResults = results.slice(0, 36);
 const displayTitle = query
   ? isZhCopy
     ? `搜索 ${query}`

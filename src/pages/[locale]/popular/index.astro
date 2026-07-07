@@ -37,7 +37,7 @@ if (hasListingParams) {
 
 const [messages, skillsFetched] = await Promise.all([
   loadMessages(typedLocale),
-  getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]),
+  getLightweightSkillsTop(env, 160).catch(() => [] as UnifiedSkill[]),
 ]);
 const t = useTranslations(messages);
 const overview = await getMarketplaceOverview(env, typedLocale, t, {
@@ -60,7 +60,7 @@ if (category) {
 rankedSkills = activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills);
 
 const totalResults = rankedSkills.length;
-const visibleSkills = rankedSkills.slice(0, 72);
+const visibleSkills = rankedSkills.slice(0, 36);
 const displayTitle =
   activeRank === 'latest' ? (isZhCopy ? '最新 Skills' : 'Latest Skills') : isZhCopy ? '热门 Skills' : 'Popular Skills';
 const seoTitle =

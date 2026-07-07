@@ -25,7 +25,7 @@ const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const [messages, skillsFetched] = await Promise.all([
   loadMessages(typedLocale),
-  getLightweightSkillsTop(env, 360).catch(() => [] as UnifiedSkill[]),
+  getLightweightSkillsTop(env, 120).catch(() => [] as UnifiedSkill[]),
 ]);
 const t = useTranslations(messages);
 const marketplaceSkills = getMarketplaceSkills(skillsFetched);

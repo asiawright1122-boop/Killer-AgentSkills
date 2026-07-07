@@ -18,7 +18,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
-const skills = await getLightweightSkillsTop(env, 480).catch(() => [] as UnifiedSkill[]);
+const skills = await getLightweightSkillsTop(env, 120).catch(() => [] as UnifiedSkill[]);
 const admittedSkills = getMarketplaceSkills(skills);
 const blockedCount = skills.length - admittedSkills.length;
 const reviewedCount = skills.filter((skill) => skill.securityLevel || skill.sourceTrust || skill.rankScore).length;

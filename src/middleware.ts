@@ -105,7 +105,13 @@ let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 let _sitemapSkillsLoadTime = 0;
 const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
-const EDGE_CACHE_VERSION = 'v18';
+const EDGE_CACHE_VERSION = 'v19';
+
+function buildEdgeCacheKey(url: URL): Request {
+  const cacheUrl = new URL(url);
+  cacheUrl.searchParams.set('_cv', EDGE_CACHE_VERSION);
+  return new Request(cacheUrl.toString(), { method: 'GET' });
+}
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
   // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
@@ -335,9 +341,101 @@ function resolveGovernedSkillDetailPath(localeSegment: string, owner: string, ro
 }
 
 function isCrawlerUserAgent(userAgent: string): boolean {
-  return /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider|killer-skills-warmup-bot)/.test(
+  return /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider|gptbot|chatgpt-user|claudebot|claude-web|anthropic-ai|perplexitybot|google-extended|applebot-extended|cohere-ai|killer-skills-warmup-bot)/.test(
     userAgent,
   );
+}
+
+function isAiCrawlerUserAgent(userAgent: string): boolean {
+  return /(gptbot|chatgpt-user|claudebot|claude-web|anthropic-ai|perplexitybot|google-extended|applebot-extended|cohere-ai)/.test(
+    userAgent,
+  );
+}
+
+function htmlEscape(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => {
+    switch (char) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      default:
+        return '&#39;';
+    }
+  });
+}
+
+function formatCrawlerLabel(value: string): string {
+  return value
+    .split(/[/_-]+/)
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+    .slice(-3)
+    .join(' ');
+}
+
+function isAiCrawlerCapsulePath(url: URL): boolean {
+  const { pathname, searchParams } = url;
+  if (/^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/[^/]+)?$/.test(pathname)) return true;
+  if (/^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0) return true;
+  return /^\/[a-z]{2}\/occupations\/[^/]+$/.test(pathname);
+}
+
+function buildAiCrawlerCapsuleResponse(url: URL): Response {
+  const segments = url.pathname.split('/').filter(Boolean);
+  const locale = segments[0] || 'en';
+  const routeKind = segments[1] || 'directory';
+  const finalSegment = segments[segments.length - 1] || routeKind;
+  const query =
+    url.searchParams.get('q') || url.searchParams.get('occupation') || url.searchParams.get('category') || '';
+  const label = formatCrawlerLabel(query || finalSegment) || 'Killer-Skills';
+  const title =
+    routeKind === 'occupations'
+      ? `${label} skills`
+      : routeKind === 'skills' && segments.length > 2
+        ? `${label} skill`
+        : `Skills directory: ${label}`;
+  const canonicalUrl = `https://${SITE_DOMAIN}${url.pathname}${url.search}`;
+  const directoryUrl = `https://${SITE_DOMAIN}/${locale}/skills`;
+  const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
+  const llmsUrl = `https://${SITE_DOMAIN}/llms.txt`;
+  const body = `<!doctype html>
+<html lang="${htmlEscape(locale)}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
+  <title>${htmlEscape(title)} | Killer-Skills</title>
+</head>
+<body>
+  <main>
+    <h1>${htmlEscape(title)}</h1>
+    <p>Killer-Skills indexes reviewed AI agent skills, source trust, install paths, and workflow categories.</p>
+    <nav>
+      <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
+      <a href="${htmlEscape(sitemapUrl)}">Skills sitemap</a>
+      <a href="${htmlEscape(llmsUrl)}">LLMs summary</a>
+    </nav>
+  </main>
+</body>
+</html>`;
+  const response = new Response(body, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'private, no-store',
+      'X-Robots-Tag': 'noindex, follow',
+      'X-Killer-Skills-Crawler-Capsule': '1',
+      'X-Cache': 'BYPASS-AI-CRAWLER',
+    },
+  });
+  setSecurityHeaders(response);
+  return response;
 }
 
 function resolvePageRouteBucket(pathname: string): string {
@@ -500,11 +598,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
     !pathname.startsWith('/admin') &&
     !context.isPrerendered;
   const shouldUseEdgeCache = isCacheableRequest && !import.meta.env.DEV && typeof caches !== 'undefined';
+  const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
+  const isCrawlerRequest = isCrawlerUserAgent(userAgent);
+  const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
 
   if (shouldUseEdgeCache) {
     try {
       const cache = (caches as unknown as { default: Cache }).default;
-      const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
+      const cacheKey = buildEdgeCacheKey(context.url);
       const cached = await cache.match(cacheKey);
       if (cached) {
         // Clone to allow multiple reads and add cache-hit marker
@@ -516,6 +617,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     } catch {
       // Cache API unavailable (dev mode / miniflare) — proceed normally
     }
+  }
+
+  if (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) {
+    return buildAiCrawlerCapsuleResponse(context.url);
   }
 
   // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
@@ -533,9 +638,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       !_seoRedirectPathMap ? ensureMiddlewareDataLoaded(env || {}) : Promise.resolve(),
     ]);
   }
-
-  const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
-  const isCrawlerRequest = isCrawlerUserAgent(userAgent);
 
   // Apply request density throttling (REC-39)
   const isWarmupRequest = userAgent.includes('killer-skills-warmup-bot');
@@ -1058,7 +1160,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         if (typeof caches !== 'undefined') {
           try {
             const cache = (caches as unknown as { default: Cache }).default;
-            const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
+            const cacheKey = buildEdgeCacheKey(context.url);
             response.headers.set('X-Cache', 'MISS');
             const waitUntil = (context.locals.runtime as any)?.ctx?.waitUntil;
             if (waitUntil) {
@@ -1148,7 +1250,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         // Only cache if the response explicitly opts in with s-maxage
         if (cc.includes('s-maxage') && !cc.includes('private')) {
           const cache = (caches as unknown as { default: Cache }).default;
-          const cacheKey = new Request(`${context.url.toString()}&_cv=${EDGE_CACHE_VERSION}`, context.request);
+          const cacheKey = buildEdgeCacheKey(context.url);
           // Clone the response: one for cache, one for client
           const cacheResponse = response.clone();
           response.headers.set('X-Cache', 'MISS');

@@ -233,6 +233,30 @@ describe('middleware skill route handling', () => {
     );
   });
 
+  it('serves a compact capsule to AI crawlers on high-cardinality skill detail URLs', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/obra/superpowers/systematic-debugging', {
+        headers: {
+          'user-agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.4)',
+        },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+    expect(response.headers.get('Cache-Control')).toBe('private, no-store');
+    expect(await response.text()).toContain('systematic debugging skill');
+  });
+
   it('still blocks file-like trap paths under skills routes', async () => {
     let nextCalled = false;
     const response = (await onRequest(
