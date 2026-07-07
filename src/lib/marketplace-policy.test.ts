@@ -287,11 +287,15 @@ describe('marketplace public signals', () => {
       '审核状态',
       '风险信号',
       '最后审查',
+      '来源仓库',
+      '安装路径',
     ]);
     expect(detailTrust.sourceKind).toBe('community');
     expect(detailTrust.whyListed).toContain('T1');
     expect(detailTrust.sourceRepository).toBe('owner/repo');
     expect(detailTrust.installPath).toBe('owner/repo');
+    expect(detailTrust.rows.find((row) => row.label === '来源仓库')?.value).toBe('owner/repo');
+    expect(detailTrust.rows.find((row) => row.label === '安装路径')?.value).toBe('owner/repo');
     expect(detailTrust.badges).toEqual([
       { id: 'community', label: '社区', tone: 'neutral' },
       { id: 'reviewed', label: '已审查', tone: 'positive' },
@@ -361,6 +365,8 @@ describe('marketplace public signals', () => {
     expect(detailTrust.reviewStatus).toBe('quarantined');
     expect(detailTrust.installPath).toBe('');
     expect(detailTrust.sourceRepository).toBe('');
+    expect(detailTrust.rows.find((row) => row.label === 'Source repository')?.value).toBe('');
+    expect(detailTrust.rows.find((row) => row.label === 'Install path')?.value).toBe('');
     expect(detailTrust.quarantineReasons).toContain('missing_install_path');
   });
 

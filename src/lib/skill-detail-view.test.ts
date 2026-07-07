@@ -90,6 +90,10 @@ describe('buildMarketplaceDetailTrust', () => {
 
     expect(trust.reviewStatus).toBe('admitted');
     expect(trust.rows.map((row) => row.label)).toContain('Risk flags');
+    expect(trust.rows.map((row) => row.label)).toContain('Source repository');
+    expect(trust.rows.map((row) => row.label)).toContain('Install path');
+    expect(trust.rows.find((row) => row.label === 'Source repository')?.value).toBe('owner/repo');
+    expect(trust.rows.find((row) => row.label === 'Install path')?.value).toBe('owner/repo');
     expect(trust.riskLabels).toEqual(['Network access']);
     expect(trust.whyListed).toContain('T2');
   });

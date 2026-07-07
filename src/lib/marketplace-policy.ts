@@ -361,6 +361,10 @@ export function buildMarketplaceDetailTrust(
   const now = options.now || new Date();
   const admission = getMarketplaceAdmission(skill);
   const sourceKind = getSkillSourceKind(skill);
+  const sourceRepository = sourceRepositoryForSkill(skill);
+  const installPath = admission.reasons.includes('missing_install_path')
+    ? ''
+    : installPathForSkill(skill, options.routePath);
   const rows: MarketplaceDetailTrustRow[] = [
     { label: isZhLocale(locale) ? '安全等级' : 'Safety level', value: skill.securityLevel || 'Unknown' },
     { label: isZhLocale(locale) ? '来源等级' : 'Source trust', value: skill.sourceTrust || 'Unknown' },
@@ -370,15 +374,15 @@ export function buildMarketplaceDetailTrust(
       label: isZhLocale(locale) ? '最后审查' : 'Last audited',
       value: lastReviewedValue(skill, locale),
     },
+    { label: isZhLocale(locale) ? '来源仓库' : 'Source repository', value: sourceRepository },
+    { label: isZhLocale(locale) ? '安装路径' : 'Install path', value: installPath },
   ];
 
   return {
     reviewStatus: admission.admitted ? 'admitted' : 'quarantined',
     sourceKind,
-    sourceRepository: sourceRepositoryForSkill(skill),
-    installPath: admission.reasons.includes('missing_install_path')
-      ? ''
-      : installPathForSkill(skill, options.routePath),
+    sourceRepository,
+    installPath,
     whyListed: localizedWhyListed(skill, admission, locale),
     rows,
     badges: buildMarketplaceBadges(skill, locale, now, admission.admitted),
