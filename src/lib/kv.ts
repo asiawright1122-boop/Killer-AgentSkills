@@ -112,21 +112,41 @@ type TimedCacheEntry<T> = { value: T; ts: number };
 let _sitemapSkillsCache: SitemapSkillEntry[] | null = null;
 let _sitemapSkillsCacheTime = 0;
 let _skillsTotalCountCache: TimedCacheEntry<number> | null = null;
+let _marketplaceSkillsTotalCountCache: TimedCacheEntry<number> | null = null;
 let _skillsCategorySummaryCache: TimedCacheEntry<SkillsCategorySummary> | null = null;
 const _skillsListingPageCache = new Map<string, TimedCacheEntry<SkillsListingPageResult>>();
+const _marketplaceSkillsListingPageCache = new Map<string, TimedCacheEntry<SkillsListingPageResult>>();
 const _skillsListingTopCache = new Map<string, TimedCacheEntry<SkillListingItem[]>>();
 const _skillsListingByRefsCache = new Map<string, TimedCacheEntry<SkillListingItem[]>>();
 
 const SITEMAP_SKILLS_CACHE_TTL_MS = 5 * 60 * 1000;
+
+function getD1Rows<T extends D1Row>(result: { results: T[] }): T[] {
+  return result.results;
+}
 const SKILLS_TOTAL_COUNT_CACHE_TTL_MS = 60 * 1000;
 const SKILLS_LISTING_PAGE_CACHE_TTL_MS = 30 * 1000;
 const SKILLS_LISTING_TOP_CACHE_TTL_MS = 30 * 1000;
 const SKILLS_LISTING_BY_REFS_CACHE_TTL_MS = 2 * 60 * 1000;
 const SKILLS_CATEGORY_SUMMARY_CACHE_TTL_MS = 2 * 60 * 1000;
 const SKILLS_LISTING_PAGE_CACHE_MAX = 120;
+const MARKETPLACE_SKILLS_LISTING_PAGE_CACHE_MAX = 120;
 const SKILLS_LISTING_TOP_CACHE_MAX = 40;
 const SKILLS_LISTING_BY_REFS_CACHE_MAX = 200;
 const _loggedMissingSkillsTableContexts = new Set<string>();
+
+const MARKETPLACE_ADMISSION_WHERE_SQL = `
+    WHERE UPPER(COALESCE(NULLIF(TRIM(CAST(security_level AS TEXT)), ''), '')) != 'D'
+      AND UPPER(COALESCE(NULLIF(TRIM(CAST(json_extract(data_json, '$.securityLevel') AS TEXT)), ''), '')) != 'D'
+      AND COALESCE(NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))), ''), '') IN ('T1', 'T2')
+      AND COALESCE(NULLIF(UPPER(TRIM(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''), '') IN ('T1', 'T2')
+      AND LOWER(TRIM(COALESCE(CAST(json_extract(data_json, '$.isTrustedRankingEligible') AS TEXT), ''))) NOT IN ('0', 'false')
+      AND NOT EXISTS (
+        SELECT 1
+        FROM json_each(COALESCE(json_extract(data_json, '$.riskFlags'), '[]')) AS risk
+        WHERE LOWER(TRIM(COALESCE(CAST(json_extract(risk.value, '$.severity') AS TEXT), ''))) = 'blocker'
+      )
+`;
 
 function isMissingSkillsTableError(error: unknown): boolean {
   const message =
@@ -376,9 +396,9 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
     try {
       const result = await env.DB.prepare(
         `SELECT data_json FROM skills ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC`,
-      ).all();
+      ).all<D1Row>();
       if (result.success && result.results) {
-        return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
+        return getD1Rows(result).map((row: D1Row) => JSON.parse(row.data_json as string));
       }
     } catch (e) {
       console.warn('[D1] Query failed, falling back to KV:', e);
@@ -431,8 +451,14 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
                 category,
                 stars,
                 quality_score,
-                security_level,
-                source_trust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
                 rank_score,
                 last_audited_at,
                 updated_at,
@@ -452,10 +478,10 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
             FROM skills 
             ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
         `,
-    ).all();
+    ).all<D1Row>();
 
     if (result.success && result.results) {
-      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      const rows = getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
       return rows.length > 0 ? rows : getLocalListingFallbackSorted();
     }
     return getLocalListingFallbackSorted();
@@ -532,8 +558,14 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
                 category,
                 stars,
                 quality_score,
-                security_level,
-                source_trust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
                 rank_score,
                 last_audited_at,
                 updated_at,
@@ -556,9 +588,9 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
         `,
     )
       .bind(safePageSize, offset)
-      .all();
+      .all<D1Row>();
 
-    const items = result.success && result.results ? result.results.map((row: D1Row) => mapD1ListingRow(row)) : [];
+    const items = result.success && result.results ? getD1Rows(result).map((row: D1Row) => mapD1ListingRow(row)) : [];
     if (items.length === 0 && safePage === 1) {
       const normalized = await getLocalListingFallbackSorted();
       const fallbackResult: SkillsListingPageResult = {
@@ -586,6 +618,128 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
       page: safePage,
       pageSize: safePageSize,
     };
+    return {
+      ...fallbackResult,
+      items: cloneListingItems(fallbackResult.items),
+    };
+  }
+}
+
+/**
+ * Policy-aware paged listing query for the public marketplace API.
+ * Restricts the DB page and total count to admitted marketplace rows.
+ */
+export async function getMarketplaceSkillsListingPage(
+  env: Env,
+  page: number,
+  pageSize: number,
+): Promise<SkillsListingPageResult> {
+  const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+  const safePageSize = Number.isFinite(pageSize) && pageSize > 0 ? Math.min(Math.floor(pageSize), 100) : 12;
+  const offset = (safePage - 1) * safePageSize;
+  const pageCacheKey = `${safePage}:${safePageSize}`;
+
+  const cachedPage = getTimedMapValue(
+    _marketplaceSkillsListingPageCache,
+    pageCacheKey,
+    SKILLS_LISTING_PAGE_CACHE_TTL_MS,
+  );
+  if (cachedPage) {
+    return {
+      ...cachedPage,
+      items: cloneListingItems(cachedPage.items),
+    };
+  }
+
+  const getFallbackPage = async (): Promise<SkillsListingPageResult> => {
+    const admitted = (await getLocalListingFallbackSorted()).filter(isMarketplaceListingAdmitted);
+    return {
+      items: admitted.slice(offset, offset + safePageSize),
+      total: admitted.length,
+      page: safePage,
+      pageSize: safePageSize,
+    };
+  };
+
+  if (!env?.DB) {
+    const fallbackResult = await getFallbackPage();
+    setTimedMapValue(
+      _marketplaceSkillsListingPageCache,
+      pageCacheKey,
+      fallbackResult,
+      MARKETPLACE_SKILLS_LISTING_PAGE_CACHE_MAX,
+    );
+    return {
+      ...fallbackResult,
+      items: cloneListingItems(fallbackResult.items),
+    };
+  }
+
+  try {
+    let total = getTimedValue(_marketplaceSkillsTotalCountCache, SKILLS_TOTAL_COUNT_CACHE_TTL_MS);
+    if (total === null) {
+      const totalResult = await env.DB.prepare(
+        `SELECT COUNT(*) as total FROM skills ${MARKETPLACE_ADMISSION_WHERE_SQL}`,
+      ).first();
+      total = Number((totalResult as D1Row | null)?.total ?? 0);
+      _marketplaceSkillsTotalCountCache = { value: total, ts: Date.now() };
+    }
+
+    const result = await env.DB.prepare(
+      `
+            SELECT
+                id,
+                owner,
+                repo,
+                name,
+                category,
+                stars,
+                quality_score,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
+                rank_score,
+                last_audited_at,
+                updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills
+            ${MARKETPLACE_ADMISSION_WHERE_SQL}
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
+            LIMIT ?1 OFFSET ?2
+        `,
+    )
+      .bind(safePageSize, offset)
+      .all<D1Row>();
+
+    const items = result.success && result.results ? getD1Rows(result).map((row: D1Row) => mapD1ListingRow(row)) : [];
+    const pagedResult: SkillsListingPageResult = { items, total, page: safePage, pageSize: safePageSize };
+    setTimedMapValue(
+      _marketplaceSkillsListingPageCache,
+      pageCacheKey,
+      pagedResult,
+      MARKETPLACE_SKILLS_LISTING_PAGE_CACHE_MAX,
+    );
+    return { ...pagedResult, items: cloneListingItems(pagedResult.items) };
+  } catch (e) {
+    logD1Fallback('Error in marketplace paged listing query', e);
+    const fallbackResult = await getFallbackPage();
     return {
       ...fallbackResult,
       items: cloneListingItems(fallbackResult.items),
@@ -644,14 +798,14 @@ export async function getSkillsListingTop(env: Env, limit: number): Promise<Skil
         `,
     )
       .bind(safeLimit)
-      .all();
+      .all<D1Row>();
 
     if (!result.success || !result.results) {
       const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
       setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
       return cloneListingItems(fallbackTop);
     }
-    const rows = result.results.map((row: D1Row) => mapD1ListingRow(row));
+    const rows = getD1Rows(result).map((row: D1Row) => mapD1ListingRow(row));
     if (rows.length === 0) {
       const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
       setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
@@ -692,13 +846,13 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
           FROM skills
           GROUP BY TRIM(LOWER(COALESCE(category, '')))
         `,
-      ).all(),
+      ).all<D1Row>(),
     ]);
 
     const total = Number((totalResult as D1Row | null)?.total ?? 0);
     const categories =
       groupedResult.success && groupedResult.results
-        ? groupedResult.results
+        ? getD1Rows(groupedResult)
             .map((row: D1Row) => ({
               category: String(row.category || '')
                 .trim()
@@ -808,11 +962,11 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
         `,
       )
         .bind(...binds)
-        .all();
+        .all<D1Row>();
 
       if (!result.success || !result.results) continue;
 
-      for (const row of result.results as D1Row[]) {
+      for (const row of getD1Rows(result)) {
         const mapped = mapD1ListingRow(row);
         if (mapped.id) {
           deduped.set(mapped.id, mapped);
@@ -882,10 +1036,10 @@ export async function getRelatedSkillsFast(
         `,
     )
       .bind(category || '', currentId, limit)
-      .all();
+      .all<D1Row>();
 
     if (result.success && result.results) {
-      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      const rows = getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
       return rows.length > 0 ? rows : getRelatedFallback();
     }
     return getRelatedFallback();
@@ -915,6 +1069,36 @@ function parseD1Boolean(value: unknown, fallback = false): boolean {
     return Boolean(tryParseJSON(normalized, fallback));
   }
   return fallback;
+}
+
+function normalizeMarketplaceCode(value: unknown): string {
+  return typeof value === 'string' ? value.trim().toUpperCase() : '';
+}
+
+function isMarketplaceFalseLikeValue(value: unknown): boolean {
+  if (value === false || value === 0) return true;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    return normalized === '0' || normalized === 'false';
+  }
+  return false;
+}
+
+function hasMarketplaceBlockerRisk(flags: SkillListingItem['riskFlags']): boolean {
+  return (flags || []).some(
+    (flag) => typeof flag?.severity === 'string' && flag.severity.trim().toLowerCase() === 'blocker',
+  );
+}
+
+function isMarketplaceListingAdmitted(item: SkillListingItem): boolean {
+  const securityLevel = normalizeMarketplaceCode(item.securityLevel);
+  const sourceTrust = normalizeMarketplaceCode(item.sourceTrust);
+
+  if (securityLevel === 'D') return false;
+  if (sourceTrust !== 'T1' && sourceTrust !== 'T2') return false;
+  if (isMarketplaceFalseLikeValue(item.isTrustedRankingEligible)) return false;
+  if (hasMarketplaceBlockerRisk(item.riskFlags)) return false;
+  return true;
 }
 
 function hasPersistedTrustFields(row: Record<string, unknown>): boolean {

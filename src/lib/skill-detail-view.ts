@@ -1,5 +1,7 @@
 type SkillSourceKind = 'official' | 'community';
 
+export { buildMarketplaceDetailTrust } from './marketplace-policy';
+
 const normalizeLabel = (value: unknown) => String(value ?? '').trim();
 
 function uniqueNonEmpty(values: string[], limit = 6): string[] {

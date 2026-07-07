@@ -8,6 +8,7 @@ import {
 } from '../../lib/rate-limit';
 import type { Env } from '../../lib/kv';
 import { getMarketplaceSkills } from '../../lib/marketplace-filters';
+import { isMarketplaceMetadataAdmitted } from '../../lib/marketplace-policy';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/public-skill-catalog';
@@ -21,13 +22,21 @@ import { getRuntimeEnv } from '../../lib/runtime-env';
 const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
 const MARKETPLACE_ADMISSION_SQL = `
-  (s.security_level IS NULL OR s.security_level != 'D')
+  UPPER(COALESCE(NULLIF(TRIM(CAST(s.security_level AS TEXT)), ''), '')) != 'D'
+  AND UPPER(COALESCE(NULLIF(TRIM(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT)), ''), '')) != 'D'
+  AND COALESCE(NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))), ''), '') IN ('T1', 'T2')
+  AND COALESCE(NULLIF(UPPER(TRIM(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''), '') IN ('T1', 'T2')
   AND (
     json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
     OR (
       json_extract(s.data_json, '$.isTrustedRankingEligible') != 0
       AND LOWER(CAST(json_extract(s.data_json, '$.isTrustedRankingEligible') AS TEXT)) != 'false'
     )
+  )
+  AND NOT EXISTS (
+    SELECT 1
+    FROM json_each(COALESCE(json_extract(s.data_json, '$.riskFlags'), '[]')) AS risk
+    WHERE LOWER(CAST(json_extract(risk.value, '$.severity') AS TEXT)) = 'blocker'
   )
 `;
 
@@ -61,36 +70,6 @@ function trustBoostFrom(data: { rankScore?: unknown; sourceTrust?: unknown; secu
     data.securityLevel === 'S+' ? 0.0025 : data.securityLevel === 'S' ? 0.002 : data.securityLevel === 'A' ? 0.001 : 0;
 
   return rankScore * 0.004 + sourceBoost + securityBoost;
-}
-
-function isFalseLike(value: unknown): boolean {
-  return value === false || value === 0 || value === '0' || value === 'false';
-}
-
-function hasExplicitAdmissionMetadata(data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown }): boolean {
-  return (
-    Object.prototype.hasOwnProperty.call(data, 'securityLevel') &&
-    data.securityLevel !== null &&
-    data.securityLevel !== undefined &&
-    Object.prototype.hasOwnProperty.call(data, 'isTrustedRankingEligible') &&
-    data.isTrustedRankingEligible !== null &&
-    data.isTrustedRankingEligible !== undefined
-  );
-}
-
-function isMarketplaceMetadataAdmitted(
-  data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown },
-  options: { requireExplicitAdmission?: boolean } = {},
-): boolean {
-  if (options.requireExplicitAdmission && !hasExplicitAdmissionMetadata(data)) return false;
-  if (String(data.securityLevel || '').toUpperCase() === 'D') return false;
-  if (
-    isFalseLike(data.isTrustedRankingEligible) ||
-    (typeof data.isTrustedRankingEligible === 'string' && isFalseLike(data.isTrustedRankingEligible.toLowerCase()))
-  ) {
-    return false;
-  }
-  return true;
 }
 
 function sanitizeSearchResult<T extends Record<string, unknown>>(result: T): T {
@@ -190,9 +169,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
                 s.category,
                 s.rank_score AS rankScore,
                 s.quality_score AS qualityScore,
-                s.security_level AS securityLevel,
-                s.source_trust AS sourceTrust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(s.security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT))
+                ) AS securityLevel,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))
+                ) AS sourceTrust,
                 json_extract(s.data_json, '$.isTrustedRankingEligible') AS isTrustedRankingEligible,
+                json_extract(s.data_json, '$.riskFlags') AS riskFlags,
                 json_extract(s.data_json, '$.source') AS source,
                 bm25(skills_fts) AS rank
               FROM skills_fts
@@ -204,8 +190,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
             `,
             )
             .bind(ftsQuery, RESULT_LIMIT)
-            .all();
-          const ftsRows = Array.isArray(ftsResp.results) ? (ftsResp.results as Record<string, unknown>[]) : [];
+            .all<Record<string, unknown>>();
+          const ftsRows = Array.isArray(ftsResp.results)
+            ? (ftsResp.results as unknown as Record<string, unknown>[])
+            : [];
           keywordMatches = ftsRows.filter((row) => isMarketplaceMetadataAdmitted(row));
         } catch (err) {
           console.error('D1 FTS search failed:', err);

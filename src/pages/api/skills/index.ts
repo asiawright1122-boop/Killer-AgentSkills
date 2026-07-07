@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
-import { getLightweightSkillsPage, getLocalizedDescription } from '../../../lib/public-skill-catalog';
+import { getLightweightMarketplaceSkillsPage, getLocalizedDescription } from '../../../lib/public-skill-catalog';
 import { jsonResponse, errorResponse } from '../../../lib/api-utils';
 import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
@@ -25,10 +25,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   try {
     const env = await getRuntimeEnv<Env>(locals);
-
-    // Load only the requested page. Avoid full-table data_json reads on the public listing API.
     const paged = env
-      ? await getLightweightSkillsPage(env, page, limit)
+      ? await getLightweightMarketplaceSkillsPage(env, page, limit)
       : { skills: [], total: 0, page, pageSize: limit };
     const localizedSkills = paged.skills.map((skill) => ({
       ...skill,

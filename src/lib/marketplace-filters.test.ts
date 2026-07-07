@@ -16,11 +16,20 @@ const skill = (overrides: Partial<UnifiedSkill>): UnifiedSkill =>
     skillName: overrides.skillName || overrides.name || 'skill',
     owner: overrides.owner || 'owner',
     repo: overrides.repo || 'repo',
-    description: overrides.description || 'Useful agent skill',
+    description: overrides.description || 'Useful agent skill with installable instructions.',
     category: overrides.category || 'developer',
     topics: overrides.topics || [],
     stars: overrides.stars ?? 0,
     source: overrides.source || 'cache',
+    securityLevel: overrides.securityLevel || 'A',
+    sourceTrust: overrides.sourceTrust || 'T2',
+    isTrustedRankingEligible: overrides.isTrustedRankingEligible ?? true,
+    filePath: overrides.filePath || '.claude/skills/skill/SKILL.md',
+    skillMd: overrides.skillMd || {
+      name: 'skill',
+      description: 'Useful agent skill with installable instructions.',
+      bodyPreview: 'Reviewed public skill source.',
+    },
     updatedAt: overrides.updatedAt || '2026-07-01T00:00:00.000Z',
     ...overrides,
   }) as UnifiedSkill;
@@ -46,11 +55,29 @@ describe('marketplace filters', () => {
     expect(getSkillSourceKind(skill({ owner: 'community', repo: 'toolkit' }))).toBe('community');
   });
 
+  it('excludes explicit T3 and blocker-risk skills through the compatibility facade', () => {
+    const t3 = skill({ name: 't3', sourceTrust: 'T3' });
+    const blocker = skill({
+      name: 'blocker',
+      riskFlags: [{ code: 'credential_capture', severity: 'blocker', label: 'credential capture pattern' }],
+    });
+    const approved = skill({ name: 'approved' });
+
+    expect(getMarketplaceSkills([t3, blocker, approved]).map((item) => item.name)).toEqual(['approved']);
+  });
+
   it('sorts popular by rank score before stars', () => {
     const trusted = skill({ name: 'trusted', rankScore: 91, stars: 5 });
     const starred = skill({ name: 'starred', rankScore: 40, stars: 5000 });
 
     expect(sortSkillsPopular([starred, trusted]).map((item) => item.name)).toEqual(['trusted', 'starred']);
+  });
+
+  it('sorts popular after filtering quarantined high-rank inputs', () => {
+    const quarantined = skill({ name: 'quarantined', rankScore: 999, sourceTrust: 'T3' });
+    const approved = skill({ name: 'approved', rankScore: 50, stars: 1 });
+
+    expect(sortSkillsPopular([quarantined, approved]).map((item) => item.name)).toEqual(['approved']);
   });
 
   it('sorts popular by quality score when rank score ties', () => {
@@ -76,6 +103,13 @@ describe('marketplace filters', () => {
     const newer = skill({ name: 'newer', updatedAt: '2026-07-01T00:00:00.000Z' });
 
     expect(sortSkillsLatest([older, newer]).map((item) => item.name)).toEqual(['newer', 'older']);
+  });
+
+  it('sorts latest after filtering quarantined newer inputs', () => {
+    const quarantined = skill({ name: 'quarantined', updatedAt: '2026-07-02T00:00:00.000Z', securityLevel: 'D' });
+    const approved = skill({ name: 'approved', updatedAt: '2026-07-01T00:00:00.000Z' });
+
+    expect(sortSkillsLatest([quarantined, approved]).map((item) => item.name)).toEqual(['approved']);
   });
 
   it('sorts latest ties by popular order', () => {

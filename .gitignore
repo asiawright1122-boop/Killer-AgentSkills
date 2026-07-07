@@ -118,3 +118,6 @@ data/embeddings-cache.json
 
 # Codex task worktrees
 .worktrees/
+
+# Superpowers local execution ledgers/reports
+.superpowers/sdd/

@@ -6,6 +6,20 @@ vi.mock('../../../src/lib/public-skill-catalog', () => ({
   getLightweightSkillsCategorySummary: vi.fn(),
 }));
 
+type CategoriesResponseBody = {
+  total: number;
+  totalSkillCount: number;
+  categories: Array<{
+    name: string;
+    id: string;
+    label: string;
+    count: number;
+    href: string;
+    icon: string;
+    description: string;
+  }>;
+};
+
 describe('GET /api/categories', () => {
   let GET: typeof import('../../../src/pages/api/categories').GET;
   let getLightweightSkillsCategorySummary: typeof import('../../../src/lib/public-skill-catalog').getLightweightSkillsCategorySummary;
@@ -35,7 +49,7 @@ describe('GET /api/categories', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     expect(getLightweightSkillsCategorySummary).toHaveBeenCalledTimes(1);
-    const body = await response.json();
+    const body = (await response.json()) as CategoriesResponseBody;
     expect(body.total).toBe(2);
     expect(body.totalSkillCount).toBe(5);
     expect(body.categories).toEqual([
@@ -73,7 +87,7 @@ describe('GET /api/categories', () => {
 
     expect(response.status).toBe(200);
     expect(getLightweightSkillsCategorySummary).toHaveBeenCalledTimes(1);
-    const body = await response.json();
+    const body = (await response.json()) as CategoriesResponseBody;
     expect(body.categories).toEqual([
       expect.objectContaining({
         name: 'developer',
@@ -97,7 +111,7 @@ describe('GET /api/categories', () => {
     );
 
     expect(response.status).toBe(200);
-    const body = await response.json();
+    const body = (await response.json()) as CategoriesResponseBody;
     expect(body.categories).toEqual([expect.objectContaining({ name: 'developer', count: 1 })]);
     expect(body.total).toBe(1);
   });

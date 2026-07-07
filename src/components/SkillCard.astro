@@ -7,6 +7,7 @@ import { getCategoryDef, normalizeCategoryId } from '../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../lib/skill-locale-link';
 import { sanitizePublicSkillCopy } from '../lib/public-skill-copy';
+import { buildMarketplaceCardTrust } from '../lib/marketplace-policy';
 import type { RiskFlag, SecurityLevel, SourceTrustLevel } from '../lib/skill-trust';
 import CardOverlayLink from './CardOverlayLink.astro';
 
@@ -106,28 +107,10 @@ const noDescriptionLabel = resolveCopy('Common.noDescription', 'No description a
 const copyLabel = resolveCopy('Common.copy', 'COPY');
 const copiedLabel = resolveCopy('Common.copied', 'OK');
 const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
-const isZhLocale = locale.startsWith('zh');
-const securityLevel = skill.securityLevel || (isVerified ? 'S' : 'C');
-const rankScore = typeof skill.rankScore === 'number' ? Math.round(skill.rankScore) : undefined;
-const qualityScore = typeof skill.qualityScore === 'number' ? Math.round(skill.qualityScore) : undefined;
 const rawRankScore = typeof skill.rankScore === 'number' ? String(skill.rankScore) : '0';
 const rawQualityScore = typeof skill.qualityScore === 'number' ? String(skill.qualityScore) : '0';
-const sourceKind = skill.sourceKind || (isVerified ? 'official' : 'community');
-const sourceKindLabel =
-  sourceKind === 'official' ? (isZhLocale ? '官方' : 'Official') : isZhLocale ? '社区' : 'Community';
-const reviewedLabel = isZhLocale ? '已审查' : 'Reviewed';
-const riskLabels = new Map([
-  ['requires_token', isZhLocale ? 'Token' : 'Token'],
-  ['file_write', isZhLocale ? '写文件' : 'File write'],
-  ['external_network', isZhLocale ? '联网' : 'Network'],
-]);
-const riskEvidence = (skill.riskFlags || [])
-  .map((flag) => riskLabels.get(flag.code))
-  .filter((label, index, labels): label is string => Boolean(label) && labels.indexOf(label) === index)
-  .slice(0, 3);
-const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank score ${rankScore}` : '']
-  .filter(Boolean)
-  .join(' · ');
+const cardTrust = buildMarketplaceCardTrust(skill as any, { locale });
+const cardEvidenceTitle = cardTrust.title;
 ---
 
 <article
@@ -176,12 +159,16 @@ const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank 
   </div>
 
   <div class="relative z-0 mb-4 flex flex-wrap gap-1.5 text-[10px] font-mono font-black" title={cardEvidenceTitle}>
-    <span class="market-chip px-2 py-1 text-[10px]">{sourceKindLabel}</span>
-    {securityLevel !== 'D' && <span class="market-chip px-2 py-1 text-[10px]">{reviewedLabel}</span>}
     {
-      riskEvidence.map((label) => (
-        <span class="market-chip px-2 py-1 text-[10px] border-[var(--border)] bg-transparent text-[var(--muted-foreground)]">
-          {label}
+      cardTrust.badges.map((badge) => (
+        <span
+          class:list={[
+            'market-chip px-2 py-1 text-[10px]',
+            badge.tone === 'warning' && 'border-[var(--border)] bg-transparent text-[var(--muted-foreground)]',
+            badge.tone === 'positive' && 'border-[var(--primary)]',
+          ]}
+        >
+          {badge.label}
         </span>
       ))
     }

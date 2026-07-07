@@ -1634,6 +1634,17 @@ describe('public links and navigation copy', () => {
     expect(new Set(solutionLocs).size).toBe(solutionLocs.length);
   });
 
+  it('keeps skills sitemap locs on body-indexable canonical locales', async () => {
+    const { GET } = await import('../../src/pages/sitemap-skills.xml');
+    const response = await GET({} as Parameters<typeof GET>[0]);
+    const xml = await response.text();
+    const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+    const maaEndPath = '/skills/MaaEnd/MaaEnd/maaend-issue-log-analysis';
+
+    expect(locs).toContain(`https://killer-skills.com/zh${maaEndPath}`);
+    expect(locs).not.toContain(`https://killer-skills.com/en${maaEndPath}`);
+  });
+
   it('keeps search-driven skill navigation wired to canonical skill href builders', () => {
     const commandBarSource = readPageSource('../components/CommandBar.tsx');
     const commandPaletteSource = readPageSource('../islands/CommandPalette.tsx');

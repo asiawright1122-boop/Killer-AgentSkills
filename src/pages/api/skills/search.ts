@@ -26,12 +26,18 @@ const skillsSearchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 3
 
 const MARKETPLACE_ADMISSION_SQL = `
   (s.security_level IS NULL OR s.security_level != 'D')
+  AND COALESCE(s.source_trust, json_extract(s.data_json, '$.sourceTrust'), '') IN ('T1', 'T2')
   AND (
     json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
     OR (
       json_extract(s.data_json, '$.isTrustedRankingEligible') != 0
       AND LOWER(CAST(json_extract(s.data_json, '$.isTrustedRankingEligible') AS TEXT)) != 'false'
     )
+  )
+  AND NOT EXISTS (
+    SELECT 1
+    FROM json_each(COALESCE(json_extract(s.data_json, '$.riskFlags'), '[]')) AS risk
+    WHERE LOWER(COALESCE(json_extract(risk.value, '$.severity'), '')) = 'blocker'
   )
 `;
 
@@ -120,11 +126,11 @@ export const GET: APIRoute = async ({ request, locals }) => {
             .first(),
           env.DB.prepare(dataQuery)
             .bind(...params, limit, (page - 1) * limit)
-            .all(),
+            .all<Record<string, unknown>>(),
         ]);
 
         if (countResult && dataResult.success) {
-          const parsedSkills = dataResult.results
+          const parsedSkills = (dataResult.results as unknown as Record<string, unknown>[])
             .map((row: Record<string, unknown>) => JSON.parse(row.data_json as string) as UnifiedSkill)
             .filter((skill: UnifiedSkill) => isPublicSkill(skill));
 

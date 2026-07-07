@@ -30,6 +30,7 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     rankScore: 80,
     qualityScore: 70,
     securityLevel: 'A',
+    sourceTrust: 'T2',
     isTrustedRankingEligible: true,
     source: 'verified' as const,
     updatedAt: '2024-01-01T00:00:00Z',
@@ -52,9 +53,14 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     rankScore: 70,
     qualityScore: 65,
     securityLevel: 'A',
+    sourceTrust: 'T2',
     isTrustedRankingEligible: true,
     source: 'featured' as const,
     updatedAt: '2024-01-01T00:00:00Z',
+    filePath: '.claude/skills/skill-two/SKILL.md',
+    skillMd: {
+      bodyPreview: 'A second test skill with public preview text.',
+    },
   },
   {
     id: '3',
@@ -69,9 +75,14 @@ const MOCK_SKILLS: UnifiedSkill[] = [
     rankScore: 60,
     qualityScore: 55,
     securityLevel: 'A',
+    sourceTrust: 'T2',
     isTrustedRankingEligible: true,
     source: 'cache' as const,
     updatedAt: '2024-01-01T00:00:00Z',
+    filePath: '.claude/skills/skill-three/SKILL.md',
+    skillMd: {
+      bodyPreview: 'Third skill public preview text.',
+    },
   },
 ];
 
@@ -285,6 +296,26 @@ describe('GET /api/skills/search', () => {
         stars: 998,
         isTrustedRankingEligible: 'false' as never,
       },
+      {
+        ...MOCK_SKILLS[0],
+        id: 'blocked-source-trust',
+        name: 'Blocked Source Trust',
+        repo: 'blocked-source-trust',
+        rankScore: 97,
+        qualityScore: 97,
+        stars: 997,
+        sourceTrust: 'T3',
+      },
+      {
+        ...MOCK_SKILLS[1],
+        id: 'blocked-risk',
+        name: 'Blocked Risk',
+        repo: 'blocked-risk',
+        rankScore: 96,
+        qualityScore: 96,
+        stars: 996,
+        riskFlags: [{ code: 'external_network', label: 'External network', severity: 'blocker' }],
+      },
     ]);
 
     const res = await GET(
@@ -304,9 +335,11 @@ describe('GET /api/skills/search', () => {
     ]);
     expect(body.skills.find((skill: UnifiedSkill) => skill.securityLevel === 'D')).toBeUndefined();
     expect(body.skills.find((skill: UnifiedSkill) => skill.name === 'Blocked Trust')).toBeUndefined();
+    expect(body.skills.find((skill: UnifiedSkill) => skill.name === 'Blocked Source Trust')).toBeUndefined();
+    expect(body.skills.find((skill: UnifiedSkill) => skill.name === 'Blocked Risk')).toBeUndefined();
   });
 
-  it('D1 path: excludes D and trusted-ranking-ineligible rows from response and total', async () => {
+  it('D1 path: excludes D, T3, blocker-risk, and trusted-ranking-ineligible rows from response and total', async () => {
     const d1Results = [
       {
         data_json: JSON.stringify({
@@ -337,8 +370,26 @@ describe('GET /api/skills/search', () => {
           isTrustedRankingEligible: 'false',
         }),
       },
+      {
+        data_json: JSON.stringify({
+          ...MOCK_SKILLS[0],
+          id: 'blocked-source-trust',
+          name: 'Blocked Source Trust',
+          repo: 'blocked-source-trust',
+          sourceTrust: 'T3',
+        }),
+      },
+      {
+        data_json: JSON.stringify({
+          ...MOCK_SKILLS[1],
+          id: 'blocked-risk',
+          name: 'Blocked Risk',
+          repo: 'blocked-risk',
+          riskFlags: [{ code: 'external_network', label: 'External network', severity: 'blocker' }],
+        }),
+      },
     ];
-    const mockDB = createMockD1(d1Results, 3);
+    const mockDB = createMockD1(d1Results, 5);
 
     const res = await GET(
       buildContext(
@@ -397,8 +448,14 @@ describe('GET /api/skills/search', () => {
       category: 'productivity',
       topics: ['test'],
       stars: 100 - i,
+      rankScore: 100 - i,
+      qualityScore: 80 - i,
+      securityLevel: 'A',
+      sourceTrust: 'T2',
+      isTrustedRankingEligible: true,
       source: 'cache' as const,
       updatedAt: '2024-01-01T00:00:00Z',
+      filePath: `.claude/skills/skill-${i + 1}/SKILL.md`,
     }));
 
     mockGetLightweightSkills.mockResolvedValueOnce(paginationSkills);
