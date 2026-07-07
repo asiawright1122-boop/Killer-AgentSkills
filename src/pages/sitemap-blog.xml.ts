@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
@@ -35,7 +36,7 @@ function formatDate(date: Date | string): string {
 }
 
 export const GET: APIRoute = async () => {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => !data.draft);
   const sitemapBlocklistData = await loadJsonDataAtBuildTime('data/seo-sitemap-blocklist.json');
   const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const urls: string[] = [];
@@ -92,9 +93,12 @@ ${buildHreflangLinks(slug, availableLocales)}
 
     for (const locale of SUPPORTED_LOCALES) {
       // Pre-validate: Category must have at least one post in this locale, or fall back to English if it has posts there
-      const hasLocalPost = allPosts.some((post) => post.data.category === cat && post.data.lang === locale);
+      const hasLocalPost = allPosts.some(
+        (post: CollectionEntry<'blog'>) => post.data.category === cat && post.data.lang === locale,
+      );
       const hasEnglishFallback =
-        locale !== 'en' && allPosts.some((post) => post.data.category === cat && post.data.lang === 'en');
+        locale !== 'en' &&
+        allPosts.some((post: CollectionEntry<'blog'>) => post.data.category === cat && post.data.lang === 'en');
 
       if (!hasLocalPost && !hasEnglishFallback) {
         continue;
