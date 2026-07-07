@@ -16,7 +16,14 @@ const skill = (overrides: Partial<UnifiedSkill>): UnifiedSkill =>
     source: overrides.source || 'cache',
     updatedAt: overrides.updatedAt || '2026-07-01T00:00:00.000Z',
     securityLevel: overrides.securityLevel || 'A',
+    sourceTrust: overrides.sourceTrust || 'T2',
     isTrustedRankingEligible: overrides.isTrustedRankingEligible ?? true,
+    filePath: overrides.filePath || '.claude/skills/test/SKILL.md',
+    skillMd: overrides.skillMd || {
+      name: overrides.name || 'skill',
+      description: 'Reviewed occupation test skill.',
+      bodyPreview: 'Reviewed occupation test skill source.',
+    },
     ...overrides,
   }) as UnifiedSkill;
 

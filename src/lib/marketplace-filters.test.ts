@@ -16,11 +16,20 @@ const skill = (overrides: Partial<UnifiedSkill>): UnifiedSkill =>
     skillName: overrides.skillName || overrides.name || 'skill',
     owner: overrides.owner || 'owner',
     repo: overrides.repo || 'repo',
-    description: overrides.description || 'Useful agent skill',
+    description: overrides.description || 'Useful agent skill with installable instructions.',
     category: overrides.category || 'developer',
     topics: overrides.topics || [],
     stars: overrides.stars ?? 0,
     source: overrides.source || 'cache',
+    securityLevel: overrides.securityLevel || 'A',
+    sourceTrust: overrides.sourceTrust || 'T2',
+    isTrustedRankingEligible: overrides.isTrustedRankingEligible ?? true,
+    filePath: overrides.filePath || '.claude/skills/skill/SKILL.md',
+    skillMd: overrides.skillMd || {
+      name: 'skill',
+      description: 'Useful agent skill with installable instructions.',
+      bodyPreview: 'Reviewed public skill source.',
+    },
     updatedAt: overrides.updatedAt || '2026-07-01T00:00:00.000Z',
     ...overrides,
   }) as UnifiedSkill;
@@ -44,6 +53,17 @@ describe('marketplace filters', () => {
   it('treats verified official repos as source kind official', () => {
     expect(getSkillSourceKind(skill({ owner: 'anthropics', repo: 'skills' }))).toBe('official');
     expect(getSkillSourceKind(skill({ owner: 'community', repo: 'toolkit' }))).toBe('community');
+  });
+
+  it('excludes explicit T3 and blocker-risk skills through the compatibility facade', () => {
+    const t3 = skill({ name: 't3', sourceTrust: 'T3' });
+    const blocker = skill({
+      name: 'blocker',
+      riskFlags: [{ code: 'credential_capture', severity: 'blocker', label: 'credential capture pattern' }],
+    });
+    const approved = skill({ name: 'approved' });
+
+    expect(getMarketplaceSkills([t3, blocker, approved]).map((item) => item.name)).toEqual(['approved']);
   });
 
   it('sorts popular by rank score before stars', () => {
