@@ -257,6 +257,22 @@ describe('marketplace public signals', () => {
     expect(cardTrust.title).toContain('reviewed');
   });
 
+  it('builds zh card badges without exposing scoring internals', () => {
+    const cardTrust = buildMarketplaceCardTrust(
+      baseSkill({
+        sourceKind: 'official',
+        sourceTrust: 'T1',
+        riskFlags: [{ code: 'file_write', severity: 'info', label: 'local file write' }],
+      }),
+      { locale: 'zh', now: new Date('2026-07-07T00:00:00.000Z') },
+    );
+
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('官方');
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('已审查');
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('写文件');
+    expect(cardTrust.title).not.toContain('rankScore');
+  });
+
   it('builds localized detail trust rows and why-listed copy', () => {
     const detailTrust = buildMarketplaceDetailTrust(baseSkill({ sourceTrust: 'T1' }), {
       locale: 'zh',
