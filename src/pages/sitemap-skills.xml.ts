@@ -20,6 +20,7 @@ type SkillLocaleGovernanceEntry = {
   routePath?: string;
   eligibleLocales?: string[];
   bodyEligibleLocales?: string[];
+  publishedLocales?: string[];
   canonicalLocale?: string;
 };
 
@@ -155,12 +156,12 @@ export const GET: APIRoute = async () => {
     if (!indexability || indexability.isIndexable !== true) continue;
 
     const governance = skillLocaleGovernanceMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`);
-    const bodyEligibleLocales = Array.isArray(governance?.bodyEligibleLocales)
-      ? (governance.bodyEligibleLocales || []).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
+    const publishedLocales = Array.isArray(governance?.publishedLocales)
+      ? (governance.publishedLocales || []).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
       : [];
     const eligibleLocales =
-      bodyEligibleLocales.length > 0
-        ? bodyEligibleLocales
+      publishedLocales.length > 0
+        ? publishedLocales
         : (governance?.eligibleLocales || []).filter((locale) => SUPPORTED_LOCALES.includes(locale as any));
     if (governance && eligibleLocales.length === 0) continue;
 

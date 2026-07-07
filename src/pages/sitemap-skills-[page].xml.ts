@@ -122,8 +122,8 @@ export const GET: APIRoute = async ({ params, locals }) => {
     if (!indexability || indexability.isIndexable !== true) continue;
 
     const governance = skillLocaleGovernanceMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`);
-    const eligibleLocales: string[] = (governance as any)?.eligibleLocales
-      ? ((governance as any).eligibleLocales as string[]).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
+    const eligibleLocales: string[] = (governance as any)?.publishedLocales
+      ? ((governance as any).publishedLocales as string[]).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
       : [];
     if (governance && eligibleLocales.length === 0) continue;
 

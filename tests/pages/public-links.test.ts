@@ -1634,15 +1634,20 @@ describe('public links and navigation copy', () => {
     expect(new Set(solutionLocs).size).toBe(solutionLocs.length);
   });
 
-  it('keeps skills sitemap locs on body-indexable canonical locales', async () => {
+  it('keeps skills sitemap locs on published canonical locales', async () => {
     const { GET } = await import('../../src/pages/sitemap-skills.xml');
     const response = await GET({} as Parameters<typeof GET>[0]);
     const xml = await response.text();
     const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
-    const maaEndPath = '/skills/MaaEnd/MaaEnd/maaend-issue-log-analysis';
+    const canonicalEnglishPaths = [
+      '/skills/MaaEnd/MaaEnd/maaend-issue-log-analysis',
+      '/skills/wnzzer/rank-analysis/shipping-changes',
+    ];
 
-    expect(locs).toContain(`https://killer-skills.com/zh${maaEndPath}`);
-    expect(locs).not.toContain(`https://killer-skills.com/en${maaEndPath}`);
+    for (const path of canonicalEnglishPaths) {
+      expect(locs).toContain(`https://killer-skills.com/en${path}`);
+      expect(locs).not.toContain(`https://killer-skills.com/zh${path}`);
+    }
   });
 
   it('keeps search-driven skill navigation wired to canonical skill href builders', () => {
