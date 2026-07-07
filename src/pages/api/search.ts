@@ -8,6 +8,7 @@ import {
 } from '../../lib/rate-limit';
 import type { Env } from '../../lib/kv';
 import { getMarketplaceSkills } from '../../lib/marketplace-filters';
+import { isMarketplaceMetadataAdmitted } from '../../lib/marketplace-policy';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/public-skill-catalog';
@@ -22,12 +23,18 @@ const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
 const MARKETPLACE_ADMISSION_SQL = `
   (s.security_level IS NULL OR s.security_level != 'D')
+  AND COALESCE(s.source_trust, json_extract(s.data_json, '$.sourceTrust'), '') IN ('T1', 'T2')
   AND (
     json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
     OR (
       json_extract(s.data_json, '$.isTrustedRankingEligible') != 0
       AND LOWER(CAST(json_extract(s.data_json, '$.isTrustedRankingEligible') AS TEXT)) != 'false'
     )
+  )
+  AND NOT EXISTS (
+    SELECT 1
+    FROM json_each(COALESCE(json_extract(s.data_json, '$.riskFlags'), '[]')) AS risk
+    WHERE json_extract(risk.value, '$.severity') = 'blocker'
   )
 `;
 
@@ -61,36 +68,6 @@ function trustBoostFrom(data: { rankScore?: unknown; sourceTrust?: unknown; secu
     data.securityLevel === 'S+' ? 0.0025 : data.securityLevel === 'S' ? 0.002 : data.securityLevel === 'A' ? 0.001 : 0;
 
   return rankScore * 0.004 + sourceBoost + securityBoost;
-}
-
-function isFalseLike(value: unknown): boolean {
-  return value === false || value === 0 || value === '0' || value === 'false';
-}
-
-function hasExplicitAdmissionMetadata(data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown }): boolean {
-  return (
-    Object.prototype.hasOwnProperty.call(data, 'securityLevel') &&
-    data.securityLevel !== null &&
-    data.securityLevel !== undefined &&
-    Object.prototype.hasOwnProperty.call(data, 'isTrustedRankingEligible') &&
-    data.isTrustedRankingEligible !== null &&
-    data.isTrustedRankingEligible !== undefined
-  );
-}
-
-function isMarketplaceMetadataAdmitted(
-  data: { securityLevel?: unknown; isTrustedRankingEligible?: unknown },
-  options: { requireExplicitAdmission?: boolean } = {},
-): boolean {
-  if (options.requireExplicitAdmission && !hasExplicitAdmissionMetadata(data)) return false;
-  if (String(data.securityLevel || '').toUpperCase() === 'D') return false;
-  if (
-    isFalseLike(data.isTrustedRankingEligible) ||
-    (typeof data.isTrustedRankingEligible === 'string' && isFalseLike(data.isTrustedRankingEligible.toLowerCase()))
-  ) {
-    return false;
-  }
-  return true;
 }
 
 function sanitizeSearchResult<T extends Record<string, unknown>>(result: T): T {
