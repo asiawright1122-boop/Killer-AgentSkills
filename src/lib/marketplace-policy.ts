@@ -215,12 +215,21 @@ function installPathForSkill(skill: UnifiedSkill, routePath?: string): string {
 }
 
 function hasInstallPath(skill: UnifiedSkill): boolean {
-  const owner = (skill.owner || '').trim();
-  const repo = (skill.repo || '').trim();
-  const filePath = (skill.filePath || '').trim();
-  const id = (skill.id || '').trim();
+  return installPathForSkill(skill) !== '';
+}
 
-  return Boolean(owner && filePath && (repo || id.includes('/')));
+function lastReviewedValue(skill: UnifiedSkill, locale: string): string {
+  const lastAuditedAt = (skill.lastAuditedAt || '').trim();
+  if (lastAuditedAt) {
+    return lastAuditedAt;
+  }
+
+  const updatedAt = (skill.updatedAt || '').trim();
+  if (updatedAt) {
+    return updatedAt;
+  }
+
+  return isZhLocale(locale) ? '未知' : 'Unknown';
 }
 
 function buildMarketplaceBadges(skill: UnifiedSkill, locale: string, now: Date, admitted: boolean): MarketplaceBadge[] {
@@ -358,7 +367,7 @@ export function buildMarketplaceDetailTrust(
     { label: isZhLocale(locale) ? '风险信号' : 'Risk flags', value: localizedRiskSummary(skill.riskFlags, locale) },
     {
       label: isZhLocale(locale) ? '最后审查' : 'Last audited',
-      value: skill.lastAuditedAt || now.toISOString(),
+      value: lastReviewedValue(skill, locale),
     },
   ];
 
@@ -380,8 +389,7 @@ export function isMarketplaceMetadataAdmitted(
   options?: { requireExplicitAdmission?: boolean },
 ): boolean {
   if (options?.requireExplicitAdmission) {
-    const hasRequiredFields =
-      'securityLevel' in data && 'sourceTrust' in data && 'isTrustedRankingEligible' in data && 'riskFlags' in data;
+    const hasRequiredFields = 'securityLevel' in data && 'sourceTrust' in data && 'isTrustedRankingEligible' in data;
     if (!hasRequiredFields) return false;
   }
 

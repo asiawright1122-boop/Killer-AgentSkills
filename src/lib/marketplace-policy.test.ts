@@ -118,13 +118,38 @@ describe('marketplace policy admission', () => {
       baseSkill({
         owner: '',
         repo: '',
-        id: 'standalone-skill',
+        id: '',
         filePath: '',
       }),
     );
 
     expect(admission.admitted).toBe(false);
     expect(admission.reasons).toContain('missing_install_path');
+  });
+
+  it('admits skills with complete owner and repo even without file path', () => {
+    const admission = getMarketplaceAdmission(
+      baseSkill({
+        owner: 'owner',
+        repo: 'repo',
+        filePath: '',
+      }),
+    );
+
+    expect(admission).toEqual({ admitted: true, reasons: [] });
+  });
+
+  it('admits skills with file path only', () => {
+    const admission = getMarketplaceAdmission(
+      baseSkill({
+        owner: '',
+        repo: '',
+        id: '',
+        filePath: '.claude/skills/file-only/SKILL.md',
+      }),
+    );
+
+    expect(admission).toEqual({ admitted: true, reasons: [] });
   });
 
   it('keeps official status as source kind but still applies admission', () => {
@@ -241,6 +266,36 @@ describe('marketplace public signals', () => {
     expect(detailTrust.quarantineReasons).toEqual([]);
   });
 
+  it('shows unknown last reviewed when no audit or source update date exists', () => {
+    const detailTrust = buildMarketplaceDetailTrust(
+      baseSkill({
+        updatedAt: '',
+        lastAuditedAt: undefined,
+      }),
+      {
+        locale: 'en',
+        now: new Date('2026-07-07T00:00:00.000Z'),
+      },
+    );
+
+    expect(detailTrust.rows.find((row) => row.label === 'Last audited')?.value).toBe('Unknown');
+  });
+
+  it('prefers source updated date when audit date is missing', () => {
+    const detailTrust = buildMarketplaceDetailTrust(
+      baseSkill({
+        updatedAt: '2026-06-15T12:00:00.000Z',
+        lastAuditedAt: undefined,
+      }),
+      {
+        locale: 'en',
+        now: new Date('2026-07-07T00:00:00.000Z'),
+      },
+    );
+
+    expect(detailTrust.rows.find((row) => row.label === 'Last audited')?.value).toBe('2026-06-15T12:00:00.000Z');
+  });
+
   it('uses quarantined detail trust copy for non-admitted skills', () => {
     const detailTrust = buildMarketplaceDetailTrust(baseSkill({ sourceTrust: undefined }), {
       locale: 'en',
@@ -281,6 +336,15 @@ describe('marketplace metadata admission', () => {
     expect(
       isMarketplaceMetadataAdmitted(
         { securityLevel: 'A', sourceTrust: 'T2', isTrustedRankingEligible: true, riskFlags: [] },
+        { requireExplicitAdmission: true },
+      ),
+    ).toBe(true);
+  });
+
+  it('accepts explicit admission metadata without risk flags when none are present', () => {
+    expect(
+      isMarketplaceMetadataAdmitted(
+        { securityLevel: 'A', sourceTrust: 'T2', isTrustedRankingEligible: true },
         { requireExplicitAdmission: true },
       ),
     ).toBe(true);

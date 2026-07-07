@@ -108,3 +108,35 @@ Self-review notes:
 - Kept the fix local to path normalization helpers and detail trust output without widening the marketplace admission behavior.
 - Added a regression that exercises the exact fully missing path detail case so the `missing_install_path` reason stays intact while display fields remain empty.
 - Confirmed the allowed write scope was respected.
+
+---
+
+Fix round: final Task 1 review findings (evidence gates)
+
+What I fixed:
+- Aligned marketplace admission with `installPathForSkill()` fallback semantics so a skill is admitted when it has any non-empty install path evidence: complete `owner/repo`, non-empty `filePath`, or non-empty `id`.
+- Stopped `buildMarketplaceDetailTrust()` from fabricating the last-reviewed value from `now`; it now uses `lastAuditedAt`, then `updatedAt`, then `Unknown`/`未知`.
+- Relaxed `isMarketplaceMetadataAdmitted(..., { requireExplicitAdmission: true })` so explicit admission metadata requires `securityLevel`, `sourceTrust`, and `isTrustedRankingEligible`, while still rejecting blocker `riskFlags` when they are present.
+
+Red/green evidence:
+1. Red
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `5 failed | 19 passed (24)`
+   - Failing cases:
+     - repo-only complete `owner/repo` without `filePath` was still quarantined
+     - file-path-only skill was still quarantined
+     - detail trust used `now` instead of real audit/source dates
+     - explicit admission metadata without `riskFlags` was rejected
+2. Green
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `24 passed (24)`
+
+Files changed:
+- `src/lib/marketplace-policy.ts`
+- `src/lib/marketplace-policy.test.ts`
+- `.superpowers/sdd/task-1-report.md`
+
+Self-review notes:
+- Kept the install-path rule on the shared helper so admission and detail display cannot drift again.
+- Added direct regressions for repo-only, file-path-only, and fully missing install metadata, plus unknown and fallback last-reviewed values.
+- Scoped the work to the allowed files only.
