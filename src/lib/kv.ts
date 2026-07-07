@@ -118,6 +118,10 @@ const _skillsListingTopCache = new Map<string, TimedCacheEntry<SkillListingItem[
 const _skillsListingByRefsCache = new Map<string, TimedCacheEntry<SkillListingItem[]>>();
 
 const SITEMAP_SKILLS_CACHE_TTL_MS = 5 * 60 * 1000;
+
+function getD1Rows<T extends D1Row>(result: { results: T[] }): T[] {
+  return result.results;
+}
 const SKILLS_TOTAL_COUNT_CACHE_TTL_MS = 60 * 1000;
 const SKILLS_LISTING_PAGE_CACHE_TTL_MS = 30 * 1000;
 const SKILLS_LISTING_TOP_CACHE_TTL_MS = 30 * 1000;
@@ -376,9 +380,9 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
     try {
       const result = await env.DB.prepare(
         `SELECT data_json FROM skills ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC`,
-      ).all();
+      ).all<D1Row>();
       if (result.success && result.results) {
-        return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
+        return getD1Rows(result).map((row: D1Row) => JSON.parse(row.data_json as string));
       }
     } catch (e) {
       console.warn('[D1] Query failed, falling back to KV:', e);
@@ -452,10 +456,10 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
             FROM skills 
             ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
         `,
-    ).all();
+    ).all<D1Row>();
 
     if (result.success && result.results) {
-      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      const rows = getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
       return rows.length > 0 ? rows : getLocalListingFallbackSorted();
     }
     return getLocalListingFallbackSorted();
@@ -556,9 +560,9 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
         `,
     )
       .bind(safePageSize, offset)
-      .all();
+      .all<D1Row>();
 
-    const items = result.success && result.results ? result.results.map((row: D1Row) => mapD1ListingRow(row)) : [];
+    const items = result.success && result.results ? getD1Rows(result).map((row: D1Row) => mapD1ListingRow(row)) : [];
     if (items.length === 0 && safePage === 1) {
       const normalized = await getLocalListingFallbackSorted();
       const fallbackResult: SkillsListingPageResult = {
@@ -644,14 +648,14 @@ export async function getSkillsListingTop(env: Env, limit: number): Promise<Skil
         `,
     )
       .bind(safeLimit)
-      .all();
+      .all<D1Row>();
 
     if (!result.success || !result.results) {
       const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
       setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
       return cloneListingItems(fallbackTop);
     }
-    const rows = result.results.map((row: D1Row) => mapD1ListingRow(row));
+    const rows = getD1Rows(result).map((row: D1Row) => mapD1ListingRow(row));
     if (rows.length === 0) {
       const fallbackTop = await getLocalListingFallbackSorted(safeLimit);
       setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
@@ -692,13 +696,13 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
           FROM skills
           GROUP BY TRIM(LOWER(COALESCE(category, '')))
         `,
-      ).all(),
+      ).all<D1Row>(),
     ]);
 
     const total = Number((totalResult as D1Row | null)?.total ?? 0);
     const categories =
       groupedResult.success && groupedResult.results
-        ? groupedResult.results
+        ? getD1Rows(groupedResult)
             .map((row: D1Row) => ({
               category: String(row.category || '')
                 .trim()
@@ -808,11 +812,11 @@ export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Pro
         `,
       )
         .bind(...binds)
-        .all();
+        .all<D1Row>();
 
       if (!result.success || !result.results) continue;
 
-      for (const row of result.results as D1Row[]) {
+      for (const row of getD1Rows(result)) {
         const mapped = mapD1ListingRow(row);
         if (mapped.id) {
           deduped.set(mapped.id, mapped);
@@ -882,10 +886,10 @@ export async function getRelatedSkillsFast(
         `,
     )
       .bind(category || '', currentId, limit)
-      .all();
+      .all<D1Row>();
 
     if (result.success && result.results) {
-      const rows = result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
+      const rows = getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
       return rows.length > 0 ? rows : getRelatedFallback();
     }
     return getRelatedFallback();

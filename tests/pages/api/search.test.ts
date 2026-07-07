@@ -54,6 +54,7 @@ describe('GET /api/search', () => {
         topics: ['art'],
         stars: 42,
         source: 'cache',
+        sourceTrust: 'T1',
         updatedAt: '2026-04-19T00:00:00.000Z',
       },
     ];
@@ -94,6 +95,7 @@ describe('GET /api/search', () => {
       rankScore: 80,
       qualityScore: 70,
       securityLevel: 'A',
+      sourceTrust: 'T1',
       isTrustedRankingEligible: true,
       source: 'cache',
       updatedAt: '2026-04-19T00:00:00.000Z',
@@ -135,6 +137,9 @@ describe('GET /api/search', () => {
         stars: 10,
         category: 'Private analysis:\ninternal category\n\ndocumentation',
         source: 'cache',
+        sourceTrust: 'T1',
+        securityLevel: 'A',
+        isTrustedRankingEligible: true,
       },
     ]);
 
@@ -172,6 +177,7 @@ describe('GET /api/search', () => {
         rankScore: 60,
         qualityScore: 50,
         securityLevel: 'A',
+        sourceTrust: 'T1',
         isTrustedRankingEligible: true,
       },
       {
@@ -185,6 +191,7 @@ describe('GET /api/search', () => {
         rankScore: 99,
         qualityScore: 99,
         securityLevel: 'A',
+        sourceTrust: 'T1',
         isTrustedRankingEligible: 'false',
       },
     ]);
@@ -211,7 +218,13 @@ describe('GET /api/search', () => {
           matches: [
             {
               id: 'blocked-security',
-              metadata: { owner: 'blocked', repo: 'security', name: 'Blocked Security', securityLevel: 'D' },
+              metadata: {
+                owner: 'blocked',
+                repo: 'security',
+                name: 'Blocked Security',
+                securityLevel: 'D',
+                sourceTrust: 'T1',
+              },
             },
             {
               id: 'blocked-eligibility',
@@ -220,6 +233,7 @@ describe('GET /api/search', () => {
                 repo: 'eligibility',
                 name: 'Blocked Eligibility',
                 securityLevel: 'A',
+                sourceTrust: 'T1',
                 isTrustedRankingEligible: '0',
               },
             },
@@ -240,6 +254,7 @@ describe('GET /api/search', () => {
                 repo: 'skill',
                 name: 'Allowed Skill',
                 securityLevel: 'A',
+                sourceTrust: 'T1',
                 isTrustedRankingEligible: true,
                 stars: 12,
                 rankScore: 77,
@@ -271,7 +286,7 @@ describe('GET /api/search', () => {
     );
 
     const res = await GET(createAPIContext({ url: 'http://localhost/api/search?q=art', env: createMockEnv() }));
-    const body = await res.json();
+    const body = (await res.json()) as { error: string };
 
     expect(res.status).toBe(500);
     expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');

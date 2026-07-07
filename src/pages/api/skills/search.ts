@@ -120,11 +120,11 @@ export const GET: APIRoute = async ({ request, locals }) => {
             .first(),
           env.DB.prepare(dataQuery)
             .bind(...params, limit, (page - 1) * limit)
-            .all(),
+            .all<Record<string, unknown>>(),
         ]);
 
         if (countResult && dataResult.success) {
-          const parsedSkills = dataResult.results
+          const parsedSkills = (dataResult.results as unknown as Record<string, unknown>[])
             .map((row: Record<string, unknown>) => JSON.parse(row.data_json as string) as UnifiedSkill)
             .filter((skill: UnifiedSkill) => isPublicSkill(skill));
 

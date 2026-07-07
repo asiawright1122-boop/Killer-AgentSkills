@@ -6,6 +6,25 @@ vi.mock('../../../src/lib/public-skill-catalog', () => ({
   getLightweightSkillsCategorySummary: vi.fn(),
 }));
 
+type MarketplaceOverviewResponseBody = {
+  success: boolean;
+  overview: {
+    locale: string;
+    totalSkillCount: number;
+    categories: Array<{
+      id: string;
+      label: string;
+      count: number;
+      href: string;
+      icon: string;
+      seoDescription: string;
+    }>;
+    featuredRoutes: Array<{ href: string }>;
+    featuredCollections: unknown[];
+    solutionEntries: unknown[];
+  };
+};
+
 describe('GET /api/marketplace/overview', () => {
   let GET: typeof import('../../../src/pages/api/marketplace/overview').GET;
   let getLightweightSkillsCategorySummary: typeof import('../../../src/lib/public-skill-catalog').getLightweightSkillsCategorySummary;
@@ -34,7 +53,7 @@ describe('GET /api/marketplace/overview', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
-    const body = await response.json();
+    const body = (await response.json()) as MarketplaceOverviewResponseBody;
     expect(body.success).toBe(true);
     expect(body.overview.locale).toBe('zh');
     expect(body.overview.totalSkillCount).toBe(9);
