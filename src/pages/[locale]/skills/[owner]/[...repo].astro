@@ -37,7 +37,8 @@ import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexabi
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
 import { isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
 import { getSitemapBlocklist } from '../../../../lib/sitemap-blocklist-runtime';
-import { buildDetailRiskChips, getDetailSourceKind, pickDetailTaskChips } from '../../../../lib/skill-detail-view';
+import { getDetailSourceKind, pickDetailTaskChips } from '../../../../lib/skill-detail-view';
+import { buildMarketplaceDetailTrust, getPublicMarketplaceSkills } from '../../../../lib/marketplace-policy';
 import {
   sanitizePublicSkillCopy,
   sanitizePublicSkillCopyList,
@@ -50,7 +51,6 @@ import SkillActionsNative from '../../../../components/SkillActionsNative.astro'
 import SkillReadmeNative from '../../../../components/SkillReadmeNative.astro';
 import SkillFileManagerNative from '../../../../components/SkillFileManagerNative.astro';
 import SkillCard from '../../../../components/SkillCard.astro';
-import type { RiskFlag, RiskFlagCode, SecurityLevel, SourceTrustLevel } from '../../../../lib/skill-trust';
 import '../../../../styles/prism-tokens.css';
 import { Star, GitFork, Calendar, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
@@ -949,42 +949,6 @@ const speakableSelectors = renderRepoDirectory
 // Format stars
 const starsDisplay =
   (skill.stars || 0) > 1000 ? ((skill.stars || 0) / 1000).toFixed(1) + 'k' : String(skill.stars || 0);
-const skillSecurityLevel = (skill.securityLevel || (isVerified ? 'S' : 'C')) as SecurityLevel;
-const skillSourceTrust = (skill.sourceTrust || (isVerified ? 'T1' : 'T3')) as SourceTrustLevel;
-const skillRankScore = Math.round(skill.rankScore || skill.qualityScore || 0);
-const skillRiskFlags = ((skill.riskFlags || []) as RiskFlag[]).filter((flag) => flag.severity !== 'info');
-const riskFlagLabels: Record<RiskFlagCode, string> = isZhLocale
-  ? {
-      requires_token: '凭证要求',
-      external_network: '外部网络',
-      destructive_shell: '破坏性命令',
-      credential_capture: '凭证抓取',
-      file_write: '本地写入',
-      thin_source: '材料过薄',
-      stale_source: '长期未更新',
-      unstructured_skill: '结构不足',
-    }
-  : {
-      requires_token: 'Credentials',
-      external_network: 'External network',
-      destructive_shell: 'Destructive shell',
-      credential_capture: 'Credential capture',
-      file_write: 'Local writes',
-      thin_source: 'Thin source',
-      stale_source: 'Stale source',
-      unstructured_skill: 'Unstructured',
-    };
-const trustReviewRows = [
-  { label: isZhLocale ? '安全等级' : 'Security', value: skillSecurityLevel },
-  { label: isZhLocale ? '来源等级' : 'Source', value: skillSourceTrust },
-  { label: isZhLocale ? '可信分' : 'Trust', value: String(skillRankScore) },
-  {
-    label: isZhLocale ? '风险旗标' : 'Risks',
-    value: skillRiskFlags.length ? String(skillRiskFlags.length) : isZhLocale ? '无阻断' : 'No blockers',
-  },
-];
-const visibleRiskLabels = skillRiskFlags.slice(0, 3).map((flag) => riskFlagLabels[flag.code] || flag.label);
-
 // GitHub URL
 const githubUrl = `https://github.com/${owner}/${repo}`;
 
@@ -1008,15 +972,29 @@ const detailSourceLabel =
     : isZhLocale
       ? '社区来源'
       : 'Community source';
-const detailRiskChips = buildDetailRiskChips({ visibleRiskLabels, riskFlags: skillRiskFlags }).slice(0, 4);
+const marketplaceDetailTrust = buildMarketplaceDetailTrust(skill as any, {
+  locale,
+  routePath: installPath,
+});
+const trustReviewRows = marketplaceDetailTrust.rows;
+const detailRiskChips = marketplaceDetailTrust.riskLabels.slice(0, 4);
 const detailReviewStatus =
-  skillSecurityLevel === 'D'
+  marketplaceDetailTrust.reviewStatus === 'admitted'
     ? isZhLocale
-      ? '未进入推荐目录'
-      : 'Not promoted'
-    : isZhLocale
       ? '已通过基础审核'
-      : 'Baseline reviewed';
+      : 'Baseline reviewed'
+    : isZhLocale
+      ? '未进入推荐目录'
+      : 'Not promoted';
+
+const reviewStatusBannerCopy =
+  marketplaceDetailTrust.reviewStatus === 'admitted'
+    ? isZhLocale
+      ? '此页面提供安装与来源参考，但不会作为主推荐结果展示。'
+      : 'This page provides installation and source reference but is not promoted as a primary result.'
+    : isZhLocale
+      ? '来源材料偏薄或未达到推荐标准，页面保留为查阅证据。'
+      : 'Source material is thin or below promotion standards; this page remains available as evidence.';
 
 const maxReadmeRenderBudget = isCrawlerRequest ? maxReadmeRenderBytesCrawler : maxReadmeRenderBytes;
 const readmeRenderBudget = truncateMarkdownForSsr(readmeContentSource, maxReadmeRenderBudget);
@@ -1039,7 +1017,7 @@ if (!renderRepoDirectory) {
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---
 let readmeContent = readmeRenderBudget.content;
-let relatedSkills = relatedSkillsSource;
+let relatedSkills = getPublicMarketplaceSkills(relatedSkillsSource as any[]);
 let topics = rawTopics;
 
 const shouldRunHeavyLocalization =
@@ -1366,6 +1344,10 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                     </div>
                   )}
 
+                  <p class="mt-3 text-sm font-mono text-[var(--muted-foreground)]">
+                    {marketplaceDetailTrust.whyListed}
+                  </p>
+
                   <div class="mt-4">
                     <SkillInstall
                       installCommand={installCommand}
@@ -1493,11 +1475,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
 
               {skillTier === 2 && (
                 <div class="rounded-md border border-amber-500/30 bg-amber-500/5 px-4 py-3">
-                  <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">
-                    {isZhLocale
-                      ? '此页面提供安装与来源参考，但不会作为主推荐结果展示。'
-                      : 'This page provides installation and source reference but is not promoted as a primary result.'}
-                  </p>
+                  <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">{reviewStatusBannerCopy}</p>
                 </div>
               )}
 
