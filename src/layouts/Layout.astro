@@ -342,8 +342,40 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
       });
     </script>
 
-    <!-- Global: SkillCard Install Copy + Detail page "Install Now" (event delegation for View Transitions) -->
+    <!-- Global: SkillCard image lifecycle + install copy handlers (event delegation for View Transitions) -->
     <script>
+      function initSkillAvatarImages(root: ParentNode = document) {
+        root.querySelectorAll('img[data-skill-avatar]').forEach((node) => {
+          const img = node as HTMLImageElement;
+          if (img.dataset.avatarInitialized === 'true') return;
+          img.dataset.avatarInitialized = 'true';
+
+          const hideSkeleton = () => {
+            const skeleton = img.closest('.relative')?.querySelector('.animate-pulse') as HTMLElement | null;
+            if (skeleton) skeleton.style.display = 'none';
+          };
+          const onLoad = () => {
+            img.classList.remove('opacity-0');
+            hideSkeleton();
+          };
+          const onError = () => {
+            img.style.display = 'none';
+            hideSkeleton();
+          };
+
+          if (img.complete && img.naturalWidth > 0) onLoad();
+          else if (img.complete) onError();
+          else {
+            img.addEventListener('load', onLoad, { once: true });
+            img.addEventListener('error', onError, { once: true });
+          }
+        });
+      }
+
+      initSkillAvatarImages();
+      document.addEventListener('astro:page-load', () => initSkillAvatarImages());
+      document.addEventListener('astro:after-swap', () => initSkillAvatarImages());
+
       document.addEventListener('click', function (e) {
         const target = e.target as HTMLElement | null;
         if (!target) return;

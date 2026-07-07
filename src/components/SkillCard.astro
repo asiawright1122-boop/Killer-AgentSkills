@@ -187,35 +187,6 @@ const cardEvidenceTitle = [skill.securityBrief, rankScore !== undefined ? `Rank 
     }
   </div>
 
-  <script>
-    // CSP-compatible avatar image lifecycle: replaces the previous
-    // `onload=` / `onerror=` inline handlers (which require unsafe-inline) so
-    // the page can ship a strict Content-Security-Policy with no hash escape
-    // hatches. Astro's experimental CSP auto-hashes this script tag.
-    document.querySelectorAll('img[data-skill-avatar]').forEach((node) => {
-      const img = node as HTMLImageElement;
-      const hideSkeleton = () => {
-        const skeleton = img.closest('.relative')?.querySelector('.animate-pulse') as HTMLElement | null;
-        if (skeleton) skeleton.style.display = 'none';
-      };
-      const onLoad = () => {
-        img.classList.remove('opacity-0');
-        hideSkeleton();
-      };
-      const onError = () => {
-        img.style.display = 'none';
-        hideSkeleton();
-      };
-      // Image may have decoded before the script runs; check `complete`.
-      if (img.complete && img.naturalWidth > 0) onLoad();
-      else if (img.complete) onError();
-      else {
-        img.addEventListener('load', onLoad, { once: true });
-        img.addEventListener('error', onError, { once: true });
-      }
-    });
-  </script>
-
   <!-- Description -->
   <p
     class="relative z-0 mb-6 flex-grow line-clamp-3 text-sm font-medium leading-relaxed text-[var(--muted-foreground)]"

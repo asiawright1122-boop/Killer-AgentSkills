@@ -253,7 +253,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          npm run dev -- --host 127.0.0.1 --port 4321 > /tmp/killer-skills-seo.log 2>&1 &
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/killer-skills-seo.log 2>&1 &
           echo $! > /tmp/killer-skills-seo.pid
           for i in {1..30}; do
             if curl -fsS http://127.0.0.1:4321/en >/dev/null; then

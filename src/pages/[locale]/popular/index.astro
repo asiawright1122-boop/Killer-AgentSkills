@@ -61,11 +61,19 @@ rankedSkills = activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSk
 
 const totalResults = rankedSkills.length;
 const visibleSkills = rankedSkills.slice(0, 72);
-const pageTitle =
+const displayTitle =
   activeRank === 'latest' ? (isZhCopy ? '最新 Skills' : 'Latest Skills') : isZhCopy ? '热门 Skills' : 'Popular Skills';
+const seoTitle =
+  activeRank === 'latest'
+    ? isZhCopy
+      ? '最新 AI Agent Skills 榜单'
+      : 'Latest AI Agent Skills Rankings'
+    : isZhCopy
+      ? '热门 AI Agent Skills 榜单'
+      : 'Popular AI Agent Skills Rankings';
 const pageDescription = isZhCopy
-  ? '只展示通过基础准入的热门与最新 AI Agent Skills。'
-  : 'Popular and latest AI agent skills that pass the baseline admission check.';
+  ? '按综合排名浏览通过基础审查的热门与最新 AI Agent Skills，比较来源、更新时间和安装入口。'
+  : 'Browse popular and latest AI agent skills that pass baseline admission, with ranking, source, update, and install signals.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', category, activeRank);
 const categoryLabel = category ? getCategoryLabel(category, t) || category : '';
 const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
@@ -81,7 +89,7 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
 
 <Layout
   locale={locale}
-  title={pageTitle}
+  title={seoTitle}
   description={pageDescription}
   keywords={pageKeywords}
   appendBrand={false}
@@ -93,7 +101,7 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
     <MarketplaceHero
       locale={locale}
       eyebrow={isZhCopy ? '榜单' : 'Rankings'}
-      title={pageTitle}
+      title={displayTitle}
       description={pageDescription}
       searchPlaceholder={isZhCopy ? '搜索榜单内 Skills' : 'Search ranked skills'}
       searchAction={`/${locale}/search`}

@@ -87,10 +87,23 @@ if (!query || activeSort === 'latest') {
 
 const totalResults = results.length;
 const visibleResults = results.slice(0, 72);
-const pageTitle = query ? (isZhCopy ? `搜索 ${query}` : `Search ${query}`) : isZhCopy ? '搜索 Skills' : 'Search Skills';
+const displayTitle = query
+  ? isZhCopy
+    ? `搜索 ${query}`
+    : `Search ${query}`
+  : isZhCopy
+    ? '搜索 Skills'
+    : 'Search Skills';
+const seoTitle = query
+  ? isZhCopy
+    ? `搜索 ${query} - AI Agent Skills`
+    : `Search ${query} in AI Agent Skills`
+  : isZhCopy
+    ? 'AI Agent Skills 搜索与筛选'
+    : 'AI Agent Skills Search and Filters';
 const pageDescription = isZhCopy
-  ? '搜索通过基础审查的 AI Agent Skills，并按分类、职业和来源收窄结果。'
-  : 'Search baseline-reviewed AI agent skills and narrow results by category, occupation, and source.';
+  ? '搜索通过基础审查的 AI Agent Skills，并按分类、职业、来源和更新时间收窄结果。'
+  : 'Search baseline-reviewed AI agent skills and narrow results by category, occupation, source, and update recency.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', query, category, occupation);
 const categoryLabel = category ? getCategoryLabel(category, t) : '';
 const activeOccupation = occupations.find((item) => item.id === occupation);
@@ -99,7 +112,7 @@ const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} res
 
 <Layout
   locale={locale}
-  title={pageTitle}
+  title={seoTitle}
   description={pageDescription}
   keywords={pageKeywords}
   appendBrand={false}
@@ -111,7 +124,7 @@ const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} res
     <MarketplaceHero
       locale={locale}
       eyebrow={isZhCopy ? '搜索' : 'Search'}
-      title={pageTitle}
+      title={displayTitle}
       description={pageDescription}
       searchPlaceholder={isZhCopy ? '搜索 Skill、仓库、任务' : 'Search skill, repo, task'}
       searchAction={`/${locale}/search`}

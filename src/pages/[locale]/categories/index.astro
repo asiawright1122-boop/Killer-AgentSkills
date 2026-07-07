@@ -48,19 +48,20 @@ const categories = overview.categories.map((category) => {
   };
 });
 
-const pageTitle = isZhCopy ? '分类' : 'Categories';
+const displayTitle = isZhCopy ? '分类' : 'Categories';
+const seoTitle = isZhCopy ? 'AI Agent Skills 分类目录' : 'AI Agent Skills Categories Directory';
 const pageDescription = isZhCopy
-  ? '按能力类型浏览通过基础审查的 AI Agent Skills。'
-  : 'Browse baseline-reviewed AI agent skills by capability type.';
+  ? '按能力类型浏览通过基础审查的 AI Agent Skills，快速进入开发、数据、安全、文档等分类。'
+  : 'Browse baseline-reviewed AI agent skills by capability type, from developer workflows and data automation to security and documentation.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', 'categories');
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+<Layout locale={locale} title={seoTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
   <main>
     <MarketplaceHero
       locale={locale}
       eyebrow={isZhCopy ? '分类' : 'Categories'}
-      title={pageTitle}
+      title={displayTitle}
       description={pageDescription}
       searchPlaceholder={isZhCopy ? '搜索分类内 Skills' : 'Search skills by category'}
       searchAction={`/${locale}/search`}

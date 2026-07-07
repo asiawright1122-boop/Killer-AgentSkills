@@ -31,10 +31,11 @@ const latestAuditLabel = auditTimes.length
     ? '暂无'
     : 'Not available';
 
-const pageTitle = isZhCopy ? '审核政策' : 'Review Policy';
+const displayTitle = isZhCopy ? '审核政策' : 'Review Policy';
+const seoTitle = isZhCopy ? 'AI Agent Skills 安全审核与收录规则' : 'AI Agent Skills Review Policy and Safety Signals';
 const pageDescription = isZhCopy
-  ? '公开目录只展示通过基础准入的 Skills；来源、结构、风险信号会进入排序和展示证据。'
-  : 'Public listings only show skills that pass baseline admission; source, structure, and risk signals feed ranking evidence.';
+  ? '公开目录只展示通过基础准入的 Skills；来源、结构、风险信号会进入排序、收录和展示证据。'
+  : 'Public listings only show skills that pass baseline admission, while source, structure, and risk signals feed ranking and evidence.';
 const metrics = isZhCopy
   ? [
       { label: '已收录', value: admittedSkills.length },
@@ -66,12 +67,12 @@ const rules = isZhCopy
 
 <Layout
   locale={locale}
-  title={pageTitle}
+  title={seoTitle}
   description={pageDescription}
   appendBrand={false}
   customCanonical={`https://killer-skills.com/${locale}/safe`}
 >
-  <MarketplaceSimplePage title={pageTitle} description={pageDescription}>
+  <MarketplaceSimplePage title={displayTitle} description={pageDescription}>
     <div class="marketplace-card-grid">
       {
         metrics.map((metric) => (

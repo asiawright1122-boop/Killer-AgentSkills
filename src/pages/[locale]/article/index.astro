@@ -32,7 +32,8 @@ if (posts.length === 0 && typedLocale !== 'en') {
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 24);
 const hotSkills = await getFeaturedSkillsDirect(env, 8).catch(() => []);
 const canonicalUrl = `https://killer-skills.com/${locale}/article`;
-const pageTitle = isZhCopy ? '文章' : 'Articles';
+const displayTitle = isZhCopy ? '文章与更新' : 'Articles & Updates';
+const seoTitle = isZhCopy ? 'AI Agent Skills 文章与更新' : 'AI Agent Skills Articles and Workflow Updates';
 const pageDescription = isZhCopy
   ? '按发布时间浏览 AI Agent Skills、安装、审核、工作流和 IDE 自动化文章。'
   : 'Browse dated articles about AI agent skills, installation, review policy, workflows, and IDE automation.';
@@ -100,7 +101,7 @@ const formatTopicTags = (tags?: string[]) => {
 
 <Layout
   locale={locale}
-  title={pageTitle}
+  title={seoTitle}
   description={pageDescription}
   keywords={pageKeywords}
   appendBrand={false}
@@ -114,7 +115,7 @@ const formatTopicTags = (tags?: string[]) => {
         <span>{isZhCopy ? '文章' : 'articles'}</span>
       </nav>
       <div class="article-title-row">
-        <h1 id="article-title">{isZhCopy ? '文章' : 'Articles'}</h1>
+        <h1 id="article-title">{displayTitle}</h1>
         <p>
           {isZhCopy ? '选型、工作流和更新文章。' : 'Selection, workflow, and update articles.'}
         </p>

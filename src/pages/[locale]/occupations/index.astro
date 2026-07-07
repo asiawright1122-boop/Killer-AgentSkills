@@ -28,19 +28,20 @@ const [messages, skillsFetched] = await Promise.all([
 const t = useTranslations(messages);
 const marketplaceSkills = getMarketplaceSkills(skillsFetched);
 const occupations = buildOccupationSummaries(marketplaceSkills, typedLocale).filter((item) => item.skillCount > 0);
-const pageTitle = isZhCopy ? '职业' : 'Occupations';
+const displayTitle = isZhCopy ? '职业' : 'Occupations';
+const seoTitle = isZhCopy ? 'AI Agent Skills 职业与任务路径' : 'AI Agent Skills Occupations and Task Paths';
 const pageDescription = isZhCopy
-  ? '按岗位和任务路径浏览 AI Agent Skills。'
-  : 'Browse AI agent skills by role and task path.';
+  ? '按岗位和真实任务路径浏览通过基础审查的 AI Agent Skills，从角色入口直接进入可安装工具。'
+  : 'Browse baseline-reviewed AI agent skills by occupation, role, and practical task path before choosing installable tools.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', 'occupations');
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
+<Layout locale={locale} title={seoTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
   <main>
     <MarketplaceHero
       locale={locale}
       eyebrow={isZhCopy ? '职业' : 'Occupations'}
-      title={pageTitle}
+      title={displayTitle}
       description={pageDescription}
       searchPlaceholder={isZhCopy ? '搜索职业或任务' : 'Search occupation or task'}
       searchAction={`/${locale}/search`}
