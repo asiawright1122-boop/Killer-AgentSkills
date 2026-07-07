@@ -309,6 +309,28 @@ describe('GET /api/search', () => {
     expect(body.results.map((result) => result.name)).toEqual(['Allowed Skill']);
   });
 
+  it('uses conservative D1 predicates for stale conflicting trust metadata', async () => {
+    const mockDB = createPolicySensitiveSearchD1({
+      blockedName: 'Blocked Stale Trust',
+      blockedSecurityLevel: 'D',
+      blockedSourceTrust: 'T3',
+    });
+
+    await GET(
+      createAPIContext({
+        url: 'http://localhost/api/search?q=skill&locale=en',
+        env: createMockEnv({ DB: mockDB }),
+      }),
+    );
+
+    const sql = String((mockDB.prepare as unknown as ReturnType<typeof vi.fn>).mock.calls[0]?.[0] || '');
+    expect(sql).toContain("json_extract(s.data_json, '$.securityLevel')");
+    expect(sql).toContain("json_extract(s.data_json, '$.sourceTrust')");
+    expect(sql).toContain("AS securityLevel");
+    expect(sql).toContain("AS sourceTrust");
+    expect(sql).toContain("LOWER(CAST(json_extract(risk.value, '$.severity') AS TEXT)) = 'blocker'");
+  });
+
   it('filters D1 keyword matches when JSON-only blocker severity is case-varied', async () => {
     const mockDB = createPolicySensitiveSearchD1({
       blockedName: 'Blocked Risk',

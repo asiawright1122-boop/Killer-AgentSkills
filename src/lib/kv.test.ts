@@ -608,6 +608,10 @@ describe('getMarketplaceSkillsListingPage', () => {
     const pageSql = sqlLog.find((sql) => sql.includes('LIMIT ?1 OFFSET ?2'));
     expect(pageSql).toContain('FROM skills');
     expect(pageSql).toContain("json_extract(data_json, '$.skillName') as skillName");
+    expect(pageSql).toContain("json_extract(data_json, '$.securityLevel')");
+    expect(pageSql).toContain('as security_level');
+    expect(pageSql).toContain("json_extract(data_json, '$.sourceTrust')");
+    expect(pageSql).toContain('as source_trust');
     expect(pageSql).toContain("json_extract(data_json, '$.riskFlags') as riskFlags");
     expect(pageSql).toContain('ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC');
   });

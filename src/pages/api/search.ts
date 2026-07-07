@@ -22,8 +22,10 @@ import { getRuntimeEnv } from '../../lib/runtime-env';
 const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
 const MARKETPLACE_ADMISSION_SQL = `
-  COALESCE(NULLIF(UPPER(TRIM(s.security_level)), ''), UPPER(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT)), '') != 'D'
-  AND COALESCE(NULLIF(UPPER(TRIM(s.source_trust)), ''), UPPER(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT)), '') IN ('T1', 'T2')
+  UPPER(COALESCE(NULLIF(TRIM(CAST(s.security_level AS TEXT)), ''), '')) != 'D'
+  AND UPPER(COALESCE(NULLIF(TRIM(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT)), ''), '')) != 'D'
+  AND COALESCE(NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))), ''), '') IN ('T1', 'T2')
+  AND COALESCE(NULLIF(UPPER(TRIM(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''), '') IN ('T1', 'T2')
   AND (
     json_extract(s.data_json, '$.isTrustedRankingEligible') IS NULL
     OR (
@@ -168,11 +170,11 @@ export const GET: APIRoute = async ({ request, locals }) => {
                 s.rank_score AS rankScore,
                 s.quality_score AS qualityScore,
                 COALESCE(
-                  NULLIF(UPPER(TRIM(s.security_level)), ''),
+                  NULLIF(UPPER(TRIM(CAST(s.security_level AS TEXT))), ''),
                   UPPER(CAST(json_extract(s.data_json, '$.securityLevel') AS TEXT))
                 ) AS securityLevel,
                 COALESCE(
-                  NULLIF(UPPER(TRIM(s.source_trust)), ''),
+                  NULLIF(UPPER(TRIM(CAST(s.source_trust AS TEXT))), ''),
                   UPPER(CAST(json_extract(s.data_json, '$.sourceTrust') AS TEXT))
                 ) AS sourceTrust,
                 json_extract(s.data_json, '$.isTrustedRankingEligible') AS isTrustedRankingEligible,

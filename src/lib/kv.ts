@@ -136,8 +136,10 @@ const SKILLS_LISTING_BY_REFS_CACHE_MAX = 200;
 const _loggedMissingSkillsTableContexts = new Set<string>();
 
 const MARKETPLACE_ADMISSION_WHERE_SQL = `
-    WHERE UPPER(COALESCE(NULLIF(TRIM(CAST(security_level AS TEXT)), ''), TRIM(CAST(json_extract(data_json, '$.securityLevel') AS TEXT)), '')) != 'D'
-      AND UPPER(COALESCE(NULLIF(TRIM(CAST(source_trust AS TEXT)), ''), TRIM(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT)), '')) IN ('T1', 'T2')
+    WHERE UPPER(COALESCE(NULLIF(TRIM(CAST(security_level AS TEXT)), ''), '')) != 'D'
+      AND UPPER(COALESCE(NULLIF(TRIM(CAST(json_extract(data_json, '$.securityLevel') AS TEXT)), ''), '')) != 'D'
+      AND COALESCE(NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))), ''), '') IN ('T1', 'T2')
+      AND COALESCE(NULLIF(UPPER(TRIM(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))), ''), NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''), '') IN ('T1', 'T2')
       AND LOWER(TRIM(COALESCE(CAST(json_extract(data_json, '$.isTrustedRankingEligible') AS TEXT), ''))) NOT IN ('0', 'false')
       AND NOT EXISTS (
         SELECT 1
@@ -449,8 +451,14 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
                 category,
                 stars,
                 quality_score,
-                security_level,
-                source_trust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
                 rank_score,
                 last_audited_at,
                 updated_at,
@@ -550,8 +558,14 @@ export async function getSkillsListingPage(env: Env, page: number, pageSize: num
                 category,
                 stars,
                 quality_score,
-                security_level,
-                source_trust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
                 rank_score,
                 last_audited_at,
                 updated_at,
@@ -681,8 +695,14 @@ export async function getMarketplaceSkillsListingPage(
                 category,
                 stars,
                 quality_score,
-                security_level,
-                source_trust,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(security_level AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.securityLevel') AS TEXT))
+                ) as security_level,
+                COALESCE(
+                  NULLIF(UPPER(TRIM(CAST(source_trust AS TEXT))), ''),
+                  UPPER(CAST(json_extract(data_json, '$.sourceTrust') AS TEXT))
+                ) as source_trust,
                 rank_score,
                 last_audited_at,
                 updated_at,
