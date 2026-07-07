@@ -105,7 +105,7 @@ let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 let _sitemapSkillsLoadTime = 0;
 const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
-const EDGE_CACHE_VERSION = 'v16';
+const EDGE_CACHE_VERSION = 'v17';
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
   // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
