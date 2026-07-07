@@ -7,9 +7,10 @@ export default defineConfig({
     exclude: [
       'tests/e2e/**',
       '**/node_modules/**',
-      '**/.claude/**',            // Ignore local Claude worktree mirrors to avoid duplicate test discovery
+      '**/.claude/**', // Ignore local Claude worktree mirrors to avoid duplicate test discovery
+      '**/.worktrees/**', // Ignore local development worktrees to avoid duplicate test discovery
       'packages/og-server/**',
-      'packages/cli/**',          // CLI has its own deps not installed in root — run separately
+      'packages/cli/**', // CLI has its own deps not installed in root — run separately
       'src/build-validation.test.ts', // Run only in build job after dist/ exists
     ],
     coverage: {
