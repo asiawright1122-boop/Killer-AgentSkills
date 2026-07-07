@@ -253,6 +253,26 @@ describe('marketplace public signals', () => {
     expect(detailTrust.whyListed).toContain('quarantined');
     expect(detailTrust.quarantineReasons).toContain('source_trust_t3');
   });
+
+  it('keeps fully missing install path details empty for quarantined skills', () => {
+    const detailTrust = buildMarketplaceDetailTrust(
+      baseSkill({
+        owner: '',
+        repo: '',
+        id: '',
+        filePath: '',
+      }),
+      {
+        locale: 'en',
+        now: new Date('2026-07-07T00:00:00.000Z'),
+      },
+    );
+
+    expect(detailTrust.reviewStatus).toBe('quarantined');
+    expect(detailTrust.installPath).toBe('');
+    expect(detailTrust.sourceRepository).toBe('');
+    expect(detailTrust.quarantineReasons).toContain('missing_install_path');
+  });
 });
 
 describe('marketplace metadata admission', () => {

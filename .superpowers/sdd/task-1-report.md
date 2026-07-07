@@ -80,3 +80,31 @@ Self-review notes:
 - Kept the new contract additive where useful, but made the required brief fields explicit and covered them with direct assertions.
 - Used a shared badge builder so card/detail outputs cannot drift on badge ids, labels, or tones.
 - Limited the write scope to the approved files only.
+
+---
+
+Fix round: final Task 1 review findings
+
+What I fixed:
+- Normalized `sourceRepository` so it returns `owner/repo` only when both segments are present; otherwise it now returns an empty string.
+- Updated `installPathForSkill()` to use the required fallback order: non-empty `routePath`, then complete `owner/repo`, then non-empty `filePath`, then non-empty `id`, and finally `''`.
+- Preserved the existing admission gate and `missing_install_path` quarantine reason while ensuring fully missing install metadata no longer renders `/` in detail trust output.
+
+Red/green evidence:
+1. Red
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `1 failed | 18 passed (19)`
+   - Failing case: fully missing install metadata still surfaced `installPath` as `/`
+2. Green
+   - Command: `npx vitest run src/lib/marketplace-policy.test.ts`
+   - Summary: `19 passed (19)`
+
+Files changed:
+- `src/lib/marketplace-policy.ts`
+- `src/lib/marketplace-policy.test.ts`
+- `.superpowers/sdd/task-1-report.md`
+
+Self-review notes:
+- Kept the fix local to path normalization helpers and detail trust output without widening the marketplace admission behavior.
+- Added a regression that exercises the exact fully missing path detail case so the `missing_install_path` reason stays intact while display fields remain empty.
+- Confirmed the allowed write scope was respected.

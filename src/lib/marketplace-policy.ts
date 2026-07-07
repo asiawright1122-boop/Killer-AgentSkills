@@ -183,8 +183,35 @@ function localizedWhyListed(skill: UnifiedSkill, admission: MarketplaceAdmission
   return `Listed because it passed baseline review with source trust ${sourceTrust} from a ${sourceKind} source.`;
 }
 
+function sourceRepositoryForSkill(skill: UnifiedSkill): string {
+  const owner = (skill.owner || '').trim();
+  const repo = (skill.repo || '').trim();
+
+  return owner && repo ? `${owner}/${repo}` : '';
+}
+
 function installPathForSkill(skill: UnifiedSkill, routePath?: string): string {
-  return routePath || `${skill.owner}/${skill.repo}`;
+  const normalizedRoutePath = (routePath || '').trim();
+  if (normalizedRoutePath) {
+    return normalizedRoutePath;
+  }
+
+  const sourceRepository = sourceRepositoryForSkill(skill);
+  if (sourceRepository) {
+    return sourceRepository;
+  }
+
+  const filePath = (skill.filePath || '').trim();
+  if (filePath) {
+    return filePath;
+  }
+
+  const id = (skill.id || '').trim();
+  if (id) {
+    return id;
+  }
+
+  return '';
 }
 
 function hasInstallPath(skill: UnifiedSkill): boolean {
@@ -338,7 +365,7 @@ export function buildMarketplaceDetailTrust(
   return {
     reviewStatus: admission.admitted ? 'admitted' : 'quarantined',
     sourceKind,
-    sourceRepository: `${skill.owner}/${skill.repo}`,
+    sourceRepository: sourceRepositoryForSkill(skill),
     installPath: installPathForSkill(skill, options.routePath),
     whyListed: localizedWhyListed(skill, admission, locale),
     rows,
