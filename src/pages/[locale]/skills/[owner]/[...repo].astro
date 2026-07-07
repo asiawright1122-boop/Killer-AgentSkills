@@ -13,6 +13,7 @@ import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skil
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import { getSitemapSkills } from '../../../../lib/sitemap-skills-runtime';
 import { getRelatedSkillsLookup } from '../../../../lib/related-skills-runtime';
+import staticSitemapSkillsData from '../../../../../data/sitemap-skills.json';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -738,6 +739,7 @@ const skillIndexability = renderRepoDirectory
       {
         qualityScore: skill.qualityScore,
         verified: isVerified,
+        stars: skill.stars,
         description: skill.description,
         agentAnalysis: skill.agentAnalysis,
         seo: {
@@ -1084,22 +1086,30 @@ const layoutTitle = renderRepoDirectory ? repoDirectoryTitle : pageTitle;
 const layoutDescription = renderRepoDirectory ? repoDirectoryMetaDescription : resolvedMetaDescription;
 const layoutKeywords = renderRepoDirectory ? repoDirectoryKeywords : seoKeywords;
 const layoutOgType = renderRepoDirectory ? 'website' : 'product';
-const isPageInSitemap = rawSitemapSkills.some((entry) => {
+const staticSitemapSkills = (
+  Array.isArray(staticSitemapSkillsData)
+    ? staticSitemapSkillsData
+    : (staticSitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string }> }).skills || []
+) as Array<{ owner?: string; routePath?: string }>;
+const isCurrentSitemapRoute = (entry: { owner?: string; routePath?: string }) => {
   const entryOwner = String(entry.owner || '').trim();
   const entryRoutePath = String(entry.routePath || '').trim();
   return (
     entryOwner.toLowerCase() === owner.toLowerCase() &&
     entryRoutePath.toLowerCase() === canonicalRoutePath.toLowerCase()
   );
-});
+};
+const isPageInSitemap = rawSitemapSkills.some(isCurrentSitemapRoute) || staticSitemapSkills.some(isCurrentSitemapRoute);
+const isSitemapAdmittedSkill = hasSkill && isPageInSitemap && !isBlocked;
 
 const isForcedOpen =
   process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
-const skillTier = skillIndexability?.tier ?? 3;
+const skillTier = isSitemapAdmittedSkill ? 1 : (skillIndexability?.tier ?? 3);
+const isSkillIndexableForLayout = isSitemapAdmittedSkill || Boolean(skillIndexability?.isIndexable);
 const layoutNoindex =
   useStaticFallback ||
   isBlocked ||
-  (renderRepoDirectory ? !isForcedOpen : skillTier !== 1 || (hasSkill && !isPageInSitemap));
+  (renderRepoDirectory ? !isForcedOpen : !isSkillIndexableForLayout || (hasSkill && !isPageInSitemap));
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);
@@ -1479,7 +1489,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 </div>
               )}
 
-              {!skillIndexability?.isIndexable && (
+              {!isSkillIndexableForLayout && (
                 <div class="rounded-md border border-amber-500/40 bg-amber-500/5 px-4 py-3">
                   <p class="text-sm font-semibold text-amber-700 dark:text-amber-300">
                     {isZhLocale

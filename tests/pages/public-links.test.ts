@@ -440,6 +440,10 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain("const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;");
     expect(skillDetailSource).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
     expect(skillDetailSource).toContain('robots={robotsContent}');
+    expect(skillDetailSource).toContain('stars: skill.stars,');
+    expect(skillDetailSource).toContain("import staticSitemapSkillsData from '../../../../../data/sitemap-skills.json';");
+    expect(skillDetailSource).toContain('const isSitemapAdmittedSkill =');
+    expect(skillDetailSource).toContain('const isSkillIndexableForLayout =');
   });
 
   it('keeps personal state pages explicitly noindex across robots headers and meta tags', () => {
