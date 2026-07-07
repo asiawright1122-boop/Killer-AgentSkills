@@ -17,8 +17,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 >
 > **주도적인 워크플로우**에 따라 선택하세요, 아닌 hype에 따라. spec-driven agent 워크플로우를 하는 팀은 fast UI iteration를 하는 팀과는 다른 도구가 필요합니다. 아래의 매트릭스는 팀 유형을 추천과 매핑합니다.
 
-PUBLIC OUTPUT BOUNDARY:
-비밀스러운 논리, chain-of-thought, private analysis, scratchpad notes, 또는
 ## 2026년 5가지 도구
 
 | 도구 | 최적화 | 기술 이동성 | 에이전트 워크플로우 깊이 |
@@ -31,8 +29,6 @@ PUBLIC OUTPUT BOUNDARY:
 
 기술 이동성이 중요한 이유는 **Claude Code에 최적화된 기술 스택이 Cursor로 자동으로 전환되지 않기 때문**입니다. 팀이 여러 IDE를 사용한다면, 이 숨겨진 비용이 단일 가장 큰 비용입니다.
 
-공개된 출력 경계:
-이해되지 않은 사유, chain-of-thought, private 분석, 노트,
 ## How to decide: three questions
 
 ### 1. 첫 번째 설치 또는 팀 협의에서 막힌 부분이 무엇인가요?
@@ -50,8 +46,6 @@ PUBLIC OUTPUT BOUNDARY:
 
 여러 개의 IDE를 사용하는 팀은 포트ABILITY 세금을 지불합니다. 합리적인 접근 방식은 **하나의** 기본 IDE를 표준화하고 다른 IDE를 secondary로 처리하는 것입니다. 여러 개의 IDE를 사용하는 팀에게 추천하는 것은 Claude Code를 기본으로 사용하는 것입니다. 그 이유는 그들의 스킬이 MCP 층을 통해 Cursor와 Windsurf도 사용할 수 있는 가장 포트러블한 스킬입니다.
 
-PUBLIC OUTPUT BOUNDARY:
-숨겨진 논리, chain-of-thought, private analysis, scratchpad notes, 또는
 ## 팀 유형에 따라 추천
 
 - ** Solo 창업자, 빠른 출시:** Windsurf. 최저 설정 마찰, 의견된 기본 설정. [Windsurf 워크플로우 도구](/ko/collections/top-windsurf-skills)로 시작하세요.
@@ -60,8 +54,6 @@ PUBLIC OUTPUT BOUNDARY:
 - ** GitHub-anchored 기업:** Copilot, Claude Code를 agent 작업이 처리할 수 없는 GitHub의 완성 모델을 다루는 데 적합한 두 번째 도구로.
 - ** 명령/평가/연구 팀:** Codex. 평가, 추적, 명령 반복에 가장 강한 적합도 — [OpenAI 워크플로우 도구 수집](/ko/collections/top-openai-powered-ai-agent-tools)을 참조하세요.
 
-공개 출력 경계:
-나이브한 합리화, chain-of-thought, private 분석, 스케치패드 노트, 또는
 ## 비교가 진실되게 하는 방법
 
 우리는 모든 도구가 평등하다고 가정하지 않을 것입니다. 세 가지 제한 사항을 명확하게 언급할 필요가 있습니다:
@@ -70,8 +62,6 @@ PUBLIC OUTPUT BOUNDARY:
 2. **완성도 우선 도구 (Copilot)는 Agent 워크플로우에 얕다.** 작업이 다단계이고 검토 단계가 있는 경우 완성도만으로는 좌절할 것입니다.
 3. **이 도구들은 실행을 가속화한다는 말이다.** 구조는 가속화하지 않는다. Poor specs는 여전히 Poor output를 생성한다. [프로세스 자동화 솔루션](/ko/solutions/process-automation)은 SOP를 반복 가능한 실행으로 변환하는 방법을 다룹니다 — 그러나 구조는 여전히 인간이 소유합니다.
 
-PUBLIC OUTPUT BOUNDARY:
-비밀 reasoning, chain-of-thought, private analysis, scratchpad notes, 또는 `
 ## 다음 단계
 
 1. **팀 유형을 식별** 하여 주로 사용할 IDE를 선택하세요.
@@ -79,8 +69,6 @@ PUBLIC OUTPUT BOUNDARY:
 3. **npx killer-skills list** 명령어를 사용하여 **설치**를 확인하세요.
 4. **리뷰/컨텍스트 дисцип린이 필요** 할 때만, **CLI 개요**를 참조하여 [리뷰/컨텍스트](/ko/docs/cli/overview)를 추가하세요.
 
-퍼블릭 출력 경계:
-사용자가 숨겨진 논리, 사고 과정, 개인 분석, 노트, 또는 `
 ## 자주 묻는 질문
 
 **가장 저렴한 것은 무엇인가?**
@@ -91,6 +79,3 @@ PUBLIC OUTPUT BOUNDARY:
 
 **내 IDE의 다음 버전을 기다려야 하나요?**
 아니요. 대부분의 팀의 bottleneck은 IDE 버전이 아니라 *어떤* 규칙 스택을 설치하고 확인했는지에 있습니다. 하나를 선택하고 시작하세요.
-
-PUBLIC OUTPUT BOUNDARY:
-잠재적인 합리화를, chain-of-thought, private analysis, scratchpad notes, 또는
