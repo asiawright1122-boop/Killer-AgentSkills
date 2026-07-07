@@ -40,11 +40,6 @@ export interface MarketplaceDetailTrust {
 }
 
 const OFFICIAL_REPO_KEYS = new Set(Object.values(OFFICIAL_REPOS).map((repo) => `${repo.owner}/${repo.repo}`));
-const OFFICIAL_OWNERS = new Set(
-  Object.values(OFFICIAL_REPOS)
-    .filter((repo) => repo.verified)
-    .map((repo) => repo.owner),
-);
 
 const RECENTLY_UPDATED_DAYS = 30;
 
@@ -144,10 +139,16 @@ function localizedReviewStatus(admission: MarketplaceAdmission, locale: string):
   return admission.admitted ? 'Admitted' : 'Quarantined';
 }
 
-function localizedWhyListed(skill: UnifiedSkill, locale: string): string {
+function localizedWhyListed(skill: UnifiedSkill, admission: MarketplaceAdmission, locale: string): string {
   const zh = isZhLocale(locale);
   const sourceTrust = skill.sourceTrust || 'Unknown';
   const sourceKind = getSkillSourceKind(skill);
+  if (!admission.admitted) {
+    if (zh) {
+      return `该技能因未通过基础审查而被隔离：来源等级 ${sourceTrust}，来源类型为${sourceKind === 'official' ? '官方' : '社区'}。`;
+    }
+    return `This skill is quarantined because it did not pass baseline review. Source trust: ${sourceTrust}. Source kind: ${sourceKind}.`;
+  }
   if (zh) {
     return `因通过基础审查而展示：来源等级 ${sourceTrust}，来源类型为${sourceKind === 'official' ? '官方' : '社区'}。`;
   }
@@ -173,7 +174,7 @@ export function getSkillSourceKind(skill: UnifiedSkill): SourceKind {
   }
 
   const repoKey = `${skill.owner}/${skill.repo}`;
-  if (skill.source === 'verified' || OFFICIAL_REPO_KEYS.has(repoKey) || OFFICIAL_OWNERS.has(skill.owner)) {
+  if (skill.source === 'verified' || OFFICIAL_REPO_KEYS.has(repoKey)) {
     return 'official';
   }
 
@@ -195,7 +196,7 @@ export function getMarketplaceAdmission(skill: UnifiedSkill): MarketplaceAdmissi
     reasons.push('not_trusted_ranking_eligible');
   }
 
-  if (skill.sourceTrust === 'T3') {
+  if (skill.sourceTrust !== 'T1' && skill.sourceTrust !== 'T2') {
     reasons.push('source_trust_t3');
   }
 
@@ -282,7 +283,7 @@ export function buildMarketplaceDetailTrust(
   return {
     reviewStatus: admission.admitted ? 'admitted' : 'quarantined',
     rows,
-    whyListed: localizedWhyListed(skill, locale),
+    whyListed: localizedWhyListed(skill, admission, locale),
     sourceRepository: `${skill.owner}/${skill.repo}`,
     installPath: installPathForSkill(skill, options.routePath),
   };
@@ -304,7 +305,7 @@ export function isMarketplaceMetadataAdmitted(
   const isTrustedRankingEligible = data.isTrustedRankingEligible as UnifiedSkill['isTrustedRankingEligible'];
 
   if (securityLevel === 'D') return false;
-  if (sourceTrust === 'T3') return false;
+  if (sourceTrust !== 'T1' && sourceTrust !== 'T2') return false;
   if (hasBlockerRisk(riskFlags)) return false;
   if (isFalseyRankingEligibility(isTrustedRankingEligible)) return false;
   return true;

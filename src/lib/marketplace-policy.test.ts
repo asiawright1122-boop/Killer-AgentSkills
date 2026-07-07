@@ -87,6 +87,16 @@ describe('marketplace policy admission', () => {
     expect(admission.reasons).toContain('source_trust_t3');
   });
 
+  it('quarantines missing or unknown source trust', () => {
+    const missingTrust = getMarketplaceAdmission(baseSkill({ sourceTrust: undefined }));
+    const unknownTrust = getMarketplaceAdmission(baseSkill({ sourceTrust: 'TX' as never }));
+
+    expect(missingTrust.admitted).toBe(false);
+    expect(missingTrust.reasons).toContain('source_trust_t3');
+    expect(unknownTrust.admitted).toBe(false);
+    expect(unknownTrust.reasons).toContain('source_trust_t3');
+  });
+
   it('quarantines unstructured skills without useful public source material', () => {
     const admission = getMarketplaceAdmission(
       baseSkill({
@@ -110,6 +120,14 @@ describe('marketplace policy admission', () => {
     expect(getSkillSourceKind(official)).toBe('official');
     expect(isPublicMarketplaceSkill(official)).toBe(true);
     expect(isPublicMarketplaceSkill(blockedOfficial)).toBe(false);
+  });
+
+  it('treats unrelated repos under verified owners as community unless explicitly marked official', () => {
+    const ownerOnlyMatch = baseSkill({ owner: 'anthropics', repo: 'community-tool', sourceTrust: 'T2' });
+    const verifiedSource = baseSkill({ owner: 'some-owner', repo: 'some-repo', source: 'verified', sourceTrust: 'T2' });
+
+    expect(getSkillSourceKind(ownerOnlyMatch)).toBe('community');
+    expect(getSkillSourceKind(verifiedSource)).toBe('official');
   });
 });
 
@@ -187,6 +205,18 @@ describe('marketplace public signals', () => {
     expect(detailTrust.whyListed).toContain('T1');
     expect(detailTrust.sourceRepository).toBe('owner/repo');
     expect(detailTrust.installPath).toBe('owner/repo');
+  });
+
+  it('uses quarantined detail trust copy for non-admitted skills', () => {
+    const detailTrust = buildMarketplaceDetailTrust(baseSkill({ sourceTrust: undefined }), {
+      locale: 'en',
+      routePath: 'owner/repo',
+      now: new Date('2026-07-07T00:00:00.000Z'),
+    });
+
+    expect(detailTrust.reviewStatus).toBe('quarantined');
+    expect(detailTrust.whyListed).not.toContain('passed baseline review');
+    expect(detailTrust.whyListed).toContain('quarantined');
   });
 });
 
