@@ -11,8 +11,8 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const isZhCopy = locale.startsWith('zh');
 const title = isZhCopy ? '自动化解决方案' : 'Automation Solutions';
 const description = isZhCopy
-  ? '从职业、分类或榜单进入实际工作流，按任务场景找到可安装的 AI Agent Skills。'
-  : 'Start from occupations, categories, or rankings to find installable AI agent skills for real automation workflows.';
+  ? '从职业、合集或榜单进入实际工作流，按任务场景找到可安装的 AI Agent Skills。'
+  : 'Start from occupations, collections, or rankings to find installable AI agent skills for real automation workflows.';
 ---
 
 <Layout locale={locale} title={title} description={description} appendBrand={false}>
@@ -22,9 +22,9 @@ const description = isZhCopy
         <h3>{isZhCopy ? '职业' : 'Occupations'}</h3>
         <p>{isZhCopy ? '按岗位进入任务路径。' : 'Browse by role and task path.'}</p>
       </a>
-      <a class="marketplace-card-link" href={`/${locale}/categories`}>
-        <h3>{isZhCopy ? '分类' : 'Categories'}</h3>
-        <p>{isZhCopy ? '按能力类型进入。' : 'Browse by capability type.'}</p>
+      <a class="marketplace-card-link" href={`/${locale}/collections`}>
+        <h3>{isZhCopy ? '合集' : 'Collections'}</h3>
+        <p>{isZhCopy ? '按可信路径和工作流进入。' : 'Browse curated trust and workflow paths.'}</p>
       </a>
       <a class="marketplace-card-link" href={`/${locale}/popular`}>
         <h3>{isZhCopy ? '榜单' : 'Rankings'}</h3>

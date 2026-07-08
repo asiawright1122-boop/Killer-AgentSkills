@@ -5,6 +5,7 @@ import {
   getSkillById,
   getLocalizedDescription,
   getLightweightSkillsByRefs,
+  getRelatedSkills,
   type UnifiedSkill,
 } from '../../../../lib/public-skill-catalog';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
@@ -44,7 +45,6 @@ import {
   sanitizePublicSkillCopyList,
   sanitizePublicSkillSourceExcerpt,
 } from '../../../../lib/public-skill-copy';
-import { getRelatedSkillsFast, type Env, type SkillListingItem } from '../../../../lib/kv';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActionsNative from '../../../../components/SkillActionsNative.astro';
@@ -55,6 +55,8 @@ import '../../../../styles/prism-tokens.css';
 import { Star, GitFork, Calendar, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
 import { trackDirectoryView } from '../../../../lib/analytics';
+
+type Env = Record<string, any>;
 
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -100,7 +102,7 @@ const isZhLocale = typedLocale.startsWith('zh');
 
 // env already resolved above for blocklist; reuse it here (no second getRuntimeEnv call)
 const runtimeEnv = (env ?? {}) as unknown as Record<string, unknown>;
-type RepoDirectorySkill = UnifiedSkill | SkillListingItem;
+type RepoDirectorySkill = UnifiedSkill;
 
 const normalizeFlag = (value: unknown) =>
   String(value ?? '')
@@ -1008,8 +1010,7 @@ if (readmeRenderBudget.truncated) {
 // Related skills use a targeted D1 query instead of parsing the 6MB lookup JSON on cold detail requests.
 let relatedSkillsSource: any[] = [];
 if (!renderRepoDirectory) {
-  const skillId = skill.id || fullId;
-  relatedSkillsSource = await getRelatedSkillsFast(env, skillId, skill.category || '', 4).catch(() => []);
+  relatedSkillsSource = await getRelatedSkills(env, skill, 4).catch(() => []);
 }
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---

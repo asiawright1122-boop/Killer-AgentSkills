@@ -180,7 +180,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
         )}
 
         <section>
-          <p class="marketplace-route-label">{isZhCopy ? '推荐下一步' : 'Recommended Next Steps'}</p>
+          <p class="marketplace-route-label">{isZhCopy ? '继续浏览' : 'Continue'}</p>
           <div class="marketplace-card-grid">
             {nextStepSurfaces.map((surface) => (
               <a class="marketplace-card-link" href={surface.href}>

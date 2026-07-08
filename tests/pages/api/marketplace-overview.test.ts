@@ -78,9 +78,16 @@ describe('GET /api/marketplace/overview', () => {
       ]),
     );
     expect(body.overview.featuredRoutes.map((route: { href: string }) => route.href)).toEqual(
-      expect.arrayContaining(['/zh', '/zh/skills', '/zh/popular', '/zh/occupations']),
+      expect.arrayContaining([
+        '/zh',
+        '/zh/skills',
+        '/zh/popular',
+        '/zh/occupations',
+        '/zh/collections',
+        '/zh/docs/installation',
+      ]),
     );
-    expect(body.overview.featuredRoutes).toHaveLength(5);
+    expect(body.overview.featuredRoutes).toHaveLength(6);
     expect(body.overview.featuredCollections).toEqual([]);
     expect(body.overview.solutionEntries).toEqual([]);
   });

@@ -86,10 +86,10 @@ const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperi
 
     {
       relatedCategories.length > 0 && (
-        <MarketplaceSection title={isZhCopy ? '相关分类' : 'Related Categories'}>
+        <MarketplaceSection title={isZhCopy ? '相关筛选' : 'Related Filters'}>
           <div class="marketplace-tabbar">
             {relatedCategories.map((category) => (
-              <a href={`/${locale}/categories/${category.id}`}>{category.label}</a>
+              <a href={`/${locale}/skills?category=${encodeURIComponent(category.id)}`}>{category.label}</a>
             ))}
           </div>
         </MarketplaceSection>

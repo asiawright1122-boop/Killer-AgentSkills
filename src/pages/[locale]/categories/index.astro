@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import MarketplaceHero from '../../../components/MarketplaceHero.astro';
 import MarketplaceSection from '../../../components/MarketplaceSection.astro';
+import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import type { Env } from '../../../lib/kv';
 import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
@@ -33,49 +33,74 @@ const categories = overview.categories.map((category) => {
   };
 });
 
-const displayTitle = isZhCopy ? '分类' : 'Categories';
-const seoTitle = isZhCopy ? 'AI Agent Skills 分类目录' : 'AI Agent Skills Categories Directory';
+const displayTitle = isZhCopy ? 'Skills 筛选' : 'Skill Filters';
+const seoTitle = isZhCopy ? 'AI Agent Skills 分类筛选' : 'AI Agent Skills Category Filters';
 const pageDescription = isZhCopy
-  ? '按能力类型浏览通过基础审查的 AI Agent Skills，快速进入开发、数据、安全、文档等分类。'
-  : 'Browse baseline-reviewed AI agent skills by capability type, from developer workflows and data automation to security and documentation.';
+  ? '旧分类入口已合并进 Skills 筛选。按能力类型进入目录，再结合来源、榜单、职业和合集做更快判断。'
+  : 'Legacy category browsing now routes into Skills filters. Start by capability type, then compare source, rankings, occupations, and curated collections.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', 'categories');
 ---
 
 <Layout locale={locale} title={seoTitle} description={pageDescription} keywords={pageKeywords} appendBrand={false}>
   <main>
-    <MarketplaceHero
-      locale={locale}
-      eyebrow={isZhCopy ? '分类' : 'Categories'}
-      title={displayTitle}
-      description={pageDescription}
-      searchPlaceholder={isZhCopy ? '搜索分类内 Skills' : 'Search skills by category'}
-      searchAction={`/${locale}/search`}
-      countLabel={isZhCopy ? `${categories.length} 个分类` : `${categories.length} categories`}
-      actions={[
-        { href: `/${locale}/skills`, label: 'Skills' },
-        { href: `/${locale}/occupations`, label: isZhCopy ? '职业' : 'Occupations' },
-      ]}
-    />
+    <MarketplaceSimplePage title={displayTitle} description={pageDescription}>
+      <MarketplaceSection
+        title={isZhCopy ? '按能力进入 Skills' : 'Open Skills By Capability'}
+        description={isZhCopy
+          ? '这里保留旧分类 URL 的可发现性，但真正的比较、安装和审查信息都回到 Skills 目录里完成。'
+          : 'This page keeps legacy category URLs discoverable, while comparison, install, and review evidence live in the Skills directory.'}
+      >
+        <div class="marketplace-card-grid">
+          {
+            categories.map((category) => (
+              <a class="marketplace-card-link" href={`/${locale}/skills?category=${encodeURIComponent(category.id)}`}>
+                <div class="marketplace-meta-row">
+                  <span>{isZhCopy ? `${category.count} 个 Skills` : `${category.count} skills`}</span>
+                  <span>{isZhCopy ? '筛选' : 'filter'}</span>
+                </div>
+                <h3>{category.label}</h3>
+                <p>{category.seoDescription}</p>
+              </a>
+            ))
+          }
+        </div>
+      </MarketplaceSection>
 
-    <MarketplaceSection
-      title={isZhCopy ? '全部分类' : 'All Categories'}
-      description={isZhCopy
-        ? '分类用于能力范围；官方/社区是来源属性。'
-        : 'Categories describe capability; official/community remains a source attribute.'}
-    >
-      <div class="marketplace-card-grid">
-        {
-          categories.map((category) => (
-            <a class="marketplace-card-link" href={`/${locale}/categories/${category.id}`}>
-              <div class="marketplace-meta-row">
-                <span>{isZhCopy ? `${category.count} 个 Skills` : `${category.count} skills`}</span>
-              </div>
-              <h3>{category.label}</h3>
-              <p>{category.seoDescription}</p>
-            </a>
-          ))
-        }
-      </div>
-    </MarketplaceSection>
+      <MarketplaceSection
+        title={isZhCopy ? '更推荐的入口' : 'Recommended Entry Points'}
+        description={isZhCopy
+          ? '如果还没确定能力分类，先看合集或职业路径，通常比旧分类更快。'
+          : 'If the capability bucket is unclear, collections or occupation paths usually shorten the decision.'}
+      >
+        <div class="marketplace-card-grid">
+          <a class="marketplace-card-link" href={`/${locale}/collections`}>
+            <h3>{isZhCopy ? '精选合集' : 'Curated Collections'}</h3>
+            <p>
+              {
+                isZhCopy
+                  ? '从官方、Agent 工作流、IDE 和语言栈合集进入。'
+                  : 'Start from official, agent workflow, IDE, and language-stack collections.'
+              }
+            </p>
+          </a>
+          <a class="marketplace-card-link" href={`/${locale}/occupations`}>
+            <h3>{isZhCopy ? '职业路径' : 'Occupations'}</h3>
+            <p>
+              {
+                isZhCopy
+                  ? '按真实角色和任务进入，而不是先猜分类。'
+                  : 'Browse by role and task instead of guessing a category first.'
+              }
+            </p>
+          </a>
+          <a class="marketplace-card-link" href={`/${locale}/popular`}>
+            <h3>{isZhCopy ? '榜单' : 'Rankings'}</h3>
+            <p>
+              {isZhCopy ? '先看热门和最新，再用筛选收窄。' : 'Start from popular and latest, then narrow with filters.'}
+            </p>
+          </a>
+        </div>
+      </MarketplaceSection>
+    </MarketplaceSimplePage>
   </main>
 </Layout>

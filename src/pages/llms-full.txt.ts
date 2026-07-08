@@ -36,7 +36,7 @@ In Killer-Skills, MCP is a runtime integration layer rather than the site's prim
 ## Platform Statistics
 
 - **3,400+ skills** indexed from open-source GitHub repositories
-- **Core routes** organized around home, skills, rankings, occupations, and categories
+- **Core routes** organized around home, skills, rankings, occupations, curated collections, and installation docs
 - **10 languages**: English, Chinese (zh), Japanese (ja), Korean (ko), Spanish (es), French (fr), German (de), Portuguese (pt), Russian (ru), Arabic (ar)
 - **19+ IDEs** supported via universal CLI
 - **Quality scoring**: AI-powered 0-100 quality score for every skill
@@ -104,7 +104,8 @@ The CLI automatically detects the user's IDE and writes skills to the correct fi
 | Skills | Complete directory with keyword, source, occupation, and category filters | ${SITE_URL}/en/skills |
 | Rankings | Popular and latest skills | ${SITE_URL}/en/popular |
 | Occupations | Role and task based browsing | ${SITE_URL}/en/occupations |
-| Categories | Capability category browsing | ${SITE_URL}/en/categories |
+| Collections | Curated skill collections for trusted paths and workflow decisions | ${SITE_URL}/en/collections |
+| Install | Installation guide and CLI setup path | ${SITE_URL}/en/docs/installation |
 
 ## API Endpoints
 
@@ -128,7 +129,8 @@ Returns machine-readable skill metadata and a short summary. Use the public skil
 | Skills | ${SITE_URL}/en/skills | Search and filter the complete directory |
 | Rankings | ${SITE_URL}/en/popular | Popular and latest skills |
 | Occupations | ${SITE_URL}/en/occupations | Browse skills by role and task |
-| Categories | ${SITE_URL}/en/categories | Browse skills by capability |
+| Collections | ${SITE_URL}/en/collections | Curated skill collections |
+| Install | ${SITE_URL}/en/docs/installation | Installation guide and CLI setup |
 
 ## Frequently Asked Questions
 

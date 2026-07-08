@@ -1,7 +1,7 @@
-export type SiteNavIcon = 'home' | 'sparkles' | 'grid' | 'users' | 'layers';
+export type SiteNavIcon = 'home' | 'sparkles' | 'grid' | 'users' | 'layers' | 'book';
 
 export type SiteNavItem = {
-  id: 'home' | 'skills' | 'rankings' | 'occupations' | 'categories';
+  id: 'home' | 'skills' | 'rankings' | 'occupations' | 'collections' | 'install';
   href: string;
   label: string;
   icon: SiteNavIcon;
@@ -13,13 +13,15 @@ export const PRIMARY_MARKETPLACE_NAV_IDS = [
   'skills',
   'rankings',
   'occupations',
-  'categories',
+  'collections',
+  'install',
 ] as const satisfies readonly SiteNavItem['id'][];
 
 export const PRIMARY_MARKETPLACE_NAV_HREFS = (locale: string): string[] =>
   PRIMARY_MARKETPLACE_NAV_IDS.map((id) => {
     if (id === 'home') return `/${locale}`;
     if (id === 'rankings') return `/${locale}/popular`;
+    if (id === 'install') return `/${locale}/docs/installation`;
     return `/${locale}/${id}`;
   });
 
@@ -44,10 +46,15 @@ const PRIMARY_MARKETPLACE_NAV_COPY: Record<SiteNavItem['id'], Omit<SiteNavItem, 
     icon: 'users',
     description: 'Browse skills by occupation and task.',
   },
-  categories: {
-    label: 'Categories',
+  collections: {
+    label: 'Collections',
     icon: 'layers',
-    description: 'Browse skills by capability type.',
+    description: 'Curated collections for trusted paths and workflow decisions.',
+  },
+  install: {
+    label: 'Install',
+    icon: 'book',
+    description: 'Installation guide and CLI setup path.',
   },
 };
 
@@ -75,9 +82,13 @@ export function getPrimaryNavItems(locale: string): SiteNavItem[] {
         label: '职业',
         description: '按职业和任务浏览 Skills。',
       },
-      categories: {
-        label: '分类',
-        description: '按能力类型浏览 Skills。',
+      collections: {
+        label: '合集',
+        description: '按可信路径和工作流决策浏览精选 Skills。',
+      },
+      install: {
+        label: '安装',
+        description: '安装指南与 CLI 配置路径。',
       },
     };
 

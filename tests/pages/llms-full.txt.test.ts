@@ -23,7 +23,6 @@ describe('GET /llms-full.txt', () => {
     expect(body).not.toContain('/collections/top-pdf-mcp-servers/');
     expect(body).not.toContain('https://killer-skills.com/en/community/');
     expect(body).not.toContain('https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools/');
-    expect(body).not.toContain('https://killer-skills.com/en/docs/');
   });
 
   it('keeps llms-full IDE support count aligned with the current CLI coverage', async () => {
@@ -57,7 +56,9 @@ describe('GET /llms-full.txt', () => {
     expect(body).toContain('| Skills | https://killer-skills.com/en/skills | Search and filter the complete directory |');
     expect(body).toContain('| Rankings | https://killer-skills.com/en/popular | Popular and latest skills |');
     expect(body).toContain('| Occupations | https://killer-skills.com/en/occupations | Browse skills by role and task |');
-    expect(body).toContain('| Categories | https://killer-skills.com/en/categories | Browse skills by capability |');
+    expect(body).toContain('| Collections | https://killer-skills.com/en/collections | Curated skill collections |');
+    expect(body).toContain('| Install | https://killer-skills.com/en/docs/installation | Installation guide and CLI setup |');
+    expect(body).not.toContain('| Categories | https://killer-skills.com/en/categories |');
     expect(body).not.toContain('https://killer-skills.com/en/collections/');
     expect(body).not.toContain('| Top AI Agent Skills |');
     expect(body).not.toContain('| File & Document Automation Tools | 10+ |');

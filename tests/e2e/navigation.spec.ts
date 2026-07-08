@@ -31,17 +31,24 @@ test.describe('Navigation & i18n E2E', () => {
     await waitForHeaderActions(page);
     await expect(page.getByRole('heading', { level: 1, name: 'Occupations' })).toBeVisible();
 
-    await Promise.all([page.waitForURL(/\/en\/categories$/), nav.locator('a[href="/en/categories"]').click()]);
+    await Promise.all([page.waitForURL(/\/en\/collections$/), nav.locator('a[href="/en/collections"]').click()]);
     await waitForHeaderActions(page);
-    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Curated Skill Collections' })).toBeVisible();
+
+    await Promise.all([
+      page.waitForURL(/\/en\/docs\/installation$/),
+      nav.locator('a[href="/en/docs/installation"]').click(),
+    ]);
+    await waitForHeaderActions(page);
+    await expect(page.getByRole('heading', { level: 1, name: /Install|Installation/i })).toBeVisible();
   });
 
   test('collections bridge page should route into the new marketplace structure', async ({ page }) => {
     await page.goto('/en/collections');
-    const categoriesLink = page.locator('a[href="/en/categories"]').first();
-    await expect(categoriesLink).toBeVisible();
-    await Promise.all([page.waitForURL(/\/en\/categories$/), categoriesLink.click()]);
-    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
+    const skillsLink = page.locator('a[href="/en/skills"]').first();
+    await expect(skillsLink).toBeVisible();
+    await Promise.all([page.waitForURL(/\/en\/skills$/), skillsLink.click()]);
+    await expect(page.getByRole('heading', { level: 1, name: 'Skills Directory' })).toBeVisible();
   });
 
   test('desktop locale switch should update the route and document language', async ({ page }) => {
@@ -65,10 +72,10 @@ test.describe('Navigation & i18n E2E', () => {
     await menuToggle.click();
     await expect(overlay).toHaveAttribute('data-state', 'open');
 
-    const categoriesLink = page.getByTestId('mobile-menu-panel').locator('a[href="/en/categories"]');
-    await Promise.all([page.waitForURL(/\/en\/categories$/), categoriesLink.click()]);
+    const collectionsLink = page.getByTestId('mobile-menu-panel').locator('a[href="/en/collections"]');
+    await Promise.all([page.waitForURL(/\/en\/collections$/), collectionsLink.click()]);
     await expect(overlay).toHaveAttribute('data-state', 'closed');
-    await expect(page.getByRole('heading', { level: 1, name: 'Categories' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Curated Skill Collections' })).toBeVisible();
 
     await menuToggle.click();
     await expect(overlay).toHaveAttribute('data-state', 'open');

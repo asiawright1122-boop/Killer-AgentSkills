@@ -6,7 +6,8 @@ const coreRoutes = [
   { path: '/zh/popular', h1: '热门 Skills' },
   { path: '/zh/popular?rank=latest', h1: '最新 Skills' },
   { path: '/zh/occupations', h1: '职业' },
-  { path: '/zh/categories', h1: '分类' },
+  { path: '/zh/categories', h1: 'Skills 筛选' },
+  { path: '/zh/collections', h1: '精选 Skills 合集' },
   { path: '/zh/search', h1: '搜索 Skills' },
   { path: '/zh/safe', h1: '审核政策' },
 ];
@@ -120,7 +121,9 @@ test.describe('Marketplace UI audit', () => {
       expect(headerText).toContain('Skills');
       expect(headerText).toContain('榜单');
       expect(headerText).toContain('职业');
-      expect(headerText).toContain('分类');
+      expect(headerText).toContain('合集');
+      expect(headerText).toContain('安装');
+      expect(headerText).not.toContain('分类');
       expect(headerText).not.toMatch(oldHeaderLabels);
 
       await expectNoHorizontalOverflow(page);
@@ -143,7 +146,7 @@ test.describe('Marketplace UI audit', () => {
     await expect(panel).toBeVisible();
 
     const labels = await panel.locator('.header-mobile-nav-link').allInnerTexts();
-    expect(labels.map((label) => label.trim())).toEqual(['首页', 'Skills', '榜单', '职业', '分类']);
+    expect(labels.map((label) => label.trim())).toEqual(['首页', 'Skills', '榜单', '职业', '合集', '安装']);
 
     const panelBox = await panel.boundingBox();
     expect(panelBox).not.toBeNull();

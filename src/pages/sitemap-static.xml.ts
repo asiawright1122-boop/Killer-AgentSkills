@@ -8,12 +8,10 @@ const SITE = SITE_URL;
 const STATIC_PAGES = [
   '', // Home
   '/collections',
-  '/solutions',
   '/docs',
   '/skills',
   '/popular',
   '/occupations',
-  '/categories',
   '/search',
   '/safe',
   '/article',

@@ -58,7 +58,7 @@ const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperi
   <main>
     <MarketplaceHero
       locale={locale}
-      eyebrow={isZhCopy ? '分类' : 'Category'}
+      eyebrow={isZhCopy ? '筛选' : 'Filter'}
       title={categoryLabel}
       description={pageDescription}
       searchPlaceholder={isZhCopy ? `搜索 ${categoryLabel}` : `Search ${categoryLabel}`}
@@ -66,7 +66,7 @@ const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperi
       countLabel={isZhCopy ? `${categorySkills.length} 个 Skills` : `${categorySkills.length} skills`}
       actions={[
         { href: `/${locale}/skills?category=${categoryId}`, label: isZhCopy ? '筛选目录' : 'Filter directory' },
-        { href: `/${locale}/categories`, label: isZhCopy ? '全部分类' : 'All categories' },
+        { href: `/${locale}/collections`, label: isZhCopy ? '看合集' : 'View collections' },
       ]}
     />
 

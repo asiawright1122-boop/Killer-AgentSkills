@@ -12,6 +12,25 @@ const { locale, messages, compact = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 const primaryNavItems = getPrimaryNavItems(locale);
+const isZhCopy = locale.startsWith('zh');
+const trustLinks = [
+  {
+    href: `/${locale}/safe`,
+    label: isZhCopy ? '审核政策' : 'Review policy',
+  },
+  {
+    href: `/${locale}/skills?source=official`,
+    label: isZhCopy ? '官方来源' : 'Official sources',
+  },
+  {
+    href: `/${locale}/docs/installation`,
+    label: isZhCopy ? '安装文档' : 'Install guide',
+  },
+  {
+    href: `/${locale}/docs/cli/overview`,
+    label: isZhCopy ? 'CLI 总览' : 'CLI overview',
+  },
+];
 ---
 
 <footer
@@ -44,9 +63,9 @@ const primaryNavItems = getPrimaryNavItems(locale);
             </div>
           </div>
 
-          {/* Product */}
+          {/* Discover */}
           <nav aria-label="Product">
-            <h4 class="font-bold text-white mb-4">{tr('Footer.product', 'Product')}</h4>
+            <h4 class="font-bold text-white mb-4">{isZhCopy ? '发现' : 'Discover'}</h4>
             <ul class="space-y-3 text-sm text-white/65 font-bold">
               {primaryNavItems.map((item) => (
                 <li>
@@ -61,34 +80,20 @@ const primaryNavItems = getPrimaryNavItems(locale);
             </ul>
           </nav>
 
-          {/* Personal */}
-          <nav aria-label="Personal">
-            <h4 class="font-bold text-white mb-4">{locale === 'zh' ? '个人' : 'Personal'}</h4>
+          {/* Trust & Install */}
+          <nav aria-label="Trust and install">
+            <h4 class="font-bold text-white mb-4">{isZhCopy ? '信任与安装' : 'Trust & Install'}</h4>
             <ul class="space-y-3 text-sm text-white/65 font-bold">
-              <li>
-                <a
-                  href={`/${locale}/favorites`}
-                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {locale === 'zh' ? '收藏' : 'Favorites'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/history`}
-                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {locale === 'zh' ? '浏览历史' : 'History'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${locale}/skills?source=official`}
-                  class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
-                >
-                  {locale === 'zh' ? '官方来源' : 'Official sources'}
-                </a>
-              </li>
+              {trustLinks.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="hover:text-[var(--accent)] hover:underline decoration-2 underline-offset-4 transition-all"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
 

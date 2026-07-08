@@ -4,8 +4,8 @@ import MarketplaceHero from '../../components/MarketplaceHero.astro';
 import MarketplaceSection from '../../components/MarketplaceSection.astro';
 import MarketplaceSkillList from '../../components/MarketplaceSkillList.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
+import { getAuthoritySurfaceEntries } from '../../lib/authority-surfaces';
 import type { Env } from '../../lib/kv';
-import { getMarketplaceOverview } from '../../lib/marketplace-overview';
 import { getMarketplaceSkills, sortSkillsLatest, sortSkillsPopular } from '../../lib/marketplace-filters';
 import { buildOccupationSummaries } from '../../lib/occupations';
 import { getLightweightSkillsTop, type UnifiedSkill } from '../../lib/public-skill-catalog';
@@ -34,25 +34,16 @@ const latestSkills = sortSkillsLatest(marketplaceSkills).slice(0, 8);
 const occupationSummaries = buildOccupationSummaries(marketplaceSkills, typedLocale)
   .filter((occupation) => occupation.skillCount > 0)
   .slice(0, 8);
-const overview = await getMarketplaceOverview(env, typedLocale, t, {
-  includeEmptyCategories: false,
-  includeOtherCategory: false,
-  topCategoryLimit: 8,
-}).catch(() => ({
-  categories: [],
-  topCategories: [],
-  totalSkillCount: marketplaceSkills.length,
-  featuredRoutes: [],
-  featuredCollections: [],
-  solutionEntries: [],
-}));
+const featuredCollections = getAuthoritySurfaceEntries(typedLocale, { placement: 'collections' })
+  .filter((surface) => surface.surfaceClass === 'collection' && (surface.tier === 'P0' || surface.tier === 'P1'))
+  .slice(0, 6);
 
 const pageTitle = isZhCopy
   ? 'Killer-Skills - AI Agent Skills / AI 智能体技能市场'
   : 'Killer-Skills - AI Agent Skills Marketplace';
 const pageDescription = isZhCopy
-  ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和分类快速进入，适合在 Claude Code、Cursor 与 Windsurf 中对比使用。'
-  : 'Discover, filter, and install baseline-reviewed AI agent skills by rankings, occupations, and categories.';
+  ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和精选合集快速进入，适合在 Claude Code、Cursor 与 Windsurf 中对比使用。'
+  : 'Discover, filter, and install baseline-reviewed AI agent skills by rankings, occupations, and curated collections.';
 const pageKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'developerExperience');
 const countLabel = isZhCopy
   ? `${marketplaceSkills.length} 个已收录 Skills`
@@ -164,22 +155,23 @@ const pageJsonLd = {
     </MarketplaceSection>
 
     <MarketplaceSection
-      title={isZhCopy ? '分类' : 'Categories'}
+      title={isZhCopy ? '精选合集' : 'Curated Collections'}
       description={isZhCopy
-        ? '按能力类型浏览，适合已经知道要找哪类工具的用户。'
-        : 'Browse by capability when you already know the tool type you need.'}
-      actionHref={`/${locale}/categories`}
-      actionLabel={isZhCopy ? '全部分类' : 'All categories'}
+        ? '按官方来源、Agent 工作流、IDE 和语言栈进入更短的选型路径。'
+        : 'Start from official sources, agent workflows, IDEs, and language stacks for shorter decisions.'}
+      actionHref={`/${locale}/collections`}
+      actionLabel={isZhCopy ? '全部合集' : 'All collections'}
     >
       <div class="marketplace-card-grid">
         {
-          overview.topCategories.map((category) => (
-            <a class="marketplace-card-link" href={`/${locale}/categories/${category.id}`}>
+          featuredCollections.map((surface) => (
+            <a class="marketplace-card-link" href={surface.href}>
               <div class="marketplace-meta-row">
-                <span>{isZhCopy ? `${category.count} 个 Skills` : `${category.count} skills`}</span>
+                <span>{surface.tier}</span>
+                <span>{isZhCopy ? '精选' : 'curated'}</span>
               </div>
-              <h3>{category.label}</h3>
-              <p>{category.seoDescription}</p>
+              <h3>{surface.title}</h3>
+              <p>{surface.description}</p>
             </a>
           ))
         }

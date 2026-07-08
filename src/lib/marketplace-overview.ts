@@ -1,7 +1,7 @@
 import type { Locale } from '../i18n';
 import { CATEGORY_DEFS, getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from './category-taxonomy';
 import type { Env, SkillsCategorySummary } from './kv';
-import { getLightweightSkillsCategorySummary } from './public-skill-catalog';
+import { getLightweightSkills, getLightweightSkillsCategorySummary } from './public-skill-catalog';
 import { sanitizePublicAIOutput } from './public-ai-output';
 import { getPrimaryNavItems } from './site-ia';
 
@@ -63,6 +63,54 @@ function buildCategoryCounts(summary: SkillsCategorySummary) {
   return counts;
 }
 
+function inferCategoryFromSkill(skill: {
+  category?: unknown;
+  topics?: unknown;
+  name?: unknown;
+  description?: unknown;
+}) {
+  const candidates = [
+    skill.category,
+    ...(Array.isArray(skill.topics) ? skill.topics : []),
+    skill.name,
+    skill.description,
+  ]
+    .filter(Boolean)
+    .map((value) => String(value).toLowerCase());
+
+  for (const candidate of candidates) {
+    const direct = normalizeCategoryId(candidate);
+    if (KNOWN_CATEGORY_IDS.has(direct)) return direct;
+  }
+
+  const haystack = candidates.join(' ');
+  if (/\b(playwright|browser|scrap|web)\b/.test(haystack)) return 'browser';
+  if (/\b(markdown|docs?|documentation|pdf|readme)\b/.test(haystack)) return 'documentation';
+  if (/\b(sql|database|data|etl|analytics)\b/.test(haystack)) return 'data';
+  if (/\b(react|typescript|javascript|code|dev|debug|mcp)\b/.test(haystack)) return 'developer';
+  if (/\b(deploy|docker|kubernetes|ci|cloud)\b/.test(haystack)) return 'devops';
+  if (/\b(design|ui|ux|figma|brand)\b/.test(haystack)) return 'design';
+  if (/\b(security|audit|auth|vulnerability)\b/.test(haystack)) return 'security';
+  if (/\b(slack|message|communication|handoff)\b/.test(haystack)) return 'communication';
+
+  return '';
+}
+
+async function getEffectiveCategoryCounts(env: Env | undefined, summary: SkillsCategorySummary) {
+  const counts = buildCategoryCounts(summary);
+  const hasKnownCategory = Object.keys(counts).some((category) => KNOWN_CATEGORY_IDS.has(category));
+  if (hasKnownCategory || (summary.total || 0) === 0) return counts;
+
+  const skills = await getLightweightSkills((env || {}) as Env).catch(() => []);
+  for (const skill of skills) {
+    const inferred = inferCategoryFromSkill(skill);
+    if (!inferred) continue;
+    counts[inferred] = (counts[inferred] || 0) + 1;
+  }
+
+  return counts;
+}
+
 export async function getMarketplaceOverview(
   env: Env | undefined,
   locale: Locale,
@@ -76,7 +124,7 @@ export async function getMarketplaceOverview(
   } = {},
 ): Promise<MarketplaceOverview> {
   const summary = await getCatalogSummary(env);
-  const counts = buildCategoryCounts(summary);
+  const counts = await getEffectiveCategoryCounts(env, summary);
 
   const categories: MarketplaceCategory[] = CATEGORY_DEFS.map((definition) => ({
     id: definition.id,

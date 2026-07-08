@@ -6,10 +6,21 @@ import docsCache from '../../../../data/docs-cache.json';
 
 type DocsCachePage = {
   slug?: string;
+  title?: Partial<Record<Locale | string, string>>;
 };
 
+const docsPages = ((docsCache as { pages?: DocsCachePage[] }).pages || []).filter(
+  (page) => page && typeof page === 'object',
+);
+const normalizedDocsPages = docsPages
+  .map((page) => ({
+    ...page,
+    normalizedSlug: typeof page.slug === 'string' ? page.slug.trim().toLowerCase() : '',
+  }))
+  .filter((page) => page.normalizedSlug);
+
 const validDocsSlugs = new Set(
-  ((docsCache as { pages?: DocsCachePage[] }).pages || [])
+  normalizedDocsPages
     .map((page) => (typeof page.slug === 'string' ? page.slug.trim().toLowerCase() : ''))
     .filter(Boolean),
 );
@@ -29,6 +40,9 @@ const normalizedSlug = slugLabel
   .toLowerCase();
 const isKnownDocsSlug = normalizedSlug === 'index' || validDocsSlugs.has(normalizedSlug);
 const robotsContent = isKnownDocsSlug ? undefined : 'noindex, nofollow';
+const docsPage = normalizedDocsPages.find((page) => page.normalizedSlug === normalizedSlug);
+const docsPageTitle =
+  docsPage?.title?.[locale] || docsPage?.title?.[locale.split('-')[0]] || docsPage?.title?.en || undefined;
 
 if (!isKnownDocsSlug) {
   Astro.response.status = 404;
@@ -36,7 +50,11 @@ if (!isKnownDocsSlug) {
   Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 }
 
-const title = isKnownDocsSlug ? (isZhCopy ? '文档' : 'Docs') : isZhCopy ? '404 - 页面不存在' : '404 - Page Not Found';
+const title = isKnownDocsSlug
+  ? docsPageTitle || (isZhCopy ? '文档' : 'Docs')
+  : isZhCopy
+    ? '404 - 页面不存在'
+    : '404 - Page Not Found';
 const description = isKnownDocsSlug
   ? isZhCopy
     ? '安装、目录、审核政策和 CLI 的简明入口。'

@@ -21,7 +21,11 @@ const collectionSurfaces = getAuthoritySurfaceEntries(locale, { placement: 'coll
   (surface) => surface.surfaceClass === 'collection',
 );
 const primaryCollections = collectionSurfaces.filter((surface) => surface.tier === 'P0' || surface.tier === 'P1');
-const supportingCollections = collectionSurfaces.filter((surface) => surface.tier !== 'P0' && surface.tier !== 'P1');
+const featuredCollections = primaryCollections.slice(0, 8);
+const compactCollections = [
+  ...primaryCollections.slice(8),
+  ...collectionSurfaces.filter((surface) => surface.tier === 'P2'),
+];
 const nextStepSurfaces = getAuthoritySurfaceEntries(locale, {
   ids: ['docs-installation', 'solutions-hub', 'skills-directory'],
   includeSupporting: true,
@@ -62,7 +66,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
       <p class="marketplace-route-label">{isZhCopy ? '优先入口' : 'Start Here'}</p>
       <div class="marketplace-card-grid">
         {
-          primaryCollections.map((surface) => (
+          featuredCollections.map((surface) => (
             <a class="marketplace-card-link" href={surface.href}>
               <div class="marketplace-meta-row">
                 <span>{surface.tier}</span>
@@ -77,18 +81,13 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
     </section>
 
     {
-      supportingCollections.length > 0 && (
+      compactCollections.length > 0 && (
         <section>
-          <p class="marketplace-route-label">{isZhCopy ? '更多场景' : 'More Use Cases'}</p>
-          <div class="marketplace-card-grid">
-            {supportingCollections.map((surface) => (
-              <a class="marketplace-card-link" href={surface.href}>
-                <div class="marketplace-meta-row">
-                  <span>{surface.tier}</span>
-                  <span>{isZhCopy ? '支持入口' : 'Supporting path'}</span>
-                </div>
-                <h3>{surface.title}</h3>
-                <p>{surface.description}</p>
+          <p class="marketplace-route-label">{isZhCopy ? '更多合集' : 'More Collections'}</p>
+          <div class="marketplace-tabbar">
+            {compactCollections.map((surface) => (
+              <a href={surface.href}>
+                <span>{surface.title}</span>
               </a>
             ))}
           </div>
@@ -97,7 +96,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
     }
 
     <section>
-      <p class="marketplace-route-label">{isZhCopy ? '下一步' : 'Next Steps'}</p>
+      <p class="marketplace-route-label">{isZhCopy ? '继续浏览' : 'Continue'}</p>
       <div class="marketplace-card-grid">
         {
           nextStepSurfaces.map((surface) => (

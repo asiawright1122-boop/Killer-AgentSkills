@@ -24,7 +24,8 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 - [Skills](${SITE_URL}/en/skills)
 - [Rankings](${SITE_URL}/en/popular)
 - [Occupations](${SITE_URL}/en/occupations)
-- [Categories](${SITE_URL}/en/categories)
+- [Collections](${SITE_URL}/en/collections)
+- [Install](${SITE_URL}/en/docs/installation)
 
 ## Featured Skills
 - [PDF Skill](${SITE_URL}/en/skills/anthropics/skills/pdf) - PDF extraction, OCR, splitting, merging, and form workflows

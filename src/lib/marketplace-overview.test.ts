@@ -51,9 +51,16 @@ describe('getMarketplaceOverview', () => {
     );
     expect(overview.topCategories[0]).toEqual(expect.objectContaining({ id: 'developer', count: 7 }));
     expect(overview.featuredRoutes.map((route) => route.href)).toEqual(
-      expect.arrayContaining(['/en', '/en/skills', '/en/popular', '/en/occupations', '/en/categories']),
+      expect.arrayContaining([
+        '/en',
+        '/en/skills',
+        '/en/popular',
+        '/en/occupations',
+        '/en/collections',
+        '/en/docs/installation',
+      ]),
     );
-    expect(overview.featuredRoutes).toHaveLength(5);
+    expect(overview.featuredRoutes).toHaveLength(6);
     expect(overview.featuredCollections).toEqual([]);
     expect(overview.solutionEntries).toEqual([]);
   });
@@ -70,7 +77,14 @@ describe('getMarketplaceOverview', () => {
     expect(overview.totalSkillCount).toBe(4);
     expect(overview.categories).toEqual([expect.objectContaining({ id: 'productivity', count: 4 })]);
     expect(overview.featuredRoutes.map((route) => route.href)).toEqual(
-      expect.arrayContaining(['/zh', '/zh/skills', '/zh/popular', '/zh/occupations', '/zh/categories']),
+      expect.arrayContaining([
+        '/zh',
+        '/zh/skills',
+        '/zh/popular',
+        '/zh/occupations',
+        '/zh/collections',
+        '/zh/docs/installation',
+      ]),
     );
     expect(overview.featuredCollections).toEqual([]);
     expect(overview.solutionEntries).toEqual([]);

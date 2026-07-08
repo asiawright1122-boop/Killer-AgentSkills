@@ -299,8 +299,8 @@ describe('public links and navigation copy', () => {
     expect(layoutSource).toContain('buildPageMetadata');
     expect(collectionsIndexSource).toContain('MarketplaceSimplePage');
     expect(collectionsDetailSource).toContain('MarketplaceSimplePage');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
-    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(collectionsIndexSource).toContain("ids: ['docs-installation', 'solutions-hub', 'skills-directory']");
+    expect(collectionsDetailSource).toContain('uniqueSkillRefs.map((skillRef)');
     expect(collectionsIndexSource).not.toContain("'@type': 'BreadcrumbList'");
     expect(collectionsDetailSource).not.toContain("'@type': 'BreadcrumbList'");
   });
@@ -378,7 +378,6 @@ describe('public links and navigation copy', () => {
       popularSource,
       occupationsSource,
       occupationDetailSource,
-      categoriesSource,
       categoryDetailSource,
     ]) {
       expect(source).toContain('getMarketplaceSkills(');
@@ -396,6 +395,8 @@ describe('public links and navigation copy', () => {
     );
     expect(occupationDetailSource).toContain('occupation.popularSkills');
     expect(occupationDetailSource).toContain('occupation.latestSkills');
+    expect(categoriesSource).toContain('getMarketplaceOverview(env, typedLocale, t');
+    expect(categoriesSource).toContain('href={`/${locale}/skills?category=${encodeURIComponent(category.id)}`');
     expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
     expect(categoryDetailSource).toContain('sortSkillsLatest(categorySkills)');
   });
@@ -404,9 +405,9 @@ describe('public links and navigation copy', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
     const layoutSource = readPageSource('../layouts/Layout.astro');
 
-    expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, 480)');
+    expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, 120)');
     expect(skillsIndexSource).toContain('.slice(0, 80)');
-    expect(skillsIndexSource).toContain('visibleResults = results.slice(0, 72)');
+    expect(skillsIndexSource).toContain('visibleResults = results.slice(0, 36)');
     expect(skillsIndexSource).toContain("'Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600'");
     expect(layoutSource).toContain('<meta name="robots" content={robotsContent} />');
     expect(skillsIndexSource).not.toContain('getLightweightSkills(env)');
@@ -583,7 +584,7 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).toContain('href: `/${locale}/skills`');
     expect(zhHomeSource).toContain('href: `/${locale}/popular`');
     expect(zhHomeSource).toContain('href: `/${locale}/occupations`');
-    expect(zhHomeSource).toContain('actionHref={`/${locale}/categories`}');
+    expect(zhHomeSource).toContain('actionHref={`/${locale}/collections`}');
     // Verify the i18n values themselves carry the correct positioning
     expect(zh.Home.seoTitle).toContain('AI Agent Skills');
     expect(zh.Home.seoDescription).toContain('榜单');
@@ -595,21 +596,30 @@ describe('public links and navigation copy', () => {
     const headerSource = readPageSource('../components/Header.astro');
     const headerActionsSource = readPageSource('../components/HeaderActionsNative.astro');
 
-    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual(['home', 'skills', 'rankings', 'occupations', 'categories']);
+    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual(['home', 'skills', 'rankings', 'occupations', 'collections', 'install']);
     expect(PRIMARY_MARKETPLACE_NAV_HREFS('zh')).toEqual([
       '/zh',
       '/zh/skills',
       '/zh/popular',
       '/zh/occupations',
-      '/zh/categories',
+      '/zh/collections',
+      '/zh/docs/installation',
     ]);
-    expect(getPrimaryNavItems('zh').map((item) => item.label)).toEqual(['首页', 'Skills', '榜单', '职业', '分类']);
+    expect(getPrimaryNavItems('zh').map((item) => item.label)).toEqual([
+      '首页',
+      'Skills',
+      '榜单',
+      '职业',
+      '合集',
+      '安装',
+    ]);
     expect(getPrimaryNavItems('en').map((item) => item.label)).toEqual([
       'Home',
       'Skills',
       'Rankings',
       'Occupations',
-      'Categories',
+      'Collections',
+      'Install',
     ]);
 
     expect(headerSource).toContain('data-testid="site-header"');
@@ -665,7 +675,7 @@ describe('public links and navigation copy', () => {
     const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
     const solutionsSource = readPageSource('../pages/[locale]/solutions/index.astro');
 
-    for (const source of [homeSource, skillsSource, collectionsIndexSource, collectionsDetailSource, solutionsSource]) {
+    for (const source of [skillsSource, solutionsSource]) {
       expect(source).not.toContain('getAuthoritySurfaceEntries(');
       expect(source).not.toContain('getAuthorityStrategy(');
       expect(source).not.toContain('featuredCollectionRecoveryPaths');
@@ -673,14 +683,13 @@ describe('public links and navigation copy', () => {
 
     expect(homeSource).toContain('sortSkillsPopular(marketplaceSkills).slice(0, 8)');
     expect(homeSource).toContain('buildOccupationSummaries(marketplaceSkills, typedLocale)');
-    expect(homeSource).toContain('getMarketplaceOverview(env, typedLocale, t');
+    expect(homeSource).toContain("getAuthoritySurfaceEntries(typedLocale, { placement: 'collections' })");
     expect(skillsSource).toContain('getMarketplaceSkills(skillsFetched)');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
-    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
+    expect(collectionsIndexSource).toContain('featuredCollections');
+    expect(collectionsIndexSource).toContain('compactCollections');
+    expect(collectionsDetailSource).toContain('getCollectionRecoveryPathEntries(locale, canonicalSlug');
     expect(solutionsSource).toContain('href={`/${locale}/occupations`}');
-    expect(solutionsSource).toContain('href={`/${locale}/categories`}');
+    expect(solutionsSource).toContain('href={`/${locale}/collections`}');
     expect(solutionsSource).toContain('href={`/${locale}/popular`}');
   });
 
@@ -947,8 +956,8 @@ describe('public links and navigation copy', () => {
     const docsSource = readPageSource('./[locale]/docs/[...slug].astro');
 
     expect(collectionDetailSource).toContain('MarketplaceSimplePage');
-    expect(collectionDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
-    expect(collectionDetailSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionDetailSource).toContain('uniqueSkillRefs.map((skillRef)');
+    expect(collectionDetailSource).toContain('getCollectionRecoveryPathEntries(locale, canonicalSlug');
     expect(collectionDetailSource).not.toContain('editorialTrustSignals');
     expect(collectionDetailSource).not.toContain('editorialDecisionTracks');
 
@@ -960,14 +969,13 @@ describe('public links and navigation copy', () => {
     expect(docsSource).not.toContain('getAuthoritySurfaceEntries(');
   });
 
-  it('keeps the legacy Collections Hub pointed at Skills, categories, and occupations', () => {
+  it('keeps Collections as a compact curated entry point', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
 
     expect(collectionsIndexSource).toContain('MarketplaceSimplePage');
-    expect(collectionsIndexSource).toContain('新版结构以 Skills、榜单、职业和分类为主入口。');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
+    expect(collectionsIndexSource).toContain('featuredCollections = primaryCollections.slice(0, 8)');
+    expect(collectionsIndexSource).toContain('compactCollections');
+    expect(collectionsIndexSource).toContain("ids: ['docs-installation', 'solutions-hub', 'skills-directory']");
     expect(collectionsIndexSource).not.toContain('Three-Step Decision-to-Setup Path');
     expect(collectionsIndexSource).not.toContain('killer-skills list');
   });
@@ -1509,22 +1517,20 @@ describe('public links and navigation copy', () => {
     expect(mcpFrameworksSource).not.toContain('protocol compatibility');
   });
 
-  it('keeps legacy collection routes lightweight while collection sitemap stays empty', () => {
+  it('keeps collection routes data-driven while collection sitemap is populated', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
     const collectionsDetailSource = readPageSource('./[locale]/collections/[...slug].astro');
     const collectionsSitemapSource = readPageSource('./sitemap-collections.xml.ts');
 
-    expect(collectionsIndexSource).toContain('href={`/${locale}/skills`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/categories`}');
-    expect(collectionsIndexSource).toContain('href={`/${locale}/occupations`}');
-    expect(collectionsDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`');
-    expect(collectionsDetailSource).toContain('href={`/${locale}/categories`}');
+    expect(collectionsIndexSource).toContain('getAuthoritySurfaceEntries(locale, { placement:');
+    expect(collectionsDetailSource).toContain('getAuthoritySurfaceEntries(locale, { placement:');
+    expect(collectionsDetailSource).toContain('uniqueSkillRefs.map((skillRef)');
     expect(collectionsIndexSource).not.toContain("col.id.replace(/\\.json$/, '')");
     expect(collectionsDetailSource).not.toContain("col.id.replace(/\\.json$/, '')");
 
-    expect(collectionsSitemapSource).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-    expect(collectionsSitemapSource).not.toContain('getCanonicalCollections(');
-    expect(collectionsSitemapSource).not.toContain("const cleanSlug = col.id.replace(/\\.json$/, '')");
+    expect(collectionsSitemapSource).toContain('getAuthoritySurfaceEntries(locale, { placement:');
+    expect(collectionsSitemapSource).toContain('buildHreflangLinks(slug)');
+    expect(collectionsSitemapSource).toContain('<url>');
   });
 
   it('keeps legacy solution routes out of the static sitemap after the IA reset', () => {
@@ -1533,7 +1539,9 @@ describe('public links and navigation copy', () => {
     expect(staticSitemapSource).toContain("'/skills'");
     expect(staticSitemapSource).toContain("'/popular'");
     expect(staticSitemapSource).toContain("'/occupations'");
-    expect(staticSitemapSource).toContain("'/categories'");
+    expect(staticSitemapSource).toContain("'/collections'");
+    expect(staticSitemapSource).toContain("'/docs'");
+    expect(staticSitemapSource).not.toContain("'/categories'");
     expect(staticSitemapSource).not.toContain('getSolutionSeoEligibleLocales');
     expect(staticSitemapSource).not.toContain('getPreferredCanonicalLocale(page.locales)');
     expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
