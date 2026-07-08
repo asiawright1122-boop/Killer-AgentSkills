@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 
 const { locale } = Astro.params;
@@ -11,24 +12,102 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const title = isZhCopy ? '合集' : 'Collections';
+const title = isZhCopy ? '精选 Skills 合集' : 'Curated Skill Collections';
 const description = isZhCopy
-  ? '新版结构以 Skills、榜单、职业和分类为主入口。'
-  : 'The current structure centers Skills, rankings, occupations, and categories.';
+  ? '从官方工具、Agent 工作流、IDE 场景和语言栈合集开始，对比更少但更可信的 AI Agent Skills。'
+  : 'Start with official tools, agent workflows, IDE-specific paths, and language-stack collections before browsing the full directory.';
+const canonicalUrl = `https://killer-skills.com/${locale}/collections`;
+const collectionSurfaces = getAuthoritySurfaceEntries(locale, { placement: 'collections' }).filter(
+  (surface) => surface.surfaceClass === 'collection',
+);
+const primaryCollections = collectionSurfaces.filter((surface) => surface.tier === 'P0' || surface.tier === 'P1');
+const supportingCollections = collectionSurfaces.filter((surface) => surface.tier !== 'P0' && surface.tier !== 'P1');
+const nextStepSurfaces = getAuthoritySurfaceEntries(locale, {
+  ids: ['docs-installation', 'solutions-hub', 'skills-directory'],
+  includeSupporting: true,
+});
 const breadcrumb = buildBreadcrumbTrail([{ label: isZhCopy ? '首页' : 'Home', href: `/${locale}` }, { label: title }], {
   currentUrl: `/${locale}/collections`,
 });
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: title,
+  description,
+  inLanguage: locale,
+  hasPart: collectionSurfaces.slice(0, 12).map((surface) => ({
+    '@type': 'CollectionPage',
+    name: surface.title,
+    url: `https://killer-skills.com${surface.href}`,
+  })),
+};
 
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 ---
 
-<Layout locale={locale} title={title} description={description} appendBrand={false} jsonLd={breadcrumb.jsonLd}>
+<Layout
+  locale={locale}
+  title={title}
+  description={description}
+  appendBrand={false}
+  customCanonical={canonicalUrl}
+  jsonLd={[breadcrumb.jsonLd, pageJsonLd]}
+>
   <MarketplaceSimplePage title={title} description={description}>
     <Breadcrumb items={breadcrumb.items} />
-    <div class="marketplace-card-grid">
-      <a class="marketplace-card-link" href={`/${locale}/skills`}><h3>Skills</h3></a>
-      <a class="marketplace-card-link" href={`/${locale}/categories`}><h3>{isZhCopy ? '分类' : 'Categories'}</h3></a>
-      <a class="marketplace-card-link" href={`/${locale}/occupations`}><h3>{isZhCopy ? '职业' : 'Occupations'}</h3></a>
-    </div>
+
+    <section>
+      <p class="marketplace-route-label">{isZhCopy ? '优先入口' : 'Start Here'}</p>
+      <div class="marketplace-card-grid">
+        {
+          primaryCollections.map((surface) => (
+            <a class="marketplace-card-link" href={surface.href}>
+              <div class="marketplace-meta-row">
+                <span>{surface.tier}</span>
+                <span>{isZhCopy ? '精选合集' : 'Curated collection'}</span>
+              </div>
+              <h3>{surface.title}</h3>
+              <p>{surface.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      supportingCollections.length > 0 && (
+        <section>
+          <p class="marketplace-route-label">{isZhCopy ? '更多场景' : 'More Use Cases'}</p>
+          <div class="marketplace-card-grid">
+            {supportingCollections.map((surface) => (
+              <a class="marketplace-card-link" href={surface.href}>
+                <div class="marketplace-meta-row">
+                  <span>{surface.tier}</span>
+                  <span>{isZhCopy ? '支持入口' : 'Supporting path'}</span>
+                </div>
+                <h3>{surface.title}</h3>
+                <p>{surface.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <section>
+      <p class="marketplace-route-label">{isZhCopy ? '下一步' : 'Next Steps'}</p>
+      <div class="marketplace-card-grid">
+        {
+          nextStepSurfaces.map((surface) => (
+            <a class="marketplace-card-link" href={surface.href}>
+              <h3>{surface.title}</h3>
+              <p>{surface.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
   </MarketplaceSimplePage>
 </Layout>

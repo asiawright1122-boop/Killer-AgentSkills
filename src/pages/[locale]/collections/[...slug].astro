@@ -1,7 +1,19 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import {
+  getAuthoritySurfaceEntries,
+  getCollectionRecoveryPathEntries,
+  getRelatedAuthorityCollectionEntries,
+  type ResolvedAuthoritySurface,
+} from '../../../lib/authority-surfaces';
+import { getCollectionsFromRuntime, type CollectionEntryLike, type Env } from '../../../lib/collections-runtime';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
+import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
+
+type LocalizedText = Record<string, string> | undefined;
 
 const { locale, slug } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -9,25 +21,234 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const slugLabel = Array.isArray(slug) ? slug.join(' ') : slug || 'collection';
-const title = isZhCopy ? '合集' : 'Collection';
-const description = isZhCopy
-  ? '按合集关键词进入新版 Skills 目录。'
-  : 'Use this collection keyword in the current Skills directory.';
+const rawSlug = Array.isArray(slug) ? slug.join('/') : slug || '';
+const requestedSlug = rawSlug
+  .split('/')
+  .map((segment) => segment.trim())
+  .filter(Boolean)
+  .join('/');
+
+if (!requestedSlug) {
+  return Astro.redirect(`/${locale}/collections`, 301);
+}
+
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const authorityCollections = getAuthoritySurfaceEntries(locale, { placement: 'collections' }).filter(
+  (surface) => surface.surfaceClass === 'collection',
+);
+const getSurfaceSlug = (surface: Pick<ResolvedAuthoritySurface, 'href'>) =>
+  surface.href.split('/').filter(Boolean).pop() || '';
+const authoritySurface = authorityCollections.find((surface) => getSurfaceSlug(surface) === requestedSlug);
+const runtimeCollections = await getCollectionsFromRuntime(env).catch(() => [] as CollectionEntryLike[]);
+
+function resolveLocalizedText(value: LocalizedText, fallback = ''): string {
+  if (!value) return fallback;
+  return (
+    value[locale] || (isZhCopy ? value.zh : value.en) || value.en || Object.values(value).find(Boolean) || fallback
+  );
+}
+
+function findRuntimeCollection(): CollectionEntryLike | undefined {
+  const requestedLower = requestedSlug.toLowerCase();
+  return runtimeCollections.find((entry) => {
+    const id = String(entry.id || '')
+      .replace(/\.json$/i, '')
+      .toLowerCase();
+    const canonicalSlug = String(entry.data.canonicalSlug || '').toLowerCase();
+    const legacySlugs = (entry.data.legacySlugs || []).map((item) => String(item).toLowerCase());
+    return id === requestedLower || canonicalSlug === requestedLower || legacySlugs.includes(requestedLower);
+  });
+}
+
+const runtimeCollection = findRuntimeCollection();
+const canonicalRuntimeSlug = runtimeCollection?.data.canonicalSlug || runtimeCollection?.id;
+if (!authoritySurface && canonicalRuntimeSlug && canonicalRuntimeSlug !== requestedSlug) {
+  return Astro.redirect(`/${locale}/collections/${canonicalRuntimeSlug}`, 301);
+}
+
+const title =
+  authoritySurface?.title ||
+  resolveLocalizedText(runtimeCollection?.data.seoTitle, '') ||
+  resolveLocalizedText(runtimeCollection?.data.title, '');
+const description =
+  authoritySurface?.description ||
+  resolveLocalizedText(runtimeCollection?.data.seoDescription, '') ||
+  resolveLocalizedText(runtimeCollection?.data.description, '');
+const isKnownCollection = Boolean(title && description);
+const canonicalSlug = authoritySurface ? getSurfaceSlug(authoritySurface) : canonicalRuntimeSlug || requestedSlug;
+const canonicalUrl = `https://killer-skills.com/${locale}/collections/${canonicalSlug}`;
+const robotsContent = isKnownCollection ? undefined : 'noindex, nofollow';
+
+if (!isKnownCollection) {
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not Found';
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+}
+
+const relatedCollections = isKnownCollection
+  ? getRelatedAuthorityCollectionEntries(locale, canonicalSlug, 4).filter(
+      (surface) => surface.href !== `/${locale}/collections/${canonicalSlug}`,
+    )
+  : [];
+const nextStepSurfaces = isKnownCollection
+  ? getCollectionRecoveryPathEntries(locale, canonicalSlug, {
+      excludeHrefs: [`/${locale}/collections/${canonicalSlug}`],
+      limit: 4,
+    })
+  : [];
+const skillRefs = [
+  ...(runtimeCollection?.data.featuredSkillRefs || []),
+  ...(runtimeCollection?.data.skills || []),
+].filter(Boolean);
+const uniqueSkillRefs = Array.from(new Set(skillRefs)).slice(0, 8);
+const reviewSummary = resolveLocalizedText(runtimeCollection?.data.editorial?.reviewSummary, '');
+const selectionReason = resolveLocalizedText(runtimeCollection?.data.editorial?.selectionReason, '');
+const groupingLogic = runtimeCollection?.data.editorial?.groupingLogic
+  ? runtimeCollection.data.editorial.groupingLogic[locale] ||
+    (isZhCopy
+      ? runtimeCollection.data.editorial.groupingLogic.zh
+      : runtimeCollection.data.editorial.groupingLogic.en) ||
+    runtimeCollection.data.editorial.groupingLogic.en ||
+    []
+  : [];
+const breadcrumb = buildBreadcrumbTrail(
+  [
+    { label: isZhCopy ? '首页' : 'Home', href: `/${locale}` },
+    { label: isZhCopy ? '合集' : 'Collections', href: `/${locale}/collections` },
+    { label: isKnownCollection ? title : isZhCopy ? '页面不存在' : 'Page Not Found' },
+  ],
+  { currentUrl: isKnownCollection ? canonicalUrl : `/${locale}/collections/${requestedSlug}` },
+);
+const pageJsonLd = isKnownCollection
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description,
+      inLanguage: locale,
+    }
+  : undefined;
 
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 ---
 
-<Layout locale={locale} title={title} description={description} appendBrand={false}>
-  <MarketplaceSimplePage title={title} description={description}>
-    <div class="marketplace-card-grid">
-      <a class="marketplace-card-link" href={`/${locale}/skills?q=${encodeURIComponent(slugLabel)}`}>
-        <span class="marketplace-route-label">{slugLabel}</span>
-        <h3>Skills</h3>
-      </a>
-      <a class="marketplace-card-link" href={`/${locale}/categories`}>
-        <h3>{isZhCopy ? '分类' : 'Categories'}</h3>
-      </a>
-    </div>
-  </MarketplaceSimplePage>
+<Layout
+  locale={locale}
+  title={isKnownCollection ? title : isZhCopy ? '404 - 页面不存在' : '404 - Page Not Found'}
+  description={isKnownCollection ? description : isZhCopy ? '这个合集页面不存在。' : 'This collection does not exist.'}
+  appendBrand={false}
+  customCanonical={isKnownCollection ? canonicalUrl : undefined}
+  noindex={!isKnownCollection}
+  robots={robotsContent}
+  jsonLd={pageJsonLd ? [breadcrumb.jsonLd, pageJsonLd] : breadcrumb.jsonLd}
+>
+  {
+    isKnownCollection ? (
+      <MarketplaceSimplePage title={title} description={description}>
+        <Breadcrumb items={breadcrumb.items} />
+
+        {(reviewSummary || selectionReason || groupingLogic.length > 0) && (
+          <section>
+            <p class="marketplace-route-label">{isZhCopy ? '筛选说明' : 'Selection Notes'}</p>
+            <div class="marketplace-card-grid">
+              {reviewSummary && (
+                <div class="marketplace-card-link">
+                  <h3>{isZhCopy ? '审查摘要' : 'Review Summary'}</h3>
+                  <p>{reviewSummary}</p>
+                </div>
+              )}
+              {selectionReason && (
+                <div class="marketplace-card-link">
+                  <h3>{isZhCopy ? '入选理由' : 'Why These Belong Here'}</h3>
+                  <p>{selectionReason}</p>
+                </div>
+              )}
+              {groupingLogic.length > 0 && (
+                <div class="marketplace-card-link">
+                  <h3>{isZhCopy ? '分组逻辑' : 'Grouping Logic'}</h3>
+                  <div class="marketplace-pill-list">
+                    {groupingLogic.slice(0, 6).map((item) => (
+                      <span class="market-chip px-2 py-1">{item}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section>
+          <p class="marketplace-route-label">{isZhCopy ? '推荐下一步' : 'Recommended Next Steps'}</p>
+          <div class="marketplace-card-grid">
+            {nextStepSurfaces.map((surface) => (
+              <a class="marketplace-card-link" href={surface.href}>
+                <div class="marketplace-meta-row">
+                  <span>{surface.surfaceClass}</span>
+                  <span>{surface.tier}</span>
+                </div>
+                <h3>{surface.title}</h3>
+                <p>{surface.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {uniqueSkillRefs.length > 0 && (
+          <section>
+            <p class="marketplace-route-label">{isZhCopy ? '合集内 Skills' : 'Skills In This Collection'}</p>
+            <div class="marketplace-card-grid">
+              {uniqueSkillRefs.map((skillRef) => (
+                <a class="marketplace-card-link" href={`/${locale}/skills?q=${encodeURIComponent(skillRef)}`}>
+                  <span class="marketplace-route-label">{skillRef}</span>
+                  <h3>{isZhCopy ? '查看匹配 Skills' : 'View Matching Skills'}</h3>
+                  <p>
+                    {isZhCopy
+                      ? '在目录中打开这个 skill 或仓库引用，继续比较安装路径和相近工具。'
+                      : 'Open this skill or repository reference in the directory to compare setup paths and related tools.'}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedCollections.length > 0 && (
+          <section>
+            <p class="marketplace-route-label">{isZhCopy ? '相关合集' : 'Related Collections'}</p>
+            <div class="marketplace-card-grid">
+              {relatedCollections.map((surface) => (
+                <a class="marketplace-card-link" href={surface.href}>
+                  <div class="marketplace-meta-row">
+                    <span>{surface.tier}</span>
+                    <span>{isZhCopy ? '精选合集' : 'Curated collection'}</span>
+                  </div>
+                  <h3>{surface.title}</h3>
+                  <p>{surface.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </MarketplaceSimplePage>
+    ) : (
+      <MarketplaceSimplePage
+        title={isZhCopy ? '合集不存在' : 'Collection Not Found'}
+        description={isZhCopy ? '这个合集入口不可用。' : 'This collection path is not available.'}
+      >
+        <Breadcrumb items={breadcrumb.items} />
+        <div class="marketplace-card-grid">
+          <a class="marketplace-card-link" href={`/${locale}/collections`}>
+            <h3>{isZhCopy ? '返回合集' : 'Back To Collections'}</h3>
+            <p>{isZhCopy ? '从精选合集重新开始。' : 'Start again from curated collections.'}</p>
+          </a>
+          <a class="marketplace-card-link" href={`/${locale}/skills`}>
+            <h3>Skills</h3>
+            <p>{isZhCopy ? '继续用目录筛选。' : 'Continue with the filterable directory.'}</p>
+          </a>
+        </div>
+      </MarketplaceSimplePage>
+    )
+  }
 </Layout>
