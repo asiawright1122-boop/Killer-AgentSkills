@@ -606,11 +606,11 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.status).toBe(200);
   });
 
-  it('crawler requests keep valid canonical skill detail URLs reachable', async () => {
+  it('browser requests keep valid canonical skill detail URLs on the full SSR path', async () => {
     let nextCalled = false;
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills/coleam00/Archon/archon', {
-        headers: { 'user-agent': 'Googlebot/2.1' },
+        headers: { accept: 'text/html,application/xhtml+xml' },
       }),
       async () => {
         nextCalled = true;
@@ -623,6 +623,108 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
 
     expect(nextCalled).toBe(true);
     expect(response.status).toBe(200);
+  });
+
+  it('crawler requests get an indexable lightweight skill detail response before downstream SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/anthropics/skills/xlsx', {
+        headers: { 'user-agent': 'Googlebot/2.1 (+http://www.google.com/bot.html)' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    const body = await response.text();
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills/anthropics/skills/xlsx">');
+  });
+
+  it('low-fidelity skill detail requests get the same lightweight response used by crawl monitors', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/obra/superpowers/requesting-code-review', {
+        headers: { accept: '*/*' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('Vary')).toContain('Accept');
+  });
+
+  it('defers HTML edge-cache writes so cold SSR responses are not blocked by cache persistence', async () => {
+    const originalDev = import.meta.env.DEV;
+    const originalCaches = (globalThis as any).caches;
+
+    // @ts-ignore -- vitest allows mutating import.meta.env for runtime branch tests
+    import.meta.env.DEV = false;
+
+    let resolvePut!: () => void;
+    const putPromise = new Promise<void>((resolve) => {
+      resolvePut = resolve;
+    });
+    const cachePut = vi.fn(() => putPromise);
+    const waitUntil = vi.fn();
+    (globalThis as any).caches = {
+      default: {
+        match: vi.fn(async () => null),
+        put: cachePut,
+      },
+    };
+
+    try {
+      const responsePromise = onRequest(
+        {
+          ...createContext('https://killer-skills.com/en/skills/coleam00/Archon/archon'),
+          locals: {
+            runtime: {
+              ctx: { waitUntil },
+            },
+          },
+        } as unknown as Parameters<typeof onRequest>[0],
+        async () =>
+          new Response('<html><title>Archon skill</title><h1>Archon skill</h1></html>', {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' },
+          }),
+      ) as Promise<Response>;
+
+      const raceResult = await Promise.race([
+        responsePromise.then(() => 'resolved'),
+        new Promise<'pending'>((resolve) => setTimeout(() => resolve('pending'), 20)),
+      ]);
+
+      expect(raceResult).toBe('resolved');
+      const response = await responsePromise;
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('X-Cache')).toBe('MISS');
+      expect(cachePut).toHaveBeenCalledTimes(1);
+      expect(waitUntil).toHaveBeenCalledTimes(1);
+      expect(waitUntil).toHaveBeenCalledWith(putPromise);
+    } finally {
+      resolvePut();
+      // @ts-ignore -- restore mutated vitest env flag
+      import.meta.env.DEV = originalDev;
+      (globalThis as any).caches = originalCaches;
+    }
   });
 });
 

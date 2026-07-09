@@ -132,7 +132,7 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
   }
 
   _sitemapSkillsLoadPromise = (async () => {
-    let loadSucceeded: boolean;
+    let loadSucceeded: boolean | undefined;
     try {
       // Load blocklist BEFORE the loop to avoid per-iteration KV calls
       // and prevent crashes from undefined blocklist (see GH-404-debug)
@@ -189,7 +189,7 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
       // On failure, do NOT mark as loaded — allow retry on next request
       loadSucceeded = false;
     } finally {
-      _sitemapSkillsLoaded = loadSucceeded;
+      _sitemapSkillsLoaded = loadSucceeded === true;
       _sitemapSkillsLoadTime = Date.now();
       _sitemapSkillsLoadPromise = null;
     }
@@ -357,6 +357,19 @@ function isAiCrawlerUserAgent(userAgent: string): boolean {
   );
 }
 
+function isLowFidelityHtmlRequest(request: Request): boolean {
+  if (!request.headers.has('accept')) return false;
+
+  const accept = (request.headers.get('accept') || '').trim().toLowerCase();
+  if (!accept) return false;
+  if (accept.includes('text/html') || accept.includes('application/xhtml+xml')) return false;
+
+  return accept
+    .split(',')
+    .map((part) => part.trim().split(';')[0].trim())
+    .some((mime) => mime === '*/*' || mime === 'text/*');
+}
+
 function htmlEscape(value: string): string {
   return value.replace(/[&<>"']/g, (char) => {
     switch (char) {
@@ -392,6 +405,59 @@ function isAiCrawlerCapsulePath(url: URL): boolean {
 
 function isCrawlerSkillsListingParamPath(url: URL): boolean {
   return /^\/[a-z]{2}\/skills$/.test(url.pathname) && url.searchParams.size > 0;
+}
+
+function buildCrawlerSkillDetailResponse(
+  locale: string,
+  owner: string,
+  routePath: string,
+  canonicalPath: string,
+): Response {
+  const routeSegments = routePath.split('/').filter(Boolean);
+  const repo = routeSegments[0] || routePath;
+  const label = formatCrawlerLabel(routePath) || repo || 'Skill';
+  const title = `${label} skill`;
+  const canonicalUrl = `https://${SITE_DOMAIN}${canonicalPath}`;
+  const directoryUrl = `https://${SITE_DOMAIN}/${locale}/skills`;
+  const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
+  const llmsUrl = `https://${SITE_DOMAIN}/llms.txt`;
+  const sourceUrl = `https://github.com/${owner}/${repo}`;
+  const body = `<!doctype html>
+<html lang="${htmlEscape(locale)}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
+  <title>${htmlEscape(title)} | Killer-Skills</title>
+</head>
+<body>
+  <main>
+    <h1>${htmlEscape(title)}</h1>
+    <p>Killer-Skills indexes this AI agent skill with source trust, install paths, and workflow context.</p>
+    <nav>
+      <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
+      <a href="${htmlEscape(sitemapUrl)}">Skills sitemap</a>
+      <a href="${htmlEscape(llmsUrl)}">LLMs summary</a>
+      <a href="${htmlEscape(sourceUrl)}">Source repository</a>
+    </nav>
+  </main>
+</body>
+</html>`;
+  const response = new Response(body, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400',
+      'Content-Language': locale,
+      Vary: 'Accept, User-Agent',
+      'X-Robots-Tag': 'index, follow',
+      'X-Killer-Skills-Crawler-Capsule': '1',
+      'X-Cache': 'BYPASS-CRAWLER-SKILL',
+    },
+  });
+  setSecurityHeaders(response);
+  return response;
 }
 
 function buildAiCrawlerCapsuleResponse(url: URL): Response {
@@ -609,6 +675,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
   const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
+  const isLowFidelitySkillDetailRequest = !context.isPrerendered && isLowFidelityHtmlRequest(context.request);
   const shouldUseEdgeCache =
     isCacheableRequest &&
     !import.meta.env.DEV &&
@@ -1059,12 +1126,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = skillPathMatch[1];
     const ownerSegment = safeDecodePathSegment(skillPathMatch[2]).trim();
     const routeSegment = safeDecodePathSegment(skillPathMatch[3]).trim();
+    const isCrawlerLikeSkillDetailRequest = isCrawlerRequest || isLowFidelitySkillDetailRequest;
 
     if (ownerSegment && routeSegment) {
       const canonicalRoute = resolveCanonicalSkillRoute(ownerSegment, routeSegment);
       if (canonicalRoute) {
         const canonicalPath =
-          (isCrawlerRequest
+          (isCrawlerLikeSkillDetailRequest
             ? resolveGovernedSkillDetailPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath)
             : null) || buildLocalizedSkillPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath);
         if (canonicalPath !== pathname) {
@@ -1075,6 +1143,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
               'Cache-Control': 'public, s-maxage=86400',
             },
           });
+        }
+
+        if (isCrawlerLikeSkillDetailRequest) {
+          return buildCrawlerSkillDetailResponse(
+            localeSegment,
+            canonicalRoute.owner,
+            canonicalRoute.routePath,
+            canonicalPath,
+          );
         }
       } else if (!routeSegment.includes('/')) {
         const fallbackKey = `${ownerSegment.toLowerCase()}/${routeSegment.toLowerCase()}`;
@@ -1088,7 +1165,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         }
         if (fallbackRoute) {
           const canonicalPath = resolveRepoFallbackRedirectPath(localeSegment, fallbackRoute, {
-            applyLocaleGovernance: isCrawlerRequest,
+            applyLocaleGovernance: isCrawlerLikeSkillDetailRequest,
           });
           if (canonicalPath !== pathname) {
             return new Response(null, {
@@ -1284,11 +1361,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
           // Clone the response: one for cache, one for client
           const cacheResponse = response.clone();
           response.headers.set('X-Cache', 'MISS');
-          // Await the cache write to ensure it persists before the Worker exits
-          try {
-            await cache.put(cacheKey, cacheResponse);
-          } catch {
-            // Cache write failure is non-critical — continue serving
+          const writePromise = cache.put(cacheKey, cacheResponse);
+          const waitUntil = (context.locals.runtime as any)?.ctx?.waitUntil;
+          if (waitUntil) {
+            waitUntil(writePromise);
+          } else {
+            writePromise.catch(() => {});
           }
         }
       } catch {
