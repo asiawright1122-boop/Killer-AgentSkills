@@ -414,6 +414,47 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
   });
 
+  it('returns a lightweight noindex response for crawler skills search URLs before SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/de/skills?q=ks-tail-repro', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+  });
+
+  it('redirects crawler skill detail query variants to the clean canonical path before SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/remotion-dev/skills?tail_probe=1', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe('/en/skills/remotion-dev/skills/remotion');
+  });
+
   it('applies noindex, nofollow to personal state pages even when downstream omits robots headers', async () => {
     const response = (await onRequest(
       createContext('https://killer-skills.com/fr/favorites'),

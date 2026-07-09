@@ -132,6 +132,7 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
   }
 
   _sitemapSkillsLoadPromise = (async () => {
+    let loadSucceeded: boolean;
     try {
       // Load blocklist BEFORE the loop to avoid per-iteration KV calls
       // and prevent crashes from undefined blocklist (see GH-404-debug)
@@ -182,16 +183,15 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
           '[Middleware] sitemap skills loaded but canonicalSkillRouteMap is still empty — possible blocklist/data mismatch',
         );
       }
+      loadSucceeded = true;
     } catch (e) {
       console.error('[Middleware] Failed to load sitemap skills:', e);
       // On failure, do NOT mark as loaded — allow retry on next request
-      _sitemapSkillsLoaded = false;
-      return;
+      loadSucceeded = false;
     } finally {
-      if (_sitemapSkillsLoaded !== false) {
-        _sitemapSkillsLoaded = true;
-      }
+      _sitemapSkillsLoaded = loadSucceeded;
       _sitemapSkillsLoadTime = Date.now();
+      _sitemapSkillsLoadPromise = null;
     }
   })();
 
@@ -388,6 +388,10 @@ function isAiCrawlerCapsulePath(url: URL): boolean {
   if (/^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/[^/]+)?$/.test(pathname)) return true;
   if (/^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0) return true;
   return /^\/[a-z]{2}\/occupations\/[^/]+$/.test(pathname);
+}
+
+function isCrawlerSkillsListingParamPath(url: URL): boolean {
+  return /^\/[a-z]{2}\/skills$/.test(url.pathname) && url.searchParams.size > 0;
 }
 
 function buildAiCrawlerCapsuleResponse(url: URL): Response {
@@ -602,10 +606,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
     !pathname.startsWith('/api/') &&
     !pathname.startsWith('/admin') &&
     !context.isPrerendered;
-  const shouldUseEdgeCache = isCacheableRequest && !import.meta.env.DEV && typeof caches !== 'undefined';
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
   const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
+  const shouldUseEdgeCache =
+    isCacheableRequest &&
+    !import.meta.env.DEV &&
+    typeof caches !== 'undefined' &&
+    !(isCrawlerRequest && context.url.searchParams.size > 0);
 
   if (shouldUseEdgeCache) {
     try {
@@ -624,7 +632,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   }
 
-  if (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) {
+  if (
+    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) ||
+    (isCrawlerRequest && isCrawlerSkillsListingParamPath(context.url))
+  ) {
     return buildAiCrawlerCapsuleResponse(context.url);
   }
 
@@ -775,6 +786,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
       headers: {
         Location: legacyDocsRedirectPath + context.url.search,
         'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  }
+
+  if (/^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname) && context.url.searchParams.size > 0) {
+    const canonicalSkillPath = resolveCanonicalSkillPathFromPathname(pathname) || pathname;
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: canonicalSkillPath,
+        'Cache-Control': 'public, s-maxage=86400',
       },
     });
   }
