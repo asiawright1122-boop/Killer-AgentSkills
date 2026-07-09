@@ -29,6 +29,10 @@ const publicTextRoutes: RouteCase[] = [
     load: () => import('../../src/pages/sitemap-static.xml'),
   },
   {
+    label: '/sitemap-collections.xml',
+    load: () => import('../../src/pages/sitemap-collections.xml'),
+  },
+  {
     label: '/sitemap-docs.xml',
     load: () => import('../../src/pages/sitemap-docs.xml'),
   },

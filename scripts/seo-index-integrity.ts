@@ -201,18 +201,28 @@ function main() {
       ? localeGovernanceRaw
       : localeGovernanceRaw.skills || [];
 
-    const driftSnapshot = buildIndexDriftSnapshot({
-      skills: skillsCache as any,
-      localeGovernance,
-      sitemapSkills,
-      blocklistData: sitemapBlocklistRaw as any,
-    });
+    const driftSnapshot = existsSync(indexabilityReportPath)
+      ? buildIndexDriftSnapshotFromIndexability({
+          sitemapSkills,
+          indexabilityReport: readJson<SkillIndexabilityReport>(indexabilityReportPath),
+          blocklistData: sitemapBlocklistRaw as any,
+        })
+      : buildIndexDriftSnapshot({
+          skills: skillsCache as any,
+          localeGovernance,
+          sitemapSkills,
+          blocklistData: sitemapBlocklistRaw as any,
+        });
 
     const onlyInSitemap = driftSnapshot.onlyInSitemap;
     const onlyInCache = driftSnapshot.onlyInIndexableCache;
 
     writeDriftArtifacts(onlyInSitemap, onlyInCache);
-    warnings.push('drift artifacts written: reports/seo/index-drift.json (+ txt lists)');
+    warnings.push(
+      existsSync(indexabilityReportPath)
+        ? 'drift artifacts written from latest-skill-indexability projection: reports/seo/index-drift.json (+ txt lists)'
+        : 'drift artifacts written: reports/seo/index-drift.json (+ txt lists)',
+    );
 
     if (onlyInSitemap.length > 0) {
       const message = [

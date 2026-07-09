@@ -2,22 +2,23 @@ import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
 
-export const prerender = false;
+export const prerender = true;
 
 const SITE = SITE_URL;
+const AUTHORITY_SURFACE_LOCALES = ['en', 'zh'] as const;
 const STATIC_PAGES = [
-  '', // Home
-  '/collections',
-  '/docs',
-  '/skills',
-  '/popular',
-  '/occupations',
-  '/search',
-  '/safe',
-  '/article',
-  '/privacy',
-  '/terms',
-  '/cookies',
+  { path: '' }, // Home
+  { path: '/collections', locales: AUTHORITY_SURFACE_LOCALES },
+  { path: '/docs', locales: AUTHORITY_SURFACE_LOCALES },
+  { path: '/skills' },
+  { path: '/popular' },
+  { path: '/occupations' },
+  { path: '/search' },
+  { path: '/safe' },
+  { path: '/article' },
+  { path: '/privacy' },
+  { path: '/terms' },
+  { path: '/cookies' },
 ];
 
 const normalizeUrl = (url: string) => {
@@ -43,13 +44,16 @@ export const GET: APIRoute = async () => {
   const urls: string[] = [];
 
   for (const page of STATIC_PAGES) {
-    for (const locale of SUPPORTED_LOCALES) {
+    const pagePath = page.path;
+    const pageLocales = page.locales || SUPPORTED_LOCALES;
+
+    for (const locale of pageLocales) {
       urls.push(`<url>
-<loc>${normalizeUrl(`${SITE}/${locale}${page}`)}</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}${pagePath}`)}</loc>
 <lastmod>${today}</lastmod>
-<changefreq>${page === '' ? 'daily' : 'weekly'}</changefreq>
-<priority>${page === '' ? '1.0' : '0.8'}</priority>
-${buildHreflangLinks(page)}
+<changefreq>${pagePath === '' ? 'daily' : 'weekly'}</changefreq>
+<priority>${pagePath === '' ? '1.0' : '0.8'}</priority>
+${buildHreflangLinks(pagePath, pageLocales)}
       </url>`);
     }
   }

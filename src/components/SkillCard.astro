@@ -83,7 +83,7 @@ const forksDisplay = forks > 1000 ? (forks / 1000).toFixed(1) + 'k' : String(for
 
 // Build link - use id if available (handles sub-skills like anthropics/skills/algorithmic-art)
 const skillRoutePath = getSkillRoutePath({ id: skill.id, owner, repo }) || repo;
-const skillLinkLocale = resolveSkillDetailLocale(owner, skillRoutePath, locale);
+const skillLinkLocale = resolveSkillDetailLocale(owner, skillRoutePath, locale, { preserveRequestedLocale: true });
 const skillLink = buildLocalizedSkillPath(skillLinkLocale, owner, skillRoutePath);
 const installPath = `${owner}/${skillRoutePath}`;
 

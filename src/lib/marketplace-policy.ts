@@ -33,6 +33,7 @@ export interface MarketplaceCardTrust {
 export interface MarketplaceDetailTrustRow {
   label: string;
   value: string;
+  priority?: boolean;
 }
 
 export interface MarketplaceDetailTrust {
@@ -151,21 +152,29 @@ function localizedBadge(
 ): MarketplaceBadge {
   const zh = isZhLocale(locale);
   const labels: Record<typeof id, string> = {
-    official: zh ? '官方' : 'Official',
-    community: zh ? '社区' : 'Community',
-    reviewed: zh ? '已审查' : 'Reviewed',
-    requires_token: zh ? 'Token' : 'Token',
-    external_network: zh ? '联网' : 'Network',
-    file_write: zh ? '写文件' : 'File write',
-    recent: zh ? '最近更新' : 'Recently updated',
+    official: zh ? '官方来源' : 'Official source',
+    community: zh ? '社区来源' : 'Community source',
+    reviewed: zh ? '已检查安装路径' : 'Install path checked',
+    requires_token: zh ? '需要 Token' : 'Token needed',
+    external_network: zh ? '需要联网' : 'Network access',
+    file_write: zh ? '写入本地文件' : 'Writes files',
+    recent: zh ? '近 30 天更新' : 'Updated in 30 days',
   };
   return { id, label: labels[id], tone: badgeTone(id) };
+}
+
+function localizedSourceKindLabel(sourceKind: SourceKind, locale: string): string {
+  if (isZhLocale(locale)) {
+    return sourceKind === 'official' ? '官方来源' : '社区来源';
+  }
+
+  return sourceKind === 'official' ? 'Official source' : 'Community source';
 }
 
 function localizedRiskSummary(flags: RiskFlag[] | undefined, locale: string): string {
   const zh = isZhLocale(locale);
   if (!flags || flags.length === 0) {
-    return zh ? '无阻断' : 'No blockers';
+    return zh ? '未检测到阻断信号' : 'No blocking signals detected';
   }
 
   return flags
@@ -187,25 +196,26 @@ function localizedRiskLabels(flags: RiskFlag[] | undefined, locale: string): str
 
 function localizedReviewStatus(admission: MarketplaceAdmission, locale: string): string {
   if (isZhLocale(locale)) {
-    return admission.admitted ? '已准入' : '已隔离';
+    return admission.admitted ? '已通过准入' : '未进入公开目录';
   }
-  return admission.admitted ? 'Admitted' : 'Quarantined';
+  return admission.admitted ? 'Admitted to directory' : 'Not listed publicly';
 }
 
 function localizedWhyListed(skill: UnifiedSkill, admission: MarketplaceAdmission, locale: string): string {
   const zh = isZhLocale(locale);
-  const sourceTrust = skill.sourceTrust || 'Unknown';
   const sourceKind = getSkillSourceKind(skill);
   if (!admission.admitted) {
     if (zh) {
-      return `该技能因未通过基础审查而被隔离：来源等级 ${sourceTrust}，来源类型为${sourceKind === 'official' ? '官方' : '社区'}。`;
+      return `该技能未进入目录：来源材料、安装路径或风险信号仍需复核。当前来源为${
+        sourceKind === 'official' ? '官方' : '社区'
+      }。`;
     }
-    return `This skill is quarantined because it did not pass baseline review. Source trust: ${sourceTrust}. Source kind: ${sourceKind}.`;
+    return `This skill is not listed because source material, install path, or risk signals still need review. Current source: ${sourceKind}.`;
   }
   if (zh) {
-    return `因通过基础审查而展示：来源等级 ${sourceTrust}，来源类型为${sourceKind === 'official' ? '官方' : '社区'}。`;
+    return `进入目录前已检查来源材料、安装路径和阻断风险。当前来源为${sourceKind === 'official' ? '官方' : '社区'}。`;
   }
-  return `Listed because it passed baseline review with source trust ${sourceTrust} from a ${sourceKind} source.`;
+  return `Listed after source material, install path, and blocking risks were checked. Current source: ${sourceKind}.`;
 }
 
 function sourceRepositoryForSkill(skill: UnifiedSkill): string {
@@ -247,18 +257,66 @@ function hasInstallPath(skill: UnifiedSkill): boolean {
   return intrinsicInstallPathForSkill(skill) !== '';
 }
 
+function formatPublicDateValue(value: string | null | undefined): string {
+  const timestamp = value ? Date.parse(value) : Number.NaN;
+  if (!Number.isFinite(timestamp)) {
+    return '';
+  }
+
+  return new Date(timestamp).toISOString().slice(0, 10);
+}
+
 function lastReviewedValue(skill: UnifiedSkill, locale: string): string {
   const lastAuditedAt = (skill.lastAuditedAt || '').trim();
   if (lastAuditedAt) {
-    return lastAuditedAt;
+    return formatPublicDateValue(lastAuditedAt) || lastAuditedAt;
   }
 
   const updatedAt = (skill.updatedAt || '').trim();
   if (updatedAt) {
-    return updatedAt;
+    return formatPublicDateValue(updatedAt) || updatedAt;
   }
 
   return isZhLocale(locale) ? '未知' : 'Unknown';
+}
+
+function hasRiskCode(flags: RiskFlag[] | undefined, code: RiskFlagCode): boolean {
+  return (flags || []).some((flag) => flag.code === code);
+}
+
+function localizedTokenSignal(flags: RiskFlag[] | undefined, locale: string): string {
+  if (hasRiskCode(flags, 'requires_token')) {
+    return isZhLocale(locale) ? '需要 Token' : 'Token required';
+  }
+
+  return isZhLocale(locale) ? '未检测到 Token 写入' : 'No token write detected';
+}
+
+function localizedNetworkSignal(flags: RiskFlag[] | undefined, locale: string): string {
+  if (hasRiskCode(flags, 'external_network')) {
+    return isZhLocale(locale) ? '需要外部联网' : 'External network access';
+  }
+
+  return isZhLocale(locale) ? '未检测到外部联网' : 'No external network signal';
+}
+
+function localizedFileSignal(flags: RiskFlag[] | undefined, locale: string): string {
+  if (hasRiskCode(flags, 'file_write')) {
+    return isZhLocale(locale) ? '会写入本地文件' : 'Writes local files';
+  }
+
+  return isZhLocale(locale) ? '未检测到文件写入' : 'No file write signal';
+}
+
+function localizedBlockerSignal(flags: RiskFlag[] | undefined, locale: string): string {
+  if (hasBlockerRisk(flags)) {
+    return localizedRiskSummary(
+      (flags || []).filter((flag) => flag.severity === 'blocker'),
+      locale,
+    );
+  }
+
+  return isZhLocale(locale) ? '未检测到' : 'None detected';
 }
 
 function buildMarketplaceBadges(skill: UnifiedSkill, locale: string, now: Date, admitted: boolean): MarketplaceBadge[] {
@@ -374,11 +432,11 @@ export function buildMarketplaceCardTrust(
 
   const title = isZhLocale(options.locale)
     ? admission.admitted
-      ? '该技能已通过基础审查并显示紧凑信任信号。'
-      : '该技能显示来源与风险信号，但尚未通过市场准入。'
+      ? '已检查来源、安装路径与基础风险信号。'
+      : '来源或安装证据仍需复核，未进入公开目录。'
     : admission.admitted
-      ? 'This reviewed skill shows compact trust signals for the marketplace.'
-      : 'This skill shows source and risk signals but is not admitted to the marketplace.';
+      ? 'Source, install path, and baseline risk signals were checked.'
+      : 'Source or install evidence still needs review, so this skill is not publicly listed.';
 
   return { sourceKind, admitted: admission.admitted, title, badges };
 }
@@ -395,17 +453,37 @@ export function buildMarketplaceDetailTrust(
   const installPath = admission.reasons.includes('missing_install_path')
     ? ''
     : installPathForSkill(skill, options.routePath);
+  const riskFlags = skill.riskFlags || [];
   const rows: MarketplaceDetailTrustRow[] = [
-    { label: isZhLocale(locale) ? '安全等级' : 'Safety level', value: skill.securityLevel || 'Unknown' },
-    { label: isZhLocale(locale) ? '来源等级' : 'Source trust', value: skill.sourceTrust || 'Unknown' },
-    { label: isZhLocale(locale) ? '审核状态' : 'Review status', value: localizedReviewStatus(admission, locale) },
-    { label: isZhLocale(locale) ? '风险信号' : 'Risk flags', value: localizedRiskSummary(skill.riskFlags, locale) },
     {
-      label: isZhLocale(locale) ? '最后审查' : 'Last audited',
+      label: isZhLocale(locale) ? '来源' : 'Source',
+      value: localizedSourceKindLabel(sourceKind, locale),
+      priority: true,
+    },
+    {
+      label: isZhLocale(locale) ? '收录状态' : 'Listing status',
+      value: localizedReviewStatus(admission, locale),
+      priority: true,
+    },
+    {
+      label: isZhLocale(locale) ? '安装路径' : 'Install path',
+      value: installPath
+        ? `${isZhLocale(locale) ? '已检查' : 'Checked'}: ${installPath}`
+        : isZhLocale(locale)
+          ? '缺失'
+          : 'Missing',
+      priority: true,
+    },
+    {
+      label: isZhLocale(locale) ? '最近审查' : 'Last reviewed',
       value: lastReviewedValue(skill, locale),
+      priority: true,
     },
     { label: isZhLocale(locale) ? '来源仓库' : 'Source repository', value: sourceRepository },
-    { label: isZhLocale(locale) ? '安装路径' : 'Install path', value: installPath },
+    { label: isZhLocale(locale) ? 'Token 写入' : 'Token write', value: localizedTokenSignal(riskFlags, locale) },
+    { label: isZhLocale(locale) ? '本地文件' : 'Local files', value: localizedFileSignal(riskFlags, locale) },
+    { label: isZhLocale(locale) ? '外部联网' : 'Network', value: localizedNetworkSignal(riskFlags, locale) },
+    { label: isZhLocale(locale) ? '阻断风险' : 'Blocking risk', value: localizedBlockerSignal(riskFlags, locale) },
   ];
 
   return {

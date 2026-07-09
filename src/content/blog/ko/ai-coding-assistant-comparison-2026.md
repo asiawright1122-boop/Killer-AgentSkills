@@ -9,6 +9,7 @@ featured: true
 category: 'editorial'
 heroImage: '/images/blog/ide-comparison-hero.webp'
 ---
+
 # 2026년 AI 코딩 어시스턴트 비교: 의사결정 프레임워크
 
 "클로드 코드 vs 커서"와 같은 게시물은 많지 않다. 대부분은 기능을 한 줄에 나열하고 그만둔다. 이 비교는 **의사결정 프레임워크**이다: 팀이 실제로 무엇을 할지에 따라 추천하지 않고, 2026년 현재 각 도구의 한계를 솔직하게 말한다.
@@ -17,31 +18,17 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 >
 > **주도적인 워크플로우**에 따라 추천하지 말고, 하이프에 따라 추천하지 말라. 스펙 드라이브된 에이전트 워크플로우를 하는 팀은 다른 도구가 필요하며, 빠른 UI 반복을 하는 팀은 다른 도구가 필요하다. 아래의 매트릭스는 팀 유형을 추천하는 매트릭스로 맵핑한다.
 
-PUBLIC OUTPUT BOUNDARY:
-나가서 숨은 사유, chain-of-thought, 개인 분석, 스케치 패드 노트, 또는
 ## 2026 년 5 가지 도구
 
-| 도구 | 최적화 | 기술 포트폴리오 | 에이전트 워크플로우 깊이 |
-|------|----------|-------------------|----------------------|
-| **Claude Code** | 명세 기반, 검토 게이트 에이전트 워크플로우 | 원래 기술 + MCP | 깊이 — 1 등급 기술 chaining |
-| **Cursor** | 속도와 코드 검토 | `.cursor/rules` + MCP | 중간 — 강한 inline, 약한 chaining |
-| **Windsurf** | 빠른, 의견 강한 풀 스택 반복 | 원래 기술 | 중간 — 속도에 맞춘 |
-| **GitHub Copilot** | GitHub 흐름 내 에디터 완성 | Copilot 확장 | 얕은 — 완성 최우선, 에이전트 2 등급 |
-| **OpenAI Codex** | 터미널 내재, 팀의 평가 및 추적 | Codex 기술 | 중간 — 강한 프로ンプ트/평가 루프 |
+| 도구               | 최적화                                     | 기술 포트폴리오       | 에이전트 워크플로우 깊이            |
+| ------------------ | ------------------------------------------ | --------------------- | ----------------------------------- |
+| **Claude Code**    | 명세 기반, 검토 게이트 에이전트 워크플로우 | 원래 기술 + MCP       | 깊이 — 1 등급 기술 chaining         |
+| **Cursor**         | 속도와 코드 검토                           | `.cursor/rules` + MCP | 중간 — 강한 inline, 약한 chaining   |
+| **Windsurf**       | 빠른, 의견 강한 풀 스택 반복               | 원래 기술             | 중간 — 속도에 맞춘                  |
+| **GitHub Copilot** | GitHub 흐름 내 에디터 완성                 | Copilot 확장          | 얕은 — 완성 최우선, 에이전트 2 등급 |
+| **OpenAI Codex**   | 터미널 내재, 팀의 평가 및 추적             | Codex 기술            | 중간 — 강한 프로ンプ트/평가 루프    |
 
 포트폴리오가 중요한 이유는 **Claude Code를 위한 기술 스택이 Cursor로 자동 포팅되지 않기 때문**입니다. 팀이 여러 IDE를 사용하는 경우, 이것은 가장 큰 숨겨진 비용입니다.
-
-공개된 출력 경계:
-사용자-facing 의사결정, 체크리스트, 또는 증거 요약만 제공합니다. 사고, 분석, 또는
-## 규칙:
-1. **Markdown 유지**: 모든 헤더, 목록, 코드 블록, 링크, 및 형식은 그대로 유지하세요.
-2. **문자열 번역**: 사람으로 읽을 수 있는 텍스트만 번역하세요. 코드 블록, 파일 경로, 또는 영어로 남겨야 하는 기술 용어는 번역하지 마세요 (예: "React", "API", "JSON").
-3. **SEO 최적화**: 자연스럽고 검색 친화적인 문구를 ko에서 사용하세요.
-4. **내부 링크**: 현재는 링크 경로를 동일하게 유지하세요 (우리는 프로그램적으로 수정할 것입니다).
-5. **이미지**: 이미지를 유지하고 `![alt](url)` 문구를 번역하세요.
-6. **없는 주사위**: 소개 문구를 추가하지 마세요. 번역된 Markdown만 반환하세요.
-
-## 번역할 내용:
 
 ## 결정하는 방법: 세 가지 질문
 
@@ -60,8 +47,6 @@ PUBLIC OUTPUT BOUNDARY:
 
 혼합 IDE 팀에서는 포트ABILITY 세금을 지불합니다. 합리적인 움직임은 **하나**의 주요 IDE에 표준화하고 나머지 IDE를 두 번째로 처리하는 것입니다. 혼합 팀에서는 Claude Code를 추천하는 것이 좋습니다. 이유는 그들의 스킬이 가장 MCP层에서 Cursor와 Windsurf도 사용하는 스킬과 호환 가능하기 때문입니다.
 
-PUBLIC OUTPUT BOUNDARY:
-숨겨진 사유, chain-of-thought, 개인 분석, scratchpad 노트, 또는
 ## 추천 방식
 
 - **혼자서 프로젝트를 진행하고 빠르게 개발하는 사람:** Windsurf. 가장 낮은 설정의摩擦 및 의견에 대한 기본 설정. [Windsurf 워크플로우 도구](/ko/collections/top-windsurf-skills)와 함께 시작하세요.
@@ -70,8 +55,6 @@ PUBLIC OUTPUT BOUNDARY:
 - **GitHub-기반의 기업:** Copilot, Claude Code를 secondary agent 작업으로 사용하여 GitHub의 완성 모델이 처리할 수 없는 작업을 처리하세요.
 - **Prompt/eval/research 팀:** Codex. evals, tracing 및 prompt iteration에 가장 강력한 적합성 - [OpenAI 워크플로우 도구 컬렉션](/ko/collections/top-openai-powered-ai-agent-tools)을 확인하세요.
 
-공개 출력 경계:
-사용자에게 숨겨진 논리, chain-of-thought, 개인적인 분석, scratchpad 노트, 또는 `
 ## Where this comparison is honest
 
 우리는 모든 도구가 평등하다는 것을 giả장하지 않을 것입니다. 세 가지 제한 사항을 명확하게 밝힙니다:
@@ -80,8 +63,6 @@ PUBLIC OUTPUT BOUNDARY:
 2. **Completion-first 도구 (Copilot)는 agent workflow에 얕습니다.** 작업이 다단계이며 검토를 거치는 경우 단지 완성을 사용하면 좌절될 것입니다.
 3. **이 도구는 실행을 가속화하지만 아키텍처를 가속화하지 않습니다.** 나쁜 스펙은 여전히 나쁜 출력을 생산합니다. [프로세스 자동화 솔루션](/ko/solutions/process-automation)은 SOP를 반복 가능한 실행으로 변환하는 방법을 다룹니다 - 하지만 인간은 여전히 아키텍처를 소유합니다.
 
-PUBLIC OUTPUT BOUNDARY:
-미리보기, chain-of-thought, private analysis, scratchpad notes, 또는
 ## 다음 단계
 
 1. **팀 타입을 식별**하고 위에서 선택한 IDE를 기본 IDE로 설정합니다.
@@ -89,8 +70,6 @@ PUBLIC OUTPUT BOUNDARY:
 3. **npx killer-skills list 명령어를 사용하여 확인**합니다.
 4. **첫 번째 설치가 성공한 후에만 리뷰/컨텍스트 규칙을 추가**하세요. [CLI 개요](/en/docs/cli/overview)를 참조하세요.
 
-공개된 출력 경계:
-숨겨진 사유, 사고의 연쇄, 사적인 분석, 스크래치 패드 노트, 또는 `
 ## Frequently asked questions
 
 **무료 버전은 어떤가?**
@@ -101,6 +80,3 @@ PUBLIC OUTPUT BOUNDARY:
 
 **IDE 버전이 다음 버전으로 업데이트될 때까지 기다려야 하나?**
 아니요. 대부분의 팀의 병목 현상은 IDE 버전이 아니라 *어떠한 규칙적인 스킬 스택*을 설치하고 검증했는지 여하에 달려 있습니다. 하나를 선택하고 시작하세요.
-
-PUBLIC OUTPUT BOUNDARY:
-이해할 수 없는 논리, chain-of-thought, 개인 분석, 노트,

@@ -7,7 +7,21 @@ import docsCache from '../../../../data/docs-cache.json';
 type DocsCachePage = {
   slug?: string;
   title?: Partial<Record<Locale | string, string>>;
+  content?: Partial<Record<Locale | string, string>>;
 };
+
+const INDEXABLE_DOCS_LOCALES = ['en', 'zh'] as const;
+const LOCALIZED_DOCS_LINK_PREFIXES = [
+  'blog',
+  'cli',
+  'collections',
+  'docs',
+  'occupations',
+  'popular',
+  'safe',
+  'skills',
+  'solutions',
+] as const;
 
 const docsPages = ((docsCache as { pages?: DocsCachePage[] }).pages || []).filter(
   (page) => page && typeof page === 'object',
@@ -25,12 +39,19 @@ const validDocsSlugs = new Set(
     .filter(Boolean),
 );
 
+function localizeDocsContentLinks(content: string | undefined, targetLocale: string): string | undefined {
+  if (!content) return content;
+  const routePrefixPattern = LOCALIZED_DOCS_LINK_PREFIXES.join('|');
+  return content.replace(new RegExp(`href="/(${routePrefixPattern})([^"]*)"`, 'g'), `href="/${targetLocale}/$1$2"`);
+}
+
 const { locale, slug } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const isZhCopy = locale.startsWith('zh');
+const indexableDocsLocale = INDEXABLE_DOCS_LOCALES.includes(locale as (typeof INDEXABLE_DOCS_LOCALES)[number]);
 const slugLabel = Array.isArray(slug) ? slug.join('/') : slug || 'index';
 const normalizedSlug = slugLabel
   .split('/')
@@ -39,15 +60,22 @@ const normalizedSlug = slugLabel
   .join('/')
   .toLowerCase();
 const isKnownDocsSlug = normalizedSlug === 'index' || validDocsSlugs.has(normalizedSlug);
-const robotsContent = isKnownDocsSlug ? undefined : 'noindex, nofollow';
+const robotsContent = !isKnownDocsSlug ? 'noindex, nofollow' : !indexableDocsLocale ? 'noindex, follow' : undefined;
 const docsPage = normalizedDocsPages.find((page) => page.normalizedSlug === normalizedSlug);
 const docsPageTitle =
   docsPage?.title?.[locale] || docsPage?.title?.[locale.split('-')[0]] || docsPage?.title?.en || undefined;
+const rawDocsPageContent =
+  docsPage?.content?.[locale] || docsPage?.content?.[locale.split('-')[0]] || docsPage?.content?.en || undefined;
+const docsPageContent = localizeDocsContentLinks(rawDocsPageContent, locale);
+const canonicalPagePath = normalizedSlug === 'index' ? '/docs' : `/docs/${normalizedSlug}`;
+const canonicalUrl = `https://killer-skills.com/${indexableDocsLocale ? locale : 'en'}${canonicalPagePath}`;
 
 if (!isKnownDocsSlug) {
   Astro.response.status = 404;
   Astro.response.statusText = 'Not Found';
   Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+} else if (!indexableDocsLocale) {
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 }
 
 const title = isKnownDocsSlug
@@ -72,12 +100,20 @@ const bridgeDescription = isZhCopy
   title={title}
   description={description}
   appendBrand={false}
-  noindex={!isKnownDocsSlug}
+  customCanonical={isKnownDocsSlug ? canonicalUrl : undefined}
+  availableLocales={INDEXABLE_DOCS_LOCALES}
+  xDefaultLocale="en"
+  noindex={!indexableDocsLocale || !isKnownDocsSlug}
   robots={robotsContent}
 >
   {
     isKnownDocsSlug ? (
       <MarketplaceSimplePage title={title} description={bridgeDescription}>
+        {docsPageContent && (
+          <article class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[var(--foreground)] prose-p:text-[var(--muted-foreground)] prose-li:text-[var(--muted-foreground)] prose-a:text-[var(--accent)] prose-a:font-bold prose-a:underline prose-a:decoration-2 prose-a:underline-offset-4 prose-strong:text-[var(--foreground)] prose-code:text-[var(--foreground)] prose-pre:bg-[var(--muted)] prose-pre:border prose-pre:border-[var(--border)]">
+            <Fragment set:html={docsPageContent} />
+          </article>
+        )}
         <div class="marketplace-card-grid">
           <a class="marketplace-card-link" href={`/${locale}/skills`}>
             <span class="marketplace-route-label">{slugLabel}</span>

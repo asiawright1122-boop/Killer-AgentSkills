@@ -46,6 +46,7 @@ import {
   sanitizePublicSkillSourceExcerpt,
 } from '../../../../lib/public-skill-copy';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
+import type { Env } from '../../../../lib/kv';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActionsNative from '../../../../components/SkillActionsNative.astro';
 import SkillReadmeNative from '../../../../components/SkillReadmeNative.astro';
@@ -55,8 +56,6 @@ import '../../../../styles/prism-tokens.css';
 import { Star, GitFork, Calendar, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
 import { trackDirectoryView } from '../../../../lib/analytics';
-
-type Env = Record<string, any>;
 
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -710,6 +709,7 @@ const skillLocaleGovernance = renderRepoDirectory
     );
 
 if (
+  isCrawlerRequest &&
   !renderRepoDirectory &&
   skillLocaleGovernance &&
   !skillLocaleGovernance.publishedLocales.includes(typedLocale) &&
@@ -980,21 +980,22 @@ const marketplaceDetailTrust = buildMarketplaceDetailTrust(skill as any, {
   routePath: installPath,
 });
 const trustReviewRows = marketplaceDetailTrust.rows;
+const decisionTrustRows = trustReviewRows.filter((row) => row.priority).slice(0, 4);
 const detailRiskChips = marketplaceDetailTrust.riskLabels.slice(0, 4);
 const detailReviewStatus =
   marketplaceDetailTrust.reviewStatus === 'admitted'
     ? isZhLocale
-      ? '已通过基础审核'
-      : 'Baseline reviewed'
+      ? '已通过准入'
+      : 'Admitted to directory'
     : isZhLocale
       ? '未进入推荐目录'
-      : 'Not promoted';
+      : 'Not listed publicly';
 
 const reviewStatusBannerCopy =
   marketplaceDetailTrust.reviewStatus === 'admitted'
     ? isZhLocale
-      ? '此页面提供安装与来源参考，但不会作为主推荐结果展示。'
-      : 'This page provides installation and source reference but is not promoted as a primary result.'
+      ? '已进入目录，来源、安装路径与风险信号如下。'
+      : 'Listed in the directory with source, install path, and risk signals below.'
     : isZhLocale
       ? '来源材料偏薄或未达到推荐标准，页面保留为查阅证据。'
       : 'Source material is thin or below promotion standards; this page remains available as evidence.';
@@ -1097,15 +1098,14 @@ const isCurrentSitemapRoute = (entry: { owner?: string; routePath?: string }) =>
 };
 const isPageInSitemap = rawSitemapSkills.some(isCurrentSitemapRoute) || staticSitemapSkills.some(isCurrentSitemapRoute);
 const isSitemapAdmittedSkill = hasSkill && isPageInSitemap && !isBlocked;
+const isIndexabilityAssessmentAdmittedSkill = hasSkill && Boolean(skillIndexability?.isIndexable) && !isBlocked;
 
 const isForcedOpen =
   process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
-const skillTier = isSitemapAdmittedSkill ? 1 : (skillIndexability?.tier ?? 3);
-const isSkillIndexableForLayout = isSitemapAdmittedSkill || Boolean(skillIndexability?.isIndexable);
+const skillTier = isSitemapAdmittedSkill || isIndexabilityAssessmentAdmittedSkill ? 1 : (skillIndexability?.tier ?? 3);
+const isSkillIndexableForLayout = isSitemapAdmittedSkill || isIndexabilityAssessmentAdmittedSkill;
 const layoutNoindex =
-  useStaticFallback ||
-  isBlocked ||
-  (renderRepoDirectory ? !isForcedOpen : !isSkillIndexableForLayout || (hasSkill && !isPageInSitemap));
+  useStaticFallback || isBlocked || (renderRepoDirectory ? !isForcedOpen : !isSkillIndexableForLayout);
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);
@@ -1331,13 +1331,13 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                     />
                   </div>
 
-                  <div class="grid grid-cols-2 gap-2">
-                    {trustReviewRows.map((row) => (
+                  <div class="grid gap-2">
+                    {decisionTrustRows.map((row) => (
                       <div class="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2">
                         <span class="block text-[10px] font-mono font-black text-[var(--muted-foreground)]">
                           {row.label}
                         </span>
-                        <strong class="mt-1 block text-base font-black">{row.value}</strong>
+                        <strong class="mt-1 block break-anywhere text-sm font-black leading-snug">{row.value}</strong>
                       </div>
                     ))}
                   </div>
@@ -1461,7 +1461,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                   {trustReviewRows.map((row) => (
                     <div class="rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3">
                       <span class="block text-xs font-mono font-black text-[var(--muted-foreground)]">{row.label}</span>
-                      <strong class="mt-1 block text-xl font-black">{row.value}</strong>
+                      <strong class="mt-1 block break-anywhere text-base font-black leading-snug">{row.value}</strong>
                     </div>
                   ))}
                 </div>

@@ -15,12 +15,18 @@ import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 
 type LocalizedText = Record<string, string> | undefined;
 
+const INDEXABLE_COLLECTION_LOCALES = ['en', 'zh'] as const;
+
 const { locale, slug } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
+const pageLocale = locale as Locale;
 const isZhCopy = locale.startsWith('zh');
+const indexableCollectionLocale = INDEXABLE_COLLECTION_LOCALES.includes(
+  locale as (typeof INDEXABLE_COLLECTION_LOCALES)[number],
+);
 const rawSlug = Array.isArray(slug) ? slug.join('/') : slug || '';
 const requestedSlug = rawSlug
   .split('/')
@@ -44,7 +50,7 @@ const runtimeCollections = await getCollectionsFromRuntime(env).catch(() => [] a
 function resolveLocalizedText(value: LocalizedText, fallback = ''): string {
   if (!value) return fallback;
   return (
-    value[locale] || (isZhCopy ? value.zh : value.en) || value.en || Object.values(value).find(Boolean) || fallback
+    value[pageLocale] || (isZhCopy ? value.zh : value.en) || value.en || Object.values(value).find(Boolean) || fallback
   );
 }
 
@@ -76,13 +82,19 @@ const description =
   resolveLocalizedText(runtimeCollection?.data.description, '');
 const isKnownCollection = Boolean(title && description);
 const canonicalSlug = authoritySurface ? getSurfaceSlug(authoritySurface) : canonicalRuntimeSlug || requestedSlug;
-const canonicalUrl = `https://killer-skills.com/${locale}/collections/${canonicalSlug}`;
-const robotsContent = isKnownCollection ? undefined : 'noindex, nofollow';
+const canonicalUrl = `https://killer-skills.com/${indexableCollectionLocale ? locale : 'en'}/collections/${canonicalSlug}`;
+const robotsContent = !isKnownCollection
+  ? 'noindex, nofollow'
+  : !indexableCollectionLocale
+    ? 'noindex, follow'
+    : undefined;
 
 if (!isKnownCollection) {
   Astro.response.status = 404;
   Astro.response.statusText = 'Not Found';
   Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+} else if (!indexableCollectionLocale) {
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 }
 
 const relatedCollections = isKnownCollection
@@ -140,7 +152,9 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
   description={isKnownCollection ? description : isZhCopy ? '这个合集页面不存在。' : 'This collection does not exist.'}
   appendBrand={false}
   customCanonical={isKnownCollection ? canonicalUrl : undefined}
-  noindex={!isKnownCollection}
+  availableLocales={INDEXABLE_COLLECTION_LOCALES}
+  xDefaultLocale="en"
+  noindex={!indexableCollectionLocale || !isKnownCollection}
   robots={robotsContent}
   jsonLd={pageJsonLd ? [breadcrumb.jsonLd, pageJsonLd] : breadcrumb.jsonLd}
 >

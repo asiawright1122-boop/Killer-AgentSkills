@@ -3,6 +3,7 @@ import { extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS } from '../../src/lib/public-ai-output';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../src/lib/sitemap-blocklist';
 import { resolveSkillDetailLocale } from '../../src/lib/skill-locale-link';
 import en from '../../src/messages/en.json';
 import zh from '../../src/messages/zh.json';
@@ -442,9 +443,13 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
     expect(skillDetailSource).toContain('robots={robotsContent}');
     expect(skillDetailSource).toContain('stars: skill.stars,');
-    expect(skillDetailSource).toContain("import staticSitemapSkillsData from '../../../../../data/sitemap-skills.json';");
+    expect(skillDetailSource).toContain(
+      "import staticSitemapSkillsData from '../../../../../data/sitemap-skills.json';",
+    );
     expect(skillDetailSource).toContain('const isSitemapAdmittedSkill =');
+    expect(skillDetailSource).toContain('const isIndexabilityAssessmentAdmittedSkill =');
     expect(skillDetailSource).toContain('const isSkillIndexableForLayout =');
+    expect(skillDetailSource).not.toContain('(hasSkill && !isPageInSitemap)');
   });
 
   it('keeps personal state pages explicitly noindex across robots headers and meta tags', () => {
@@ -596,7 +601,14 @@ describe('public links and navigation copy', () => {
     const headerSource = readPageSource('../components/Header.astro');
     const headerActionsSource = readPageSource('../components/HeaderActionsNative.astro');
 
-    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual(['home', 'skills', 'rankings', 'occupations', 'collections', 'install']);
+    expect(PRIMARY_MARKETPLACE_NAV_IDS).toEqual([
+      'home',
+      'skills',
+      'rankings',
+      'occupations',
+      'collections',
+      'install',
+    ]);
     expect(PRIMARY_MARKETPLACE_NAV_HREFS('zh')).toEqual([
       '/zh',
       '/zh/skills',
@@ -1518,12 +1530,20 @@ describe('public links and navigation copy', () => {
   });
 
   it('keeps collection routes data-driven while collection sitemap is populated', () => {
+    const layoutSource = readPageSource('../layouts/Layout.astro');
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
     const collectionsDetailSource = readPageSource('./[locale]/collections/[...slug].astro');
     const collectionsSitemapSource = readPageSource('./sitemap-collections.xml.ts');
 
+    expect(layoutSource).toContain('jsonLd?: string | JsonLdObject | JsonLdObject[]');
     expect(collectionsIndexSource).toContain('getAuthoritySurfaceEntries(locale, { placement:');
+    expect(collectionsIndexSource).toContain("const INDEXABLE_COLLECTION_LOCALES = ['en', 'zh'] as const;");
+    expect(collectionsIndexSource).toContain('availableLocales={INDEXABLE_COLLECTION_LOCALES}');
+    expect(collectionsIndexSource).toContain('noindex={!indexableCollectionLocale}');
     expect(collectionsDetailSource).toContain('getAuthoritySurfaceEntries(locale, { placement:');
+    expect(collectionsDetailSource).toContain("const INDEXABLE_COLLECTION_LOCALES = ['en', 'zh'] as const;");
+    expect(collectionsDetailSource).toContain('availableLocales={INDEXABLE_COLLECTION_LOCALES}');
+    expect(collectionsDetailSource).toContain('noindex={!indexableCollectionLocale || !isKnownCollection}');
     expect(collectionsDetailSource).toContain('uniqueSkillRefs.map((skillRef)');
     expect(collectionsIndexSource).not.toContain("col.id.replace(/\\.json$/, '')");
     expect(collectionsDetailSource).not.toContain("col.id.replace(/\\.json$/, '')");
@@ -1536,15 +1556,49 @@ describe('public links and navigation copy', () => {
   it('keeps legacy solution routes out of the static sitemap after the IA reset', () => {
     const staticSitemapSource = readPageSource('./sitemap-static.xml.ts');
 
-    expect(staticSitemapSource).toContain("'/skills'");
-    expect(staticSitemapSource).toContain("'/popular'");
-    expect(staticSitemapSource).toContain("'/occupations'");
-    expect(staticSitemapSource).toContain("'/collections'");
-    expect(staticSitemapSource).toContain("'/docs'");
+    expect(staticSitemapSource).toContain('export const prerender = true;');
+    expect(staticSitemapSource).toContain("path: '/skills'");
+    expect(staticSitemapSource).toContain("path: '/popular'");
+    expect(staticSitemapSource).toContain("path: '/occupations'");
+    expect(staticSitemapSource).toContain("path: '/collections', locales: AUTHORITY_SURFACE_LOCALES");
+    expect(staticSitemapSource).toContain("path: '/docs', locales: AUTHORITY_SURFACE_LOCALES");
     expect(staticSitemapSource).not.toContain("'/categories'");
     expect(staticSitemapSource).not.toContain('getSolutionSeoEligibleLocales');
     expect(staticSitemapSource).not.toContain('getPreferredCanonicalLocale(page.locales)');
     expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
+  });
+
+  it('keeps sitemap index children prerendered as static crawler assets', () => {
+    const sitemapIndexSource = readPageSource('./sitemap.xml.ts');
+    const childSitemaps = Array.from(
+      sitemapIndexSource.matchAll(/\$\{SITE\}\/(sitemap-[a-z-]+\.xml)/g),
+      (match) => match[1],
+    );
+
+    expect(sitemapIndexSource).toContain('export const prerender = true;');
+    expect(childSitemaps).toEqual([
+      'sitemap-static.xml',
+      'sitemap-blog.xml',
+      'sitemap-collections.xml',
+      'sitemap-docs.xml',
+      'sitemap-skills.xml',
+    ]);
+
+    for (const sitemap of childSitemaps) {
+      const source = readPageSource(`./${sitemap}.ts`);
+      expect(source).toContain('export const prerender = true;');
+    }
+  });
+
+  it('keeps build-time sitemap data fallbacks aligned to the skill indexability report', () => {
+    const buildTimeLoaderSource = readRepoSource('src/lib/build-time-loader.ts');
+
+    expect(buildTimeLoaderSource).toContain(
+      "import skillIndexabilityReportJson from '../../reports/seo/latest-skill-indexability.json';",
+    );
+    expect(buildTimeLoaderSource).toContain(
+      "'reports/seo/latest-skill-indexability.json': skillIndexabilityReportJson,",
+    );
   });
 
   it('keeps robots.txt aligned with crawlable noindex and 410 cleanup signals', async () => {
@@ -1646,6 +1700,21 @@ describe('public links and navigation copy', () => {
     expect(new Set(solutionLocs).size).toBe(solutionLocs.length);
   });
 
+  it('keeps static sitemap collections and docs aligned to published authority locales', async () => {
+    const { GET } = await import('../../src/pages/sitemap-static.xml');
+    const response = await GET({} as Parameters<typeof GET>[0]);
+    const xml = await response.text();
+    const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+    const authorityLocs = locs.filter((loc) => /\/(?:collections|docs)$/.test(new URL(loc).pathname));
+
+    expect(authorityLocs).toEqual([
+      'https://killer-skills.com/en/collections',
+      'https://killer-skills.com/zh/collections',
+      'https://killer-skills.com/en/docs',
+      'https://killer-skills.com/zh/docs',
+    ]);
+  });
+
   it('keeps skills sitemap locs on published canonical locales', async () => {
     const { GET } = await import('../../src/pages/sitemap-skills.xml');
     const response = await GET({} as Parameters<typeof GET>[0]);
@@ -1660,6 +1729,46 @@ describe('public links and navigation copy', () => {
       expect(locs).toContain(`https://killer-skills.com/en${path}`);
       expect(locs).not.toContain(`https://killer-skills.com/zh${path}`);
     }
+  });
+
+  it('keeps skills sitemap locs inside the governed indexable skill corpus', async () => {
+    const { GET } = await import('../../src/pages/sitemap-skills.xml');
+    const indexabilityReport = JSON.parse(readRepoSource('reports/seo/latest-skill-indexability.json')) as {
+      skills?: Array<{
+        owner?: string;
+        routePath?: string;
+        isIndexable?: boolean;
+      }>;
+    };
+    const sitemapBlocklist = compileSitemapBlocklist(
+      JSON.parse(readRepoSource('data/seo-sitemap-blocklist.json')) as unknown,
+    );
+    const indexableRouteKeys = new Set(
+      (indexabilityReport.skills || [])
+        .filter(
+          (skill) =>
+            skill.isIndexable === true &&
+            skill.owner &&
+            skill.routePath &&
+            !isSitemapSkillBlocked(skill.owner, skill.routePath, sitemapBlocklist),
+        )
+        .map((skill) => `${skill.owner!.toLowerCase()}/${skill.routePath!.toLowerCase()}`),
+    );
+
+    const response = await GET({} as Parameters<typeof GET>[0]);
+    const xml = await response.text();
+    const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+    const sitemapRouteKeys = locs.map((loc) => {
+      const pathname = new URL(loc).pathname;
+      const [, , skillsSegment, owner, ...routeSegments] = pathname.split('/');
+      expect(skillsSegment).toBe('skills');
+      return `${decodeURIComponent(owner).toLowerCase()}/${routeSegments
+        .map((segment) => decodeURIComponent(segment).toLowerCase())
+        .join('/')}`;
+    });
+
+    expect(sitemapRouteKeys.length).toBeGreaterThan(0);
+    expect(new Set(sitemapRouteKeys)).toEqual(indexableRouteKeys);
   });
 
   it('keeps search-driven skill navigation wired to canonical skill href builders', () => {
@@ -1721,6 +1830,14 @@ describe('public links and navigation copy', () => {
     const docsSource = readPageSource('./[locale]/docs/[...slug].astro');
 
     expect(docsSource).toContain('Compact entry points for install, directory, review policy, and CLI.');
+    expect(docsSource).toContain("const INDEXABLE_DOCS_LOCALES = ['en', 'zh'] as const;");
+    expect(docsSource).toContain('availableLocales={INDEXABLE_DOCS_LOCALES}');
+    expect(docsSource).toContain('noindex={!indexableDocsLocale || !isKnownDocsSlug}');
+    expect(docsSource).toContain('content?: Partial<Record<Locale | string, string>>');
+    expect(docsSource).toContain('localizeDocsContentLinks(rawDocsPageContent, locale)');
+    expect(docsSource).toContain('href="/${targetLocale}/$1$2"');
+    expect(docsSource).toContain('docsPageContent');
+    expect(docsSource).toContain('set:html={docsPageContent}');
     expect(docsSource).toContain('href={`/${locale}/skills`}');
     expect(docsSource).toContain('href={`/${locale}/safe`}');
     expect(docsSource).toContain('href={`/${locale}/cli`}');

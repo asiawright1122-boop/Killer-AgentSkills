@@ -7,11 +7,17 @@ export function selectSkillDetailLocale(
     eligibleLocales?: string[];
     canonicalLocale?: string | null;
   } | null,
+  options: { preserveRequestedLocale?: boolean } = {},
 ): string {
   const normalizedRequestedLocale =
     String(requestedLocale || DEFAULT_LOCALE)
       .trim()
       .toLowerCase() || DEFAULT_LOCALE;
+
+  if (options.preserveRequestedLocale) {
+    return normalizedRequestedLocale;
+  }
+
   if (!governance) return normalizedRequestedLocale;
 
   const eligibleLocales = Array.isArray(governance.eligibleLocales)
@@ -32,7 +38,12 @@ export function selectSkillDetailLocale(
   return canonicalLocale || normalizedRequestedLocale || DEFAULT_LOCALE;
 }
 
-export function resolveSkillDetailLocale(owner: string, routePath: string, requestedLocale: string): string {
+export function resolveSkillDetailLocale(
+  owner: string,
+  routePath: string,
+  requestedLocale: string,
+  options: { preserveRequestedLocale?: boolean } = {},
+): string {
   const key = `${String(owner || '')
     .trim()
     .toLowerCase()}/${String(routePath || '')
@@ -41,15 +52,19 @@ export function resolveSkillDetailLocale(owner: string, routePath: string, reque
   const governance = skillLocaleGovernanceMap.get(key);
 
   if (!governance) {
-    return selectSkillDetailLocale(requestedLocale, null);
+    return selectSkillDetailLocale(requestedLocale, null, options);
   }
 
   // Transform the shared governance record to the format expected by selectSkillDetailLocale
-  return selectSkillDetailLocale(requestedLocale, {
-    eligibleLocales:
-      governance.publishedLocales.length > 0
-        ? governance.publishedLocales
-        : ([governance.canonicalLocale].filter(Boolean) as string[]),
-    canonicalLocale: governance.canonicalLocale,
-  });
+  return selectSkillDetailLocale(
+    requestedLocale,
+    {
+      eligibleLocales:
+        governance.publishedLocales.length > 0
+          ? governance.publishedLocales
+          : ([governance.canonicalLocale].filter(Boolean) as string[]),
+      canonicalLocale: governance.canonicalLocale,
+    },
+    options,
+  );
 }

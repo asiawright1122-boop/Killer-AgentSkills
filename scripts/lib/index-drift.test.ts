@@ -130,7 +130,7 @@ describe('index drift', () => {
     expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-a']);
   });
 
-  it('falls back to indexability-report route keys when skills-cache is unavailable', () => {
+  it('uses indexability-report route keys as the generated sitemap projection when skills-cache is unavailable', () => {
     const snapshot = buildIndexDriftSnapshotFromIndexability({
       sitemapSkills: [
         { owner: 'demo', repo: 'repo', routePath: 'repo/skill-a' },
@@ -146,10 +146,10 @@ describe('index drift', () => {
       blocklistData: {},
     });
 
-    expect(snapshot.counts.onlyInSitemap).toBe(1);
-    expect(snapshot.counts.onlyInIndexableCache).toBe(1);
-    expect(snapshot.onlyInSitemap).toEqual(['demo/repo/skill-b']);
-    expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-c']);
+    expect(snapshot.counts.onlyInSitemap).toBe(0);
+    expect(snapshot.counts.onlyInIndexableCache).toBe(0);
+    expect(snapshot.onlyInSitemap).toEqual([]);
+    expect(snapshot.onlyInIndexableCache).toEqual([]);
   });
 
   it('applies blocklist rules to indexability-report fallback candidates', () => {
@@ -170,8 +170,10 @@ describe('index drift', () => {
       },
     });
 
-    expect(snapshot.counts.onlyInIndexableCache).toBe(1);
-    expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-c']);
+    expect(snapshot.counts.onlyInSitemap).toBe(0);
+    expect(snapshot.counts.onlyInIndexableCache).toBe(0);
+    expect(snapshot.onlyInSitemap).toEqual([]);
+    expect(snapshot.onlyInIndexableCache).toEqual([]);
   });
 
   it('excludes non-target sitemap themes from governed drift candidates', () => {

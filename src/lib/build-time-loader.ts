@@ -16,11 +16,13 @@
 import sitemapSkillsJson from '../../data/sitemap-skills.json';
 import skillLocaleGovernanceJson from '../../data/seo-skill-locale-governance.json';
 import sitemapBlocklistJson from '../../data/seo-sitemap-blocklist.json';
+import skillIndexabilityReportJson from '../../reports/seo/latest-skill-indexability.json';
 
 const staticFallbacks: Record<string, unknown> = {
   'data/sitemap-skills.json': sitemapSkillsJson,
   'data/seo-skill-locale-governance.json': skillLocaleGovernanceJson,
   'data/seo-sitemap-blocklist.json': sitemapBlocklistJson,
+  'reports/seo/latest-skill-indexability.json': skillIndexabilityReportJson,
 };
 
 export async function loadJsonDataAtBuildTime(relativePath: string): Promise<unknown> {

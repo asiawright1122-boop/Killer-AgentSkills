@@ -309,13 +309,18 @@ function resolveCanonicalSkillRoute(owner: string, routePath: string): Canonical
   return null;
 }
 
-function resolveRepoFallbackRedirectPath(localeSegment: string, fallbackRoute: RepoFallbackRoute): string {
+function resolveRepoFallbackRedirectPath(
+  localeSegment: string,
+  fallbackRoute: RepoFallbackRoute,
+  options: { applyLocaleGovernance?: boolean } = {},
+): string {
   const requestedLocale = localeSegment.trim().toLowerCase();
   const governance = skillLocaleGovernanceMap.get(
     `${fallbackRoute.owner.toLowerCase()}/${fallbackRoute.routePath.toLowerCase()}`,
   );
 
   if (
+    options.applyLocaleGovernance &&
     governance?.canonicalLocale &&
     governance.canonicalLocale !== requestedLocale &&
     !governance.publishedLocales.includes(requestedLocale)
@@ -1037,8 +1042,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
       const canonicalRoute = resolveCanonicalSkillRoute(ownerSegment, routeSegment);
       if (canonicalRoute) {
         const canonicalPath =
-          resolveGovernedSkillDetailPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath) ||
-          buildLocalizedSkillPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath);
+          (isCrawlerRequest
+            ? resolveGovernedSkillDetailPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath)
+            : null) || buildLocalizedSkillPath(localeSegment, canonicalRoute.owner, canonicalRoute.routePath);
         if (canonicalPath !== pathname) {
           return new Response(null, {
             status: 301,
@@ -1059,7 +1065,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
           };
         }
         if (fallbackRoute) {
-          const canonicalPath = resolveRepoFallbackRedirectPath(localeSegment, fallbackRoute);
+          const canonicalPath = resolveRepoFallbackRedirectPath(localeSegment, fallbackRoute, {
+            applyLocaleGovernance: isCrawlerRequest,
+          });
           if (canonicalPath !== pathname) {
             return new Response(null, {
               status: 301,

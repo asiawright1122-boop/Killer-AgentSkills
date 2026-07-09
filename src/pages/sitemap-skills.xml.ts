@@ -33,6 +33,8 @@ type SkillIndexabilityEntry = {
 
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
+const getRouteKey = (owner: string, routePath: string) => `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
+
 const parseDateMs = (value?: string) => {
   if (!value) return 0;
   const ms = Date.parse(value);
@@ -77,30 +79,20 @@ function buildGovernanceMap(data: unknown): Map<string, SkillLocaleGovernanceEnt
   return map;
 }
 
-function buildIndexabilityMap(
-  indexabilityData: unknown,
-  governanceRecords: SkillLocaleGovernanceEntry[],
-): Map<string, SkillIndexabilityEntry> {
-  const records = (
+function buildIndexabilityMap(indexabilityData: unknown): Map<string, SkillIndexabilityEntry> {
+  const records =
     typeof indexabilityData === 'object' &&
     indexabilityData &&
     'skills' in indexabilityData &&
-    Array.isArray((indexabilityData as { skills?: unknown[] }).skills) &&
-    (indexabilityData as { skills: unknown[] }).skills.length > 0
-      ? (indexabilityData as { skills: unknown[] }).skills
-      : governanceRecords.map((record) => ({
-          owner: record.owner,
-          routePath: record.routePath,
-          canonicalLocale: record.canonicalLocale,
-          isIndexable: Array.isArray(record.eligibleLocales) ? record.eligibleLocales.length > 0 : true,
-        }))
-  ) as SkillIndexabilityEntry[];
+    Array.isArray((indexabilityData as { skills?: unknown[] }).skills)
+      ? ((indexabilityData as { skills: unknown[] }).skills as SkillIndexabilityEntry[])
+      : [];
   const map = new Map<string, SkillIndexabilityEntry>();
   for (const record of records) {
     const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
     const routePath = typeof record.routePath === 'string' ? record.routePath.trim() : '';
     if (!owner || !routePath) continue;
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, record);
+    map.set(getRouteKey(owner, routePath), record);
   }
   return map;
 }
@@ -142,20 +134,34 @@ export const GET: APIRoute = async () => {
   );
 
   const skillLocaleGovernanceMap = buildGovernanceMap(skillLocaleGovernanceData);
-  const governanceRecords = Array.from(skillLocaleGovernanceMap.values());
-  const skillIndexabilityMap = buildIndexabilityMap(skillIndexabilityReportData, governanceRecords);
+  const skillIndexabilityMap = buildIndexabilityMap(skillIndexabilityReportData);
+  const skillUpdatedAtMap = new Map(skills.map((skill) => [getRouteKey(skill.owner, skill.routePath), skill]));
 
   const urls: string[] = [];
 
-  for (const skill of skills) {
-    const routePath = getSkillRoutePath(skill);
-    if (!routePath) continue;
+  const indexableSkills = Array.from(skillIndexabilityMap.values()).sort((a, b) => {
+    const aKey = getRouteKey(
+      typeof a.owner === 'string' ? a.owner : '',
+      typeof a.routePath === 'string' ? a.routePath : '',
+    );
+    const bKey = getRouteKey(
+      typeof b.owner === 'string' ? b.owner : '',
+      typeof b.routePath === 'string' ? b.routePath : '',
+    );
+    return aKey.localeCompare(bKey);
+  });
 
-    const lastmod = skill.updatedAt ? formatDate(skill.updatedAt) : today;
-    const indexability = skillIndexabilityMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`);
-    if (!indexability || indexability.isIndexable !== true) continue;
+  for (const indexability of indexableSkills) {
+    const owner = typeof indexability.owner === 'string' ? indexability.owner.trim() : '';
+    const routePath = typeof indexability.routePath === 'string' ? indexability.routePath.trim() : '';
+    if (!owner || !routePath) continue;
+    if (indexability.isIndexable !== true) continue;
+    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
 
-    const governance = skillLocaleGovernanceMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`);
+    const updatedAtSkill = skillUpdatedAtMap.get(getRouteKey(owner, routePath));
+    const lastmod = updatedAtSkill?.updatedAt ? formatDate(updatedAtSkill.updatedAt) : today;
+
+    const governance = skillLocaleGovernanceMap.get(getRouteKey(owner, routePath));
     const publishedLocales = Array.isArray(governance?.publishedLocales)
       ? (governance.publishedLocales || []).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
       : [];
@@ -177,13 +183,14 @@ export const GET: APIRoute = async () => {
           : eligibleLocales.includes('en')
             ? 'en'
             : eligibleLocales[0] || 'en';
+    const hreflangLocales = eligibleLocales.length > 0 ? eligibleLocales : [canonicalLocale];
 
     urls.push(`<url>
-<loc>${normalizeUrl(`${SITE}${buildLocalizedSkillPath(canonicalLocale, skill.owner, routePath)}`)}</loc>
+<loc>${normalizeUrl(`${SITE}${buildLocalizedSkillPath(canonicalLocale, owner, routePath)}`)}</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.6</priority>
-${buildHreflangLinks(skill.owner, routePath, eligibleLocales, canonicalLocale)}
+${buildHreflangLinks(owner, routePath, hreflangLocales, canonicalLocale)}
 </url>`);
   }
 

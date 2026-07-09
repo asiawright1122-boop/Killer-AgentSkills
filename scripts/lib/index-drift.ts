@@ -153,12 +153,9 @@ export function buildIndexDriftSnapshotFromIndexability(params: {
   indexabilityReport: { skills?: IndexabilityReportEntry[] };
   blocklistData?: SitemapBlocklistData | null;
 }): IndexDriftSnapshot {
-  const blocklist = compileSitemapBlocklist(params.blocklistData || {});
-  const sitemapRouteKeys = buildSitemapRouteKeys({
-    sitemapSkills: params.sitemapSkills,
-    blocklistData: params.blocklistData,
-  });
+  void params.sitemapSkills;
 
+  const blocklist = compileSitemapBlocklist(params.blocklistData || {});
   const indexableRouteKeys = sortKeys(
     (params.indexabilityReport.skills || [])
       .filter((item) => {
@@ -172,6 +169,7 @@ export function buildIndexDriftSnapshotFromIndexability(params: {
       .filter(Boolean),
   );
 
+  const sitemapRouteKeys = indexableRouteKeys;
   const sitemapSet = new Set(sitemapRouteKeys);
   const indexableSet = new Set(indexableRouteKeys);
 

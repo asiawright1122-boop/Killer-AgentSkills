@@ -16,6 +16,11 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }
 
 /* Base Styles */
@@ -396,6 +401,47 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.marketplace-hero-receipt {
+  display: grid;
+  gap: 0;
+  margin: 0.25rem 0 0;
+  border-block: 1px solid var(--border);
+}
+
+.marketplace-hero-receipt > div {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 0.45fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.marketplace-hero-receipt > div:last-child {
+  border-bottom: 0;
+}
+
+.marketplace-hero-receipt dt {
+  color: var(--muted-foreground);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.marketplace-hero-receipt dd {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.marketplace-hero-receipt a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.marketplace-hero-receipt a:hover {
+  color: var(--accent);
 }
 
 .marketplace-section {

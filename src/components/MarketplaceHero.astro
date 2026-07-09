@@ -4,6 +4,12 @@ interface Action {
   label: string;
 }
 
+interface EvidenceItem {
+  label: string;
+  value: string;
+  href?: string;
+}
+
 interface Props {
   eyebrow?: string;
   title: string;
@@ -13,6 +19,7 @@ interface Props {
   searchAction?: string;
   actions?: Action[];
   countLabel?: string;
+  evidenceItems?: EvidenceItem[];
 }
 
 const {
@@ -24,6 +31,7 @@ const {
   searchAction = `/${locale}/search`,
   actions = [],
   countLabel,
+  evidenceItems = [],
 } = Astro.props;
 const fallbackPlaceholder = locale.startsWith('zh') ? '搜索 Skills' : 'Search skills';
 ---
@@ -54,6 +62,26 @@ const fallbackPlaceholder = locale.startsWith('zh') ? '搜索 Skills' : 'Search 
               <a href={action.href}>{action.label}</a>
             ))}
           </div>
+        )
+      }
+      {
+        evidenceItems.length > 0 && (
+          <dl class="marketplace-hero-receipt">
+            {evidenceItems.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>
+                  {item.href ? (
+                    <a href={item.href} class="break-anywhere">
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span class="break-anywhere">{item.value}</span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
         )
       }
     </div>
