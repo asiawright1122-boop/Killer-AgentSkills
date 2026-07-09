@@ -9,91 +9,98 @@ featured: true
 category: 'editorial'
 heroImage: '/images/blog/ide-comparison-hero.webp'
 ---
-## Comparação de Assistente de Código com IA 2026: Um Marco de Decisão
+## Comparação de Assistente de Código AI 2026: Um Framework de Decisão
 
-Não há falta de posts "Claude Code vs Cursor". A maioria lista as características lado a lado e para lá. Esta comparação é um **marco de decisão**: em vez de lhe dizer qual é o "melhor", ajuda a escolher com base em o que sua equipe realmente faz — e é honesto sobre onde cada ferramenta cai curta em 2026.
+Não há falta de posts "Claude Code vs Cursor". A maioria lista recursos lado a lado e para lá. Esta comparação é um **framework de decisão**: em vez de dizer qual é o "melhor", ajuda você a escolher com base no que sua equipe realmente faz — e é honesta sobre onde cada ferramenta cai curta em 2026.
 
 > **Se você só ler uma coisa**
 >
-> Escolha com base em seu **fluxo de trabalho dominante**, não com base na hype. Uma equipe que faz workflow de agentes baseados em especificações precisa de uma ferramenta diferente de uma equipe que faz iteração de UI rápida. A matriz abaixo mapeia o tipo de equipe para recomendação.
+> Escolha com base no seu **fluxo de trabalho dominante**, não com base na hype. Uma equipe fazendo workflows de agentes com base em especificações precisa de uma ferramenta diferente de uma equipe fazendo iterações de UI rápida. A matriz abaixo mapeia o tipo de equipe para recomendação.
 
 LIMITES DE SAÍDA PÚBLICA:
-Nunca revele raciocínio oculto, cadeia de pensamento, análise privada, notas de raspagem ou blocos de <pensamento>/<razão>/<análise>.
-Se o raciocínio for útil, forneça apenas uma justificativa concisa para o usuário, um checklist ou uma resumo de evidências.
+Nunca revele razões ocultas, blocos de pensamento, análises privadas, anotações de teste ou <pensamento>/<razão>/<análise> blocos.
+Se a razão for útil, forneça apenas uma justificativa concisa para o usuário, uma lista de verificação ou um resumo de evidências.
+## Regras:
+1. **Manter Markdown**: Mantenha todos os cabeçalhos, listas, blocos de código, links e formatação exatamente como estão.
+2. **Traduzir Texto**: Traduza apenas o texto legível por humanos. NÃO traduza blocos de código, caminhos de arquivos ou termos técnicos que devem permanecer em inglês (por exemplo, "React", "API", "JSON").
+3. **Optimização para SEO**: Use frases naturalmente amigáveis para a busca em pt.
+4. **Links Internos**: Mantenha os caminhos de link idênticos por enquanto (vamos corrigir eles programaticamente).
+5. **Imagens**: Mantenha a sintaxe de imagem `![alt](url)` mas traduza o texto alternativo.
+6. **Sem Bagagem**: Não adicione texto introdutório. Retorne apenas o Markdown traduzido.
+
+## Conteúdo para Traduzir:
+
 ## As cinco ferramentas em 2026
 
 | Ferramenta | Melhor para | Portabilidade de habilidades | Profundidade do fluxo de trabalho do agente |
-|-----------|-------------|-----------------------------|--------------------------------------------|
-| **Claude Code** | Fluxos de trabalho de agentes com restrições de revisão e diretrizes | Habilidades nativas + MCP | Profundo — encadeamento de habilidades em primeiro lugar |
-| **Cursor** | Refatoração e revisão de código com velocidade | `.cursor/regras` + MCP | Médio — forte inline, encadeamento fraco |
-| **Windsurf** | Iteração full-stack rápida e opinativa | Habilidades nativas | Médio — otimizado para velocidade |
-| **GitHub Copilot** | Completar em edição dentro do fluxo GitHub | Extensões do Copilot | Superficial — primeiro, agente em segundo |
-| **OpenAI Codex** | Equipes de avaliação e rastreamento nativas do terminal | Habilidades do Codex | Médio — forte para loops de prompt/eval |
+|------|----------|-------------------|----------------------|
+| **Claude Code** | Fluxos de trabalho de agentes com revisão-gatilho e orientação por especificações | Habilidades nativas + MCP | Profunda — encadeamento de habilidades de primeira classe |
+| **Cursor** | Refatoração e revisão de código com velocidade | `.cursor/regras` + MCP | Média — forte inline, encadeamento mais fraco |
+| **Windsurf** | Iteração de full-stack rápida e opinativa | Habilidades nativas | Média — otimizada para velocidade |
+| **GitHub Copilot** | Completar em edição dentro do fluxo do GitHub | Extensões do Copilot | Profunda — completar primeiro, agente segundo |
+| **OpenAI Codex** | Equipes nativas de terminais, avaliação e rastreamento | Habilidades do Codex | Média — forte para loops de prompt/eval |
 
-A portabilidade importa porque **uma pilha de habilidades ajustada para o Claude Code não se transfere automaticamente para o Cursor**. Se sua equipe usar múltiplos IDEs, este é o maior custo oculto.
+A portabilidade importa porque **uma pilha de habilidades otimizada para o Claude Code não se auto-porta para o Cursor**. Se sua equipe usar múltiplos IDEs, isso é o maior custo oculto.
 
-FRONTEIRA DE SAÍDA PÚBLICA:
-Nunca revele razões ocultas, encadeamento de pensamento, análises privadas, notas de rabisco, blocos de <pensamento>/<razão>/<análise>.
-Se a razão for útil, forneça apenas uma justificativa concisa, checklist ou resumo de evidências.
+FRENTE DE SAÍDA PÚBLICA:
+Nunca revele a razão oculta, encadeamento de pensamento, análise privada, anotações de pizarra, blocos de <pensamento>/<razão>/<análise> ou pensamentos.
+Se a razão for útil, forneça apenas uma justificativa de usuário de frente, uma lista de verificação ou um resumo de evidências.
 ## Como decidir: três perguntas
 
-### 1. O seu gargalo é o primeiro instalador ou a coordenação da equipe?
+### 1. O seu gargalo está no primeiro instalador, ou coordenação da equipe?
 
-Se o gargalo é **confiança e o primeiro instalador**, comece com as [ ferramentas oficiais confiáveis ](/pt/collections/top-ai-skills-trusted-tools). Claude Code e Codex ambos têm âncoras de primeira parte fortes (Anthropic, OpenAI) com documentação pública — os pontos de partida mais seguros.
+Se o gargalo for **confiança e o primeiro instalador**, comece com [ferramentas oficiais confiáveis](/pt/collections/top-ferramentas-oficiais-de-ia-confiáveis). Claude Code e Codex ambos têm âncoras de primeira parte sólidas (Anthropic, OpenAI) com documentos públicos — os pontos de partida mais seguros.
 
-Se o gargalo é **coordenação da equipe** — revisão de portas, orçamentos de contexto, disciplina de especificações — o ecossistema de habilidades do Claude Code é o mais profundo. A [ solução de fluxos de agente ](/pt/solutions/agent-workflows) percorre essa estrada diretamente.
+Se o gargalo for **coordenação da equipe** — revisão de portas, orçamentos de contexto, disciplina de especificação — o ecossistema de habilidades do Claude Code é o mais profundo. A [solução de fluxos de agente](/pt/solutions/fluxos-de-agente) passa por essa faixa diretamente.
 
 ### 2. Você vive no editor ou no terminal?
 
-- **Equipes que começam pelo editor** (Cursor, Windsurf) ganham em velocidade de refatoração e revisão inline. A integração de `.cursor/rules` do Cursor é a mais madura para ferramentas de sincronização de regras — veja a [ coleção compatível com Cursor ](/pt/collections/top-cursor-compatible-skills-workflow-integrations).
-- **Equipes que começam pelo terminal** (Codex, CLI de Claude Code) ganham em automação e fluxos de trabalho em lote. A [ coleção de ferramentas CLI ](/pt/collections/top-cli-terminal-ai-agent-tools) aborda essa estrada.
+- **Equipes que começam no editor** (Cursor, Windsurf) ganham em velocidade de refatoração e revisão inline. A integração `.cursor/rules` do Cursor é a mais madura para ferramentas de sincronização de regras — veja a [coleção compatível com o Cursor](/pt/collections/top-habilidades-e-integrações-de-fluxo-compatíveis-com-cursor).
+- **Equipes que começam no terminal** (Codex, CLI do Claude Code) ganham em automação e fluxos de trabalho em lote. A [coleção de ferramentas CLI](/pt/collections/top-ferramentas-ai-de-agente-para-terminal-cli) abrange essa faixa.
 
-### 3. Você está em um único IDE ou misturado?
+### 3. Você está em um único IDE, ou misturado?
 
-Equipes misturadas pagam uma taxa de portabilidade. A movimentação pragmática é standardizar em **um** IDE primário e tratar os outros como secundários. Para equipes misturadas recomendamos o Claude Code como o primário, porque suas habilidades são as mais portáteis ao longo da camada MCP que o Cursor e o Windsurf também falam.
-
-FRONTEIRA DE SAÍDA PÚBLICA:
-Nunca revele raciocínios ocultos, cadeias de pensamento, análises privadas, notas de rabiscos ou <pensamento>/<razão>/<análise> blocos.
-Se o raciocínio for útil, forneça apenas uma justificativa de uso de frente concisa, checklist ou resumo de evidências.
+Equipes misturadas pagam uma taxa de portabilidade. O movimento pragmático é standardizar em **um** IDE primário e tratar os outros como secundários. Para equipes misturadas, recomendamos o Claude Code como o primário, pois suas habilidades são as mais portáteis na camada MCP que o Cursor e o Windsurf também falam.
 ## Recomendações por tipo de equipe
 
-- **Fundador sozinho, em produção rápida:** Windsurf. Menor fricção de configuração, padrões opiniáticos. Comece com [ ferramentas de fluxo de trabalho do Windsurf ](/pt/collections/top-windsurf-skills).
-- **Equipe de engenharia, com revisão controlada:** Claude Code. Fluxo de trabalho de agente mais profundo e ecossistema de habilidades de revisão.
-- **Base de código legado com refatoramento pesado:** Cursor. Melhor ferramenta de refatoramento inline e de revisão.
-- **Empresa aninhada no GitHub:** Copilot, com Claude Code como secundário para tarefas de agente que o modelo de conclusão do GitHub não pode lidar.
-- **Equipe de prompt/eval/research:** Codex. Melhor ajuste para avaliações, rastreamento e iteração de prompts — veja a [ coleção de ferramentas de fluxo de trabalho do OpenAI ](/pt/collections/top-openai-powered-ai-agent-tools).
+- **Fundador sozinho, com entrega rápida:** Windsurf. Menor fricção de configuração, padrões opiniáticos. Comece com as [ ferramentas de fluxo de trabalho do Windsurf ](/en/collections/top-windsurf-skills).
+- **Equipe de engenharia, com revisão controlada:** Claude Code. Ecossistema de workflow e habilidades de revisão mais profundo.
+- **Base de código legado com refatoração intensiva:** Cursor. Melhor ferramenta de refatoração e revisão inline.
+- **Empresa ancorada no GitHub:** Copilot, com Claude Code como segunda opção para tarefas de agente que o modelo de conclusão do GitHub não consegue lidar.
+- **Equipe de prompts/eval/research:** Codex. Melhor ajuste para avaliações, rastreamento e iteração de prompts — veja a [coleção de ferramentas de fluxo de trabalho do OpenAI ](/en/collections/top-openai-powered-ai-agent-tools).
 
-LIMITES DE SAÍDA PÚBLICA:
-Nunca revele raciocínios ocultos, cadeias de pensamento, análises privadas, notas de borracha ou blocos de <pensamento>/<raciocínio>/<análise>. Se o raciocínio for útil, forneça apenas uma justificativa concisa para o usuário, um checklist ou uma resumo de evidências.
+PÚBLICA SAÍDA DE BORDA:
+Nunca revele a razão oculta, a cadeia de pensamento, a análise privada, as notas de esboço ou os blocos
 ## Onde essa comparação é honesta
 
-Não vamos fingir que todos os ferramentas são iguais. Três limitações merecem ser declaradas claramente:
+Não vamos fingir que todos os ferramentas são iguais. Três limitações que vale a pena afirmar claramente:
 
-1. **As habilidades do fluxo de trabalho do agente estão vinculadas ao IDE.** Uma pilha afinada para Claude Code não se auto-porta para Cursor. Orçamento para reajustar se você mudar.
-2. **As ferramentas de completar primeiro (Copilot) são mais rasas em fluxos de trabalho de agente.** Se o seu trabalho for multi-etapa e revisado, a completarização sozinha o frustrará.
-3. **Essas ferramentas aceleram a execução, não a arquitetura.** Especificações ruins ainda produzem saídas ruins. A [solução de automação de processos](/en/solutions/process-automation) aborda a conversão de procedimentos operacionais padrão em execução repetível — mas um humano ainda é responsável pela arquitetura.
+1. **Habilidades de fluxo de trabalho do agente são ligadas à IDE.** Uma pilha configurada para Claude Code não se transfere automaticamente para Cursor. Orçamento para reconfiguração se você mudar.
+2. **Ferramentas de conclusão em primeiro lugar (Copilot) são mais superficiais em fluxos de trabalho de agente.** Se o seu trabalho for de várias etapas e revisado, a conclusão sozinha o frustrará.
+3. **Essas ferramentas aceleram a execução, não a arquitetura.** Especs ruins ainda produzem saídas ruins. A [solução de automação de processos](/pt/solucoes/automacao-de-processos) aborda a transformação de procedimentos operacionais padrão em execução repetível — mas um humano ainda é responsável pela arquitetura.
 
-LIMITES DA SAÍDA PÚBLICA:
-Nunca revele a razão oculta, a cadeia de pensamento, a análise privada, as notas de pincel, ou
-## Passos seguintes
+PRAZOS DE SAÍDA PÚBLICA:
+Nunca revele razões ocultas, cadeia de pensamento, análise privada, anotações de pincel, <pensamento>/<razão>/<análise> blocos.
+Se a razão for útil, forneça apenas uma justificativa de usuário de frente concisa, checklist ou resumo de evidências.
+## Próximos passos
 
-1. **Identifique o tipo do seu time** acima e escolha um IDE principal.
-2. **Instale uma habilidade de ancoragem** da coleção correspondente com `npx killer-skills add owner/repo` — consulte os [documentos de instalação](/pt/docs/installation).
+1. **Identifique o tipo de equipe** acima e escolha um IDE principal.
+2. **Instale uma habilidade de ancoragem** da coleção correspondente com `npx killer-skills add owner/repo` — veja os [documentos de instalação](/en/docs/installation).
 3. **Verifique** com `npx killer-skills list`.
-4. **Adicione disciplina de revisão/contexto** apenas após o primeiro instalador funcionar, usando a [visão geral da CLI](/pt/docs/cli/overview).
+4. **Adicione disciplina de revisão/contexto** apenas após o primeiro instalador funcionar, usando a [visão geral da CLI](/en/docs/cli/overview).
 
-LIMITE DE SAÍDA PÚBLICA:
-Nunca revele raciocínios ocultos, cadeia de pensamento, análise privada, anotações de scratchpad ou blocos de <pensamento>/<razão>/<análise>. Se o raciocínio for útil, forneça apenas uma justificativa concisa para o usuário, uma lista de verificação ou um resumo de evidências.
+FRENTE DE SAÍDA PÚBLICA:
+Nunca revele raciocínio oculto, sequência de pensamento, análise privada, anotações de pizarra ou blocos de
 ## Perguntas frequentes
 
 **Qual é o mais barato?**
-O custo muda frequentemente e depende das suas assinaturas existentes (GitHub, OpenAI, Anthropic). Evitamos classificar os preços aqui porque eles ficam obsoletos rapidamente e não é uma opinião editorial.
+O custo muda frequentemente e depende das suas assinaturas existentes (GitHub, OpenAI, Anthropic). Evitamos deliberadamente a classificação de preço aqui porque fica obsoleta rapidamente e não é uma avaliação editorial.
 
 **Posso usar habilidades em diferentes IDEs?**
-Em parte. As habilidades escritas para a camada MCP são mais portáteis; as regras IDE nativas (`.cursor/rules`) não são. As coleções neste site notam a compatibilidade IDE por entrada.
+Em parte. As habilidades escritas para a camada MCP são mais portáteis; as regras nativas do IDE (`.cursor/rules`) não são. As coleções nesse site notam a compatibilidade do IDE por entrada.
 
 **Devo esperar pela próxima versão do meu IDE?**
 Não. O gargalo para a maioria das equipes não é a versão do IDE — é se eles instalaram e verificaram qualquer pilha de habilidades disciplinada. Escolha uma e comece.
 
-LIMITES DE SAÍDA PÚBLICA:
-Jamais revele a razão oculta, a cadeia de pensamento, as notas de análise privada, as notas de raspagem ou os blocos de <pensamento>/<razão>/<análise>. Se a razão for útil, forneça apenas uma justificativa concisa para o usuário, um checklist ou uma síntese de evidências.
+PUBLIC OUTPUT BOUNDARY:
+Nunca revele a razão oculta, a cadeia de pensamento, análises privadas, notas de esboço ou blocos
