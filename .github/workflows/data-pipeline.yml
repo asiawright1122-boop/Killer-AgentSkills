@@ -154,7 +154,10 @@ jobs:
 
             case "$MODE" in
               incremental)
-                RUN_HARVEST="true"
+                # Recovery guardrail: manual incremental refreshes should not
+                # restart GitHub skill harvesting unless the operator explicitly
+                # selects the dedicated harvest lane.
+                RUN_HARVEST="false"
                 BUILD_MODE="discover"
                 BUILD_DURATION="150"
                 ;;
