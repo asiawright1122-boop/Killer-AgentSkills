@@ -263,7 +263,7 @@ const hasRuntimeSkillsImport = (source: string): boolean => {
 };
 
 const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
-const RELATIVE_TRAILING_SLASH_PATTERN = /(?:href=["']\/[a-zA-Z0-9_\-\/]+\/["'])|(?:\(\/[a-zA-Z0-9_\-\/]+\/\))/gi;
+const RELATIVE_TRAILING_SLASH_PATTERN = /(?:href=["']\/[a-zA-Z0-9_/-]+\/["'])|(?:\(\/[a-zA-Z0-9_/-]+\/\))/gi;
 const SITE_URL_QUERY_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`]*\?[^\s)"'`]*/g;
 const HARDCODED_SKILL_LINK_PATTERN =
   /(?:https:\/\/killer-skills\.com)?\/(ar|de|en|es|fr|ja|ko|pt|ru|zh)\/skills\/([^/\s)"'`]+)\/([^\s)"'`]+)/g;
@@ -490,14 +490,16 @@ describe('public links and navigation copy', () => {
     expect(blogSeoIntentSource).not.toContain('/skills?q=workflow automation');
   });
 
-  it('keeps sitemap-listed blog routes as canonical article URLs', () => {
+  it('keeps sitemap-listed article routes off the legacy blog bridge URLs', () => {
     const blogDetailSource = readPageSource('../pages/[locale]/blog/[...slug].astro');
     const blogCategorySource = readPageSource('../pages/[locale]/blog/category/[category].astro');
     const blogSitemapSource = readPageSource('./sitemap-blog.xml.ts');
 
-    expect(blogDetailSource).toContain('Layout');
+    expect(blogDetailSource).toContain('status: 301');
+    expect(blogDetailSource).toContain('`/${locale}/article/${slugLabel}`');
     expect(blogCategorySource).toContain('Layout');
-    expect(blogSitemapSource).toContain('`${SITE}/${locale}/blog/${slug}`');
+    expect(blogSitemapSource).toContain('`${SITE}/${locale}/article/${slug}`');
+    expect(blogSitemapSource).not.toContain('`${SITE}/${locale}/blog/${slug}`');
     expect(blogSitemapSource).not.toContain('`${SITE}/${locale}/blog/${slug}.html`');
   });
 
@@ -1740,8 +1742,19 @@ describe('public links and navigation copy', () => {
         isIndexable?: boolean;
       }>;
     };
+    const admittedSitemapSkills = JSON.parse(readRepoSource('data/sitemap-skills.json')) as
+      | Array<{ owner?: string; routePath?: string }>
+      | { skills?: Array<{ owner?: string; routePath?: string }> };
     const sitemapBlocklist = compileSitemapBlocklist(
       JSON.parse(readRepoSource('data/seo-sitemap-blocklist.json')) as unknown,
+    );
+    const admittedRouteKeys = new Set(
+      (Array.isArray(admittedSitemapSkills) ? admittedSitemapSkills : admittedSitemapSkills.skills || [])
+        .filter(
+          (skill) =>
+            skill.owner && skill.routePath && !isSitemapSkillBlocked(skill.owner, skill.routePath, sitemapBlocklist),
+        )
+        .map((skill) => `${skill.owner!.toLowerCase()}/${skill.routePath!.toLowerCase()}`),
     );
     const indexableRouteKeys = new Set(
       (indexabilityReport.skills || [])
@@ -1750,6 +1763,7 @@ describe('public links and navigation copy', () => {
             skill.isIndexable === true &&
             skill.owner &&
             skill.routePath &&
+            admittedRouteKeys.has(`${skill.owner.toLowerCase()}/${skill.routePath.toLowerCase()}`) &&
             !isSitemapSkillBlocked(skill.owner, skill.routePath, sitemapBlocklist),
         )
         .map((skill) => `${skill.owner!.toLowerCase()}/${skill.routePath!.toLowerCase()}`),
@@ -1826,10 +1840,13 @@ describe('public links and navigation copy', () => {
     expect(llmsFullSource).toContain('https://x.com/killerskills');
   });
 
-  it('keeps docs default content aligned with compact skills-first onboarding routes', () => {
+  it('keeps docs default content aligned with compact skills-first onboarding routes and SEO metadata', () => {
     const docsSource = readPageSource('./[locale]/docs/[...slug].astro');
 
-    expect(docsSource).toContain('Compact entry points for install, directory, review policy, and CLI.');
+    expect(docsSource).toContain(
+      'Read the Killer-Skills docs for installation, CLI commands, directory review policy, and AI agent skill workflows.',
+    );
+    expect(docsSource).toContain('`${docsDisplayTitle} | Killer-Skills Docs`');
     expect(docsSource).toContain("const INDEXABLE_DOCS_LOCALES = ['en', 'zh'] as const;");
     expect(docsSource).toContain('availableLocales={INDEXABLE_DOCS_LOCALES}');
     expect(docsSource).toContain('noindex={!indexableDocsLocale || !isKnownDocsSlug}');

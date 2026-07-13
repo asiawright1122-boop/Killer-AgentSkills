@@ -52,8 +52,10 @@ describe('Sitemaps Purity & Blocklist Tests', () => {
     expect(hiUrls).toEqual([]);
 
     // 2. Verify blocklisted blog post is filtered out
-    const blockedPostUrls = urls.filter((url) => url.includes('/blog/announcing-killer-skills'));
+    const blockedPostUrls = urls.filter((url) => url.includes('/article/announcing-killer-skills'));
     expect(blockedPostUrls).toEqual([]);
+    const legacyBlogDetailUrls = urls.filter((url) => /\/blog\/(?!category\/)/.test(new URL(url).pathname));
+    expect(legacyBlogDetailUrls).toEqual([]);
 
     // 3. Verify category URLs only exist if they have content or English fallback
     const categoryUrls = urls.filter((url) => url.includes('/blog/category/'));

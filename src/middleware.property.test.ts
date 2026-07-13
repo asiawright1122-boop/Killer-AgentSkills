@@ -435,6 +435,117 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
   });
 
+  it('crawler requests get an indexable lightweight public skills surface before downstream SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/es/skills', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    const body = await response.text();
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+    expect(body).toContain(
+      '<meta name="description" content="Browse trusted AI agent skills by source, category, workflow, and installation path.">',
+    );
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/es/skills">');
+  });
+
+  it('crawler requests get an indexable lightweight locale home surface before downstream SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ar', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('Content-Language')).toBe('ar');
+  });
+
+  it('low-fidelity public search surface requests get an indexable lightweight response before SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/search', {
+        headers: { accept: '*/*' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('Vary')).toContain('Accept');
+  });
+
+  it('crawler requests get a lightweight response for known authority collection detail pages', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/collections/top-openai-powered-ai-agent-tools', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    const body = await response.text();
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(body).toContain(
+      '<link rel="canonical" href="https://killer-skills.com/en/collections/top-openai-powered-ai-agent-tools">',
+    );
+  });
+
+  it('browser requests keep public skills surfaces on the full SSR path', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/es/skills', {
+        headers: { accept: 'text/html,application/xhtml+xml' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
+  });
+
   it('redirects crawler skill detail query variants to the clean canonical path before SSR', async () => {
     let nextCalled = false;
     const response = (await onRequest(
@@ -645,6 +756,9 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
     expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+    expect(body).toContain(
+      '<meta name="description" content="Killer-Skills indexes this AI agent skill with source trust, install paths, and workflow context.">',
+    );
     expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills/anthropics/skills/xlsx">');
   });
 

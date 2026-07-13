@@ -78,21 +78,23 @@ if (!isKnownDocsSlug) {
   Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 }
 
-const title = isKnownDocsSlug
-  ? docsPageTitle || (isZhCopy ? '文档' : 'Docs')
-  : isZhCopy
-    ? '404 - 页面不存在'
-    : '404 - Page Not Found';
+const docsDisplayTitle =
+  docsPageTitle || (normalizedSlug === 'index' ? (isZhCopy ? '文档首页' : 'Docs Home') : isZhCopy ? '文档' : 'Docs');
+const docsSeoTitle = isZhCopy ? `${docsDisplayTitle} | Killer-Skills 文档` : `${docsDisplayTitle} | Killer-Skills Docs`;
+const docsSeoDescription = isZhCopy
+  ? '阅读 Killer-Skills 文档，了解安装、CLI 命令、目录审核政策和 AI agent skill 工作流。'
+  : 'Read the Killer-Skills docs for installation, CLI commands, directory review policy, and AI agent skill workflows.';
+const title = isKnownDocsSlug ? docsSeoTitle : isZhCopy ? '404 - 页面不存在' : '404 - Page Not Found';
 const description = isKnownDocsSlug
-  ? isZhCopy
-    ? '安装、目录、审核政策和 CLI 的简明入口。'
-    : 'Compact entry points for install, directory, review policy, and CLI.'
+  ? docsSeoDescription
   : isZhCopy
     ? '这个文档页面不存在。'
     : 'This documentation page does not exist.';
-const bridgeDescription = isZhCopy
-  ? '安装、目录、审核政策和 CLI 的简明入口。'
-  : 'Compact entry points for install, directory, review policy, and CLI.';
+const bridgeDescription = isKnownDocsSlug
+  ? docsSeoDescription
+  : isZhCopy
+    ? '这个文档页面不存在。'
+    : 'This documentation page does not exist.';
 ---
 
 <Layout
@@ -108,7 +110,7 @@ const bridgeDescription = isZhCopy
 >
   {
     isKnownDocsSlug ? (
-      <MarketplaceSimplePage title={title} description={bridgeDescription}>
+      <MarketplaceSimplePage title={docsDisplayTitle} description={bridgeDescription}>
         {docsPageContent && (
           <article class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-[var(--foreground)] prose-p:text-[var(--muted-foreground)] prose-li:text-[var(--muted-foreground)] prose-a:text-[var(--accent)] prose-a:font-bold prose-a:underline prose-a:decoration-2 prose-a:underline-offset-4 prose-strong:text-[var(--foreground)] prose-code:text-[var(--foreground)] prose-pre:bg-[var(--muted)] prose-pre:border prose-pre:border-[var(--border)]">
             <Fragment set:html={docsPageContent} />

@@ -1,6 +1,4 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import MarketplaceSimplePage from '../../../components/MarketplaceSimplePage.astro';
 import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
 
 const { locale, slug } = Astro.params;
@@ -8,22 +6,16 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const isZhCopy = locale.startsWith('zh');
 const slugLabel = Array.isArray(slug) ? slug.join('/') : slug || '';
-const title = isZhCopy ? '文章' : 'Article';
-const description = isZhCopy ? '文章已归入新版文章入口。' : 'Articles now live under the current article entry.';
----
+if (!slugLabel) {
+  return new Response(null, { status: 301, headers: { Location: `/${locale}/article` } });
+}
 
-<Layout locale={locale} title={title} description={description} appendBrand={false}>
-  <MarketplaceSimplePage title={title} description={description}>
-    <div class="marketplace-card-grid">
-      <a class="marketplace-card-link" href={`/${locale}/article/${slugLabel}`}>
-        <span class="marketplace-route-label">{slugLabel}</span>
-        <h3>{isZhCopy ? '打开文章' : 'Open article'}</h3>
-      </a>
-      <a class="marketplace-card-link" href={`/${locale}/article`}>
-        <h3>{isZhCopy ? '文章列表' : 'Article list'}</h3>
-      </a>
-    </div>
-  </MarketplaceSimplePage>
-</Layout>
+return new Response(null, {
+  status: 301,
+  headers: {
+    Location: `/${locale}/article/${slugLabel}`,
+    'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+  },
+});
+---

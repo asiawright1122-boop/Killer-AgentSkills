@@ -22,10 +22,10 @@ function buildHreflangLinks(slug: string, availableLocales: string[]): string {
     uniqueLocales
       .map(
         (loc) =>
-          `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(`${SITE}/${loc}/blog/${slug}`)}" />`,
+          `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(`${SITE}/${loc}/article/${slug}`)}" />`,
       )
       .join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/${xDefaultLocale}/blog/${slug}`)}" />`
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/${xDefaultLocale}/article/${slug}`)}" />`
   );
 }
 
@@ -59,7 +59,8 @@ export const GET: APIRoute = async () => {
   for (const [slug, localeMap] of postsBySlug.entries()) {
     if (
       sitemapBlocklist.exactKeys.has(slug.toLowerCase()) ||
-      sitemapBlocklist.exactKeys.has(`blog/${slug.toLowerCase()}`)
+      sitemapBlocklist.exactKeys.has(`blog/${slug.toLowerCase()}`) ||
+      sitemapBlocklist.exactKeys.has(`article/${slug.toLowerCase()}`)
     ) {
       continue;
     }
@@ -72,7 +73,7 @@ export const GET: APIRoute = async () => {
       if (!post) continue;
       const lastmod = formatDate(post.data.updatedDate || post.data.pubDate || new Date());
       urls.push(`<url>
-<loc>${normalizeUrl(`${SITE}/${locale}/blog/${slug}`)}</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}/article/${slug}`)}</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>

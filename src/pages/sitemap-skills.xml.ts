@@ -158,10 +158,12 @@ export const GET: APIRoute = async () => {
     if (indexability.isIndexable !== true) continue;
     if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
 
-    const updatedAtSkill = skillUpdatedAtMap.get(getRouteKey(owner, routePath));
+    const routeKey = getRouteKey(owner, routePath);
+    const updatedAtSkill = skillUpdatedAtMap.get(routeKey);
+    if (!updatedAtSkill) continue;
     const lastmod = updatedAtSkill?.updatedAt ? formatDate(updatedAtSkill.updatedAt) : today;
 
-    const governance = skillLocaleGovernanceMap.get(getRouteKey(owner, routePath));
+    const governance = skillLocaleGovernanceMap.get(routeKey);
     const publishedLocales = Array.isArray(governance?.publishedLocales)
       ? (governance.publishedLocales || []).filter((locale) => SUPPORTED_LOCALES.includes(locale as any))
       : [];

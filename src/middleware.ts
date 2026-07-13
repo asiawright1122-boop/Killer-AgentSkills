@@ -9,6 +9,7 @@ import { skillLocaleGovernanceMap, loadSkillLocaleGovernance, isGovernanceLoaded
 import { getSitemapSkills } from './lib/sitemap-skills-runtime';
 import { getSitemapBlocklist } from './lib/sitemap-blocklist-runtime';
 import { getSeo404Rules } from './lib/seo-404-rules-runtime';
+import { authoritySurfacePublicData } from './lib/authority-surface-public-data';
 
 // Re-export for backward compatibility
 export {
@@ -57,6 +58,20 @@ type RepoFallbackRoute = {
   owner: string;
   repo: string;
   routePath: string;
+};
+
+type CrawlerPublicSurface = {
+  locale: string;
+  canonicalPath: string;
+  title: string;
+  description: string;
+};
+
+type AuthoritySurfacePublicRecord = {
+  readonly href?: string;
+  readonly surfaceClass?: string;
+  readonly title?: unknown;
+  readonly description?: unknown;
 };
 
 const repoFallbackRouteMap = new Map<string, RepoFallbackRoute>();
@@ -407,6 +422,166 @@ function isCrawlerSkillsListingParamPath(url: URL): boolean {
   return /^\/[a-z]{2}\/skills$/.test(url.pathname) && url.searchParams.size > 0;
 }
 
+const CRAWLER_STATIC_SURFACE_COPY: Record<string, { title: string; description: string }> = {
+  home: {
+    title: 'Killer-Skills',
+    description: 'Curated AI agent skills, collections, docs, and trusted workflow surfaces.',
+  },
+  skills: {
+    title: 'AI Agent Skills Directory',
+    description: 'Browse trusted AI agent skills by source, category, workflow, and installation path.',
+  },
+  popular: {
+    title: 'Popular AI Agent Skills',
+    description: 'Discover widely used AI agent skills and workflow tools from the public catalog.',
+  },
+  occupations: {
+    title: 'AI Skills by Occupation',
+    description: 'Explore AI agent skills mapped to professional workflows and job tasks.',
+  },
+  search: {
+    title: 'AI Skill Search',
+    description: 'Search the Killer-Skills catalog for installable AI agent skills and workflow tools.',
+  },
+  safe: {
+    title: 'Safe AI Skill Directory',
+    description: 'Review safety, trust, and source signals for public AI agent skills.',
+  },
+  article: {
+    title: 'AI Agent Skills Articles',
+    description: 'Read guides about AI agent skills, MCP servers, automation, and developer workflows.',
+  },
+  collections: {
+    title: 'AI Skill Collections',
+    description: 'Browse curated collections for trusted tools, workflows, and setup paths.',
+  },
+  docs: {
+    title: 'Killer-Skills Documentation',
+    description: 'Read installation, CLI, indexing, and workflow documentation for Killer-Skills.',
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    description:
+      'Read how Killer-Skills handles privacy, public catalog data, analytics, and user-submitted skill information.',
+  },
+  terms: {
+    title: 'Terms of Service',
+    description:
+      'Review the Killer-Skills terms for using the public AI skills catalog, documentation, and workflow resources.',
+  },
+  cookies: {
+    title: 'Cookie Policy',
+    description: 'Read how Killer-Skills uses cookies and local browser state.',
+  },
+};
+
+function localizedAuthorityText(value: unknown, locale: string): string {
+  if (!value || typeof value !== 'object') return '';
+  const text = value as Record<string, unknown>;
+  const localized = text[locale];
+  if (typeof localized === 'string' && localized.trim()) return localized.trim();
+  const english = text.en;
+  return typeof english === 'string' ? english.trim() : '';
+}
+
+function resolveAuthorityCollectionSurface(pathname: string, locale: string): CrawlerPublicSurface | null {
+  if (!/^\/(?:en|zh)\/collections\/[^/]+$/.test(pathname)) return null;
+
+  const surfaces = (
+    authoritySurfacePublicData as unknown as {
+      readonly surfaces?: readonly AuthoritySurfacePublicRecord[];
+    }
+  ).surfaces;
+  if (!Array.isArray(surfaces)) return null;
+
+  for (const surface of surfaces) {
+    if (surface.surfaceClass !== 'collection') continue;
+    const href = typeof surface.href === 'string' ? surface.href.replace('{locale}', locale) : '';
+    if (href !== pathname) continue;
+    const title = localizedAuthorityText(surface.title, locale) || CRAWLER_STATIC_SURFACE_COPY.collections.title;
+    const description =
+      localizedAuthorityText(surface.description, locale) || CRAWLER_STATIC_SURFACE_COPY.collections.description;
+    return { locale, canonicalPath: pathname, title, description };
+  }
+
+  return null;
+}
+
+function resolveCrawlerPublicSurface(url: URL): CrawlerPublicSurface | null {
+  if (url.searchParams.size > 0) return null;
+
+  const localeRootMatch = url.pathname.match(/^\/([a-z]{2})(?:\/([a-z]+))?$/);
+  if (localeRootMatch) {
+    const locale = localeRootMatch[1];
+    const key = localeRootMatch[2] || 'home';
+    const copy = CRAWLER_STATIC_SURFACE_COPY[key];
+    if (!copy) return null;
+
+    if ((key === 'collections' || key === 'docs') && !['en', 'zh'].includes(locale)) {
+      return null;
+    }
+
+    return {
+      locale,
+      canonicalPath: url.pathname,
+      title: copy.title,
+      description: copy.description,
+    };
+  }
+
+  const collectionMatch = url.pathname.match(/^\/([a-z]{2})\/collections\/[^/]+$/);
+  if (collectionMatch) {
+    return resolveAuthorityCollectionSurface(url.pathname, collectionMatch[1]);
+  }
+
+  return null;
+}
+
+function buildCrawlerPublicSurfaceResponse(surface: CrawlerPublicSurface): Response {
+  const canonicalUrl = `https://${SITE_DOMAIN}${surface.canonicalPath}`;
+  const directoryUrl = `https://${SITE_DOMAIN}/${surface.locale}/skills`;
+  const collectionsUrl = `https://${SITE_DOMAIN}/${surface.locale}/collections`;
+  const docsUrl = `https://${SITE_DOMAIN}/${surface.locale}/docs`;
+  const sitemapUrl = `https://${SITE_DOMAIN}/sitemap.xml`;
+  const body = `<!doctype html>
+<html lang="${htmlEscape(surface.locale)}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="${htmlEscape(surface.description)}">
+  <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
+  <title>${htmlEscape(surface.title)} | Killer-Skills</title>
+</head>
+<body>
+  <main>
+    <h1>${htmlEscape(surface.title)}</h1>
+    <p>${htmlEscape(surface.description)}</p>
+    <nav>
+      <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
+      <a href="${htmlEscape(collectionsUrl)}">Collections</a>
+      <a href="${htmlEscape(docsUrl)}">Documentation</a>
+      <a href="${htmlEscape(sitemapUrl)}">Sitemap</a>
+    </nav>
+  </main>
+</body>
+</html>`;
+  const response = new Response(body, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400',
+      'Content-Language': surface.locale,
+      Vary: 'Accept, User-Agent',
+      'X-Robots-Tag': 'index, follow',
+      'X-Killer-Skills-Crawler-Capsule': '1',
+      'X-Cache': 'BYPASS-CRAWLER-SURFACE',
+    },
+  });
+  setSecurityHeaders(response);
+  return response;
+}
+
 function buildCrawlerSkillDetailResponse(
   locale: string,
   owner: string,
@@ -417,6 +592,8 @@ function buildCrawlerSkillDetailResponse(
   const repo = routeSegments[0] || routePath;
   const label = formatCrawlerLabel(routePath) || repo || 'Skill';
   const title = `${label} skill`;
+  const description =
+    'Killer-Skills indexes this AI agent skill with source trust, install paths, and workflow context.';
   const canonicalUrl = `https://${SITE_DOMAIN}${canonicalPath}`;
   const directoryUrl = `https://${SITE_DOMAIN}/${locale}/skills`;
   const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
@@ -428,13 +605,14 @@ function buildCrawlerSkillDetailResponse(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
+  <meta name="description" content="${htmlEscape(description)}">
   <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
   <title>${htmlEscape(title)} | Killer-Skills</title>
 </head>
 <body>
   <main>
     <h1>${htmlEscape(title)}</h1>
-    <p>Killer-Skills indexes this AI agent skill with source trust, install paths, and workflow context.</p>
+    <p>${htmlEscape(description)}</p>
     <nav>
       <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
       <a href="${htmlEscape(sitemapUrl)}">Skills sitemap</a>
@@ -474,6 +652,8 @@ function buildAiCrawlerCapsuleResponse(url: URL): Response {
       : routeKind === 'skills' && segments.length > 2
         ? `${label} skill`
         : `Skills directory: ${label}`;
+  const description =
+    'Killer-Skills indexes reviewed AI agent skills, source trust, install paths, and workflow categories.';
   const canonicalUrl = `https://${SITE_DOMAIN}${url.pathname}${url.search}`;
   const directoryUrl = `https://${SITE_DOMAIN}/${locale}/skills`;
   const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
@@ -484,13 +664,14 @@ function buildAiCrawlerCapsuleResponse(url: URL): Response {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, follow">
+  <meta name="description" content="${htmlEscape(description)}">
   <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
   <title>${htmlEscape(title)} | Killer-Skills</title>
 </head>
 <body>
   <main>
     <h1>${htmlEscape(title)}</h1>
-    <p>Killer-Skills indexes reviewed AI agent skills, source trust, install paths, and workflow categories.</p>
+    <p>${htmlEscape(description)}</p>
     <nav>
       <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
       <a href="${htmlEscape(sitemapUrl)}">Skills sitemap</a>
@@ -675,7 +856,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
   const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
-  const isLowFidelitySkillDetailRequest = !context.isPrerendered && isLowFidelityHtmlRequest(context.request);
+  const isLowFidelityCrawlerLikeRequest = !context.isPrerendered && isLowFidelityHtmlRequest(context.request);
   const shouldUseEdgeCache =
     isCacheableRequest &&
     !import.meta.env.DEV &&
@@ -948,6 +1129,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
+  if (isCrawlerRequest || isLowFidelityCrawlerLikeRequest) {
+    const crawlerPublicSurface = resolveCrawlerPublicSurface(context.url);
+    if (crawlerPublicSurface) {
+      return buildCrawlerPublicSurfaceResponse(crawlerPublicSurface);
+    }
+  }
+
   // 2.6. Detect repeated path segments (e.g. /references/references, /rules/rules, /roles/roles).
   //      These are crawl-trap artifacts that never correspond to real pages — return 410 Gone
   //      so Google drops them from the index faster than a generic 404.
@@ -1126,7 +1314,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = skillPathMatch[1];
     const ownerSegment = safeDecodePathSegment(skillPathMatch[2]).trim();
     const routeSegment = safeDecodePathSegment(skillPathMatch[3]).trim();
-    const isCrawlerLikeSkillDetailRequest = isCrawlerRequest || isLowFidelitySkillDetailRequest;
+    const isCrawlerLikeSkillDetailRequest = isCrawlerRequest || isLowFidelityCrawlerLikeRequest;
 
     if (ownerSegment && routeSegment) {
       const canonicalRoute = resolveCanonicalSkillRoute(ownerSegment, routeSegment);
