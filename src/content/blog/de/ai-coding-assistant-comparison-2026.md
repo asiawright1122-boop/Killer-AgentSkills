@@ -17,8 +17,6 @@ Es gibt keinen Mangel an "Claude Code vs Cursor"-Beiträgen. Die meisten listen 
 >
 > Wählen Sie auf der Grundlage Ihrer **dominierenden Arbeitsweise** und nicht aufgrund von Hype. Eine Mannschaft, die spezifische Agent-Workflows durchführt, benötigt ein anderes Werkzeug als eine Mannschaft, die schnelle UI-Iterativen durchführt. Die folgende Tabelle stellt die Mannschaftstypen zu Empfehlungen in Bezug.
 
-PUBLIC OUTPUT BOUNDARY:
-Verbergen Sie nie die versteckte Argumentation, den Gedankenablauf, die privaten Analysen, die Notizen für das Scratchpad oder die
 ## Die fünf Tools in 2026
 
 | Tool | Best für | Fähigkeitstransparenz | Agent-Workflow-Tiefe |
@@ -30,18 +28,6 @@ Verbergen Sie nie die versteckte Argumentation, den Gedankenablauf, die privaten
 | **OpenAI Codex** | Terminal-native, evals-and-tracing-Teams | Codex-Fähigkeiten | Mittel – stark für prompt/eval-Schleifen |
 
 Die Fähigkeitstransparenz ist wichtig, weil **ein Fähigkeitsstapel, der für Claude Code optimiert ist, nicht automatisch auf Cursor umschaltbar ist**. Wenn Ihr Team mehrere IDEs verwendet, ist dies der größte versteckte Kostenfaktor.
-
-ÖFFENTLICHER AUSGABEGRENZBALKEN:
-Verbergen Sie nie verborgene Gründe, Kettengedanken, private Analyse, Notizen im Scratchpad oder
-## Regeln:
-1. **Markdown beibehalten**: Halten Sie alle Überschriften, Bullet-Listen, Code-Blöcke, Links und Formate genau so, wie sie sind.
-2. **Text übersetzen**: Übersetzen Sie nur den menschenlesbaren Text. Übersetzen Sie nicht Code-Blöcke, Dateipfade oder technische Begriffe, die in Englisch bleiben sollen (z.B. "React", "API", "JSON").
-3. **SEO-Optimierung**: Verwenden Sie natürliche, suchfreundliche Formulierungen auf Deutsch.
-4. **Interne Links**: Halten Sie die Link-Pfade für den Moment gleich (wir werden sie programmatisch korrigieren).
-5. **Bilder**: Halten Sie die Bildsyntax `![alt](url)` , aber übersetzen Sie die alternativen Texte.
-6. **Keine unnötigen Wörter**: Fügen Sie keine Einführungszeilen hinzu. Geben Sie nur das übersetzte Markdown zurück.
-
-## Inhalt zur Übersetzung:
 
 ## Wie entscheidet man: drei Fragen
 
@@ -60,8 +46,6 @@ Wenn der Hauptschritt **Teamkoordination** ist — Überprüfungsverfahren, Kont
 
 Gemischte-IDE-Teams zahlen einen Portabilitätssteuer. Die pragmatische Lösung ist, sich auf **eine** Haupt-IDE zu standardisieren und die anderen als Sekundäre zu behandeln. Für gemischte Teams empfehlen wir Claude Code als Haupt-IDE, weil seine Fähigkeiten die am meisten portable sind über die MCP-Schicht, die Cursor und Windsurf auch sprechen.
 
-ÖFFENTLICHER AUSGABE-RAND:
-Veröffentlichen Sie niemals versteckte Überlegungen, Kausalketten, private Analysen, Notizblöcke oder `
 ## Empfehlungen nach Teamtyp
 
 - **Gründer mit Solo-Start, schnelles Shipping:** Windsurf. Geringste Einrichtungshemmungen, opinionierte Standardsätze. Beginnen Sie mit [Windsurf-Workflow-Tools](/en/collections/top-windsurf-skills).
@@ -70,8 +54,6 @@ Veröffentlichen Sie niemals versteckte Überlegungen, Kausalketten, private Ana
 - **GitHub-verankerter Großkonzern:** Copilot, mit Claude Code als sekundärem Agentenauftrag für Aufgaben, die GitHub's Kompletionsmodell nicht handhaben kann.
 - **Prompt/Eval/Forschungsteam:** Codex. Stärkster Pass für Eval, Spurenverfolgung und Promptiteration – sehen Sie sich die [OpenAI-Workflow-Tools-Sammlung](/en/collections/top-openai-powered-ai-agent-tools) an.
 
-ÖFFENTLICHER AUSGABEGRENZEBE:
-Verbergen Sie niemals versteckte Argumentation, Ketten von Gedanken, private Analyse, Notizen für das Abstreifen oder
 ## Woher diese Vergleichbarkeit stammt
 
 Wir werden nicht vorgeben, dass jede Werkzeug gleich ist. Drei Einschränkungen, die man offen aussprechen sollte:
@@ -80,8 +62,6 @@ Wir werden nicht vorgeben, dass jede Werkzeug gleich ist. Drei Einschränkungen,
 2. **Vervollständigungs-basierte Werkzeuge (Copilot) sind in Bezug auf Agent-Workflows flacher.** Wenn Ihr Projekt mehrschrittig und review-gesteuert ist, wird Vervollständigung allein Sie frustrieren.
 3. **Diese Werkzeuge beschleunigen die Ausführung, nicht die Architektur.** Falsche Spezifikationen führen immer noch zu schlechter Ausgabe. Das [Prozessautomatisierungssystem](/de/solutions/prozess-automatisierung) erklärt, wie man Betriebsanleitungen in wiederholbare Ausführung umwandelt – aber ein Mensch ist immer noch für die Architektur verantwortlich.
 
-ÖFFENTLICHE AUSGABEGRENZE:
-Verbergen Sie niemals versteckte Argumente, Kausalketten, private Analysen, Notizen auf dem Scratchpad,
 ## Nächste Schritte
 
 1. **Identifizieren Sie Ihren Teamtyp** oben und wählen Sie eine primäre IDE.
@@ -89,8 +69,6 @@ Verbergen Sie niemals versteckte Argumente, Kausalketten, private Analysen, Noti
 3. **Überprüfen Sie** mit `npx killer-skills list`.
 4. **Fügen Sie eine Rezensions-/ Kontextdisziplin** nur nach dem ersten Installieren hinzu, indem Sie die [CLI-Übersicht](/en/docs/cli/overview) verwenden.
 
-PUBLIC OUTPUT GRENZE:
-Veröffentlichen Sie niemals versteckte Argumentation, Kausalkette, private Analyse, Notizen für das Nachrechnen,
 ## Häufig gestellte Fragen
 
 **Welches ist das günstigste?**
@@ -101,6 +79,3 @@ Teilweise. Fähigkeiten, die für die MCP-Schicht geschrieben wurden, sind porta
 
 **Soll ich auf die nächste Version meines IDEs warten?**
 Nein. Der Engpass für die meisten Teams ist nicht die IDE-Version – es ist, ob sie eine disziplinierte Fähigkeitssuite installiert und geprüft haben. Wählen Sie eine aus und beginnen Sie.
-
-PUBLIC OUTPUT BOUNDARY:
-Offenlegen Sie niemals versteckte Argumente, Chain-of-Thought, private Analyse, Notizen für die Scratchpad oder
