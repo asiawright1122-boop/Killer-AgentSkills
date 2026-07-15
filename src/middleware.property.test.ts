@@ -698,7 +698,7 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 
-  it('crawler requests allow sitemap-blocklisted skill routes to render outside sitemap generation', async () => {
+  it('crawler requests short-circuit sitemap-blocklisted skill routes before downstream SSR', async () => {
     let nextCalled = false;
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills/openclaw/openclaw/openclaw-release-maintainer', {
@@ -713,8 +713,10 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
       },
     )) as Response;
 
-    expect(nextCalled).toBe(true);
+    expect(nextCalled).toBe(false);
     expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
   });
 
   it('browser requests keep valid canonical skill detail URLs on the full SSR path', async () => {

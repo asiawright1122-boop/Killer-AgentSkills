@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeAll } from 'vitest';
+import { readFileSync } from 'node:fs';
 import seo404RulesData from '../data/seo-404-rules.json';
 import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
 import sitemapSkillsData from '../data/sitemap-skills.json';
@@ -218,7 +219,7 @@ describe('middleware skill route handling', () => {
   it('keeps skill detail HTML cached longer at the edge to reduce crawler SSR pressure', async () => {
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills/langgenius/dify/backend-code-review', {
-        headers: { 'user-agent': 'Googlebot/2.1' },
+        headers: { 'user-agent': 'Mozilla/5.0 Chrome/126 Safari/537.36' },
       }),
       async () =>
         new Response('<html></html>', {
@@ -255,6 +256,58 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
     expect(response.headers.get('Cache-Control')).toBe('private, no-store');
     expect(await response.text()).toContain('systematic debugging skill');
+  });
+
+  it('serves a compact noindex capsule to search crawlers for sitemap-blocklisted skill details', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ar/skills/udecode/plate/ankane-readme-writer', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+  });
+
+  it('checks blocklisted crawler paths before reading from the edge cache', () => {
+    const source = readFileSync(new URL('./middleware.ts', import.meta.url), 'utf8');
+    const crawlerBlocklistIndex = source.indexOf('const crawlerSkillPathMatch');
+    const edgeCacheReadIndex = source.indexOf('if (shouldUseEdgeCache)');
+
+    expect(crawlerBlocklistIndex).toBeGreaterThan(-1);
+    expect(edgeCacheReadIndex).toBeGreaterThan(-1);
+    expect(crawlerBlocklistIndex).toBeLessThan(edgeCacheReadIndex);
+  });
+
+  it('preserves explicit 410 rules before serving blocklisted crawler capsules', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ar/skills/affaan-m/everything-claude-code/golang-testing', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBeNull();
   });
 
   it('still blocks file-like trap paths under skills routes', async () => {

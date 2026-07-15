@@ -863,6 +863,50 @@ export const onRequest = defineMiddleware(async (context, next) => {
     typeof caches !== 'undefined' &&
     !(isCrawlerRequest && context.url.searchParams.size > 0);
 
+  const crawlerSkillPathMatch = isCrawlerRequest
+    ? pathname.match(/^\/(?:[a-z]{2})\/skills\/([^/]+)\/([^/]+(?:\/[^/]+)?)$/)
+    : null;
+  if (crawlerSkillPathMatch) {
+    const ownerSegment = safeDecodePathSegment(crawlerSkillPathMatch[1]).trim();
+    const routeSegment = safeDecodePathSegment(crawlerSkillPathMatch[2]).trim();
+    if (ownerSegment && routeSegment) {
+      const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
+      await ensureMiddlewareDataLoaded(env || {});
+
+      const explicitRedirectTarget = getSeoRedirectPathMap().get(pathname);
+      if (explicitRedirectTarget) {
+        return new Response(null, {
+          status: 301,
+          headers: {
+            Location: explicitRedirectTarget + context.url.search,
+            'Cache-Control': 'public, s-maxage=86400',
+          },
+        });
+      }
+
+      if (getSeoGonePathSet().has(pathname)) {
+        return new Response(null, {
+          status: 410,
+          headers: {
+            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+            'X-Robots-Tag': 'noindex, nofollow',
+          },
+        });
+      }
+
+      if (isSitemapSkillBlocked(ownerSegment, routeSegment, getMiddlewareBlocklist())) {
+        return buildAiCrawlerCapsuleResponse(context.url);
+      }
+    }
+  }
+
+  if (
+    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) ||
+    (isCrawlerRequest && isCrawlerSkillsListingParamPath(context.url))
+  ) {
+    return buildAiCrawlerCapsuleResponse(context.url);
+  }
+
   if (shouldUseEdgeCache) {
     try {
       const cache = (caches as unknown as { default: Cache }).default;
@@ -878,13 +922,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     } catch {
       // Cache API unavailable (dev mode / miniflare) — proceed normally
     }
-  }
-
-  if (
-    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) ||
-    (isCrawlerRequest && isCrawlerSkillsListingParamPath(context.url))
-  ) {
-    return buildAiCrawlerCapsuleResponse(context.url);
   }
 
   // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
