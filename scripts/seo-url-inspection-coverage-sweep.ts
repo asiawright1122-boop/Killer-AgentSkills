@@ -32,6 +32,7 @@ import * as dotenv from 'dotenv';
 import { createSign } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { getP0SurfacePathsFromFile } from './lib/authority-surfaces-paths';
 
 dotenv.config();
 const localEnv = resolve(process.cwd(), '.env.local');
@@ -42,16 +43,7 @@ if (existsSync(localEnv)) {
 // ---------------------------------------------------------------------------
 // P0 Surface Paths & Locales (aligned with scripts/submit-indexnow.ts)
 // ---------------------------------------------------------------------------
-export const P0_SURFACE_PATHS = [
-  '',
-  '/collections',
-  '/collections/top-official-ai-skills-trusted-tools',
-  '/collections/top-agent-workflow-building-tools',
-  '/collections/top-cursor-compatible-skills-workflow-integrations',
-  '/docs/installation',
-  '/blog/official-ai-agent-skills-guide',
-  '/blog/claude-code-vs-cursor-vs-windsurf',
-];
+export const P0_SURFACE_PATHS = getP0SurfacePathsFromFile();
 
 export const SUPPORTED_LOCALES = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
 
@@ -162,9 +154,7 @@ function getConfig() {
   const siteUrl = (process.env.GSC_SITE_URL || '').trim();
 
   if (!clientEmail || !privateKey || !siteUrl) {
-    console.error(
-      'Missing GSC credentials. Set GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, and GSC_SITE_URL in .env.local',
-    );
+    console.error('Missing GSC credentials. Set GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, and GSC_SITE_URL in .env.local');
     process.exit(1);
   }
 
@@ -172,11 +162,7 @@ function getConfig() {
 }
 
 export function base64UrlEncode(value: string | Buffer): string {
-  return Buffer.from(value)
-    .toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/g, '');
+  return Buffer.from(value).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
 }
 
 export async function fetchAccessToken(clientEmail: string, privateKey: string): Promise<string> {
@@ -228,11 +214,7 @@ export async function fetchAccessToken(clientEmail: string, privateKey: string):
   return data.access_token;
 }
 
-export async function inspectUrl(
-  url: string,
-  siteUrl: string,
-  accessToken: string,
-): Promise<UrlInspectionResult> {
+export async function inspectUrl(url: string, siteUrl: string, accessToken: string): Promise<UrlInspectionResult> {
   const endpoint = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
 
   const response = await fetch(endpoint, {
@@ -581,7 +563,9 @@ async function main() {
   writeFileSync(mdPath, mdLines.join('\n'), 'utf8');
 
   console.log(`\nCoverage sweep complete.`);
-  console.log(`Source: ${sourceMode} | Sampled: ${totalSampled} | PASS: ${totalPass} | Pass rate: ${(overallPassRate * 100).toFixed(1)}%`);
+  console.log(
+    `Source: ${sourceMode} | Sampled: ${totalSampled} | PASS: ${totalPass} | Pass rate: ${(overallPassRate * 100).toFixed(1)}%`,
+  );
   console.log(`JSON: ${jsonPath}`);
   console.log(`Markdown: ${mdPath}`);
 }

@@ -715,7 +715,7 @@
       "role": "primary",
       "tier": "P0",
       "surfaceClass": "guide",
-      "href": "/{locale}/blog/official-ai-agent-skills-guide",
+      "href": "/{locale}/article/official-ai-agent-skills-guide",
       "title": {
         "en": "Official AI Agent Skills Guide",
         "zh": "官方 AI Agent Skills 指南"
@@ -740,7 +740,7 @@
       "role": "primary",
       "tier": "P1",
       "surfaceClass": "guide",
-      "href": "/{locale}/blog/how-to-install-ai-agent-skills",
+      "href": "/{locale}/article/how-to-install-ai-agent-skills",
       "title": {
         "en": "How to Install AI Agent Skills",
         "zh": "如何安装 AI Agent Skills"
@@ -764,7 +764,7 @@
       "role": "primary",
       "tier": "P0",
       "surfaceClass": "comparison",
-      "href": "/{locale}/blog/claude-code-vs-cursor-vs-windsurf",
+      "href": "/{locale}/article/claude-code-vs-cursor-vs-windsurf",
       "title": {
         "en": "Claude Code vs Cursor vs Windsurf",
         "zh": "Claude Code vs Cursor vs Windsurf 对比"
@@ -788,7 +788,7 @@
       "role": "primary",
       "tier": "P2",
       "surfaceClass": "comparison",
-      "href": "/{locale}/blog/mcp-vs-rest-api-comparison",
+      "href": "/{locale}/article/mcp-vs-rest-api-comparison",
       "title": {
         "en": "MCP vs REST API Comparison",
         "zh": "MCP vs REST API 对比"

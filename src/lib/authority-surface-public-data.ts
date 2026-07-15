@@ -361,7 +361,7 @@ export const authoritySurfacePublicData = {
       role: 'primary',
       tier: 'P0',
       surfaceClass: 'guide',
-      href: '/{locale}/blog/official-ai-agent-skills-guide',
+      href: '/{locale}/article/official-ai-agent-skills-guide',
       title: { en: 'Official AI Agent Skills Guide', zh: '官方 AI Agent Skills 指南' },
       description: {
         en: 'A practical guide for choosing official and well-maintained AI agent skills.',
@@ -374,7 +374,7 @@ export const authoritySurfacePublicData = {
       role: 'primary',
       tier: 'P1',
       surfaceClass: 'guide',
-      href: '/{locale}/blog/how-to-install-ai-agent-skills',
+      href: '/{locale}/article/how-to-install-ai-agent-skills',
       title: { en: 'How to Install AI Agent Skills', zh: '如何安装 AI Agent Skills' },
       description: {
         en: 'A practical onboarding guide for moving from install commands into CLI and docs.',
@@ -387,7 +387,7 @@ export const authoritySurfacePublicData = {
       role: 'primary',
       tier: 'P0',
       surfaceClass: 'comparison',
-      href: '/{locale}/blog/claude-code-vs-cursor-vs-windsurf',
+      href: '/{locale}/article/claude-code-vs-cursor-vs-windsurf',
       title: { en: 'Claude Code vs Cursor vs Windsurf', zh: 'Claude Code vs Cursor vs Windsurf 对比' },
       description: {
         en: 'A practical comparison guide for choosing between Claude Code, Cursor, and Windsurf.',
@@ -400,7 +400,7 @@ export const authoritySurfacePublicData = {
       role: 'primary',
       tier: 'P2',
       surfaceClass: 'comparison',
-      href: '/{locale}/blog/mcp-vs-rest-api-comparison',
+      href: '/{locale}/article/mcp-vs-rest-api-comparison',
       title: { en: 'MCP vs REST API Comparison', zh: 'MCP vs REST API 对比' },
       description: {
         en: 'A comparison guide for choosing between MCP and REST API implementation paths.',
