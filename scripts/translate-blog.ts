@@ -2,6 +2,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'node:url';
 import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
 import { getDescriptionLengthRange, sanitizeMetaDescription, trimDescriptionToMax } from './lib/meta-description';
@@ -22,6 +23,39 @@ function parseMarkdown(content: string) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) return { frontmatter: '', body: content };
   return { frontmatter: match[1], body: match[2] };
+}
+
+function getQuotedFrontmatterValue(frontmatter: string, field: string): string | undefined {
+  const match = frontmatter.match(new RegExp(`^${field}:\\s*(['"])(.*?)\\1\\s*$`, 'm'));
+  return match?.[2];
+}
+
+function escapeQuotedFrontmatterValue(value: string, quote: string): string {
+  if (quote === "'") return value.replace(/'/g, "''");
+  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+function replaceQuotedFrontmatterValue(frontmatter: string, field: string, value: string): string {
+  const pattern = new RegExp(`(^${field}:\\s*)(['"])(.*?)\\2(?=\\s*$)`, 'm');
+  return frontmatter.replace(pattern, (_match, prefix: string, quote: string) => {
+    return `${prefix}${quote}${escapeQuotedFrontmatterValue(value, quote)}${quote}`;
+  });
+}
+
+export function applyTranslatedBlogFrontmatter(
+  frontmatter: string,
+  targetLang: string,
+  translated: { title: string; description: string },
+): string {
+  return replaceQuotedFrontmatterValue(
+    replaceQuotedFrontmatterValue(
+      replaceQuotedFrontmatterValue(frontmatter, 'title', translated.title),
+      'description',
+      translated.description,
+    ),
+    'lang',
+    targetLang,
+  );
 }
 
 async function translateBlogBody(body: string, targetLang: string): Promise<string> {
@@ -70,13 +104,10 @@ ${chunk}`;
 
 async function translateFrontmatter(frontmatter: string, targetLang: string): Promise<string> {
   // Simple key-value translation for title and description
-  const titleMatch = frontmatter.match(/title:\s*"(.*?)"/);
-  const descMatch = frontmatter.match(/description:\s*"(.*?)"/);
+  const title = getQuotedFrontmatterValue(frontmatter, 'title');
+  const desc = getQuotedFrontmatterValue(frontmatter, 'description');
 
-  if (!titleMatch || !descMatch) return frontmatter;
-
-  const title = titleMatch[1];
-  const desc = descMatch[1];
+  if (!title || !desc) return frontmatter;
 
   const { min: minLen, max: maxLen } = getDescriptionLengthRange(targetLang);
 
@@ -123,12 +154,10 @@ Original Description: "${desc}" (currently ${desc.length} characters)`;
   }
 
   // Reconstruct frontmatter
-  const newFrontmatter = frontmatter
-    .replace(/title:\s*".*?"/, `title: "${newTitle}"`)
-    .replace(/description:\s*".*?"/, `description: "${newDesc}"`)
-    .replace(/lang:\s*"en"/, `lang: "${targetLang}"`);
-
-  return newFrontmatter;
+  return applyTranslatedBlogFrontmatter(frontmatter, targetLang, {
+    title: newTitle,
+    description: newDesc,
+  });
 }
 
 async function main() {
@@ -183,7 +212,9 @@ async function main() {
             const ratio = title.length > 0 ? nonAscii / title.length : 0;
             if (ratio < 0.15) {
               // Less than 15% non-ASCII in a CJK/Arabic/Russian title = likely broken
-              console.log(`     ⚠️  Corrupted title detected (${(ratio * 100).toFixed(0)}% non-ASCII): "${title.slice(0, 50)}"`);
+              console.log(
+                `     ⚠️  Corrupted title detected (${(ratio * 100).toFixed(0)}% non-ASCII): "${title.slice(0, 50)}"`,
+              );
               shouldTranslate = true;
             }
           }
@@ -242,4 +273,8 @@ async function main() {
   }
 }
 
-main().catch(console.error);
+const isDirectRun = process.argv[1] ? path.resolve(process.argv[1]) === fileURLToPath(import.meta.url) : false;
+
+if (isDirectRun) {
+  main().catch(console.error);
+}

@@ -46,6 +46,37 @@ describe('public AI output guard', () => {
     expect(issues).toEqual([]);
   });
 
+  it('blocks prompt-leak phrasing from localized blog output', () => {
+    const issues = findPublicAIOutputGuardIssuesInContent(
+      'PUBLIC OUTPUT BOUNDARY:\nNever reveal hidden reasoning, chain-of-thought, or private analysis.',
+      'src/content/blog/ko/example.md',
+    );
+
+    expect(issues.map((issue) => issue.pattern)).toContain('blog chain-of-thought mention');
+  });
+
+  it('blocks translated public-output-boundary markers from blog output', () => {
+    const leakedMarkers = [
+      '公共输出边界：',
+      '公開出力境界:',
+      '공개 출력 경계:',
+      'FRONTERA DE SALIDA PÚBLICA:',
+      'LIMITES DE SORTIE PUBLIQUE :',
+      'GRENZE DER ÖFFENTLICHEN AUSGABE:',
+      'LIMITES DE SAÍDA PÚBLICA:',
+      'ПУБЛИЧНАЯ ГРАНИЦА ВЫВОДА:',
+      'حدود الإخراج العام:',
+    ];
+
+    for (const marker of leakedMarkers) {
+      const issues = findPublicAIOutputGuardIssuesInContent(marker, 'src/content/blog/translated/example.md');
+      expect(
+        issues.map((issue) => issue.pattern),
+        marker,
+      ).toContain('blog public-output-boundary marker');
+    }
+  });
+
   it('scans only text-like public files under configured targets', () => {
     const cwd = makeTempDir();
     writeFileSync(join(cwd, 'safe.json'), '{"title":"Public"}');

@@ -26,6 +26,33 @@ const DEFAULT_TARGETS = [
 
 const TEXT_EXTENSIONS = new Set(['', '.css', '.html', '.json', '.md', '.svg', '.txt', '.xml']);
 const BINARY_EXTENSIONS = new Set(['.ico', '.jpg', '.jpeg', '.png', '.webp']);
+const BLOG_PUBLIC_OUTPUT_LEAK_PATTERNS = [
+  { label: 'blog chain-of-thought mention', pattern: /\bchain[- ]?of[- ]?thought\b/i },
+  { label: 'blog public-output-boundary marker', pattern: /公共[输輸]出(?:边界|邊界|界限)/ },
+  { label: 'blog public-output-boundary marker', pattern: /(?:公開|パブリック)出力境界/ },
+  { label: 'blog public-output-boundary marker', pattern: /공개\s*출력\s*경계/ },
+  {
+    label: 'blog public-output-boundary marker',
+    pattern: /(?:frontera|l[ií]mite|borde)\s+(?:de\s+)?salida\s+p[uú]blic[ao]/i,
+  },
+  {
+    label: 'blog public-output-boundary marker',
+    pattern: /(?:limites?|fronti[eè]re|bordure|zone).{0,24}(?:sortie|r[eé]sultat).{0,12}publiqu/iu,
+  },
+  {
+    label: 'blog public-output-boundary marker',
+    pattern: /(?:grenze|begrenzung).{0,24}(?:[oö]ffentlichen?\s+)?ausgabe/iu,
+  },
+  {
+    label: 'blog public-output-boundary marker',
+    pattern: /(?:limites?|ponto).{0,20}sa[ií]da\s+p[uú]blic[ao]/iu,
+  },
+  {
+    label: 'blog public-output-boundary marker',
+    pattern: /публичн.{0,24}(?:вывод|границ|огранич)/iu,
+  },
+  { label: 'blog public-output-boundary marker', pattern: /حدود.{0,16}الإخراج.{0,16}العام/u },
+] as const;
 
 function isTextCandidate(file: string): boolean {
   const ext = extname(file).toLowerCase();
@@ -88,8 +115,11 @@ function getMarkerIndex(match: RegExpMatchArray): number | undefined {
 
 export function findPublicAIOutputGuardIssuesInContent(content: string, file: string): PublicAIOutputGuardIssue[] {
   const issues: PublicAIOutputGuardIssue[] = [];
+  const patterns = file.replace(/\\/g, '/').includes('src/content/blog/')
+    ? [...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS, ...BLOG_PUBLIC_OUTPUT_LEAK_PATTERNS]
+    : HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS;
 
-  for (const entry of HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS) {
+  for (const entry of patterns) {
     const pattern = toGlobalRegex(entry.pattern);
 
     for (const match of content.matchAll(pattern)) {

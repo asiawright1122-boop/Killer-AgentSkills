@@ -1,10 +1,10 @@
 ---
-title: 'AI Coding Assistant Comparison 2026: Claude Code vs Cursor vs Windsurf vs Copilot vs Codex'
-description: 'A 2026 decision framework comparing Claude Code, Cursor, Windsurf, GitHub Copilot, and OpenAI Codex across skill portability, agent workflows, and team fit — with a clear recommendation per team type.'
+title: '2026 AI 编程助手比较：团队选择框架'
+description: '从技能可移植性、Agent 工作流深度和团队适配角度，比较 Claude Code、Cursor、Windsurf、GitHub Copilot 与 OpenAI Codex。'
 pubDate: 2026-06-25
 author: 'Killer-Skills Team'
 tags: ['Comparison', 'Claude Code', 'Cursor', 'Windsurf', 'Copilot', 'Codex', 'Editorial']
-lang: 'en'
+lang: 'zh'
 featured: true
 category: 'editorial'
 heroImage: '/images/blog/ide-comparison-hero.webp'
@@ -17,8 +17,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 >
 > 根据你的 **主要工作流**，而不是根据热点。一个以规范驱动的 agent 流程团队需要一个不同的工具，而一个以快速 UI 迭代为主的团队需要一个不同的工具。下面的矩阵将团队类型映射到推荐。
 
-公共输出边界：
-永远不要透露隐藏的推理、链式思考、私人分析、草稿笔记或
 ## 2026 年五大工具
 
 | 工具 | 最适用 | 技能可移植性 | Agent 工作流深度 |
@@ -31,8 +29,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 
 技能可移植性很重要，因为 **Claude Code 的技能堆栈无法直接移植到 Cursor**。如果您的团队使用多个 IDE，这将是最大的隐含成本。
 
-公共输出边界:
-永远不要透露隐私分析、链式思考、私人分析、草稿笔记或 `
 ## 如何决策：三道题
 
 ### 1. 是否瓶颈在首次安装，还是团队协调？
@@ -50,8 +46,6 @@ heroImage: '/images/blog/ide-comparison-hero.webp'
 
 混合 IDE 团队会支付可移植性税。理性的做法是标准化在 **一个** 主要 IDE 上，并将其他 IDE 视为次要。对于混合团队，我们建议 Claude Code 作为主要 IDE，因为其技能是最可移植的，跨 MCP 层与 Cursor 和 Windsurf 也保持通信。
 
-PUBLIC OUTPUT BOUNDARY:
-永远不要泄露隐私分析，草稿笔记，
 ## 根据团队类型的建议
 
 - **单人创始人，快速迭代：** Windsurf。最低的设置摩擦，具备主观默认值。首先使用 [Windsurf 工作流工具](/en/collections/top-windsurf-skills)。
@@ -60,8 +54,6 @@ PUBLIC OUTPUT BOUNDARY:
 - **GitHub 枚举企业：** Copilot， Claude Code 作为二次工具，用于 agent 任务 GitHub 的完成模型无法处理的任务。
 - **提示/评估/研究团队：** Codex。最强适合评估、追踪和提示迭代 — 见 [OpenAI 工作流工具集合](/en/collections/top-openai-powered-ai-agent-tools)。
 
-公共输出边界：
-永远不应泄露隐私分析、草稿笔记、
 ## Where this comparison is honest
 
 我们不会假装每个工具都相等。以下三点限制值得明确：
@@ -70,8 +62,6 @@ PUBLIC OUTPUT BOUNDARY:
 2. **完成工具 (Copilot) 在 agent 工作流中的深度更浅**。如果您的工作涉及多步骤且需要审查，您会发现完成工具不足以满足您的需求。
 3. **这些工具加速执行，而不是架构**。糟糕的规范仍然会产生糟糕的输出。[流程自动化解决方案](/zh/solutions/process-automation) 将 SOP 转换为可重复执行 — 但仍然需要人类来拥有架构。
 
-公共输出边界：
-永远不要泄露隐私的推理、链式思考、私人分析、草稿笔记或 `
 ## 下一步
 
 1. **确定您的团队类型** 上方并选择主要的 IDE。
@@ -79,8 +69,6 @@ PUBLIC OUTPUT BOUNDARY:
 3. **验证** 使用 `npx killer-skills list`。
 4. **添加审查/上下文纪律** 只有在第一安装成功后，使用 [CLI 概览](/en/docs/cli/overview)。
 
-公共输出边界：
-永远不要透露隐藏的推理、链式思维、私人分析、草稿笔记或 `
 ## 常見問題
 
 **哪一個最便宜?**
@@ -91,7 +79,3 @@ PUBLIC OUTPUT BOUNDARY:
 
 **我應該等待我的IDE的下一版本嗎?**
 不應該。許多團隊的瓶頸不是IDE版本，而是是否已經安裝和驗證了任何有紀律的技能堆疊。選擇一個並開始使用。
-
-公共輸出界限：
-永遠不應該公開隱藏的推理、鏈接式思考、私人分析、草稿筆記或 <思考>/<推理>/<分析> 區塊。
-如果推理有幫助，請只提供一個簡明的用戶面向的理由、檢查清單或證據摘要。

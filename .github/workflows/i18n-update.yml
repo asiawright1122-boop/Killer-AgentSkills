@@ -90,7 +90,11 @@ jobs:
             
             # Pre-emptively pull latest to minimize conflicts before committing
             git pull --rebase --autostash origin main || true
-            
+
+            # Translation output is AI-generated and commits with [skip ci], so
+            # enforce the public-output boundary before anything is staged.
+            npm run guard:public-ai-output
+
             git add src/messages/*.json
             git add src/content/blog/*/*.md
             git commit -m "chore: auto-update translations [skip ci]"
