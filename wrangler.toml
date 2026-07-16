@@ -10,6 +10,7 @@ enabled = true
 #   wrangler secret put ADMIN_USER
 #   wrangler secret put ADMIN_PASSWORD
 #   wrangler secret put GITHUB_TOKEN
+#   wrangler secret put ANALYTICS_HASH_SALT
 # We deliberately do NOT define ADMIN_USER here as a public `[vars]` entry —
 # `[vars]` values get baked into the build artifact, so a placeholder here
 # would either become the real username (insecure) or shadow the secret

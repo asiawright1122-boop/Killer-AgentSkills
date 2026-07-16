@@ -12,7 +12,7 @@ export interface ValidatedSkillInteraction {
   clientVersion: string;
 }
 
-const SAFE_SKILL_REF = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.\/-]+)?$/;
+const SAFE_SKILL_REF = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_./-]+)?$/;
 const EVENT_TYPES = new Set<SkillInteractionEventType>(['cli_install', 'command_copy', 'platform_copy']);
 const PLATFORMS = new Set<SkillInteractionPlatform>(['', 'auto', 'claude', 'codex', 'cursor', 'multi']);
 const SURFACES = new Set<SkillInteractionSurface>(['cli', 'detail', 'card']);
