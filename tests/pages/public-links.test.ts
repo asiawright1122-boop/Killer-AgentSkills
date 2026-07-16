@@ -402,7 +402,7 @@ describe('public links and navigation copy', () => {
     expect(occupationDetailSource).toContain('occupation.popularSkills');
     expect(occupationDetailSource).toContain('occupation.latestSkills');
     expect(categoriesSource).toContain('getMarketplaceOverview(env, typedLocale, t');
-    expect(categoriesSource).toContain('href={`/${locale}/skills?category=${encodeURIComponent(category.id)}`');
+    expect(categoriesSource).toContain('href={`/${locale}/categories/${category.id}`}');
     expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
     expect(categoryDetailSource).toContain('sortSkillsLatest(categorySkills)');
   });
@@ -1837,12 +1837,23 @@ describe('public links and navigation copy', () => {
   it('keeps the default skills landing heading aligned with the marketplace directory framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    expect(skillsIndexSource).toContain("const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';");
-    expect(skillsIndexSource).toContain(
-      'Complete AI agent skills directory with keyword, category, occupation, and source filters.',
-    );
+    expect(skillsIndexSource).toContain("'Reviewed AI Agent Skills Directory'");
+    expect(skillsIndexSource).toContain('Find and install reviewed skills for Claude Code, Codex, Cursor');
+    expect(skillsIndexSource).toContain('Compare task fit, source, recency, and install path before choosing a skill.');
     expect(skillsIndexSource).toContain('MarketplaceHero');
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
+  });
+
+  it('keeps categories capability-led and discloses anonymous ranking analytics', () => {
+    const categoriesSource = readPageSource('./[locale]/categories/index.astro');
+    const privacySource = readPageSource('./[locale]/privacy/index.astro');
+
+    expect(categoriesSource).toContain("'AI Agent Skill Categories'");
+    expect(categoriesSource).toContain('href={`/${locale}/categories/${category.id}`}');
+    expect(categoriesSource).not.toMatch(/Legacy category|旧分类|筛选逻辑|filtering logic/);
+    expect(privacySource).toContain('KILLER_SKILLS_TELEMETRY=0');
+    expect(privacySource).toContain('DO_NOT_TRACK=1');
+    expect(privacySource).toContain('daily anonymous install and install-action counts');
   });
 
   it('keeps Discord and X links consistent across shared public entry points', () => {

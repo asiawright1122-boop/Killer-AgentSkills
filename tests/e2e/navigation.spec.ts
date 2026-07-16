@@ -21,7 +21,7 @@ test.describe('Navigation & i18n E2E', () => {
 
     await Promise.all([page.waitForURL(/\/en\/skills$/), nav.locator('a[href="/en/skills"]').click()]);
     await waitForHeaderActions(page);
-    await expect(page.getByRole('heading', { level: 1, name: 'Skills Directory' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Reviewed AI Agent Skills Directory' })).toBeVisible();
 
     await Promise.all([page.waitForURL(/\/en\/popular$/), nav.locator('a[href="/en/popular"]').click()]);
     await waitForHeaderActions(page);
@@ -48,7 +48,7 @@ test.describe('Navigation & i18n E2E', () => {
     const skillsLink = page.locator('a[href="/en/skills"]').first();
     await expect(skillsLink).toBeVisible();
     await Promise.all([page.waitForURL(/\/en\/skills$/), skillsLink.click()]);
-    await expect(page.getByRole('heading', { level: 1, name: 'Skills Directory' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Reviewed AI Agent Skills Directory' })).toBeVisible();
   });
 
   test('desktop locale switch should update the route and document language', async ({ page }) => {

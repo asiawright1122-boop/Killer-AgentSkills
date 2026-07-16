@@ -83,13 +83,13 @@ if (query && activeSort === 'latest') {
 
 const totalResults = results.length;
 const visibleResults = results.slice(0, 36);
-const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';
-const seoPageTitle = isZhCopy ? 'AI Agent Skills 目录' : pageTitle;
+const pageTitle = isZhCopy ? '已审核的 AI Agent Skills 目录' : 'Reviewed AI Agent Skills Directory';
+const seoPageTitle = pageTitle;
 const pageDescription = isZhCopy
-  ? '完整 AI Agent Skills 目录，支持关键词、分类、职业和来源筛选。'
-  : 'Complete AI agent skills directory with keyword, category, occupation, and source filters.';
+  ? '查找并安装适用于 Claude Code、Codex、Cursor 与其他兼容 Agent 的已审核 Skills。'
+  : 'Find and install reviewed skills for Claude Code, Codex, Cursor, and other compatible agents.';
 const seoPageDescription = isZhCopy
-  ? '完整 AI Agent Skills 目录，支持关键词、分类、职业、来源和排序筛选，适合快速对比可安装技能。'
+  ? '查找并安装适用于 Claude Code、Codex、Cursor 与其他兼容 Agent 的已审核 Skills，比较任务、来源、更新时间和安装路径。'
   : pageDescription;
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', query, category, occupation);
 const categoryLabel = category ? getCategoryLabel(category, t) : '';
@@ -122,8 +122,8 @@ const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} res
     <MarketplaceSection
       title={query || activeOccupation?.label || categoryLabel || (isZhCopy ? '全部 Skills' : 'All Skills')}
       description={isZhCopy
-        ? '榜单、职业和分类入口都会回到同一套筛选逻辑。'
-        : 'Rankings, occupations, and categories all resolve into the same filterable directory.'}
+        ? '选择 Skill 前，比较任务适配、来源、更新时间和安装路径。'
+        : 'Compare task fit, source, recency, and install path before choosing a skill.'}
     >
       <form class="marketplace-filterbar" action={`/${locale}/skills`} method="get">
         <input

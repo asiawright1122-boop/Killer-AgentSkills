@@ -2,12 +2,12 @@ import { expect, test, type Page } from '@playwright/test';
 
 const coreRoutes = [
   { path: '/zh', h1: 'Killer-Skills' },
-  { path: '/zh/skills', h1: 'Skills 目录' },
+  { path: '/zh/skills', h1: '已审核的 AI Agent Skills 目录' },
   { path: '/zh/popular', h1: '热门 Skills' },
   { path: '/zh/popular?rank=latest', h1: '最新 Skills' },
   { path: '/zh/popular?rank=trending', h1: '趋势 Skills' },
   { path: '/zh/occupations', h1: '职业' },
-  { path: '/zh/categories', h1: 'Skills 筛选' },
+  { path: '/zh/categories', h1: 'AI Agent Skill 能力分类' },
   { path: '/zh/collections', h1: '精选 Skills 合集' },
   { path: '/zh/search', h1: '搜索 Skills' },
   { path: '/zh/safe', h1: '审核政策' },
