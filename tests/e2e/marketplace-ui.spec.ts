@@ -179,8 +179,15 @@ test.describe('Marketplace UI audit', () => {
     await expect(page.getByTestId('skill-fit-tasks')).toBeVisible();
     await expect(page.getByTestId('skill-review-permissions')).toBeVisible();
     await expect(page.getByTestId('skill-source-material')).toBeVisible();
-    await expect(page.getByText('审核政策').first()).toBeVisible();
+    await expect(page.getByText(/审核政策|Review policy/i).first()).toBeVisible();
     await expect(page.getByText(/npx killer-skills add/).first()).toBeVisible();
+
+    await page.getByRole('tab', { name: 'Codex' }).click();
+    await expect(page.getByTestId('install-command')).toContainText('--ide codex');
+    await page.getByRole('tab', { name: 'Claude Code' }).click();
+    await expect(page.getByTestId('install-command')).toContainText('--ide claude');
+
+    await page.setViewportSize({ width: 390, height: 844 });
 
     await expectNoHorizontalOverflow(page);
     await expectCleanPublicCopy(page);

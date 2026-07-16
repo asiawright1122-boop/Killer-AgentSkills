@@ -26,6 +26,18 @@ describe('validateSkillInteractionPayload', () => {
     });
   });
 
+  it('accepts the auto-detect website install mode', () => {
+    expect(
+      validateSkillInteractionPayload({
+        eventType: 'platform_copy',
+        skillRef: 'anthropics/skills/frontend-design',
+        platform: 'auto',
+        surface: 'detail',
+        locale: 'en',
+      }),
+    ).toMatchObject({ source: 'web', platform: 'auto', surface: 'detail' });
+  });
+
   it.each([
     { eventType: 'cli_install', skillRef: '../secret', platform: 'claude', surface: 'cli' },
     { eventType: 'command_copy', skillRef: 'owner/repo', platform: 'codex', surface: 'cli' },

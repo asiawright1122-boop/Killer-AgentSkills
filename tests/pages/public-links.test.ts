@@ -541,6 +541,9 @@ describe('public links and navigation copy', () => {
 
   it('keeps skill detail pages centered on visible install decisions and review evidence', () => {
     const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+    const installSource = readPageSource('../components/SkillInstall.astro');
+    const skillCardSource = readPageSource('../components/SkillCard.astro');
+    const layoutSource = readPageSource('../layouts/Layout.astro');
     const decisionPanelStart = skillDetailSource.indexOf('data-testid="skill-install-decision"');
     const decisionPanelEnd = skillDetailSource.indexOf('</aside>', decisionPanelStart);
     const decisionPanelSource = skillDetailSource.slice(decisionPanelStart, decisionPanelEnd);
@@ -548,7 +551,8 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain('data-testid="skill-install-decision"');
     expect(skillDetailSource).toContain("aria-label={isZhLocale ? '安装决策' : 'Install decision'}");
     expect(skillDetailSource).toContain('SkillInstall');
-    expect(skillDetailSource).toContain('installCommand={installCommand}');
+    expect(skillDetailSource).toContain('skillRef={installPath}');
+    expect(skillDetailSource).toContain('locale={locale}');
     expect(skillDetailSource).toContain('href={`/${locale}/safe`}');
     expect(skillDetailSource).toContain('GitHub');
     expect(skillDetailSource).toContain('SkillActionsNative');
@@ -561,6 +565,18 @@ describe('public links and navigation copy', () => {
     expect(decisionPanelSource).not.toContain('group-hover');
     expect(decisionPanelSource).not.toContain('opacity-0');
     expect(decisionPanelSource).not.toContain('max-h-0');
+    expect(installSource).toContain('--ide claude');
+    expect(installSource).toContain('--ide codex');
+    expect(installSource).toContain('--ide cursor');
+    expect(installSource).toContain('data-install-platform');
+    expect(installSource).toContain('data-install-event="platform_copy"');
+    expect(skillCardSource).toContain('data-install-event="command_copy"');
+    expect(layoutSource).toContain('reportInstallAction(installNowBtn)');
+    expect(layoutSource).toContain('reportInstallAction(copyBtn)');
+    expect(layoutSource).toContain('reportInstallAction(btn)');
+    expect(layoutSource).not.toContain("target.closest('#install-copy-btn')");
+    expect(installSource).not.toContain('data-scheme="cursor://"');
+    expect(installSource).not.toContain('data-scheme="windsurf://"');
   });
 
   it('keeps touched public translation keys defined across all shipped locales', () => {

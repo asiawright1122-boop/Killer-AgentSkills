@@ -193,6 +193,11 @@ const cardEvidenceTitle = cardTrust.title;
     <button
       class="install-copy-btn pointer-events-auto flex w-full cursor-pointer items-center gap-2 rounded-lg border border-[var(--border-strong)] bg-[var(--secondary)] px-3 py-2.5 font-mono text-xs font-bold text-[var(--secondary-foreground)] transition-all hover:border-[var(--accent)]"
       data-command={`${INSTALL_PREFIX} ${installPath}`}
+      data-skill-ref={installPath}
+      data-install-event="command_copy"
+      data-install-surface="card"
+      data-install-platform="auto"
+      data-install-locale={locale}
       title={`${INSTALL_PREFIX} ${installPath}`}
       aria-label={`Copy install command for ${name}`}
     >

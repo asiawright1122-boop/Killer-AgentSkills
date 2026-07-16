@@ -1356,7 +1356,8 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
 
                   <div class="mt-4">
                     <SkillInstall
-                      installCommand={installCommand}
+                      skillRef={installPath}
+                      locale={locale}
                       installationLabel={t('Detail.installation')}
                       installNowLabel={installNowLabel}
                       universalInstallLabel={tr('Detail.universalInstall', 'Universal Install (Auto-Detect)')}

@@ -1,12 +1,9 @@
 ---
-/**
- * SkillInstall — Installation card with CLI command, copy button, and platform badges.
- * Extracted from [...repo].astro for reuse and readability.
- */
-import { Terminal, Copy, Download, Monitor, Bot, Laptop, Code, Sparkles } from 'lucide-react';
+import { Bot, Code, Copy, Download, Laptop, Monitor, Sparkles, Terminal } from 'lucide-react';
 
 interface Props {
-  installCommand: string;
+  skillRef: string;
+  locale: string;
   installationLabel: string;
   installNowLabel: string;
   universalInstallLabel: string;
@@ -16,7 +13,8 @@ interface Props {
 }
 
 const {
-  installCommand,
+  skillRef,
+  locale,
   installationLabel,
   installNowLabel,
   universalInstallLabel,
@@ -24,6 +22,12 @@ const {
   plusMoreLabel,
   compact = false,
 } = Astro.props;
+
+const autoCommand = `npx killer-skills add ${skillRef}`;
+const claudeCommand = `npx killer-skills add ${skillRef} --ide claude`;
+const codexCommand = `npx killer-skills add ${skillRef} --ide codex`;
+const cursorCommand = `npx killer-skills add ${skillRef} --ide cursor`;
+const panelId = `install-command-${skillRef.replace(/[^A-Za-z0-9_-]/g, '-')}`;
 ---
 
 <div
@@ -31,6 +35,7 @@ const {
     'overflow-hidden flex flex-col',
     compact ? 'rounded-md border border-[var(--border)] bg-[var(--background)]' : 'skill-detail-card',
   ]}
+  data-install-mode-root
 >
   <div
     class:list={[
@@ -45,90 +50,124 @@ const {
   </div>
 
   <div class:list={['relative bg-[var(--background)]', compact ? 'p-3' : 'p-6']}>
-    {/* Install Button & Deep Links */}
-    <div class="mb-5 space-y-3">
+    <div class="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4" role="tablist" aria-label="Install platform">
       <button
-        id="install-btn"
-        class="market-button w-full px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]"
-        data-install-command={installCommand}
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls={panelId}
+        class="install-mode-tab market-button min-h-11 px-2 py-2 text-[11px]"
+        data-install-command-value={autoCommand}
+        data-install-platform="auto"
+        data-install-label={universalInstallLabel}
       >
-        <Download size={18} strokeWidth={3} />
-        <span>{installNowLabel}</span>
+        <Sparkles size={14} strokeWidth={3} />
+        <span>Auto</span>
       </button>
-
-      <div class="grid grid-cols-2 gap-3">
-        <button
-          class="ide-deep-link-btn flex items-center justify-center gap-2 rounded-md px-3 py-2.5 bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border border-[var(--border)] font-bold text-xs transition-all"
-          data-command={installCommand}
-          data-scheme="cursor://"
-          title="Open in Cursor IDE"
-        >
-          <Monitor size={14} strokeWidth={3} />
-          <span>Cursor</span>
-        </button>
-        <button
-          class="ide-deep-link-btn flex items-center justify-center gap-2 rounded-md px-3 py-2.5 bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border border-[var(--border)] font-bold text-xs transition-all"
-          data-command={installCommand}
-          data-scheme="windsurf://"
-          title="Open in Windsurf IDE"
-        >
-          <Laptop size={14} strokeWidth={3} />
-          <span>Windsurf</span>
-        </button>
-      </div>
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls={panelId}
+        tabindex="-1"
+        class="install-mode-tab market-button min-h-11 px-2 py-2 text-[11px] bg-[var(--card)] text-[var(--foreground)]"
+        data-install-command-value={claudeCommand}
+        data-install-platform="claude"
+        data-install-label="Claude Code"
+      >
+        <Bot size={14} strokeWidth={3} />
+        <span>Claude Code</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls={panelId}
+        tabindex="-1"
+        class="install-mode-tab market-button min-h-11 px-2 py-2 text-[11px] bg-[var(--card)] text-[var(--foreground)]"
+        data-install-command-value={codexCommand}
+        data-install-platform="codex"
+        data-install-label="Codex"
+      >
+        <Code size={14} strokeWidth={3} />
+        <span>Codex</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls={panelId}
+        tabindex="-1"
+        class="install-mode-tab market-button min-h-11 px-2 py-2 text-[11px] bg-[var(--card)] text-[var(--foreground)]"
+        data-install-command-value={cursorCommand}
+        data-install-platform="cursor"
+        data-install-label="Cursor"
+      >
+        <Monitor size={14} strokeWidth={3} />
+        <span>Cursor</span>
+      </button>
     </div>
 
-    <div class="rounded-lg border border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--muted)]">
+    <div
+      id={panelId}
+      role="tabpanel"
+      class="relative min-h-32 rounded-md border border-[var(--border)] bg-[var(--muted)] p-4 font-mono"
+    >
       <div
-        class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b border-[var(--border)] pb-2"
+        class="mb-3 flex items-center border-b border-[var(--border)] pb-2 text-xs font-bold text-[var(--muted-foreground)]"
       >
-        <div class="flex items-center font-bold text-xs">
-          <span class="market-chip px-2 py-1 mr-2 text-[10px]">CLI</span>
-          <span>{universalInstallLabel}</span>
-        </div>
+        <span class="market-chip mr-2 px-2 py-1 text-[10px]">CLI</span>
+        <span data-install-mode-label>{universalInstallLabel}</span>
       </div>
       <div
-        class="text-[var(--foreground)] select-all flex min-w-0 items-start gap-3 font-bold group/cmd relative mt-2 text-sm leading-6"
+        class="group/cmd relative flex min-w-0 items-start gap-3 text-sm font-bold leading-6 text-[var(--foreground)]"
       >
-        <span class="text-[var(--accent)] font-bold select-none shrink-0">&gt;</span>
-        <code class="block min-w-0 max-w-full break-all whitespace-normal pr-12 font-mono text-[0.86rem] sm:text-sm">
-          {installCommand}
+        <span class="shrink-0 select-none font-bold text-[var(--accent)]">&gt;</span>
+        <code
+          class="block min-w-0 max-w-full break-all whitespace-normal pr-12 font-mono text-[0.86rem] sm:text-sm"
+          data-testid="install-command"
+          data-install-command-text
+        >
+          {autoCommand}
         </code>
-
         <button
-          id="install-copy-btn"
-          class="absolute right-1 top-1 rounded-md p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] border border-[var(--foreground)] transition-all opacity-100 sm:opacity-0 sm:group-hover/cmd:opacity-100 focus:opacity-100"
-          data-command={installCommand}
+          type="button"
+          class="install-command-copy-btn absolute right-1 top-1 rounded-md border border-[var(--foreground)] bg-[var(--foreground)] p-2 text-[var(--background)] transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)]"
+          data-command={autoCommand}
+          data-skill-ref={skillRef}
+          data-install-event="platform_copy"
+          data-install-surface="detail"
+          data-install-platform="auto"
+          data-install-locale={locale}
+          aria-label="Copy install command"
+          title="Copy install command"
         >
           <Copy size={16} strokeWidth={3} />
         </button>
       </div>
     </div>
 
-    {/* Supported Platforms */}
-    <div class="mt-4 pt-4 border-t border-[var(--border)]">
-      <div class="text-xs font-bold text-[var(--muted-foreground)] mb-3">
-        {platformSupportLabel}
-      </div>
+    <button
+      type="button"
+      class="install-primary-btn market-button mt-3 w-full border-[var(--primary)] bg-[var(--primary)] px-4 py-3 text-[var(--primary-foreground)]"
+      data-command={autoCommand}
+      data-skill-ref={skillRef}
+      data-install-event="platform_copy"
+      data-install-surface="detail"
+      data-install-platform="auto"
+      data-install-locale={locale}
+    >
+      <Download size={18} strokeWidth={3} />
+      <span>{installNowLabel}</span>
+    </button>
+
+    <div class="mt-4 border-t border-[var(--border)] pt-4">
+      <div class="mb-3 text-xs font-bold text-[var(--muted-foreground)]">{platformSupportLabel}</div>
       <div class="flex flex-wrap gap-2">
-        <div class="market-chip px-2 py-1 text-xs" title="Cursor">
-          <Monitor size={12} strokeWidth={3} /> Cursor
-        </div>
-        <div class="market-chip px-2 py-1 text-xs" title="Windsurf">
-          <Laptop size={12} strokeWidth={3} /> Windsurf
-        </div>
-        <div class="market-chip px-2 py-1 text-xs" title="VS Code">
-          <Code size={12} strokeWidth={3} /> VS Code
-        </div>
-        <div class="market-chip px-2 py-1 text-xs" title="Trae">
-          <Sparkles size={12} strokeWidth={3} /> Trae
-        </div>
-        <div class="market-chip px-2 py-1 text-xs" title="Claude Code">
-          <Bot size={12} strokeWidth={3} /> Claude
-        </div>
-        <div class="market-chip px-2 py-1 text-xs" title="OpenClaw">
-          <Bot size={12} strokeWidth={3} /> OpenClaw
-        </div>
+        <div class="market-chip px-2 py-1 text-xs" title="Cursor"><Monitor size={12} strokeWidth={3} /> Cursor</div>
+        <div class="market-chip px-2 py-1 text-xs" title="Windsurf"><Laptop size={12} strokeWidth={3} /> Windsurf</div>
+        <div class="market-chip px-2 py-1 text-xs" title="Claude Code"><Bot size={12} strokeWidth={3} /> Claude</div>
+        <div class="market-chip px-2 py-1 text-xs" title="Codex"><Code size={12} strokeWidth={3} /> Codex</div>
         <div class="market-chip px-2 py-1 text-xs text-[var(--muted-foreground)]" title={plusMoreLabel}>
           {plusMoreLabel}
         </div>
@@ -138,49 +177,40 @@ const {
 </div>
 
 <script>
-  // Setup Deep Link behavior
-  const bindDeepLinks = () => {
-    document.querySelectorAll('.ide-deep-link-btn').forEach((btn) => {
-      // Remove any previously attached listeners on client-side navigation
-      const newBtn = btn.cloneNode(true) as HTMLButtonElement;
-      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+  function initInstallModes(root: ParentNode = document) {
+    root.querySelectorAll<HTMLElement>('[data-install-mode-root]').forEach((installRoot) => {
+      if (installRoot.dataset.installModeInitialized === 'true') return;
+      installRoot.dataset.installModeInitialized = 'true';
 
-      newBtn.addEventListener('click', async (e) => {
-        const target = e.currentTarget as HTMLButtonElement;
-        const command = target.dataset.command;
-        const scheme = target.dataset.scheme;
+      const tabs = Array.from(installRoot.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+      const commandText = installRoot.querySelector<HTMLElement>('[data-install-command-text]');
+      const commandLabel = installRoot.querySelector<HTMLElement>('[data-install-mode-label]');
+      const actions = installRoot.querySelectorAll<HTMLElement>('.install-primary-btn, .install-command-copy-btn');
 
-        if (command && scheme) {
-          try {
-            await navigator.clipboard.writeText(command);
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const command = tab.dataset.installCommandValue;
+          const platform = tab.dataset.installPlatform;
+          if (!command || !platform) return;
 
-            // Visual feedback loop
-            const originalContent = target.innerHTML;
-            target.innerHTML = '<span class="font-bold text-[10px]">Copied, opening IDE...</span>';
-            target.style.backgroundColor = 'var(--primary)';
-            target.style.color = 'var(--primary-foreground)';
-            target.style.borderColor = 'var(--foreground)';
-
-            setTimeout(() => {
-              window.location.href = scheme;
-            }, 300);
-
-            setTimeout(() => {
-              target.innerHTML = originalContent;
-              target.style.backgroundColor = '';
-              target.style.color = '';
-              target.style.borderColor = '';
-            }, 2500);
-          } catch (err) {
-            console.error('Clipboard write failed, trying fallback launch', err);
-            window.location.href = scheme;
-          }
-        }
+          tabs.forEach((candidate) => {
+            const selected = candidate === tab;
+            candidate.setAttribute('aria-selected', String(selected));
+            candidate.tabIndex = selected ? 0 : -1;
+            candidate.classList.toggle('bg-[var(--card)]', !selected);
+            candidate.classList.toggle('text-[var(--foreground)]', !selected);
+          });
+          if (commandText) commandText.textContent = command;
+          if (commandLabel) commandLabel.textContent = tab.dataset.installLabel || platform;
+          actions.forEach((action) => {
+            action.dataset.command = command;
+            action.dataset.installPlatform = platform;
+          });
+        });
       });
     });
-  };
+  }
 
-  // Run on initial load and Astro view transitions
-  bindDeepLinks();
-  document.addEventListener('astro:page-load', bindDeepLinks);
+  initInstallModes();
+  document.addEventListener('astro:page-load', () => initInstallModes());
 </script>

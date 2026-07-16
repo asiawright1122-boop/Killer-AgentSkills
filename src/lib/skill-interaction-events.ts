@@ -36,7 +36,7 @@ export function validateSkillInteractionPayload(input: unknown): ValidatedSkillI
   const source = eventType === 'cli_install' ? 'cli' : 'web';
   if (source === 'cli' && surface !== 'cli') return null;
   if (source === 'web' && surface === 'cli') return null;
-  if (eventType === 'platform_copy' && !['claude', 'codex', 'cursor'].includes(platform)) return null;
+  if (eventType === 'platform_copy' && !['auto', 'claude', 'codex', 'cursor'].includes(platform)) return null;
 
   return { eventType, skillRef, source, platform, surface, locale, clientVersion };
 }
