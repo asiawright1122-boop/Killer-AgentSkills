@@ -2226,4 +2226,15 @@ describe('public links and navigation copy', () => {
 
     expect(mismatches).toEqual([]);
   });
+
+  it('keeps interaction retention bounded in the scheduled data pipeline', () => {
+    const packageSource = readRepoSource('package.json');
+    const workflowSource = readRepoSource('.github/workflows/data-pipeline.yml');
+
+    expect(packageSource).toContain("event_date < date('now', '-35 days')");
+    expect(packageSource).toContain('LIMIT 5000');
+    expect(workflowSource).toContain('name: Cleanup expired skill interactions');
+    expect(workflowSource).toContain('continue-on-error: true');
+    expect(workflowSource).toContain('npm run cleanup:skill-interactions');
+  });
 });

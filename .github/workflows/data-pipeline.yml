@@ -230,6 +230,14 @@ jobs:
       - name: Install dependencies
         run: HUSKY=0 npm ci
 
+      - name: Cleanup expired skill interactions
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: npm run cleanup:skill-interactions
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Validate AI Guardrails
         run: npm run guard:ai-config
         env:
