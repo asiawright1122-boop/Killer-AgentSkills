@@ -930,12 +930,18 @@ export const onRequest = defineMiddleware(async (context, next) => {
     _sitemapSkillsLoaded &&
     canonicalSkillRouteMap.size === 0 &&
     Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
-  if (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsStale || !_seoRedirectPathMap) {
+  const requiresSkillRoutingData = /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/|$)/.test(pathname);
+  if (
+    !_seoRedirectPathMap ||
+    (requiresSkillRoutingData && (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsStale))
+  ) {
     const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
-    // Run all three KV data loads in parallel — each reads from a different key
+    // Load only the KV datasets required by this route, in parallel.
     await Promise.all([
-      !isGovernanceLoaded() ? loadSkillLocaleGovernance(env || {}) : Promise.resolve(),
-      !_sitemapSkillsLoaded || sitemapSkillsStale ? ensureSitemapSkillsLoaded(env || {}) : Promise.resolve(),
+      requiresSkillRoutingData && !isGovernanceLoaded() ? loadSkillLocaleGovernance(env || {}) : Promise.resolve(),
+      requiresSkillRoutingData && (!_sitemapSkillsLoaded || sitemapSkillsStale)
+        ? ensureSitemapSkillsLoaded(env || {})
+        : Promise.resolve(),
       !_seoRedirectPathMap ? ensureMiddlewareDataLoaded(env || {}) : Promise.resolve(),
     ]);
   }
