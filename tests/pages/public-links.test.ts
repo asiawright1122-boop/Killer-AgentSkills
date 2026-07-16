@@ -388,9 +388,14 @@ describe('public links and navigation copy', () => {
     expect(homeSource).toContain('sortSkillsLatest(marketplaceSkills).slice(0, 8)');
     expect(skillsSource).toContain('getSkillSourceKind(skill)');
     expect(skillsSource).toContain('inferSkillOccupationIds(skill).includes(occupation)');
-    expect(popularSource).toContain(
-      "activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills)",
-    );
+    expect(popularSource).toContain("activeRank === 'latest'");
+    expect(popularSource).toContain('sortSkillsLatest(rankedSkills)');
+    expect(popularSource).toContain('sortSkillsPopular(rankedSkills)');
+    expect(popularSource).toContain("requestedRank === 'trending'");
+    expect(popularSource).toContain('getRecentSkillInteractionMetrics(env.DB)');
+    expect(popularSource).toContain('sortSkillsTrending');
+    expect(popularSource).toContain('rank=trending');
+    expect(popularSource).toContain('noindex, follow');
     expect(popularSource).toContain(
       "const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');",
     );

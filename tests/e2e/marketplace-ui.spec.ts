@@ -5,6 +5,7 @@ const coreRoutes = [
   { path: '/zh/skills', h1: 'Skills 目录' },
   { path: '/zh/popular', h1: '热门 Skills' },
   { path: '/zh/popular?rank=latest', h1: '最新 Skills' },
+  { path: '/zh/popular?rank=trending', h1: '趋势 Skills' },
   { path: '/zh/occupations', h1: '职业' },
   { path: '/zh/categories', h1: 'Skills 筛选' },
   { path: '/zh/collections', h1: '精选 Skills 合集' },
@@ -39,6 +40,8 @@ type VisibleSkillCard = {
   qualityScore: number;
   stars: number;
   updatedAt: string;
+  cliInstalls7d: number;
+  trendScore: number;
 };
 
 function parseCardNumber(value: string | null): number {
@@ -82,6 +85,8 @@ async function getVisibleSkillCards(page: Page): Promise<VisibleSkillCard[]> {
       qualityScore: parseCardNumber(await card.getAttribute('data-quality-score')),
       stars: parseCardNumber(await card.getAttribute('data-stars')),
       updatedAt: (await card.getAttribute('data-updated-at')) || '',
+      cliInstalls7d: parseCardNumber(await card.getAttribute('data-cli-installs-7d')),
+      trendScore: parseCardNumber(await card.getAttribute('data-trend-score')),
     });
   }
 
@@ -189,5 +194,23 @@ test.describe('Marketplace UI audit', () => {
   test('latest route visible cards match updatedAt then popular tie-break ordering', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await expectVisibleCardSort(page, '/zh/popular?rank=latest', 'Latest', compareLatestCards);
+  });
+
+  test('trending route renders activity order or an accumulating state', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/zh/popular?rank=trending');
+
+    const visibleCards = await getVisibleSkillCards(page);
+    const hasActivity = visibleCards.some((card) => card.trendScore > 0);
+    if (!hasActivity) {
+      await expect(page.getByTestId('trending-accumulating')).toBeVisible();
+      return;
+    }
+
+    const actualOrder = visibleCards.map((card) => card.href);
+    const expectedOrder = [...visibleCards]
+      .sort((a, b) => b.trendScore - a.trendScore || b.cliInstalls7d - a.cliInstalls7d || comparePopularCards(a, b))
+      .map((card) => card.href);
+    expect(actualOrder).toEqual(expectedOrder);
   });
 });

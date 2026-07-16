@@ -35,6 +35,9 @@ interface Props {
     riskFlags?: RiskFlag[];
     securityBrief?: string;
     sourceKind?: 'official' | 'community';
+    cliInstalls7d?: number;
+    installActions7d?: number;
+    trendScore?: number;
     verified?: boolean;
     data?: {
       name?: string;
@@ -121,6 +124,8 @@ const cardEvidenceTitle = cardTrust.title;
   data-quality-score={rawQualityScore}
   data-stars={String(stars)}
   data-updated-at={skill.updatedAt || ''}
+  data-cli-installs-7d={String(skill.cliInstalls7d || 0)}
+  data-trend-score={String(skill.trendScore || 0)}
 >
   <CardOverlayLink href={skillLink} ariaLabel={viewSkillLabel} testId="skill-card-link" />
 
@@ -210,6 +215,13 @@ const cardEvidenceTitle = cardTrust.title;
         <span class="text-[var(--muted-foreground)] text-sm">⑂</span>
         <span>{forksDisplay}</span>
       </div>
+      {
+        Number(skill.cliInstalls7d || 0) > 0 && (
+          <span data-testid="skill-7d-installs">
+            {skill.cliInstalls7d} {locale.startsWith('zh') ? '次 7 天安装' : '7d installs'}
+          </span>
+        )
+      }
     </div>
 
     <!-- Right: Category Tag -->
