@@ -157,6 +157,12 @@ npx killer-skills-mcp
 4. Type: `command`
 5. Command: `npx -y killer-skills-mcp`
 
+### 匿名安装统计
+
+非本地 Skill 成功安装后，CLI 会向 Killer-Skills 发送规范化 Skill 引用、目标平台分组和 CLI 版本，用于根据真实的 7 天安装活动生成趋势榜单。事件不包含本地路径、文件内容、凭证、原始 IP 地址或稳定设备标识符。
+
+可通过 `KILLER_SKILLS_TELEMETRY=0` 或 `DO_NOT_TRACK=1` 关闭此尽力而为的事件。遥测失败不会改变安装结果。
+
 ---
 
 ## License

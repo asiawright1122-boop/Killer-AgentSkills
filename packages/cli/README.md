@@ -154,6 +154,12 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 4. Type: `command`
 5. Command: `npx -y killer-skills-mcp`
 
+### Anonymous install statistics
+
+After a successful non-local install, the CLI sends the canonical skill reference, target platform group, and CLI version to Killer-Skills. This helps rank skills by real seven-day install activity. The event does not include local paths, file contents, credentials, raw IP addresses, or a stable device identifier.
+
+Disable this best-effort event with either `KILLER_SKILLS_TELEMETRY=0` or `DO_NOT_TRACK=1`. Telemetry failures never change the installation result.
+
 
 
 ## License
