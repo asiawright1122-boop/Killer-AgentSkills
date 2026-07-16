@@ -8,7 +8,7 @@ The governance payload is approximately 4.36 MB and contains 7,927 records. Pars
 
 ## Chosen Design
 
-Keep the existing middleware pipeline, but load skill-specific routing data only for localized skill detail paths of the form `/{locale}/skills/{owner}/...`.
+Keep the existing middleware pipeline, but load skill-specific routing data only for localized skill detail paths of the form `/{locale}/skills/{owner}/{routePath}`.
 
 - Continue loading SEO redirect, gone, and sitemap blocklist rules wherever the middleware currently requires them.
 - Skip `loadSkillLocaleGovernance()` and `ensureSitemapSkillsLoaded()` for blog, article, docs, collections, localized home pages, and the skills directory root.
