@@ -2,6 +2,12 @@
 
 All notable changes to Killer-Skills CLI will be documented in this file.
 
+## [1.10.1] - 2026-07-17
+
+### Added
+- **Anonymous install telemetry**: Reports a best-effort event only after a CLI skill installation succeeds, without collecting local paths, credentials, skill contents, raw IP addresses, or stable device identifiers.
+- **Telemetry opt-out**: Disable the event with `KILLER_SKILLS_TELEMETRY=0` or `DO_NOT_TRACK=1`; telemetry failures never change the installation result.
+
 ## [1.8.6] - 2026-02-16
 
 ### Added
