@@ -37,6 +37,9 @@ jobs:
       - name: Install Worker Dependencies
         run: cd workers && HUSKY=0 npm ci
 
+      - name: Generate SEO Indexability Report
+        run: npm run report:seo:skill-indexability
+
       - name: Install CLI Dependencies
         run: cd packages/cli && HUSKY=0 npm ci
 
