@@ -85,13 +85,16 @@ let _seoRedirectPathMap: Map<string, string> | null = null;
 let _seoGonePathSet: Set<string> | null = null;
 
 async function ensureMiddlewareDataLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
-  // Load sitemap blocklist
-  if (!_sitemapBlocklist) {
-    _sitemapBlocklist = await getSitemapBlocklist(env);
+  // The runtime loaders cache their own results. Re-read the references here so
+  // an empty first load can be replaced immediately when data becomes available.
+  const sitemapBlocklist = await getSitemapBlocklist(env);
+  if (_sitemapBlocklist !== sitemapBlocklist) {
+    _sitemapBlocklist = sitemapBlocklist;
   }
-  // Load 404 rules
-  if (!_seo404Rules) {
-    _seo404Rules = await getSeo404Rules(env);
+
+  const seo404Rules = await getSeo404Rules(env);
+  if (_seo404Rules !== seo404Rules) {
+    _seo404Rules = seo404Rules;
     _seoRedirectPathMap = new Map<string, string>();
     _seoGonePathSet = new Set<string>();
     const redirectRules = ((_seo404Rules as any)?.rules?.redirect301 ?? []) as Array<{
@@ -117,8 +120,6 @@ async function ensureMiddlewareDataLoaded(env: { SKILLS_CACHE?: KVNamespace }): 
 
 let _sitemapSkillsLoaded = false;
 let _sitemapSkillsLoadPromise: Promise<void> | null = null;
-let _sitemapSkillsLoadTime = 0;
-const SITEMAP_SKILLS_LOAD_TTL = 60_000; // Re-check every 60s to recover from empty loads
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
 const EDGE_CACHE_VERSION = 'v21';
 
@@ -129,11 +130,9 @@ function buildEdgeCacheKey(url: URL): Request {
 }
 
 async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): Promise<void> {
-  // Re-load if never loaded, or if loaded > TTL ms ago and map is still empty
-  // (allows recovery when KV was empty during initial load)
-  const isStaleEmpty =
-    canonicalSkillRouteMap.size === 0 && Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
-  const needsReload = !_sitemapSkillsLoaded || isStaleEmpty;
+  // Re-load whenever the route map is empty so a transient empty load can recover
+  // as soon as the runtime loader has data available again.
+  const needsReload = !_sitemapSkillsLoaded || canonicalSkillRouteMap.size === 0;
   if (!needsReload) return;
   // If a load is already in progress, wait for it
   if (_sitemapSkillsLoadPromise) {
@@ -143,7 +142,6 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
       /* ignore */
     }
     if (canonicalSkillRouteMap.size > 0) return; // Load succeeded
-    if (!isStaleEmpty) return; // Not stale yet
   }
 
   _sitemapSkillsLoadPromise = (async () => {
@@ -205,7 +203,6 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
       loadSucceeded = false;
     } finally {
       _sitemapSkillsLoaded = loadSucceeded === true;
-      _sitemapSkillsLoadTime = Date.now();
       _sitemapSkillsLoadPromise = null;
     }
   })();
@@ -926,23 +923,20 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Ensure skill locale governance data and middleware data is loaded (from KV in prod, local fallback in dev)
   // Also re-check sitemap skills if map is empty (allows recovery from empty KV load)
-  const sitemapSkillsStale =
-    _sitemapSkillsLoaded &&
-    canonicalSkillRouteMap.size === 0 &&
-    Date.now() - _sitemapSkillsLoadTime > SITEMAP_SKILLS_LOAD_TTL;
+  const sitemapSkillsEmpty = _sitemapSkillsLoaded && canonicalSkillRouteMap.size === 0;
   const requiresSkillRoutingData = /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/|$)/.test(pathname);
   if (
     !_seoRedirectPathMap ||
-    (requiresSkillRoutingData && (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsStale))
+    (requiresSkillRoutingData && (!isGovernanceLoaded() || !_sitemapSkillsLoaded || sitemapSkillsEmpty))
   ) {
     const env = await getRuntimeEnv<{ SKILLS_CACHE?: KVNamespace }>(context.locals);
     // Load only the KV datasets required by this route, in parallel.
     await Promise.all([
       requiresSkillRoutingData && !isGovernanceLoaded() ? loadSkillLocaleGovernance(env || {}) : Promise.resolve(),
-      requiresSkillRoutingData && (!_sitemapSkillsLoaded || sitemapSkillsStale)
+      requiresSkillRoutingData && (!_sitemapSkillsLoaded || sitemapSkillsEmpty)
         ? ensureSitemapSkillsLoaded(env || {})
         : Promise.resolve(),
-      !_seoRedirectPathMap ? ensureMiddlewareDataLoaded(env || {}) : Promise.resolve(),
+      requiresSkillRoutingData || !_seoRedirectPathMap ? ensureMiddlewareDataLoaded(env || {}) : Promise.resolve(),
     ]);
   }
 
