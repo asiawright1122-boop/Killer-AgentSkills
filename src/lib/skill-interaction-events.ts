@@ -23,7 +23,9 @@ export function validateSkillInteractionPayload(input: unknown): ValidatedSkillI
 
   const value = input as Record<string, unknown>;
   const eventType = String(value.eventType || '') as SkillInteractionEventType;
-  const skillRef = String(value.skillRef || '').trim().replace(/^\/+|\/+$/g, '');
+  const skillRef = String(value.skillRef || '')
+    .trim()
+    .replace(/^\/+|\/+$/g, '');
   const platform = String(value.platform || '') as SkillInteractionPlatform;
   const surface = String(value.surface || '') as SkillInteractionSurface;
   const locale = String(value.locale || '');
@@ -61,7 +63,10 @@ export async function createDailyActorHash(options: {
     false,
     ['sign'],
   );
-  const userAgentFamily = options.userAgent.toLowerCase().replace(/\d+(?:\.\d+)*/g, '#').slice(0, 80);
+  const userAgentFamily = options.userAgent
+    .toLowerCase()
+    .replace(/\d+(?:\.\d+)*/g, '#')
+    .slice(0, 80);
   const digest = await crypto.subtle.sign(
     'HMAC',
     key,

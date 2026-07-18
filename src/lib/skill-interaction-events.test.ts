@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  createDailyActorHash,
-  isTelemetryCrawler,
-  validateSkillInteractionPayload,
-} from './skill-interaction-events';
+import { createDailyActorHash, isTelemetryCrawler, validateSkillInteractionPayload } from './skill-interaction-events';
 
 describe('validateSkillInteractionPayload', () => {
   it('accepts a canonical CLI install event', () => {

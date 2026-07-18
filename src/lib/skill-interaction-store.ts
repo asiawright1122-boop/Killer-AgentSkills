@@ -47,9 +47,11 @@ export async function recordSkillInteraction(
 
   try {
     const result = await db
-      .prepare(`INSERT OR IGNORE INTO skill_interactions
+      .prepare(
+        `INSERT OR IGNORE INTO skill_interactions
         (event_date, skill_ref, event_type, source, platform, surface, locale, client_version, actor_hash, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
       .bind(
         event.eventDate,
         event.skillRef,
@@ -84,7 +86,8 @@ export async function getRecentSkillInteractionMetrics(
 
   try {
     const result = await db
-      .prepare(`SELECT
+      .prepare(
+        `SELECT
         skill_ref,
         SUM(CASE WHEN event_type = 'cli_install' AND event_date >= ?5 THEN 1 ELSE 0 END) AS cli_installs_30d,
         SUM(CASE WHEN event_type = 'cli_install' AND event_date >= ?4 THEN 1 ELSE 0 END) AS cli_installs_7d,
@@ -100,7 +103,8 @@ export async function getRecentSkillInteractionMetrics(
         END) AS trend_score
       FROM skill_interactions
       WHERE event_date BETWEEN ?5 AND ?1
-      GROUP BY skill_ref`)
+      GROUP BY skill_ref`,
+      )
       .bind(today, daysBefore(now, 1), daysBefore(now, 3), daysBefore(now, 6), daysBefore(now, 29))
       .all<SkillInteractionMetricRow>();
 

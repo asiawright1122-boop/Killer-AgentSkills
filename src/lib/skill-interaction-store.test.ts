@@ -63,8 +63,8 @@ describe('getRecentSkillInteractionMetrics', () => {
       })),
     };
 
-    await expect(
-      getRecentSkillInteractionMetrics(db as any, new Date('2026-07-16T12:00:00Z')),
-    ).resolves.toEqual(new Map());
+    await expect(getRecentSkillInteractionMetrics(db as any, new Date('2026-07-16T12:00:00Z'))).resolves.toEqual(
+      new Map(),
+    );
   });
 });
