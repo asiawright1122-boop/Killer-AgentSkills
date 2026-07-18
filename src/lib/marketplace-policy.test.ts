@@ -235,26 +235,26 @@ describe('marketplace public signals', () => {
     );
 
     expect(cardTrust.badges.map((badge) => badge.label)).toEqual([
-      'Community',
-      'Reviewed',
-      'Token',
-      'Network',
-      'File write',
-      'Recently updated',
+      'Community source',
+      'Install path checked',
+      'Token needed',
+      'Network access',
+      'Writes files',
+      'Updated in 30 days',
     ]);
     expect(cardTrust).toMatchObject({
       sourceKind: 'community',
       admitted: true,
     });
     expect(cardTrust.badges).toEqual([
-      { id: 'community', label: 'Community', tone: 'neutral' },
-      { id: 'reviewed', label: 'Reviewed', tone: 'positive' },
-      { id: 'requires_token', label: 'Token', tone: 'warning' },
-      { id: 'external_network', label: 'Network', tone: 'warning' },
-      { id: 'file_write', label: 'File write', tone: 'warning' },
-      { id: 'recent', label: 'Recently updated', tone: 'positive' },
+      { id: 'community', label: 'Community source', tone: 'neutral' },
+      { id: 'reviewed', label: 'Install path checked', tone: 'positive' },
+      { id: 'requires_token', label: 'Token needed', tone: 'warning' },
+      { id: 'external_network', label: 'Network access', tone: 'warning' },
+      { id: 'file_write', label: 'Writes files', tone: 'warning' },
+      { id: 'recent', label: 'Updated in 30 days', tone: 'positive' },
     ]);
-    expect(cardTrust.title).toContain('reviewed');
+    expect(cardTrust.title).toContain('checked');
   });
 
   it('builds zh card badges without exposing scoring internals', () => {
@@ -267,9 +267,9 @@ describe('marketplace public signals', () => {
       { locale: 'zh', now: new Date('2026-07-07T00:00:00.000Z') },
     );
 
-    expect(cardTrust.badges.map((badge) => badge.label)).toContain('官方');
-    expect(cardTrust.badges.map((badge) => badge.label)).toContain('已审查');
-    expect(cardTrust.badges.map((badge) => badge.label)).toContain('写文件');
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('官方来源');
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('已检查安装路径');
+    expect(cardTrust.badges.map((badge) => badge.label)).toContain('写入本地文件');
     expect(cardTrust.title).not.toContain('rankScore');
   });
 
@@ -282,24 +282,26 @@ describe('marketplace public signals', () => {
 
     expect(detailTrust.reviewStatus).toBe('admitted');
     expect(detailTrust.rows.map((row) => row.label)).toEqual([
-      '安全等级',
-      '来源等级',
-      '审核状态',
-      '风险信号',
-      '最后审查',
-      '来源仓库',
+      '来源',
+      '收录状态',
       '安装路径',
+      '最近审查',
+      '来源仓库',
+      'Token 写入',
+      '本地文件',
+      '外部联网',
+      '阻断风险',
     ]);
     expect(detailTrust.sourceKind).toBe('community');
-    expect(detailTrust.whyListed).toContain('T1');
+    expect(detailTrust.whyListed).toContain('进入目录前');
     expect(detailTrust.sourceRepository).toBe('owner/repo');
     expect(detailTrust.installPath).toBe('owner/repo');
     expect(detailTrust.rows.find((row) => row.label === '来源仓库')?.value).toBe('owner/repo');
-    expect(detailTrust.rows.find((row) => row.label === '安装路径')?.value).toBe('owner/repo');
+    expect(detailTrust.rows.find((row) => row.label === '安装路径')?.value).toBe('已检查: owner/repo');
     expect(detailTrust.badges).toEqual([
-      { id: 'community', label: '社区', tone: 'neutral' },
-      { id: 'reviewed', label: '已审查', tone: 'positive' },
-      { id: 'recent', label: '最近更新', tone: 'positive' },
+      { id: 'community', label: '社区来源', tone: 'neutral' },
+      { id: 'reviewed', label: '已检查安装路径', tone: 'positive' },
+      { id: 'recent', label: '近 30 天更新', tone: 'positive' },
     ]);
     expect(detailTrust.riskLabels).toEqual([]);
     expect(detailTrust.quarantineReasons).toEqual([]);
@@ -317,7 +319,7 @@ describe('marketplace public signals', () => {
       },
     );
 
-    expect(detailTrust.rows.find((row) => row.label === 'Last audited')?.value).toBe('Unknown');
+    expect(detailTrust.rows.find((row) => row.label === 'Last reviewed')?.value).toBe('Unknown');
   });
 
   it('prefers source updated date when audit date is missing', () => {
@@ -332,7 +334,7 @@ describe('marketplace public signals', () => {
       },
     );
 
-    expect(detailTrust.rows.find((row) => row.label === 'Last audited')?.value).toBe('2026-06-15T12:00:00.000Z');
+    expect(detailTrust.rows.find((row) => row.label === 'Last reviewed')?.value).toBe('2026-06-15');
   });
 
   it('uses quarantined detail trust copy for non-admitted skills', () => {
@@ -344,7 +346,7 @@ describe('marketplace public signals', () => {
 
     expect(detailTrust.reviewStatus).toBe('quarantined');
     expect(detailTrust.whyListed).not.toContain('passed baseline review');
-    expect(detailTrust.whyListed).toContain('quarantined');
+    expect(detailTrust.whyListed).toContain('not listed because');
     expect(detailTrust.quarantineReasons).toContain('source_trust_t3');
   });
 
@@ -366,7 +368,7 @@ describe('marketplace public signals', () => {
     expect(detailTrust.installPath).toBe('');
     expect(detailTrust.sourceRepository).toBe('');
     expect(detailTrust.rows.find((row) => row.label === 'Source repository')?.value).toBe('');
-    expect(detailTrust.rows.find((row) => row.label === 'Install path')?.value).toBe('');
+    expect(detailTrust.rows.find((row) => row.label === 'Install path')?.value).toBe('Missing');
     expect(detailTrust.quarantineReasons).toContain('missing_install_path');
   });
 

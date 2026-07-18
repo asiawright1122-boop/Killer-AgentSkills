@@ -197,7 +197,7 @@ describe('middleware skill route handling', () => {
     expect(response.status).toBe(200);
   });
 
-  it('keeps public skill detail routes reachable when the repo segment contains a file-like suffix', async () => {
+  it('serves canonical crawler capsules when the repo segment contains a file-like suffix', async () => {
     let nextCalled = false;
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills/vercel/next.js/flags', {
@@ -212,7 +212,7 @@ describe('middleware skill route handling', () => {
       },
     )) as Response;
 
-    expect(nextCalled).toBe(true);
+    expect(nextCalled).toBe(false);
     expect(response.status).toBe(200);
   });
 
@@ -438,7 +438,9 @@ describe('middleware skill route handling', () => {
   it('redirects suppressed locale skill pages to their governed canonical locale', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/ja/skills/langgenius/dify/frontend-code-review'),
+      createContext('https://killer-skills.com/ja/skills/langgenius/dify/frontend-code-review', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
       async () => {
         nextCalled = true;
         return new Response('<html></html>', {
