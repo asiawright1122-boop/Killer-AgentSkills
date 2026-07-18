@@ -353,9 +353,10 @@ describe('middleware skill route handling', () => {
   });
 
   it('redirects source-file traps back to the only public repo skill when a single fallback route exists', async () => {
+    const sample = pickUniqueRepoFallbackSample();
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/remotion-dev/skills/rules/lottie.md', {
+      createContext(`https://killer-skills.com/en/skills/${sample.owner}/${sample.repo}/rules/lottie.md`, {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () => {
@@ -369,7 +370,7 @@ describe('middleware skill route handling', () => {
 
     expect(nextCalled).toBe(false);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('/en/skills/remotion-dev/skills/remotion');
+    expect(response.headers.get('Location')).toBe(buildLocalizedSkillPath('en', sample.owner, sample.routePath));
   });
 
   it('redirects nested file-like trap paths to the canonical parent skill when a public parent exists', async () => {
