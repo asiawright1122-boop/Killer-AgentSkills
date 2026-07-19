@@ -92,6 +92,11 @@ export interface UnifiedSkill {
   occupationIds?: string[];
   taskClusterIds?: string[];
   sourceKind?: 'official' | 'community';
+  cliInstalls7d?: number;
+  cliInstalls30d?: number;
+  installActions7d?: number;
+  installActions30d?: number;
+  trendScore?: number;
 }
 
 /**

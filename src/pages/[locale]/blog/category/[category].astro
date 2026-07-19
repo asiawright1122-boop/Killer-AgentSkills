@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import MarketplaceSimplePage from '../../../../components/MarketplaceSimplePage.astro';
-import { SUPPORTED_LOCALES, type Locale } from '../../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, type Locale } from '../../../../i18n';
 
 const { locale, category } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -9,10 +9,20 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const isZhCopy = locale.startsWith('zh');
-const title = isZhCopy ? '文章分类' : 'Article Category';
-const description = isZhCopy
-  ? '按分类关键词进入 Killer-Skills 文章列表或筛选相关 AI agent skills。'
-  : 'Use this Killer-Skills category to open related articles or filter matching AI agent skills.';
+const messages = await loadMessages(locale as Locale);
+const categoryLabel = translateOr(messages, `Blog.categories.${category}`, category || 'AI Agent Skills');
+const title = translateOr(
+  messages,
+  `BlogCategory.seoTitle.${category}`,
+  isZhCopy ? `${categoryLabel}：AI 智能体技能指南` : `${categoryLabel} AI Agent Skill Guides`,
+);
+const description = translateOr(
+  messages,
+  `BlogCategory.seoDesc.${category}`,
+  isZhCopy
+    ? `浏览${categoryLabel}相关的 AI 智能体技能、工作流和自动化指南。`
+    : `Explore ${categoryLabel.toLowerCase()} guides with practical AI agent skills and workflow patterns.`,
+);
 ---
 
 <Layout locale={locale} title={title} description={description} appendBrand={false}>
@@ -20,7 +30,7 @@ const description = isZhCopy
     <div class="marketplace-card-grid">
       <a class="marketplace-card-link" href={`/${locale}/article`}>
         <h3>{isZhCopy ? '文章列表' : 'Articles'}</h3>
-        <p>{category}</p>
+        <p>{categoryLabel}</p>
       </a>
       <a class="marketplace-card-link" href={`/${locale}/skills?q=${encodeURIComponent(category || '')}`}>
         <h3>Skills</h3>

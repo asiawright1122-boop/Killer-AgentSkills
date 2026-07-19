@@ -29,7 +29,7 @@ export function resolveSkillDetailLink(
 
   if (!owner || !routePath) return null;
 
-  const detailLocale = resolveSkillDetailLocale(owner, routePath, requestedLocale, { preserveRequestedLocale: true });
+  const detailLocale = resolveSkillDetailLocale(owner, routePath, requestedLocale);
   return {
     owner,
     routePath,

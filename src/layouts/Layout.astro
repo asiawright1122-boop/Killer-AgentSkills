@@ -346,6 +346,8 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
 
     <!-- Global: SkillCard image lifecycle + install copy handlers (event delegation for View Transitions) -->
     <script>
+      import { reportSkillInteraction } from '../lib/client/skill-interaction-reporter';
+
       function initSkillAvatarImages(root: ParentNode = document) {
         root.querySelectorAll('img[data-skill-avatar]').forEach((node) => {
           const img = node as HTMLImageElement;
@@ -378,12 +380,23 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
       document.addEventListener('astro:page-load', () => initSkillAvatarImages());
       document.addEventListener('astro:after-swap', () => initSkillAvatarImages());
 
+      function reportInstallAction(action: Element) {
+        const element = action as HTMLElement;
+        const eventType = element.dataset.installEvent;
+        const skillRef = element.dataset.skillRef;
+        const platform = element.dataset.installPlatform;
+        const surface = element.dataset.installSurface;
+        const locale = element.dataset.installLocale;
+        if (!eventType || !skillRef || !platform || !surface || !locale) return;
+        reportSkillInteraction({ eventType, skillRef, platform, surface, locale });
+      }
+
       document.addEventListener('click', function (e) {
         const target = e.target as HTMLElement | null;
         if (!target) return;
         // Detail page: big "Install Now" button (data-install-command)
-        const installNowBtn = target.closest('[data-install-command]');
-        if (installNowBtn && installNowBtn.id === 'install-btn') {
+        const installNowBtn = target.closest('.install-primary-btn');
+        if (installNowBtn) {
           e.preventDefault();
           e.stopPropagation();
           var command = installNowBtn.getAttribute('data-install-command');
@@ -391,6 +404,7 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
           navigator.clipboard
             .writeText(command)
             .then(function () {
+              reportInstallAction(installNowBtn);
               var span = installNowBtn.querySelector('span');
               var originalText = span ? span.textContent : '';
               if (span) span.textContent = '\u2713 Copied!';
@@ -409,8 +423,8 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
             });
           return;
         }
-        // Detail page: small copy button next to command (id=install-copy-btn)
-        var copyBtn = target.closest('#install-copy-btn');
+        // Detail page: small copy button next to command
+        var copyBtn = target.closest('.install-command-copy-btn');
         if (copyBtn) {
           e.preventDefault();
           e.stopPropagation();
@@ -418,6 +432,7 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
           if (!installCmd) return;
           navigator.clipboard.writeText(installCmd).then(function () {
             if (!copyBtn) return;
+            reportInstallAction(copyBtn);
             var orig = copyBtn.innerHTML;
             copyBtn.innerHTML =
               '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -435,6 +450,7 @@ const resolvedJsonLd = jsonLd || defaultJsonLd;
         const skillCmd = (btn as HTMLElement).getAttribute('data-command');
         if (!skillCmd) return;
         navigator.clipboard.writeText(skillCmd).then(function () {
+          reportInstallAction(btn);
           const iconEl = btn.querySelector('.install-icon');
           const okEl = btn.querySelector('.install-ok');
           if (iconEl) iconEl.classList.add('hidden');

@@ -57,6 +57,7 @@
     "cache:warmup": "npx tsx scripts/warmup-ssr-cache.ts",
     "build:all": "npm run build:cache && npm run generate:related && npm run sync:kv",
     "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5",
+    "cleanup:skill-interactions": "wrangler d1 execute killer-skills-db --remote --command=\"DELETE FROM skill_interactions WHERE rowid IN (SELECT rowid FROM skill_interactions WHERE event_date < date('now', '-35 days') LIMIT 5000);\"",
     "sync:admin:d1": "npx tsx scripts/sync-admin-d1.ts",
     "submit:indexnow": "npx tsx scripts/submit-indexnow.ts",
     "submit:baidu": "node scripts/submit-baidu.mjs",

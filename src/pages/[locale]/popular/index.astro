@@ -5,8 +5,10 @@ import MarketplaceSection from '../../../components/MarketplaceSection.astro';
 import MarketplaceSkillList from '../../../components/MarketplaceSkillList.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import { getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
+import { getRecentSkillInteractionMetrics } from '../../../lib/skill-interaction-store';
 import { getMarketplaceOverview } from '../../../lib/marketplace-overview';
 import { getMarketplaceSkills, sortSkillsLatest, sortSkillsPopular } from '../../../lib/marketplace-filters';
+import { attachSkillActivity, sortSkillsTrending } from '../../../lib/marketplace-trending';
 import { filterByCategory } from '../../../lib/search';
 import { getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
@@ -14,7 +16,6 @@ import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
 
 const { locale } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -27,17 +28,25 @@ const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const url = Astro.url;
 const category = normalizeCategoryId(url.searchParams.get('category') || '');
 const requestedRank = (url.searchParams.get('rank') || 'popular').toLowerCase();
-const activeRank = requestedRank === 'latest' ? 'latest' : 'popular';
+const activeRank = requestedRank === 'trending' ? 'trending' : requestedRank === 'latest' ? 'latest' : 'popular';
 const hasListingParams = Boolean(category || activeRank !== 'popular');
 const canonicalUrl = `https://killer-skills.com/${locale}/popular`;
+
+Astro.response.headers.set(
+  'Cache-Control',
+  activeRank === 'trending'
+    ? 'public, s-maxage=300, stale-while-revalidate=60'
+    : 'public, s-maxage=86400, stale-while-revalidate=3600',
+);
 
 if (hasListingParams) {
   Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 }
 
-const [messages, skillsFetched] = await Promise.all([
+const [messages, skillsFetched, interactionMetrics] = await Promise.all([
   loadMessages(typedLocale),
   getLightweightSkillsTop(env, 160).catch(() => [] as UnifiedSkill[]),
+  activeRank === 'trending' ? getRecentSkillInteractionMetrics(env.DB) : Promise.resolve(new Map()),
 ]);
 const t = useTranslations(messages);
 const overview = await getMarketplaceOverview(env, typedLocale, t, {
@@ -53,38 +62,61 @@ const overview = await getMarketplaceOverview(env, typedLocale, t, {
   solutionEntries: [],
 }));
 
-let rankedSkills = getMarketplaceSkills(skillsFetched);
+let rankedSkills = attachSkillActivity(getMarketplaceSkills(skillsFetched), interactionMetrics);
 if (category) {
   rankedSkills = filterByCategory(rankedSkills, category);
 }
-rankedSkills = activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills);
+rankedSkills =
+  activeRank === 'trending'
+    ? sortSkillsTrending(rankedSkills)
+    : activeRank === 'latest'
+      ? sortSkillsLatest(rankedSkills)
+      : sortSkillsPopular(rankedSkills);
 
 const totalResults = rankedSkills.length;
 const visibleSkills = rankedSkills.slice(0, 36);
+const hasTrendingActivity = rankedSkills.some((skill) => Number(skill.trendScore || 0) > 0);
 const displayTitle =
-  activeRank === 'latest' ? (isZhCopy ? '最新 Skills' : 'Latest Skills') : isZhCopy ? '热门 Skills' : 'Popular Skills';
-const seoTitle =
-  activeRank === 'latest'
+  activeRank === 'trending'
     ? isZhCopy
-      ? '最新 AI Agent Skills 榜单'
-      : 'Latest AI Agent Skills Rankings'
-    : isZhCopy
-      ? '热门 AI Agent Skills 榜单'
-      : 'Popular AI Agent Skills Rankings';
+      ? '趋势 Skills'
+      : 'Trending Skills'
+    : activeRank === 'latest'
+      ? isZhCopy
+        ? '最新 Skills'
+        : 'Latest Skills'
+      : isZhCopy
+        ? '热门 Skills'
+        : 'Popular Skills';
+const seoTitle =
+  activeRank === 'trending'
+    ? isZhCopy
+      ? '趋势 AI Agent Skills 榜单'
+      : 'Trending AI Agent Skills Rankings'
+    : activeRank === 'latest'
+      ? isZhCopy
+        ? '最新 AI Agent Skills 榜单'
+        : 'Latest AI Agent Skills Rankings'
+      : isZhCopy
+        ? '热门 AI Agent Skills 榜单'
+        : 'Popular AI Agent Skills Rankings';
 const pageDescription = isZhCopy
-  ? '按综合排名浏览通过基础审查的热门与最新 AI Agent Skills，比较来源、更新时间和安装入口。'
-  : 'Browse popular and latest AI agent skills that pass baseline admission, with ranking, source, update, and install signals.';
+  ? '浏览通过基础审查的热门、趋势与最新 AI Agent Skills，比较来源、近期安装、更新时间和安装入口。'
+  : 'Browse popular, trending, and latest AI agent skills that pass baseline admission, with source, recent install, update, and setup signals.';
 const pageKeywords = buildKeywordString(t, 'core', 'ideCompat', 'developerExperience', category, activeRank);
 const categoryLabel = category ? getCategoryLabel(category, t) || category : '';
 const countLabel = isZhCopy ? `${totalResults} 个结果` : `${totalResults} results`;
 const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');
-const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) => {
+const buildPopularHref = (rank: 'popular' | 'latest' | 'trending', nextCategory = category) => {
   const params = new URLSearchParams();
   if (rank !== 'popular') params.set('rank', rank);
   if (nextCategory) params.set('category', nextCategory);
   const serialized = params.toString().replace(/\+/g, '%20');
   return `/${locale}/popular${serialized ? `?${serialized}` : ''}`;
 };
+const trendingHref = category
+  ? `/${locale}/popular?rank=trending&category=${encodeURIComponent(category)}`
+  : `/${locale}/popular?rank=trending`;
 ---
 
 <Layout
@@ -115,8 +147,8 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
     <MarketplaceSection
       title={listTitle}
       description={isZhCopy
-        ? '热门按综合排名排序；最新按更新时间排序。'
-        : 'Popular is sorted by overall ranking; latest is sorted by update time.'}
+        ? '热门按综合排名排序；趋势按近 7 天安装活动排序；最新按更新时间排序。'
+        : 'Popular uses overall rank; Trending uses seven-day install activity; Latest uses update time.'}
     >
       <div class="marketplace-tabbar" aria-label={isZhCopy ? '榜单类型' : 'Ranking type'}>
         <a href={buildPopularHref('popular')} aria-current={activeRank === 'popular' ? 'page' : undefined}>
@@ -124,6 +156,9 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
         </a>
         <a href={buildPopularHref('latest')} aria-current={activeRank === 'latest' ? 'page' : undefined}>
           {isZhCopy ? '最新' : 'Latest'}
+        </a>
+        <a href={trendingHref} aria-current={activeRank === 'trending' ? 'page' : undefined}>
+          {isZhCopy ? '趋势' : 'Trending'}
         </a>
       </div>
 
@@ -141,6 +176,15 @@ const buildPopularHref = (rank: 'popular' | 'latest', nextCategory = category) =
       </div>
 
       <div class="mt-5">
+        {
+          activeRank === 'trending' && !hasTrendingActivity && (
+            <p class="mb-4 text-sm text-[var(--muted-foreground)]" data-testid="trending-accumulating">
+              {isZhCopy
+                ? '近期安装数据正在积累，当前暂按热门顺序展示。'
+                : 'Recent install data is accumulating. Popular order is shown for now.'}
+            </p>
+          )
+        }
         <MarketplaceSkillList
           skills={visibleSkills}
           locale={locale}

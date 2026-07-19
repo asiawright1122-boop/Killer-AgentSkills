@@ -1,4 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import sitemapSkillsData from '../data/sitemap-skills.json';
+import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
+import { compileSitemapBlocklist } from './lib/sitemap-blocklist';
+import { type SitemapSkillEntry } from './lib/skill-route-paths';
+import {
+  pickSingleRouteRepoRedirectSample,
+  pickSuppressedLocaleRedirectSample,
+  type SkillLocaleGovernanceRecord,
+} from '../scripts/lib/seo-smoke-samples';
 
 const loaderMocks = vi.hoisted(() => ({
   getSitemapSkills: vi.fn().mockResolvedValue([]),
@@ -31,11 +40,11 @@ vi.mock('./lib/skill-locale-governance', () => ({
 
 import { onRequest } from './middleware';
 
-function createContext(url: string) {
+function createContext(url: string, userAgent = 'Mozilla/5.0 Chrome/126 Safari/537.36') {
   return {
     url: new URL(url),
     request: new Request(url, {
-      headers: { 'user-agent': 'Mozilla/5.0 Chrome/126 Safari/537.36' },
+      headers: { 'user-agent': userAgent },
     }),
     clientAddress: '192.0.2.1',
     cookies: {
@@ -78,5 +87,43 @@ describe('middleware route-scoped data loading', () => {
     expect(next).not.toHaveBeenCalled();
     expect(loaderMocks.loadSkillLocaleGovernance).not.toHaveBeenCalled();
     expect(loaderMocks.getSitemapSkills).not.toHaveBeenCalled();
+  });
+
+  it('uses the deployed sitemap snapshot when runtime skill routing data is unavailable', async () => {
+    const sample = pickSingleRouteRepoRedirectSample(
+      sitemapSkillsData as SitemapSkillEntry[],
+      compileSitemapBlocklist(sitemapBlocklistData),
+    );
+    expect(sample).not.toBeNull();
+
+    const next = vi.fn().mockResolvedValue(new Response('<html></html>', { status: 404 }));
+    const response = (await onRequest(
+      createContext(`https://killer-skills.com${sample!.sourcePath}`),
+      next,
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(sample!.expectedPath);
+    expect(next).not.toHaveBeenCalled();
+    expect(loaderMocks.getSitemapSkills).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses sitemap locale governance when the runtime governance binding is unavailable', async () => {
+    const sample = pickSuppressedLocaleRedirectSample(
+      sitemapSkillsData as SitemapSkillEntry[],
+      sitemapSkillsData as SkillLocaleGovernanceRecord[],
+      compileSitemapBlocklist(sitemapBlocklistData),
+    );
+    expect(sample).not.toBeNull();
+
+    const next = vi.fn().mockResolvedValue(new Response('<html></html>', { status: 200 }));
+    const response = (await onRequest(
+      createContext(`https://killer-skills.com${sample!.sourcePath}`, 'Killer-Skills-Warmup-Bot/1.0'),
+      next,
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(sample!.expectedPath);
+    expect(next).not.toHaveBeenCalled();
   });
 });

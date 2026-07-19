@@ -17,6 +17,7 @@ import chalk from 'chalk';
 import { select } from '@inquirer/prompts';
 import { exec } from 'child_process';
 import os from 'os';
+import { createRequire } from 'module';
 import { IDE_CONFIG, SUPPORTED_IDES, getInstallPath } from '../config/ides.js';
 // Registry removed — website search is now the primary lookup method
 import { writeSkillMetadata, buildGitMetadata, buildLocalMetadata } from '../utils/skill-metadata.js';
@@ -25,6 +26,10 @@ import { isLocalPath, expandTilde, ensureDir, getBestIDE, detectProjectIDEs, det
 import { injectSkill } from '../utils/adapters.js';
 import { loadConfig } from './config.js';
 import { trackInstall } from './stats.js';
+import { reportSuccessfulInstall } from '../utils/telemetry.js';
+
+const require = createRequire(import.meta.url);
+const { version: CLI_VERSION } = require('../../package.json') as { version: string };
 
 export const installCommand = new Command('install')
     .alias('add')
@@ -122,6 +127,20 @@ export const installCommand = new Command('install')
                 await trackInstall(result.skillName);
             }
 
+            if (result.skillRef) {
+                const [target] = result.installedTargets;
+                const platform = result.installedTargets.length > 1
+                    ? 'multi'
+                    : target === 'claude' || target === 'codex' || target === 'cursor'
+                        ? target
+                        : 'auto';
+                await reportSuccessfulInstall({
+                    skillRef: result.skillRef,
+                    platform,
+                    clientVersion: CLI_VERSION,
+                });
+            }
+
             // Show summary
             console.log(chalk.dim('\n📦 Installation Summary'));
             console.log(chalk.dim('─'.repeat(50)));
@@ -170,6 +189,8 @@ interface InstallResult {
     skillName: string;
     sourceType: 'registry' | 'github' | 'local';
     installed: string[];
+    installedTargets: string[];
+    skillRef?: string;
     webUrl?: string;
 }
 
@@ -202,6 +223,7 @@ async function installFromLocal(
     spinner.text = `Installing ${skillName} from local path...`;
 
     const installed: string[] = [];
+    const installedTargets: string[] = [];
 
     for (const ide of targetIDEs) {
         const config = IDE_CONFIG[ide];
@@ -220,12 +242,13 @@ async function installFromLocal(
             await injectSkill(ide, skillName, installPath, installPath);
 
             installed.push(config.name);
+            installedTargets.push(ide);
         } catch {
             // Skip if path not available
         }
     }
 
-    return { skillName, sourceType: 'local', installed };
+    return { skillName, sourceType: 'local', installed, installedTargets };
 }
 
 /**
@@ -290,6 +313,7 @@ async function installFromGitHub(
 
     spinner.text = `Installing ${skillName}...`;
     const installed: string[] = [];
+    const installedTargets: string[] = [];
 
     for (const ide of targetIDEs) {
         const config = IDE_CONFIG[ide];
@@ -309,17 +333,20 @@ async function installFromGitHub(
 
             await injectSkill(ide, skillName, installPath, installPath);
             installed.push(config.name);
+            installedTargets.push(ide);
         } catch {
             // Skip if path not available
         }
     }
 
-    const skillPath = basePath ? `${owner}/${repo}/${basePath}` : `${owner}/${repo}`;
+    const skillPath = basePath ? `${owner}/${repo}/${skillName}` : `${owner}/${repo}`;
 
     return {
         skillName,
         sourceType: 'github',
         installed,
+        installedTargets,
+        skillRef: skillPath,
         webUrl: `https://killer-skills.com/en/skills/${skillPath}`
     };
 }
@@ -435,7 +462,7 @@ async function installFromRegistry(
             try {
                 const result = await installFromGitHub(ghRepo, targetIDEs, scope, spinner, subdir);
                 if (result.installed.length > 0) {
-                    return { skillName: result.skillName, sourceType: 'github', installed: result.installed, webUrl: result.webUrl };
+                    return result;
                 }
             } catch {
                 // Install failed, fall through to menu
@@ -454,7 +481,7 @@ async function installFromRegistry(
                 try {
                     const result = await installFromGitHub(ghRepo, targetIDEs, scope, spinner, subdir);
                     if (result.installed.length > 0) {
-                        return { skillName: result.skillName, sourceType: 'github', installed: result.installed, webUrl: result.webUrl };
+                        return result;
                     }
                 } catch {
                     // Install failed, fall through to menu
@@ -503,7 +530,7 @@ async function installFromRegistry(
             const result = await installFromGitHub(ghRepo, targetIDEs, scope, spinner, selSubdir);
 
             if (result.installed.length > 0) {
-                return { skillName: result.skillName, sourceType: 'github', installed: result.installed, webUrl: result.webUrl };
+                return result;
             } else {
                 spinner.fail(chalk.red(`Failed to install ${ghRepo}`));
                 process.exit(1);
@@ -520,7 +547,7 @@ async function installFromRegistry(
         try {
             const result = await installFromGitHub(officialRepo, targetIDEs, scope, spinner, skillName);
             if (result.installed.length > 0) {
-                return { skillName: result.skillName, sourceType: 'github', installed: result.installed, webUrl: result.webUrl };
+                return result;
             }
         } catch {
             // Not found in this official repo

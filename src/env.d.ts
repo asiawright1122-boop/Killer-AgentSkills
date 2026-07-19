@@ -25,6 +25,7 @@ type ENV = {
   ASSETS: Fetcher;
   ADMIN_USER?: string;
   ADMIN_PASSWORD?: string;
+  ANALYTICS_HASH_SALT?: string;
   NVIDIA_API_KEY?: string;
   NVIDIA_API_KEYS?: string;
   NVIDIA_API_KEYS_2?: string;

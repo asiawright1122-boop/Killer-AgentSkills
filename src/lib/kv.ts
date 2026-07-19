@@ -17,6 +17,7 @@ export interface Env {
   GITHUB_TOKEN?: string;
   GITHUB_OWNER?: string;
   GITHUB_REPO?: string;
+  ANALYTICS_HASH_SALT?: string;
   NVIDIA_API_KEY?: string;
   NVIDIA_API_KEYS?: string;
   NVIDIA_API_KEYS_2?: string;

@@ -35,6 +35,9 @@ interface Props {
     riskFlags?: RiskFlag[];
     securityBrief?: string;
     sourceKind?: 'official' | 'community';
+    cliInstalls7d?: number;
+    installActions7d?: number;
+    trendScore?: number;
     verified?: boolean;
     data?: {
       name?: string;
@@ -121,6 +124,8 @@ const cardEvidenceTitle = cardTrust.title;
   data-quality-score={rawQualityScore}
   data-stars={String(stars)}
   data-updated-at={skill.updatedAt || ''}
+  data-cli-installs-7d={String(skill.cliInstalls7d || 0)}
+  data-trend-score={String(skill.trendScore || 0)}
 >
   <CardOverlayLink href={skillLink} ariaLabel={viewSkillLabel} testId="skill-card-link" />
 
@@ -188,6 +193,11 @@ const cardEvidenceTitle = cardTrust.title;
     <button
       class="install-copy-btn pointer-events-auto flex w-full cursor-pointer items-center gap-2 rounded-lg border border-[var(--border-strong)] bg-[var(--secondary)] px-3 py-2.5 font-mono text-xs font-bold text-[var(--secondary-foreground)] transition-all hover:border-[var(--accent)]"
       data-command={`${INSTALL_PREFIX} ${installPath}`}
+      data-skill-ref={installPath}
+      data-install-event="command_copy"
+      data-install-surface="card"
+      data-install-platform="auto"
+      data-install-locale={locale}
       title={`${INSTALL_PREFIX} ${installPath}`}
       aria-label={`Copy install command for ${name}`}
     >
@@ -210,6 +220,13 @@ const cardEvidenceTitle = cardTrust.title;
         <span class="text-[var(--muted-foreground)] text-sm">⑂</span>
         <span>{forksDisplay}</span>
       </div>
+      {
+        Number(skill.cliInstalls7d || 0) > 0 && (
+          <span data-testid="skill-7d-installs">
+            {skill.cliInstalls7d} {locale.startsWith('zh') ? '次 7 天安装' : '7d installs'}
+          </span>
+        )
+      }
     </div>
 
     <!-- Right: Category Tag -->

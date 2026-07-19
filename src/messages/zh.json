@@ -226,7 +226,7 @@
     },
     "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI 智能体技能。",
     "heroSubtitle": "安装和管理 AI 智能体技能",
-    "heroTitle": "\"Killer-Skills CLI\" \n\n在 Cursor 中的 Killer-Skills CLI",
+    "heroTitle": "Killer-Skills CLI",
     "install": "立即安装",
     "latestVersion": "最新版本：",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
@@ -693,14 +693,7 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能 ... 例如：PDF 处理、数据分析",
     "subtitle": "探索无限可能，赋能你的 AI 助手",
-    "suggestions": [
-      "PDF 处理",
-      "图像生成",
-      "数据分析",
-      "浏览器自动化",
-      "代码审查",
-      "文档处理"
-    ],
+    "suggestions": ["PDF 处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
     "title": "发现 AI 智能体技能",
     "titleHighlight": "AI 智能体"
   },
@@ -771,12 +764,7 @@
     "seoIntro": "Killer-Skills 是 AI 智能体技能的开源目录、榜单、搜索、分类和安全入口。开发者可以先看排行，再按来源、场景和安装风险继续筛选。",
     "seoTitle": "AI Agent Skills 榜单：Claude Code、Cursor 与 Windsurf 技能入口",
     "stable": "稳定",
-    "tags": [
-      "研究",
-      "编程",
-      "营销",
-      "分析"
-    ],
+    "tags": ["研究", "编程", "营销", "分析"],
     "trendingSubtitle": "由社区评选的顶级技能。",
     "trendingTitle": "精选技能",
     "viewAll": "查看全部"

@@ -15,6 +15,8 @@ type SitemapSkillEntry = {
   repo?: string;
   routePath?: string;
   updatedAt?: string;
+  canonicalLocale?: Locale;
+  publishedLocales?: Locale[];
 };
 
 type LocaleGovernanceRecord = {
@@ -97,6 +99,8 @@ function normalizeSitemapEntries(raw: SitemapSkillEntry[] | { skills?: SitemapSk
       repo,
       routePath,
       ...(entry.updatedAt ? { updatedAt: entry.updatedAt } : {}),
+      ...(entry.canonicalLocale ? { canonicalLocale: entry.canonicalLocale } : {}),
+      ...(Array.isArray(entry.publishedLocales) ? { publishedLocales: entry.publishedLocales } : {}),
     });
   }
 
@@ -311,7 +315,11 @@ for (const entry of filteredBeforeEntries) {
   });
 
   if (routeHasKeep) {
-    keptSitemapEntries.push(entry);
+    keptSitemapEntries.push({
+      ...entry,
+      canonicalLocale: governance.canonicalLocale,
+      publishedLocales: governance.publishedLocales,
+    });
   }
 }
 

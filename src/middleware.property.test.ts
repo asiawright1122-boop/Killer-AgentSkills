@@ -14,9 +14,10 @@ import {
 } from './middleware-utils';
 import { setSitemapSkillsCache, type SitemapSkillEntry } from './lib/sitemap-skills-runtime';
 import { setSitemapBlocklistCache } from './lib/sitemap-blocklist-runtime';
-import { compileSitemapBlocklist } from './lib/sitemap-blocklist';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from './lib/sitemap-blocklist';
 import { setSeo404RulesCache } from './lib/seo-404-rules-runtime';
 import { setSkillLocaleGovernanceCache } from './lib/skill-locale-governance';
+import { buildLocalizedSkillPath, getSkillRoutePath } from './lib/skill-route-paths';
 
 vi.mock('astro:middleware', () => ({
   defineMiddleware: <T>(fn: T) => fn,
@@ -31,13 +32,15 @@ vi.mock('./lib/logger', () => ({
   generateRequestId: () => 'test-req-id',
 }));
 
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
+
 // Seed runtime caches so middleware can validate skill routes without KV/DEV
 beforeAll(() => {
   const sitemapSkills = (
     Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
   ) as SitemapSkillEntry[];
   setSitemapSkillsCache(sitemapSkills);
-  setSitemapBlocklistCache(compileSitemapBlocklist(sitemapBlocklistData));
+  setSitemapBlocklistCache(sitemapBlocklist);
   setSeo404RulesCache(seo404RulesData as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
   setSkillLocaleGovernanceCache(skillLocaleGovernanceData);
 });
@@ -48,6 +51,30 @@ const explicitGone410SamplePath =
   ((seo404RulesData as { rules?: { gone410?: Array<{ path?: string }> } }).rules?.gone410 ?? []).find((entry) =>
     typeof entry.path === 'string' ? /^\/[a-z]{2}\/skills\//.test(entry.path) : false,
   )?.path || '/de/skills/gscalzo/gscalzo.github.io';
+
+function pickUniqueRepoFallbackSample(): { owner: string; repo: string; routePath: string } {
+  const candidates = new Map<string, Array<{ owner: string; repo: string; routePath: string }>>();
+  const records = (
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
+  ) as Array<Partial<SitemapSkillEntry>>;
+
+  for (const record of records) {
+    const owner = typeof record.owner === 'string' ? record.owner.trim() : '';
+    const repo = typeof record.repo === 'string' ? record.repo.trim() : '';
+    const routePath = getSkillRoutePath(record);
+    if (!owner || !repo || !routePath || isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
+
+    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const candidate = { owner, repo, routePath };
+    const current = candidates.get(key);
+    if (current) current.push(candidate);
+    else candidates.set(key, [candidate]);
+  }
+
+  const sample = Array.from(candidates.values()).find((items) => items.length === 1)?.[0];
+  if (!sample) throw new Error('expected at least one unique repo fallback sample');
+  return sample;
+}
 
 // ============================================================================
 // Generators
@@ -480,6 +507,23 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
     expect(response.headers.get('Content-Language')).toBe('ar');
+    const body = await response.text();
+    expect(body).toContain('<title>Killer-Skills - AI Agent Skills Marketplace</title>');
+    expect(body).toContain('<script type="application/ld+json">');
+    expect(body).toContain('<meta property="og:locale" content="ar_SA">');
+    expect(body).toContain('<link rel="alternate" hreflang="ar" href="https://killer-skills.com/ar">');
+    expect(body).toContain('<link rel="alternate" hreflang="x-default" href="https://killer-skills.com/en">');
+  });
+
+  it('keeps the Chinese crawler home title aligned with the public homepage metadata', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/zh', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    expect(await response.text()).toContain('AI Agent Skills / AI 智能体技能市场');
   });
 
   it('low-fidelity public search surface requests get an indexable lightweight response before SSR', async () => {
@@ -527,6 +571,22 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     );
   });
 
+  it('keeps crawler collection breadcrumbs aligned between visible HTML and JSON-LD', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/collections', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    const body = await response.text();
+    expect(body).toContain('<nav aria-label="Breadcrumb">');
+    expect(body).toContain('<a href="https://killer-skills.com/en">Home</a><span>Collections</span>');
+    expect(body).toContain('"@type":"BreadcrumbList"');
+    expect(body).toContain('"name":"Home"');
+    expect(body).toContain('"name":"Collections"');
+  });
+
   it('browser requests keep public skills surfaces on the full SSR path', async () => {
     let nextCalled = false;
     const response = (await onRequest(
@@ -547,9 +607,10 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
   });
 
   it('redirects crawler skill detail query variants to the clean canonical path before SSR', async () => {
+    const sample = pickUniqueRepoFallbackSample();
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/remotion-dev/skills?tail_probe=1', {
+      createContext(`https://killer-skills.com/en/skills/${sample.owner}/${sample.repo}?tail_probe=1`, {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () => {
@@ -563,7 +624,7 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
 
     expect(nextCalled).toBe(false);
     expect(response.status).toBe(301);
-    expect(response.headers.get('Location')).toBe('/en/skills/remotion-dev/skills/remotion');
+    expect(response.headers.get('Location')).toBe(buildLocalizedSkillPath('en', sample.owner, sample.routePath));
   });
 
   it('applies noindex, nofollow to personal state pages even when downstream omits robots headers', async () => {
@@ -762,6 +823,12 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
       '<meta name="description" content="Killer-Skills indexes this AI agent skill with source trust, install paths, and workflow context.">',
     );
     expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills/anthropics/skills/xlsx">');
+    expect(body).toContain('<script type="application/ld+json">');
+    expect(body).toContain('<meta property="og:locale" content="en_US">');
+    expect(body).toContain('<link rel="alternate" hreflang="en"');
+    expect(body).toContain('<link rel="alternate" hreflang="x-default"');
+    expect(body).toContain('<nav aria-label="Breadcrumb">');
+    expect(body).toContain('"@type":"BreadcrumbList"');
   });
 
   it('low-fidelity skill detail requests get the same lightweight response used by crawl monitors', async () => {
@@ -837,6 +904,41 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
       expect(waitUntil).toHaveBeenCalledWith(putPromise);
     } finally {
       resolvePut();
+      // @ts-ignore -- restore mutated vitest env flag
+      import.meta.env.DEV = originalDev;
+      (globalThis as any).caches = originalCaches;
+    }
+  });
+
+  it('does not persist HTML 404 responses in the edge cache', async () => {
+    const originalDev = import.meta.env.DEV;
+    const originalCaches = (globalThis as any).caches;
+    const cachePut = vi.fn(async () => undefined);
+
+    // @ts-ignore -- vitest allows mutating import.meta.env for runtime branch tests
+    import.meta.env.DEV = false;
+    (globalThis as any).caches = {
+      default: {
+        match: vi.fn(async () => null),
+        put: cachePut,
+      },
+    };
+
+    try {
+      const response = (await onRequest(
+        createContext('https://killer-skills.com/en/__seo_cache_404_guard__'),
+        async () =>
+          new Response('<html><title>Not found</title></html>', {
+            status: 404,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' },
+          }),
+      )) as Response;
+
+      expect(response.status).toBe(404);
+      expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+      expect(response.headers.get('X-Cache')).toBeNull();
+      expect(cachePut).not.toHaveBeenCalled();
+    } finally {
       // @ts-ignore -- restore mutated vitest env flag
       import.meta.env.DEV = originalDev;
       (globalThis as any).caches = originalCaches;

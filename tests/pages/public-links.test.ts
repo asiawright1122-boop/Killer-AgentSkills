@@ -388,16 +388,21 @@ describe('public links and navigation copy', () => {
     expect(homeSource).toContain('sortSkillsLatest(marketplaceSkills).slice(0, 8)');
     expect(skillsSource).toContain('getSkillSourceKind(skill)');
     expect(skillsSource).toContain('inferSkillOccupationIds(skill).includes(occupation)');
-    expect(popularSource).toContain(
-      "activeRank === 'latest' ? sortSkillsLatest(rankedSkills) : sortSkillsPopular(rankedSkills)",
-    );
+    expect(popularSource).toContain("activeRank === 'latest'");
+    expect(popularSource).toContain('sortSkillsLatest(rankedSkills)');
+    expect(popularSource).toContain('sortSkillsPopular(rankedSkills)');
+    expect(popularSource).toContain("requestedRank === 'trending'");
+    expect(popularSource).toContain('getRecentSkillInteractionMetrics(env.DB)');
+    expect(popularSource).toContain('sortSkillsTrending');
+    expect(popularSource).toContain('rank=trending');
+    expect(popularSource).toContain('noindex, follow');
     expect(popularSource).toContain(
       "const listTitle = categoryLabel || (isZhCopy ? 'Skills 榜单' : 'Skills Ranking');",
     );
     expect(occupationDetailSource).toContain('occupation.popularSkills');
     expect(occupationDetailSource).toContain('occupation.latestSkills');
     expect(categoriesSource).toContain('getMarketplaceOverview(env, typedLocale, t');
-    expect(categoriesSource).toContain('href={`/${locale}/skills?category=${encodeURIComponent(category.id)}`');
+    expect(categoriesSource).toContain('href={`/${locale}/categories/${category.id}`}');
     expect(categoryDetailSource).toContain('sortSkillsPopular(categorySkills)');
     expect(categoryDetailSource).toContain('sortSkillsLatest(categorySkills)');
   });
@@ -536,6 +541,9 @@ describe('public links and navigation copy', () => {
 
   it('keeps skill detail pages centered on visible install decisions and review evidence', () => {
     const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+    const installSource = readPageSource('../components/SkillInstall.astro');
+    const skillCardSource = readPageSource('../components/SkillCard.astro');
+    const layoutSource = readPageSource('../layouts/Layout.astro');
     const decisionPanelStart = skillDetailSource.indexOf('data-testid="skill-install-decision"');
     const decisionPanelEnd = skillDetailSource.indexOf('</aside>', decisionPanelStart);
     const decisionPanelSource = skillDetailSource.slice(decisionPanelStart, decisionPanelEnd);
@@ -543,7 +551,8 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain('data-testid="skill-install-decision"');
     expect(skillDetailSource).toContain("aria-label={isZhLocale ? '安装决策' : 'Install decision'}");
     expect(skillDetailSource).toContain('SkillInstall');
-    expect(skillDetailSource).toContain('installCommand={installCommand}');
+    expect(skillDetailSource).toContain('skillRef={installPath}');
+    expect(skillDetailSource).toContain('locale={locale}');
     expect(skillDetailSource).toContain('href={`/${locale}/safe`}');
     expect(skillDetailSource).toContain('GitHub');
     expect(skillDetailSource).toContain('SkillActionsNative');
@@ -556,6 +565,18 @@ describe('public links and navigation copy', () => {
     expect(decisionPanelSource).not.toContain('group-hover');
     expect(decisionPanelSource).not.toContain('opacity-0');
     expect(decisionPanelSource).not.toContain('max-h-0');
+    expect(installSource).toContain('--ide claude');
+    expect(installSource).toContain('--ide codex');
+    expect(installSource).toContain('--ide cursor');
+    expect(installSource).toContain('data-install-platform');
+    expect(installSource).toContain('data-install-event="platform_copy"');
+    expect(skillCardSource).toContain('data-install-event="command_copy"');
+    expect(layoutSource).toContain('reportInstallAction(installNowBtn)');
+    expect(layoutSource).toContain('reportInstallAction(copyBtn)');
+    expect(layoutSource).toContain('reportInstallAction(btn)');
+    expect(layoutSource).not.toContain("target.closest('#install-copy-btn')");
+    expect(installSource).not.toContain('data-scheme="cursor://"');
+    expect(installSource).not.toContain('data-scheme="windsurf://"');
   });
 
   it('keeps touched public translation keys defined across all shipped locales', () => {
@@ -1816,12 +1837,23 @@ describe('public links and navigation copy', () => {
   it('keeps the default skills landing heading aligned with the marketplace directory framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    expect(skillsIndexSource).toContain("const pageTitle = isZhCopy ? 'Skills 目录' : 'Skills Directory';");
-    expect(skillsIndexSource).toContain(
-      'Complete AI agent skills directory with keyword, category, occupation, and source filters.',
-    );
+    expect(skillsIndexSource).toContain("'Reviewed AI Agent Skills Directory'");
+    expect(skillsIndexSource).toContain('Find and install reviewed skills for Claude Code, Codex, Cursor');
+    expect(skillsIndexSource).toContain('Compare task fit, source, recency, and install path before choosing a skill.');
     expect(skillsIndexSource).toContain('MarketplaceHero');
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
+  });
+
+  it('keeps categories capability-led and discloses anonymous ranking analytics', () => {
+    const categoriesSource = readPageSource('./[locale]/categories/index.astro');
+    const privacySource = readPageSource('./[locale]/privacy/index.astro');
+
+    expect(categoriesSource).toContain("'AI Agent Skill Categories'");
+    expect(categoriesSource).toContain('href={`/${locale}/categories/${category.id}`}');
+    expect(categoriesSource).not.toMatch(/Legacy category|旧分类|筛选逻辑|filtering logic/);
+    expect(privacySource).toContain('KILLER_SKILLS_TELEMETRY=0');
+    expect(privacySource).toContain('DO_NOT_TRACK=1');
+    expect(privacySource).toContain('daily anonymous install and install-action counts');
   });
 
   it('keeps Discord and X links consistent across shared public entry points', () => {
@@ -2225,5 +2257,16 @@ describe('public links and navigation copy', () => {
     }
 
     expect(mismatches).toEqual([]);
+  });
+
+  it('keeps interaction retention bounded in the scheduled data pipeline', () => {
+    const packageSource = readRepoSource('package.json');
+    const workflowSource = readRepoSource('.github/workflows/data-pipeline.yml');
+
+    expect(packageSource).toContain("event_date < date('now', '-35 days')");
+    expect(packageSource).toContain('LIMIT 5000');
+    expect(workflowSource).toContain('name: Cleanup expired skill interactions');
+    expect(workflowSource).toContain('continue-on-error: true');
+    expect(workflowSource).toContain('npm run cleanup:skill-interactions');
   });
 });

@@ -12,6 +12,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
 
 // Load translations
 const messages = await loadMessages(typedLocale);
@@ -41,7 +42,7 @@ const pageDescription = privacyDescriptions[typedLocale];
         <h1 class="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4">
           {pageTitle}
         </h1>
-        <p class="text-sm text-[var(--muted-foreground)]">Last updated: May 7, 2026</p>
+        <p class="text-sm text-[var(--muted-foreground)]">Last updated: July 16, 2026</p>
       </div>
     </div>
 
@@ -73,7 +74,30 @@ const pageDescription = privacyDescriptions[typedLocale];
           localStorage. This data never leaves your device and is not transmitted to our servers.
         </p>
 
-        <h2>4. Third-Party Services</h2>
+        <h2>{isZhCopy ? '4. 匿名安装与操作统计' : '4. Anonymous Install And Action Statistics'}</h2>
+        <p>
+          {
+            isZhCopy
+              ? 'Killer-Skills 保存每日匿名安装次数和安装操作次数，用于生成 7 天趋势榜单。成功的 CLI 安装与网站命令复制分别统计，网站复制不会被称为安装。'
+              : 'Killer-Skills stores daily anonymous install and install-action counts for seven-day rankings. Successful CLI installs and website command copies are counted separately; website copies are not labeled as installs.'
+          }
+        </p>
+        <p>
+          {
+            isZhCopy
+              ? '服务器使用每日轮换的加密摘要进行去重，最多保留 35 天事件。我们不保留原始 IP 地址、完整 User-Agent、本地路径、文件内容、凭证或稳定设备标识符。'
+              : 'The server deduplicates events with a daily rotating cryptographic digest and retains events for no more than 35 days. We do not retain raw IP addresses, full user agents, local paths, file contents, credentials, or stable device identifiers.'
+          }
+        </p>
+        <p>
+          {
+            isZhCopy
+              ? 'CLI 用户可在安装前设置 KILLER_SKILLS_TELEMETRY=0 或 DO_NOT_TRACK=1 关闭此统计。遥测失败不会影响安装。'
+              : 'CLI users can opt out before installation with KILLER_SKILLS_TELEMETRY=0 or DO_NOT_TRACK=1. Telemetry failures do not affect installation.'
+          }
+        </p>
+
+        <h2>5. Third-Party Services</h2>
         <p>
           The Service is hosted on Cloudflare Workers. Skills listed on the platform link to third-party repositories
           (primarily GitHub). Please review the privacy policies of these services separately.
@@ -85,13 +109,13 @@ const pageDescription = privacyDescriptions[typedLocale];
           <a href="https://policies.google.com/technologies/ads">Google Advertising</a>.
         </p>
 
-        <h2>5. Data Retention</h2>
+        <h2>6. Data Retention</h2>
         <p>
-          We do not store personal data on our servers. Browser-based data (localStorage) persists until you clear your
-          browser data or manually remove it.
+          Browser-based data (localStorage) persists until you clear your browser data or manually remove it. Anonymous
+          interaction events are removed on the bounded retention schedule described above.
         </p>
 
-        <h2>6. Your Rights</h2>
+        <h2>7. Your Rights</h2>
         <p>You have the right to:</p>
         <ul>
           <li>Clear your local data at any time through your browser settings</li>
@@ -99,13 +123,13 @@ const pageDescription = privacyDescriptions[typedLocale];
           <li>Request information about any data we may hold</li>
         </ul>
 
-        <h2>7. Changes to This Policy</h2>
+        <h2>8. Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated
           revision date.
         </p>
 
-        <h2>8. Contact</h2>
+        <h2>9. Contact</h2>
         <p>
           For privacy-related inquiries, please contact us through our
           <a href="https://github.com/asiawright1122-boop/Killer-AgentSkills/issues">GitHub repository</a>.

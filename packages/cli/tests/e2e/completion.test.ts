@@ -13,7 +13,7 @@ describe('Completion Command', () => {
         it('should generate bash completion script', () => {
             const result = runCLI('completion bash');
             expect(result.exitCode).toBe(0);
-            expect(result.stdout).toContain('_killer_completion');
+            expect(result.stdout).toContain('_killer_skills_completions');
             expect(result.stdout).toContain('complete');
         });
     });
