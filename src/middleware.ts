@@ -10,6 +10,8 @@ import { getSitemapSkills } from './lib/sitemap-skills-runtime';
 import { getSitemapBlocklist } from './lib/sitemap-blocklist-runtime';
 import { getSeo404Rules } from './lib/seo-404-rules-runtime';
 import { authoritySurfacePublicData } from './lib/authority-surface-public-data';
+import { SUPPORTED_LOCALES } from '../config/locales.mjs';
+import staticSitemapSkillsData from '../data/sitemap-skills.json';
 
 // Re-export for backward compatibility
 export {
@@ -24,6 +26,11 @@ export type { AdminAuthResult } from './middleware-utils';
 type CanonicalSkillRoute = {
   owner: string;
   routePath: string;
+};
+
+type SitemapSkillRoutingRecord = Partial<SitemapSkillEntry> & {
+  canonicalLocale?: unknown;
+  publishedLocales?: unknown;
 };
 
 const SKILL_SOURCE_FILE_EXT_RE =
@@ -121,7 +128,7 @@ async function ensureMiddlewareDataLoaded(env: { SKILLS_CACHE?: KVNamespace }): 
 let _sitemapSkillsLoaded = false;
 let _sitemapSkillsLoadPromise: Promise<void> | null = null;
 // Edge cache version - bump this when deploying breaking changes to invalidate stale cache
-const EDGE_CACHE_VERSION = 'v21';
+const EDGE_CACHE_VERSION = 'v22';
 
 function buildEdgeCacheKey(url: URL): Request {
   const cacheUrl = new URL(url);
@@ -153,11 +160,19 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
       if (!_sitemapBlocklist && blocklist) _sitemapBlocklist = blocklist;
 
       const sitemapSkillsData = await getSitemapSkills(env);
-      const records = (
+      const runtimeRecords = (
         Array.isArray(sitemapSkillsData)
           ? sitemapSkillsData
           : ((sitemapSkillsData as { skills?: unknown[] }).skills ?? [])
-      ) as Array<Partial<SitemapSkillEntry>>;
+      ) as SitemapSkillRoutingRecord[];
+      const staticRecords = (
+        Array.isArray(staticSitemapSkillsData)
+          ? staticSitemapSkillsData
+          : ((staticSitemapSkillsData as { skills?: unknown[] }).skills ?? [])
+      ) as SitemapSkillRoutingRecord[];
+      // Cloudflare preview and transient KV failures may not expose SKILLS_CACHE.
+      // The deployed sitemap snapshot keeps canonical routing fail-open in that case.
+      const records = runtimeRecords.length > 0 ? runtimeRecords : staticRecords;
 
       // Populate canonicalSkillRouteMap
       const fallbackCandidates = new Map<string, RepoFallbackRoute[]>();
@@ -168,6 +183,25 @@ async function ensureSitemapSkillsLoaded(env: { SKILLS_CACHE?: KVNamespace }): P
         if (isSitemapSkillBlocked(owner, routePath, blocklist)) continue;
 
         canonicalSkillRouteMap.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, { owner, routePath });
+
+        const canonicalLocale =
+          typeof record.canonicalLocale === 'string' && record.canonicalLocale.trim().length > 0
+            ? record.canonicalLocale.trim().toLowerCase()
+            : null;
+        const publishedLocales = Array.isArray(record.publishedLocales)
+          ? record.publishedLocales
+              .filter((locale): locale is string => typeof locale === 'string' && locale.trim().length > 0)
+              .map((locale) => locale.trim().toLowerCase())
+          : [];
+        const governanceKey = `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
+        if (canonicalLocale && !skillLocaleGovernanceMap.has(governanceKey)) {
+          skillLocaleGovernanceMap.set(governanceKey, {
+            owner,
+            routePath,
+            canonicalLocale,
+            publishedLocales,
+          });
+        }
 
         const parts = routePath.split('/').filter(Boolean);
         if (parts.length >= 2) {
@@ -399,6 +433,10 @@ function htmlEscape(value: string): string {
   });
 }
 
+function jsonLdScript(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+}
+
 function formatCrawlerLabel(value: string): string {
   return value
     .split(/[/_-]+/)
@@ -472,6 +510,19 @@ const CRAWLER_STATIC_SURFACE_COPY: Record<string, { title: string; description: 
   },
 };
 
+const CRAWLER_OG_LOCALE_MAP: Record<string, string> = {
+  en: 'en_US',
+  zh: 'zh_CN',
+  ja: 'ja_JP',
+  ko: 'ko_KR',
+  es: 'es_ES',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  pt: 'pt_BR',
+  ru: 'ru_RU',
+  ar: 'ar_SA',
+};
+
 function localizedAuthorityText(value: unknown, locale: string): string {
   if (!value || typeof value !== 'object') return '';
   const text = value as Record<string, unknown>;
@@ -518,11 +569,24 @@ function resolveCrawlerPublicSurface(url: URL): CrawlerPublicSurface | null {
       return null;
     }
 
+    const title =
+      key === 'home'
+        ? locale === 'zh'
+          ? 'Killer-Skills - AI Agent Skills / AI 智能体技能市场'
+          : 'Killer-Skills - AI Agent Skills Marketplace'
+        : copy.title;
+    const description =
+      key === 'home'
+        ? locale === 'zh'
+          ? '发现、筛选并安装通过基础审查的 AI Agent Skills，按榜单、职业和精选合集快速进入，适合在 Claude Code、Cursor 与 Windsurf 中对比使用。'
+          : 'Discover, filter, and install baseline-reviewed AI agent skills by rankings, occupations, and curated collections.'
+        : copy.description;
+
     return {
       locale,
       canonicalPath: url.pathname,
-      title: copy.title,
-      description: copy.description,
+      title,
+      description,
     };
   }
 
@@ -540,6 +604,51 @@ function buildCrawlerPublicSurfaceResponse(surface: CrawlerPublicSurface): Respo
   const collectionsUrl = `https://${SITE_DOMAIN}/${surface.locale}/collections`;
   const docsUrl = `https://${SITE_DOMAIN}/${surface.locale}/docs`;
   const sitemapUrl = `https://${SITE_DOMAIN}/sitemap.xml`;
+  const alternateLocales = /^\/(?:en|zh)\/(?:collections|docs)(?:\/|$)/.test(surface.canonicalPath)
+    ? SUPPORTED_LOCALES.filter((locale) => ['en', 'zh'].includes(locale))
+    : SUPPORTED_LOCALES;
+  const alternateLinks = alternateLocales
+    .map((locale) => {
+      const alternatePath = surface.canonicalPath.replace(/^\/[a-z]{2}(?=\/|$)/, `/${locale}`);
+      return `<link rel="alternate" hreflang="${htmlEscape(locale)}" href="${htmlEscape(`https://${SITE_DOMAIN}${alternatePath}`)}">`;
+    })
+    .join('\n  ');
+  const xDefaultPath = surface.canonicalPath.replace(/^\/[a-z]{2}(?=\/|$)/, '/en');
+  const isCollectionsIndex = /^\/[a-z]{2}\/collections$/.test(surface.canonicalPath);
+  const breadcrumbItems = isCollectionsIndex
+    ? [
+        { name: surface.locale === 'zh' ? '首页' : 'Home', url: `https://${SITE_DOMAIN}/${surface.locale}` },
+        { name: surface.locale === 'zh' ? '合集' : 'Collections', url: collectionsUrl },
+      ]
+    : [];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: surface.title,
+        description: surface.description,
+        inLanguage: surface.locale,
+        isPartOf: { '@id': `https://${SITE_DOMAIN}/#website` },
+      },
+      ...(breadcrumbItems.length > 0
+        ? [
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: breadcrumbItems.map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.name,
+                item: item.url,
+              })),
+            },
+          ]
+        : []),
+    ],
+  };
+  const documentTitle = surface.title.includes('Killer-Skills') ? surface.title : `${surface.title} | Killer-Skills`;
   const body = `<!doctype html>
 <html lang="${htmlEscape(surface.locale)}">
 <head>
@@ -548,12 +657,22 @@ function buildCrawlerPublicSurfaceResponse(surface: CrawlerPublicSurface): Respo
   <meta name="robots" content="index, follow">
   <meta name="description" content="${htmlEscape(surface.description)}">
   <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
-  <title>${htmlEscape(surface.title)} | Killer-Skills</title>
+  ${alternateLinks}
+  <link rel="alternate" hreflang="x-default" href="${htmlEscape(`https://${SITE_DOMAIN}${xDefaultPath}`)}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Killer-Skills">
+  <meta property="og:title" content="${htmlEscape(surface.title)}">
+  <meta property="og:description" content="${htmlEscape(surface.description)}">
+  <meta property="og:url" content="${htmlEscape(canonicalUrl)}">
+  <meta property="og:locale" content="${htmlEscape(CRAWLER_OG_LOCALE_MAP[surface.locale] || surface.locale)}">
+  <title>${htmlEscape(documentTitle)}</title>
+  <script type="application/ld+json">${jsonLdScript(jsonLd)}</script>
 </head>
 <body>
   <main>
     <h1>${htmlEscape(surface.title)}</h1>
     <p>${htmlEscape(surface.description)}</p>
+    ${isCollectionsIndex ? `<nav aria-label="Breadcrumb"><a href="${htmlEscape(`https://${SITE_DOMAIN}/${surface.locale}`)}">${htmlEscape(surface.locale === 'zh' ? '首页' : 'Home')}</a><span>${htmlEscape(surface.locale === 'zh' ? '合集' : 'Collections')}</span></nav>` : ''}
     <nav>
       <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
       <a href="${htmlEscape(collectionsUrl)}">Collections</a>
@@ -596,6 +715,47 @@ function buildCrawlerSkillDetailResponse(
   const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
   const llmsUrl = `https://${SITE_DOMAIN}/llms.txt`;
   const sourceUrl = `https://github.com/${owner}/${repo}`;
+  const governance = skillLocaleGovernanceMap.get(`${owner.toLowerCase()}/${routePath.toLowerCase()}`);
+  const alternateLocales =
+    governance?.publishedLocales && governance.publishedLocales.length > 0
+      ? governance.publishedLocales
+      : [governance?.canonicalLocale || locale];
+  const alternateLinks = alternateLocales
+    .map((alternateLocale) => {
+      const href = `https://${SITE_DOMAIN}${buildLocalizedSkillPath(alternateLocale, owner, routePath)}`;
+      return `<link rel="alternate" hreflang="${htmlEscape(alternateLocale)}" href="${htmlEscape(href)}">`;
+    })
+    .join('\n  ');
+  const xDefaultLocale = governance?.canonicalLocale || alternateLocales[0] || locale;
+  const xDefaultUrl = `https://${SITE_DOMAIN}${buildLocalizedSkillPath(xDefaultLocale, owner, routePath)}`;
+  const breadcrumbItems = [
+    { name: 'Home', url: `https://${SITE_DOMAIN}/${locale}` },
+    { name: 'Skills', url: directoryUrl },
+    { name: title, url: canonicalUrl },
+  ];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: title,
+        description,
+        inLanguage: locale,
+        isPartOf: { '@id': `https://${SITE_DOMAIN}/#website` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbItems.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          item: item.url,
+        })),
+      },
+    ],
+  };
   const body = `<!doctype html>
 <html lang="${htmlEscape(locale)}">
 <head>
@@ -604,12 +764,26 @@ function buildCrawlerSkillDetailResponse(
   <meta name="robots" content="index, follow">
   <meta name="description" content="${htmlEscape(description)}">
   <link rel="canonical" href="${htmlEscape(canonicalUrl)}">
+  ${alternateLinks}
+  <link rel="alternate" hreflang="x-default" href="${htmlEscape(xDefaultUrl)}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Killer-Skills">
+  <meta property="og:title" content="${htmlEscape(title)}">
+  <meta property="og:description" content="${htmlEscape(description)}">
+  <meta property="og:url" content="${htmlEscape(canonicalUrl)}">
+  <meta property="og:locale" content="${htmlEscape(CRAWLER_OG_LOCALE_MAP[locale] || locale)}">
   <title>${htmlEscape(title)} | Killer-Skills</title>
+  <script type="application/ld+json">${jsonLdScript(jsonLd)}</script>
 </head>
 <body>
   <main>
     <h1>${htmlEscape(title)}</h1>
     <p>${htmlEscape(description)}</p>
+    <nav aria-label="Breadcrumb">
+      <a href="${htmlEscape(`https://${SITE_DOMAIN}/${locale}`)}">Home</a>
+      <a href="${htmlEscape(directoryUrl)}">Skills</a>
+      <span>${htmlEscape(title)}</span>
+    </nav>
     <nav>
       <a href="${htmlEscape(directoryUrl)}">Skills directory</a>
       <a href="${htmlEscape(sitemapUrl)}">Skills sitemap</a>
@@ -1576,7 +1750,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     // +++ EDGE CACHE: store HTML responses in CF Cache API +++
     // This is what actually makes s-maxage work — CF Workers don't auto-cache SSR.
-    if (shouldUseEdgeCache && response.status < 500) {
+    if (shouldUseEdgeCache && response.status >= 200 && response.status < 400) {
       try {
         const cc = response.headers.get('Cache-Control') || '';
         // Only cache if the response explicitly opts in with s-maxage
