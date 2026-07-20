@@ -315,7 +315,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           for i in {1..45}; do
-            SHA=$(curl -fsSL "https://killer-skills.com/?_nocache=${i}" -H "Cache-Control: no-cache" | grep -o 'x-build-sha" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"//')
+            SHA=$(curl -fsSL "https://killer-skills.com/en?_nocache=${i}" -H "Cache-Control: no-cache" -H "Accept: text/html" -H "User-Agent: Mozilla/5.0" | grep -o 'x-build-sha" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"//')
             if [ "$SHA" = "${GITHUB_SHA}" ]; then
               echo "✅ Production domain is serving ${GITHUB_SHA}"
               exit 0
