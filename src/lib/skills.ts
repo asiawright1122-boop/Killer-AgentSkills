@@ -10,6 +10,7 @@ import {
   getSkillsKV,
   getSkillsListing,
   getSkillsListingByRefs,
+  getRelatedSkillsFast,
   getMarketplaceSkillsListingPage,
   getSkillsListingPage,
   getSkillsListingTop,
@@ -449,9 +450,18 @@ export async function getRelatedSkills(
   currentSkill: UnifiedSkill,
   limit: number = 3,
 ): Promise<UnifiedSkill[]> {
-  const allSkills = await getLightweightSkills(env);
+  const safeLimit = Number.isFinite(limit) ? Math.max(0, Math.floor(limit)) : 3;
+  if (safeLimit === 0) return [];
 
-  return allSkills
+  // Pull a small ranked candidate pool from D1, then preserve the existing
+  // topic-overlap ranking without loading and sanitizing the full catalog.
+  const candidateLimit = Math.min(Math.max(safeLimit * 4, 12), 40);
+  const candidates = normalizePublicSkills(
+    (await getRelatedSkillsFast(env, currentSkill.id, currentSkill.category || '', candidateLimit)) as UnifiedSkill[],
+  );
+  const currentTags = new Set(currentSkill.topics || []);
+
+  return candidates
     .filter((skill) => {
       // Exclude current skill
       if (skill.id === currentSkill.id) return false;
@@ -467,7 +477,6 @@ export async function getRelatedSkills(
       let score = 0;
 
       // Tag overlap
-      const currentTags = new Set(currentSkill.topics || []);
       const skillTags = skill.topics || [];
       const overlap = skillTags.filter((tag) => currentTags.has(tag)).length;
 
@@ -486,7 +495,7 @@ export async function getRelatedSkills(
       return (b.skill.stars || 0) - (a.skill.stars || 0);
     })
     .map((item) => item.skill)
-    .slice(0, limit);
+    .slice(0, safeLimit);
 }
 
 export async function getTotalSkillsCount(env: Env): Promise<number> {
