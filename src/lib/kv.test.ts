@@ -5,6 +5,7 @@ import {
   getSkillsFromKV,
   getSkillsKV,
   getMarketplaceSkillsListingPage,
+  getRelatedSkillsFast,
   getSkillsListingTop,
   getSitemapSkillsFromKV,
   _clearSitemapSkillsCacheForTest,
@@ -256,6 +257,51 @@ describe('Env interface', () => {
     expect(env.ADMIN_PASSWORD).toBeUndefined();
     expect(env.NVIDIA_API_KEY).toBeUndefined();
     expect(env.NVIDIA_API_KEYS).toBeUndefined();
+  });
+});
+
+describe('getRelatedSkillsFast', () => {
+  it('returns an empty result without falling back to the full local catalog', async () => {
+    const env = createMockEnv({}, []);
+
+    const result = await getRelatedSkillsFast(env, 'missing-id', 'community', 4, 'owner', 'repo');
+
+    expect(result).toEqual([]);
+  });
+
+  it('returns an empty result when D1 reports an unsuccessful query', async () => {
+    const env = createMockEnv({
+      DB: {
+        prepare: vi.fn(() => ({
+          bind: vi.fn(() => ({
+            all: vi.fn(async () => ({ success: false, results: [] })),
+          })),
+        })),
+      } as unknown as D1Database,
+    });
+
+    const result = await getRelatedSkillsFast(env, 'missing-id', 'community', 4, 'owner', 'repo');
+
+    expect(result).toEqual([]);
+  });
+
+  it('returns an empty result when the D1 query throws', async () => {
+    const logs = silenceExpectedKVLogs();
+    const env = createMockEnv({
+      DB: {
+        prepare: vi.fn(() => {
+          throw new Error('D1 unavailable');
+        }),
+      } as unknown as D1Database,
+    });
+
+    try {
+      const result = await getRelatedSkillsFast(env, 'missing-id', 'community', 4, 'owner', 'repo');
+
+      expect(result).toEqual([]);
+    } finally {
+      logs.restore();
+    }
   });
 });
 

@@ -457,7 +457,14 @@ export async function getRelatedSkills(
   // topic-overlap ranking without loading and sanitizing the full catalog.
   const candidateLimit = Math.min(Math.max(safeLimit * 4, 12), 40);
   const candidates = normalizePublicSkills(
-    (await getRelatedSkillsFast(env, currentSkill.id, currentSkill.category || '', candidateLimit)) as UnifiedSkill[],
+    (await getRelatedSkillsFast(
+      env,
+      currentSkill.id,
+      currentSkill.category || '',
+      candidateLimit,
+      currentSkill.owner,
+      currentSkill.repo,
+    )) as UnifiedSkill[],
   );
   const currentTags = new Set(currentSkill.topics || []);
 
