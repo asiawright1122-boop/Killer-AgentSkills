@@ -90,6 +90,17 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
                 .map(([owner, count]) => ({ owner, count })),
             };
           }
+          if (sql.includes('WHERE category = ?1')) {
+            const [category, currentId, limit] = args;
+            return {
+              success: true,
+              results: skills
+                .filter((skill) => skill.category === category && skill.id !== currentId)
+                .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+                .slice(0, Number(limit) || skills.length)
+                .map(toD1Row),
+            };
+          }
           // Handle "SELECT data_json FROM skills ORDER BY stars DESC" and lightweight listing
           if (sql.includes('ORDER BY stars DESC') || sql.includes('skills')) {
             const limit = args[0] || skills.length;
@@ -476,6 +487,18 @@ describe('getRelatedSkills', () => {
     if (result.length > 0) {
       expect(result[0].topics).toContain('claude');
     }
+  });
+
+  it('should query a bounded category candidate set instead of loading the full catalog', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = relatedSkills[0];
+
+    await getRelatedSkills(env, current, 4);
+
+    const prepare = vi.mocked(env.DB!.prepare);
+    expect(prepare).toHaveBeenCalledTimes(1);
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('WHERE category = ?1');
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('LIMIT ?3');
   });
 });
 
