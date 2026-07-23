@@ -997,6 +997,8 @@ export async function getRelatedSkillsFast(
   currentId: string,
   category: string,
   limit: number = 4,
+  currentOwner = '',
+  currentRepo = '',
 ): Promise<SkillListingItem[]> {
   const getRelatedFallback = async () => {
     const all = await getLocalSkillsFallback();
@@ -1012,9 +1014,10 @@ export async function getRelatedSkillsFast(
   }
 
   try {
-    const result = await env.DB.prepare(
-      `
-            SELECT 
+    const hasCategory = Boolean(category);
+    const query = hasCategory
+      ? `
+            SELECT
                 id, owner, repo, name, category, stars, quality_score,
                 security_level, source_trust, rank_score, last_audited_at, updated_at,
                 json_extract(data_json, '$.skillName') as skillName,
@@ -1032,21 +1035,45 @@ export async function getRelatedSkillsFast(
                 json_extract(data_json, '$.seo.definition') as seoDefinition
             FROM skills 
             WHERE category = ?1 AND id != ?2
+              AND NOT (owner = ?3 AND repo = ?4)
             ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
-            LIMIT ?3
-        `,
-    )
-      .bind(category || '', currentId, limit)
-      .all<D1Row>();
+            LIMIT ?5
+        `
+      : `
+            SELECT
+                id, owner, repo, name, category, stars, quality_score,
+                security_level, source_trust, rank_score, last_audited_at, updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.securityScore') as securityScore,
+                json_extract(data_json, '$.sourceScore') as sourceScore,
+                json_extract(data_json, '$.isTrustedRankingEligible') as isTrustedRankingEligible,
+                json_extract(data_json, '$.riskFlags') as riskFlags,
+                json_extract(data_json, '$.securityBrief') as securityBrief,
+                json_extract(data_json, '$.primaryTrustReason') as primaryTrustReason,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills
+            WHERE id != ?1
+              AND NOT (owner = ?2 AND repo = ?3)
+            ORDER BY COALESCE(rank_score, quality_score, 0) DESC, stars DESC
+            LIMIT ?4
+        `;
+    const statement = env.DB.prepare(query);
+    const result = hasCategory
+      ? await statement.bind(category, currentId, currentOwner, currentRepo, limit).all<D1Row>()
+      : await statement.bind(currentId, currentOwner, currentRepo, limit).all<D1Row>();
 
     if (result.success && result.results) {
-      const rows = getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
-      return rows.length > 0 ? rows : getRelatedFallback();
+      return getD1Rows(result).map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
     }
-    return getRelatedFallback();
+    return [];
   } catch (e) {
     logD1Fallback('Error in related skills query', e);
-    return getRelatedFallback();
+    return [];
   }
 }
 

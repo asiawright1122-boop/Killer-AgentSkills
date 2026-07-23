@@ -91,13 +91,31 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
             };
           }
           if (sql.includes('WHERE category = ?1')) {
-            const [category, currentId, limit] = args;
+            const [category, currentId, currentOwner, currentRepo, limit] = args;
             return {
               success: true,
               results: skills
-                .filter((skill) => skill.category === category && skill.id !== currentId)
+                .filter(
+                  (skill) =>
+                    skill.category === category &&
+                    skill.id !== currentId &&
+                    !(skill.owner === currentOwner && skill.repo === currentRepo),
+                )
                 .sort((a, b) => (b.stars || 0) - (a.stars || 0))
-                .slice(0, Number(limit) || skills.length)
+                .slice(0, Number(limit))
+                .map(toD1Row),
+            };
+          }
+          if (sql.includes('WHERE id != ?1')) {
+            const [currentId, currentOwner, currentRepo, limit] = args;
+            return {
+              success: true,
+              results: skills
+                .filter(
+                  (skill) => skill.id !== currentId && !(skill.owner === currentOwner && skill.repo === currentRepo),
+                )
+                .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+                .slice(0, Number(limit))
                 .map(toD1Row),
             };
           }
@@ -480,13 +498,31 @@ describe('getRelatedSkills', () => {
   });
 
   it('should prioritize skills with overlapping topics', async () => {
-    const env = createMockEnv(relatedSkills);
+    const env = createMockEnv([
+      ...relatedSkills,
+      {
+        ...relatedSkills[0],
+        id: 'high-stars-no-topic-match',
+        owner: 'popular',
+        repo: 'popular-tool',
+        topics: ['random'],
+        stars: 50000,
+      },
+      {
+        ...relatedSkills[0],
+        id: 'low-stars-topic-match',
+        owner: 'focused',
+        repo: 'focused-tool',
+        topics: ['claude'],
+        stars: 10,
+      },
+    ]);
     const current = relatedSkills[0]; // topics: ['claude', 'agent']
     const result = await getRelatedSkills(env, current, 5);
-    // Skill #4 shares 'claude' topic, should be ranked first
-    if (result.length > 0) {
-      expect(result[0].topics).toContain('claude');
-    }
+    const lowStarsTopicMatchIndex = result.findIndex((skill) => skill.id === 'low-stars-topic-match');
+    const highStarsNoTopicMatchIndex = result.findIndex((skill) => skill.id === 'high-stars-no-topic-match');
+    expect(lowStarsTopicMatchIndex).toBeGreaterThanOrEqual(0);
+    expect(lowStarsTopicMatchIndex).toBeLessThan(highStarsNoTopicMatchIndex);
   });
 
   it('should query a bounded category candidate set instead of loading the full catalog', async () => {
@@ -498,7 +534,22 @@ describe('getRelatedSkills', () => {
     const prepare = vi.mocked(env.DB!.prepare);
     expect(prepare).toHaveBeenCalledTimes(1);
     expect(String(prepare.mock.calls[0]?.[0])).toContain('WHERE category = ?1');
-    expect(String(prepare.mock.calls[0]?.[0])).toContain('LIMIT ?3');
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('LIMIT ?5');
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('owner = ?3');
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('repo = ?4');
+    expect(vi.mocked(prepare.mock.results[0]?.value.bind)).toHaveBeenCalledWith('ai', '1', 'anthropics', 'skills', 16);
+  });
+
+  it('should use a bounded all-category query when the current skill has no category', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = { ...relatedSkills[0], category: '' };
+
+    await getRelatedSkills(env, current, 4);
+
+    const prepare = vi.mocked(env.DB!.prepare);
+    expect(String(prepare.mock.calls[0]?.[0])).toContain('WHERE id != ?1');
+    expect(String(prepare.mock.calls[0]?.[0])).not.toContain('WHERE category = ?1');
+    expect(vi.mocked(prepare.mock.results[0]?.value.bind)).toHaveBeenCalledWith('1', 'anthropics', 'skills', 16);
   });
 });
 
