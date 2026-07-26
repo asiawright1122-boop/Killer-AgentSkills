@@ -69,6 +69,9 @@ jobs:
           WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
         run: npm run report:ai:health -- --limit=20 --fail-on=${AI_ALERT_FAIL_ON_SEVERITY}
 
+      - name: Generate SEO Indexability Report
+        run: npm run report:seo:skill-indexability
+
       - name: Build Content Governance Report
         env:
           CONTENT_GOVERNANCE_FAIL_ON_SEVERITY: blocking
