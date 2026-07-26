@@ -20,7 +20,7 @@ The next `SEO And Operator Monitoring` run passed `/en/skills` and continued thr
 
 For recognized crawler requests to localized skill-detail paths, treat a query containing only `seo_smoke_cache_bust` as operational during early query canonicalization.
 
-1. A crawler skill-detail request with only `seo_smoke_cache_bust` bypasses the early query-strip redirect and continues through normal canonical-route or repository-fallback resolution.
+1. A crawler skill-detail request with only `seo_smoke_cache_bust` bypasses pre-canonical crawler capsules and the early query-strip redirect, then continues through normal canonical-route or repository-fallback resolution.
 2. A repository entry then redirects directly to its resolved clean canonical skill path in one hop.
 3. The redirect `Location` omits `seo_smoke_cache_bust`.
 4. A canonical skill-detail URL with only cache-bust may return the existing lightweight indexable crawler response directly, whose canonical remains clean.
@@ -38,7 +38,9 @@ Reuse the existing exact-name query classifier introduced by PR #28. The generic
 
 All other requests keep the current early canonicalization behavior.
 
-When later canonical-route or repository-fallback logic emits a crawler redirect, it will build the query suffix from a copied URL after deleting only `seo_smoke_cache_bust`. This produces the clean one-hop destination while preserving semantic parameters if future control flow reaches that redirect with them. The incoming request URL will not be mutated.
+The cache-only predicate is computed before crawler short-circuits so recognized AI crawler user agents do not return a capsule before repository fallback resolution. Existing blocked-route handling remains ahead of that exception.
+
+When an explicit SEO rule, canonical-route redirect, or repository-fallback redirect handles a cache-only crawler request, it builds the query suffix from a copied URL after deleting only `seo_smoke_cache_bust`. This produces the clean one-hop destination while preserving existing behavior for semantic parameters. The incoming request URL will not be mutated.
 
 No repository-specific exception is added. The existing `callstackincubator/agent-skills` consolidation remains the monitored example, but the operational-parameter behavior applies consistently to every crawler skill-detail route.
 
@@ -71,16 +73,18 @@ Rejected because real and unknown query variants must continue consolidating to 
 
 ## Testing
 
-Add focused middleware coverage using `Killer-Skills-Warmup-Bot/1.0`:
+Add focused middleware coverage using `Killer-Skills-Warmup-Bot/1.0` and a representative AI crawler user agent:
 
 1. The monitored repository entry with only cache-bust returns `301` directly to `/en/skills/callstackincubator/agent-skills/react-native-best-practices`, with no query string.
 2. A canonical skill-detail route with only cache-bust returns the existing `200`, `index, follow` crawler response and a clean canonical.
 3. The existing crawler skill-detail semantic-query test continues returning one clean-path `301`.
 4. A crawler repository entry with an unknown parameter plus cache-bust keeps the existing semantic-query cleanup behavior.
 5. A browser skill-detail cache-bust request keeps the existing clean-path redirect behavior.
+6. An AI crawler repository entry with only cache-bust reaches the same one-hop canonical resolution.
+7. A cache-only crawler skill-detail path covered by an explicit SEO redirect emits a clean `Location`.
 
 Run the focused middleware suite, full unit suite, typecheck, lint, Prettier, and whitespace checks. After independent task and whole-branch review, open a new focused PR. Merge only after required checks pass, wait for deployment, verify the live one-hop redirect, and rerun `SEO And Operator Monitoring`.
 
 ## Scope
 
-This change is limited to skill-detail query canonicalization and redirect suffix construction in `src/middleware.ts`, with regression coverage in `src/middleware.property.test.ts`. It does not change listing behavior fixed by PR #28, repository fallback data, smoke assertions, browser query policy, Data Pipeline, Cache Warmup, sitemap contents, GSC submission, or workflow failure handling.
+This change is limited to skill-detail crawler short-circuits, query canonicalization, and redirect suffix construction in `src/middleware.ts`, with regression coverage in `src/middleware.property.test.ts`. It does not change listing behavior fixed by PR #28, repository fallback data, smoke assertions, browser query policy, Data Pipeline, Cache Warmup, sitemap contents, GSC submission, or workflow failure handling.

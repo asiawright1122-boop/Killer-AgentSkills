@@ -715,6 +715,56 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     );
   });
 
+  it('redirects cache-busted AI crawler repository entries through canonical resolution', async () => {
+    const response = (await onRequest(
+      createContext(
+        new URL(
+          '/en/skills/callstackincubator/agent-skills?seo_smoke_cache_bust=1700000000000',
+          'https://killer-skills.com',
+        ).href,
+        { headers: { 'user-agent': 'GPTBot/1.0' } },
+      ),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(
+      '/en/skills/callstackincubator/agent-skills/react-native-best-practices',
+    );
+  });
+
+  it('strips cache-bust from explicit crawler skill-detail redirects', async () => {
+    const sourcePath = '/en/skills/test-owner/legacy-skill';
+    const targetPath = '/en/skills/test-owner/canonical-skill';
+    const customRules = structuredClone(seo404RulesData) as typeof seo404RulesData;
+    customRules.rules.redirect301.push({
+      fromPath: sourcePath,
+      toPath: targetPath,
+      reason: 'test_redirect',
+    });
+    setSeo404RulesCache(customRules as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+
+    try {
+      const response = (await onRequest(
+        createContext(new URL(`${sourcePath}?seo_smoke_cache_bust=1700000000000`, 'https://killer-skills.com').href, {
+          headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+        }),
+        async () => new Response('<html></html>', { status: 200 }),
+      )) as Response;
+
+      expect(response.status).toBe(301);
+      expect(response.headers.get('Location')).toBe(targetPath);
+    } finally {
+      setSeo404RulesCache(seo404RulesData as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+      await onRequest(
+        createContext('https://killer-skills.com/en/skills/anthropics/skills/xlsx', {
+          headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+        }),
+        async () => new Response('<html></html>', { status: 200 }),
+      );
+    }
+  });
+
   it('serves cache-busted canonical skill details on the clean crawler surface', async () => {
     let nextCalled = false;
     const response = (await onRequest(

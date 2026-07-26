@@ -4,7 +4,7 @@
 
 **Goal:** Make cache-busted crawler skill-detail requests reach canonical route resolution directly, producing a clean one-hop repository fallback redirect without changing semantic-query or browser behavior.
 
-**Architecture:** Extend the existing exact operational-parameter classifier with a cache-only predicate and a reusable sanitized-search helper. Bypass early skill-detail query cleanup only for recognized crawler requests containing no semantic parameters, then remove only cache-bust from later canonical redirect locations.
+**Architecture:** Extend the existing exact operational-parameter classifier with a cache-only predicate and a reusable sanitized-search helper. Bypass pre-canonical crawler capsules and early skill-detail query cleanup only for recognized crawler requests containing no semantic parameters, then remove only cache-bust from explicit and canonical redirect locations.
 
 **Tech Stack:** Astro middleware, TypeScript, WHATWG `URL`/`URLSearchParams`, Vitest
 
@@ -23,8 +23,8 @@
 
 ## File Structure
 
-- Modify `src/middleware.property.test.ts`: add warmup repository-entry, canonical-detail, mixed unknown, and browser regressions beside the existing skill-detail query test.
-- Modify `src/middleware.ts`: classify cache-only query sets, skip premature crawler detail cleanup, and sanitize later canonical redirect suffixes.
+- Modify `src/middleware.property.test.ts`: add warmup and AI crawler repository-entry, explicit redirect, canonical-detail, mixed unknown, and browser regressions beside the existing skill-detail query test.
+- Modify `src/middleware.ts`: classify cache-only query sets before crawler short-circuits, skip premature crawler detail cleanup, and sanitize crawler skill-detail redirect suffixes.
 
 No new module is needed because the operational parameter and every consumer remain private to middleware.
 
@@ -37,6 +37,7 @@ No new module is needed because the operational parameter and every consumer rem
 - Test: `src/middleware.property.test.ts:674-693`
 - Modify: `src/middleware.ts:406-410`
 - Modify: `src/middleware.ts:818-822`
+- Modify: `src/middleware.ts:1047-1098`
 - Modify: `src/middleware.ts:1264-1273`
 - Modify: `src/middleware.ts:1549-1586`
 
@@ -177,9 +178,9 @@ if (isSkillDetailQueryPath && !isCacheBustOnlyCrawlerSkillDetailRequest) {
 }
 ```
 
-- [ ] **Step 5: Sanitize later skill-detail canonical redirect locations**
+- [ ] **Step 5: Sanitize skill-detail redirect locations**
 
-In both the canonical-route redirect and repository-fallback redirect, replace `context.url.search` with:
+In the canonical-route and repository-fallback redirects, replace `context.url.search` with:
 
 ```ts
 buildSearchWithoutSeoSmokeCacheBust(context.url);
@@ -191,6 +192,8 @@ The resulting `Location` expressions are:
 Location: canonicalPath + buildSearchWithoutSeoSmokeCacheBust(context.url),
 ```
 
+Compute the cache-only crawler skill-detail predicate before crawler short-circuits. Use it to bypass the AI crawler capsule and to remove cache-bust from an earlier explicit SEO redirect while preserving its existing suffix behavior for all other requests.
+
 - [ ] **Step 6: Run focused tests and verify GREEN**
 
 Run:
@@ -200,7 +203,7 @@ npx prettier --write src/middleware.ts src/middleware.property.test.ts
 npx vitest run src/middleware.property.test.ts --reporter=verbose
 ```
 
-Expected: the middleware property file passes completely. The monitored repository entry has one clean redirect, the canonical cache-only detail is `200 index, follow`, and semantic/browser query behavior is unchanged.
+Expected: the middleware property file passes completely. Warmup and AI crawler repository entries have one clean redirect, explicit crawler redirects omit cache-bust, the canonical cache-only detail is `200 index, follow`, and semantic/browser query behavior is unchanged.
 
 - [ ] **Step 7: Commit the behavior change**
 

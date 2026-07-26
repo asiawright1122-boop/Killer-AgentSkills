@@ -1048,6 +1048,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
   const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
   const isLowFidelityCrawlerLikeRequest = !context.isPrerendered && isLowFidelityHtmlRequest(context.request);
+  const isSkillDetailQueryPath = /^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname) && context.url.searchParams.size > 0;
+  const isCacheBustOnlyCrawlerSkillDetailRequest =
+    isSkillDetailQueryPath && isCrawlerRequest && hasOnlySeoSmokeCacheBust(context.url.searchParams);
   const shouldUseEdgeCache =
     isCacheableRequest &&
     !import.meta.env.DEV &&
@@ -1069,7 +1072,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
         return new Response(null, {
           status: 301,
           headers: {
-            Location: explicitRedirectTarget + context.url.search,
+            Location:
+              explicitRedirectTarget +
+              (isCacheBustOnlyCrawlerSkillDetailRequest
+                ? buildSearchWithoutSeoSmokeCacheBust(context.url)
+                : context.url.search),
             'Cache-Control': 'public, s-maxage=86400',
           },
         });
@@ -1092,7 +1099,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   if (
-    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) ||
+    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url) && !isCacheBustOnlyCrawlerSkillDetailRequest) ||
     (isCrawlerRequest && isCrawlerSkillsListingParamPath(context.url))
   ) {
     return buildAiCrawlerCapsuleResponse(context.url);
@@ -1268,10 +1275,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       },
     });
   }
-
-  const isSkillDetailQueryPath = /^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname) && context.url.searchParams.size > 0;
-  const isCacheBustOnlyCrawlerSkillDetailRequest =
-    isSkillDetailQueryPath && isCrawlerRequest && hasOnlySeoSmokeCacheBust(context.url.searchParams);
 
   if (isSkillDetailQueryPath && !isCacheBustOnlyCrawlerSkillDetailRequest) {
     const canonicalSkillPath = resolveCanonicalSkillPathFromPathname(pathname) || pathname;
