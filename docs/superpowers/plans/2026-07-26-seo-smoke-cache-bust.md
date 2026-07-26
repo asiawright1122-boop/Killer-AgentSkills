@@ -48,10 +48,12 @@ No new runtime module is warranted: the classifier is private to middleware, has
 Insert these tests after the existing `returns a lightweight noindex response for crawler skills search URLs before SSR` test in `src/middleware.property.test.ts`:
 
 ```ts
+const baseUrl = 'https://killer-skills.com';
+
 it('keeps a cache-busted warmup request on the indexable public skills surface', async () => {
   let nextCalled = false;
   const response = (await onRequest(
-    createContext('https://killer-skills.com/en/skills?seo_smoke_cache_bust=1700000000000', {
+    createContext(new URL('/en/skills?seo_smoke_cache_bust=1700000000000', baseUrl).href, {
       headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
     }),
     async () => {
@@ -68,13 +70,13 @@ it('keeps a cache-busted warmup request on the indexable public skills surface',
   expect(response.status).toBe(200);
   expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
   expect(response.headers.get('X-Cache')).toBe('BYPASS-CRAWLER-SURFACE');
-  expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills">');
+  expect(body).toContain(`<link rel="canonical" href="${new URL('/en/skills', baseUrl).href}">`);
   expect(body).not.toContain('seo_smoke_cache_bust');
 });
 
 it('keeps a semantic warmup skills query noindex with its query canonical', async () => {
   const response = (await onRequest(
-    createContext('https://killer-skills.com/en/skills?q=spreadsheet', {
+    createContext(new URL('/en/skills?q=spreadsheet', baseUrl).href, {
       headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
     }),
     async () => new Response('<html></html>', { status: 200 }),
@@ -82,12 +84,12 @@ it('keeps a semantic warmup skills query noindex with its query canonical', asyn
 
   const body = await response.text();
   expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
-  expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?q=spreadsheet">');
+  expect(body).toContain(`<link rel="canonical" href="${new URL('/en/skills?q=spreadsheet', baseUrl).href}">`);
 });
 
 it('removes only cache-bust from mixed warmup skills query canonicals', async () => {
   const response = (await onRequest(
-    createContext('https://killer-skills.com/en/skills?q=spreadsheet&seo_smoke_cache_bust=1700000000000', {
+    createContext(new URL('/en/skills?q=spreadsheet&seo_smoke_cache_bust=1700000000000', baseUrl).href, {
       headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
     }),
     async () => new Response('<html></html>', { status: 200 }),
@@ -95,13 +97,13 @@ it('removes only cache-bust from mixed warmup skills query canonicals', async ()
 
   const body = await response.text();
   expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
-  expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?q=spreadsheet">');
+  expect(body).toContain(`<link rel="canonical" href="${new URL('/en/skills?q=spreadsheet', baseUrl).href}">`);
   expect(body).not.toContain('seo_smoke_cache_bust');
 });
 
 it('treats unknown warmup query parameters as semantic and fails closed', async () => {
   const response = (await onRequest(
-    createContext('https://killer-skills.com/en/skills?unknown=value&seo_smoke_cache_bust=1700000000000', {
+    createContext(new URL('/en/skills?unknown=value&seo_smoke_cache_bust=1700000000000', baseUrl).href, {
       headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
     }),
     async () => new Response('<html></html>', { status: 200 }),
@@ -109,7 +111,7 @@ it('treats unknown warmup query parameters as semantic and fails closed', async 
 
   const body = await response.text();
   expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
-  expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?unknown=value">');
+  expect(body).toContain(`<link rel="canonical" href="${new URL('/en/skills?unknown=value', baseUrl).href}">`);
   expect(body).not.toContain('seo_smoke_cache_bust');
 });
 ```
@@ -290,9 +292,10 @@ Expected: all required checks pass before the PR is squash-merged into `main`.
 Run after the deployment workflow for the merge commit succeeds:
 
 ```bash
+BASE_URL='https://killer-skills.com'
 curl -fsSL \
   -A 'Killer-Skills-Warmup-Bot/1.0' \
-  'https://killer-skills.com/en/skills?seo_smoke_cache_bust=1700000000000' \
+  "${BASE_URL}/en/skills?seo_smoke_cache_bust=1700000000000" \
   | rg '<meta name="robots"|<link rel="canonical"'
 ```
 
