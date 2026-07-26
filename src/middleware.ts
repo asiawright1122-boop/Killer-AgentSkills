@@ -403,6 +403,12 @@ function isAiCrawlerUserAgent(userAgent: string): boolean {
   );
 }
 
+const SEO_SMOKE_CACHE_BUST_PARAM = 'seo_smoke_cache_bust';
+
+function hasSemanticCrawlerSearchParams(searchParams: URLSearchParams): boolean {
+  return Array.from(searchParams.keys()).some((name) => name !== SEO_SMOKE_CACHE_BUST_PARAM);
+}
+
 function isLowFidelityHtmlRequest(request: Request): boolean {
   if (!request.headers.has('accept')) return false;
 
@@ -449,12 +455,12 @@ function formatCrawlerLabel(value: string): string {
 function isAiCrawlerCapsulePath(url: URL): boolean {
   const { pathname, searchParams } = url;
   if (/^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/[^/]+)?$/.test(pathname)) return true;
-  if (/^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0) return true;
+  if (/^\/[a-z]{2}\/skills$/.test(pathname) && hasSemanticCrawlerSearchParams(searchParams)) return true;
   return /^\/[a-z]{2}\/occupations\/[^/]+$/.test(pathname);
 }
 
 function isCrawlerSkillsListingParamPath(url: URL): boolean {
-  return /^\/[a-z]{2}\/skills$/.test(url.pathname) && url.searchParams.size > 0;
+  return /^\/[a-z]{2}\/skills$/.test(url.pathname) && hasSemanticCrawlerSearchParams(url.searchParams);
 }
 
 const CRAWLER_STATIC_SURFACE_COPY: Record<string, { title: string; description: string }> = {
@@ -556,7 +562,7 @@ function resolveAuthorityCollectionSurface(pathname: string, locale: string): Cr
 }
 
 function resolveCrawlerPublicSurface(url: URL): CrawlerPublicSurface | null {
-  if (url.searchParams.size > 0) return null;
+  if (hasSemanticCrawlerSearchParams(url.searchParams)) return null;
 
   const localeRootMatch = url.pathname.match(/^\/([a-z]{2})(?:\/([a-z]+))?$/);
   if (localeRootMatch) {
@@ -809,6 +815,12 @@ function buildCrawlerSkillDetailResponse(
   return response;
 }
 
+function buildCrawlerCanonicalUrl(url: URL): string {
+  const canonicalUrl = new URL(url);
+  canonicalUrl.searchParams.delete(SEO_SMOKE_CACHE_BUST_PARAM);
+  return `https://${SITE_DOMAIN}${canonicalUrl.pathname}${canonicalUrl.search}`;
+}
+
 function buildAiCrawlerCapsuleResponse(url: URL): Response {
   const segments = url.pathname.split('/').filter(Boolean);
   const locale = segments[0] || 'en';
@@ -825,7 +837,7 @@ function buildAiCrawlerCapsuleResponse(url: URL): Response {
         : `Skills directory: ${label}`;
   const description =
     'Killer-Skills indexes reviewed AI agent skills, source trust, install paths, and workflow categories.';
-  const canonicalUrl = `https://${SITE_DOMAIN}${url.pathname}${url.search}`;
+  const canonicalUrl = buildCrawlerCanonicalUrl(url);
   const directoryUrl = `https://${SITE_DOMAIN}/${locale}/skills`;
   const sitemapUrl = `https://${SITE_DOMAIN}/sitemap-skills.xml`;
   const llmsUrl = `https://${SITE_DOMAIN}/llms.txt`;

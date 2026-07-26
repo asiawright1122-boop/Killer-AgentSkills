@@ -462,6 +462,71 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Killer-Skills-Crawler-Capsule')).toBe('1');
   });
 
+  it('keeps a cache-busted warmup request on the indexable public skills surface', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?seo_smoke_cache_bust=1700000000000', {
+        headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    const body = await response.text();
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(response.headers.get('X-Cache')).toBe('BYPASS-CRAWLER-SURFACE');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills">');
+    expect(body).not.toContain('seo_smoke_cache_bust');
+  });
+
+  it('keeps a semantic warmup skills query noindex with its query canonical', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?q=spreadsheet', {
+        headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    const body = await response.text();
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?q=spreadsheet">');
+  });
+
+  it('removes only cache-bust from mixed warmup skills query canonicals', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?q=spreadsheet&seo_smoke_cache_bust=1700000000000', {
+        headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    const body = await response.text();
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?q=spreadsheet">');
+    expect(body).not.toContain('seo_smoke_cache_bust');
+  });
+
+  it('treats unknown warmup query parameters as semantic and fails closed', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?unknown=value&seo_smoke_cache_bust=1700000000000', {
+        headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    const body = await response.text();
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills?unknown=value">');
+    expect(body).not.toContain('seo_smoke_cache_bust');
+  });
+
   it('crawler requests get an indexable lightweight public skills surface before downstream SSR', async () => {
     let nextCalled = false;
     const response = (await onRequest(
