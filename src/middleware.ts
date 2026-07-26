@@ -409,6 +409,10 @@ function hasSemanticCrawlerSearchParams(searchParams: URLSearchParams): boolean 
   return Array.from(searchParams.keys()).some((name) => name !== SEO_SMOKE_CACHE_BUST_PARAM);
 }
 
+function hasOnlySeoSmokeCacheBust(searchParams: URLSearchParams): boolean {
+  return searchParams.size > 0 && !hasSemanticCrawlerSearchParams(searchParams);
+}
+
 function isLowFidelityHtmlRequest(request: Request): boolean {
   if (!request.headers.has('accept')) return false;
 
@@ -815,10 +819,14 @@ function buildCrawlerSkillDetailResponse(
   return response;
 }
 
+function buildSearchWithoutSeoSmokeCacheBust(url: URL): string {
+  const sanitizedUrl = new URL(url);
+  sanitizedUrl.searchParams.delete(SEO_SMOKE_CACHE_BUST_PARAM);
+  return sanitizedUrl.search;
+}
+
 function buildCrawlerCanonicalUrl(url: URL): string {
-  const canonicalUrl = new URL(url);
-  canonicalUrl.searchParams.delete(SEO_SMOKE_CACHE_BUST_PARAM);
-  return `https://${SITE_DOMAIN}${canonicalUrl.pathname}${canonicalUrl.search}`;
+  return `https://${SITE_DOMAIN}${url.pathname}${buildSearchWithoutSeoSmokeCacheBust(url)}`;
 }
 
 function buildAiCrawlerCapsuleResponse(url: URL): Response {
@@ -1040,6 +1048,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
   const isAiCrawlerRequest = isAiCrawlerUserAgent(userAgent);
   const isLowFidelityCrawlerLikeRequest = !context.isPrerendered && isLowFidelityHtmlRequest(context.request);
+  const isSkillDetailQueryPath = /^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname) && context.url.searchParams.size > 0;
+  const isCacheBustOnlyCrawlerSkillDetailRequest =
+    isSkillDetailQueryPath && isCrawlerRequest && hasOnlySeoSmokeCacheBust(context.url.searchParams);
   const shouldUseEdgeCache =
     isCacheableRequest &&
     !import.meta.env.DEV &&
@@ -1061,7 +1072,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
         return new Response(null, {
           status: 301,
           headers: {
-            Location: explicitRedirectTarget + context.url.search,
+            Location:
+              explicitRedirectTarget +
+              (isCacheBustOnlyCrawlerSkillDetailRequest
+                ? buildSearchWithoutSeoSmokeCacheBust(context.url)
+                : context.url.search),
             'Cache-Control': 'public, s-maxage=86400',
           },
         });
@@ -1084,7 +1099,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   if (
-    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url)) ||
+    (isAiCrawlerRequest && isAiCrawlerCapsulePath(context.url) && !isCacheBustOnlyCrawlerSkillDetailRequest) ||
     (isCrawlerRequest && isCrawlerSkillsListingParamPath(context.url))
   ) {
     return buildAiCrawlerCapsuleResponse(context.url);
@@ -1261,7 +1276,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
-  if (/^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname) && context.url.searchParams.size > 0) {
+  if (isSkillDetailQueryPath && !isCacheBustOnlyCrawlerSkillDetailRequest) {
     const canonicalSkillPath = resolveCanonicalSkillPathFromPathname(pathname) || pathname;
     return new Response(null, {
       status: 301,
@@ -1550,7 +1565,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
           return new Response(null, {
             status: 301,
             headers: {
-              Location: canonicalPath + context.url.search,
+              Location: canonicalPath + buildSearchWithoutSeoSmokeCacheBust(context.url),
               'Cache-Control': 'public, s-maxage=86400',
             },
           });
@@ -1582,7 +1597,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
             return new Response(null, {
               status: 301,
               headers: {
-                Location: canonicalPath + context.url.search,
+                Location: canonicalPath + buildSearchWithoutSeoSmokeCacheBust(context.url),
                 'Cache-Control': 'public, s-maxage=86400',
               },
             });

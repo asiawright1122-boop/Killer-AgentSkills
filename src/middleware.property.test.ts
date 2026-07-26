@@ -692,6 +692,128 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('Location')).toBe(buildLocalizedSkillPath('en', sample.owner, sample.routePath));
   });
 
+  it('redirects cache-busted warmup repository entries directly to the clean canonical skill', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext(
+        new URL(
+          '/en/skills/callstackincubator/agent-skills?seo_smoke_cache_bust=1700000000000',
+          'https://killer-skills.com',
+        ).href,
+        { headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' } },
+      ),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', { status: 200 });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(
+      '/en/skills/callstackincubator/agent-skills/react-native-best-practices',
+    );
+  });
+
+  it('redirects cache-busted AI crawler repository entries through canonical resolution', async () => {
+    const response = (await onRequest(
+      createContext(
+        new URL(
+          '/en/skills/callstackincubator/agent-skills?seo_smoke_cache_bust=1700000000000',
+          'https://killer-skills.com',
+        ).href,
+        { headers: { 'user-agent': 'GPTBot/1.0' } },
+      ),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(
+      '/en/skills/callstackincubator/agent-skills/react-native-best-practices',
+    );
+  });
+
+  it('strips cache-bust from explicit crawler skill-detail redirects', async () => {
+    const sourcePath = '/en/skills/test-owner/legacy-skill';
+    const targetPath = '/en/skills/test-owner/canonical-skill';
+    const customRules = structuredClone(seo404RulesData) as typeof seo404RulesData;
+    customRules.rules.redirect301.push({
+      fromPath: sourcePath,
+      toPath: targetPath,
+      reason: 'test_redirect',
+    });
+    setSeo404RulesCache(customRules as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+
+    try {
+      const response = (await onRequest(
+        createContext(new URL(`${sourcePath}?seo_smoke_cache_bust=1700000000000`, 'https://killer-skills.com').href, {
+          headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+        }),
+        async () => new Response('<html></html>', { status: 200 }),
+      )) as Response;
+
+      expect(response.status).toBe(301);
+      expect(response.headers.get('Location')).toBe(targetPath);
+    } finally {
+      setSeo404RulesCache(seo404RulesData as unknown as import('./lib/seo-404-rules-runtime').Seo404Rule[]);
+      await onRequest(
+        createContext('https://killer-skills.com/en/skills/anthropics/skills/xlsx', {
+          headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' },
+        }),
+        async () => new Response('<html></html>', { status: 200 }),
+      );
+    }
+  });
+
+  it('serves cache-busted canonical skill details on the clean crawler surface', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext(
+        new URL('/en/skills/anthropics/skills/xlsx?seo_smoke_cache_bust=1700000000000', 'https://killer-skills.com')
+          .href,
+        { headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' } },
+      ),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', { status: 200 });
+      },
+    )) as Response;
+
+    const body = await response.text();
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+    expect(body).toContain('<link rel="canonical" href="https://killer-skills.com/en/skills/anthropics/skills/xlsx">');
+    expect(body).not.toContain('seo_smoke_cache_bust');
+  });
+
+  it('keeps mixed unknown crawler skill-detail queries on existing clean-path consolidation', async () => {
+    const sourcePath = '/en/skills/callstackincubator/agent-skills';
+    const response = (await onRequest(
+      createContext(
+        new URL(`${sourcePath}?unknown=value&seo_smoke_cache_bust=1700000000000`, 'https://killer-skills.com').href,
+        { headers: { 'user-agent': 'Killer-Skills-Warmup-Bot/1.0' } },
+      ),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(sourcePath);
+  });
+
+  it('keeps browser skill-detail cache-bust requests on existing clean-path consolidation', async () => {
+    const canonicalPath = '/en/skills/anthropics/skills/xlsx';
+    const response = (await onRequest(
+      createContext(new URL(`${canonicalPath}?seo_smoke_cache_bust=1700000000000`, 'https://killer-skills.com').href, {
+        headers: { accept: 'text/html,application/xhtml+xml' },
+      }),
+      async () => new Response('<html></html>', { status: 200 }),
+    )) as Response;
+
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe(canonicalPath);
+  });
+
   it('applies noindex, nofollow to personal state pages even when downstream omits robots headers', async () => {
     const response = (await onRequest(
       createContext('https://killer-skills.com/fr/favorites'),
