@@ -11,7 +11,7 @@ Normal browser requests to `/en/skills` still expose the clean canonical. This i
 ## Evidence
 
 - GitHub Actions run `30183934407` passed indexability report generation, content governance, and the operator summary after the prerequisite fix.
-- `Run Production SEO Smoke` then failed because `/en/skills` returned canonical `/en/skills?seo_smoke_cache_bust=...`.
+- `Run Production SEO Smoke` then failed because `/en/skills` returned a canonical using origin `https://killer-skills.com` with query-bearing path `/en/skills?seo_smoke_cache_bust=...`.
 - `scripts/seo-smoke.ts` deliberately appends `seo_smoke_cache_bust` through `withCacheBust` and uses `Killer-Skills-Warmup-Bot/1.0`.
 - `src/middleware.ts` recognizes that user agent as a crawler.
 - `isCrawlerSkillsListingParamPath`, `isAiCrawlerCapsulePath`, and `resolveCrawlerPublicSurface` currently use total query-parameter count rather than distinguishing operational parameters from semantic filters.
