@@ -693,7 +693,14 @@
     "searchButton": "Suchen",
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "subtitle": "Erkunden Sie endlose Möglichkeiten, stärken Sie Ihren AI-Assistenten",
-    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Bildschirm", "Code-Review", "Dokumente"],
+    "suggestions": [
+      "PDF",
+      "Bildgenerator",
+      "Datenanalyse",
+      "Bildschirm",
+      "Code-Review",
+      "Dokumente"
+    ],
     "title": "Entdecken Sie AI-Agenten-Fähigkeiten",
     "titleHighlight": "AI-Agent"
   },
@@ -764,7 +771,12 @@
     "seoIntro": "Killer-Skills ist ein Open-Source-Verzeichnis und Installationshub für über 3.400 KI-Agenten-Skills. Entwickler finden dort vertrauenswürdige Tools schneller als beim Durchsuchen roher GitHub-Repositories und gelangen im selben Ablauf zu Collections, Lösungsseiten und Installationsdokumenten.",
     "seoTitle": "KI-Agent-Skills und MCP-Server-Verzeichnis",
     "stable": "Stabil",
-    "tags": ["Forschung", "Programmierung", "\"Marketing\" -> \"Marketing\"", "Analyse"],
+    "tags": [
+      "Forschung",
+      "Programmierung",
+      "\"Marketing\" -> \"Marketing\"",
+      "Analyse"
+    ],
     "trendingSubtitle": "Top-bewertete und beliebte Skills aus der Community.",
     "trendingTitle": "Trending Fähigkeiten",
     "viewAll": "Alle anzeigen"
