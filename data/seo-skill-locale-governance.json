@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-04T14:45:15.492Z",
+  "generatedAt": "2026-08-05T03:37:28.896Z",
   "summary": {
-    "totalSkills": 7951,
-    "totalLocaleVariants": 79510,
-    "metadataEligibleVariants": 11043,
-    "eligibleVariants": 11043,
+    "totalSkills": 7952,
+    "totalLocaleVariants": 79520,
+    "metadataEligibleVariants": 11044,
+    "eligibleVariants": 11044,
     "suppressedMetadataVariants": 0,
     "skillsWithSuppressedMetadata": 0,
     "canonicalLocaleCounts": {
-      "en": 7951
+      "en": 7952
     },
     "detectedBodyLocaleCounts": {
       "zh": 304,
-      "en": 7233,
+      "en": 7234,
       "ko": 112,
       "es": 33,
       "fr": 18,
@@ -22,7 +22,7 @@
       "ru": 46
     },
     "eligibleLocaleCounts": {
-      "en": 7951,
+      "en": 7952,
       "zh": 346,
       "ja": 346,
       "ko": 346,
@@ -1750,7 +1750,7 @@
       "owner": "aAAaqwq",
       "repo": "AGI-Super-Team",
       "routePath": "AGI-Super-Team/github-automation",
-      "updatedAt": "2026-08-04T14:37:42.688Z",
+      "updatedAt": "2026-08-05T03:30:19.652Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -3274,6 +3274,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "acidgenomics/koopa/koopa-shell-internals",
+      "owner": "acidgenomics",
+      "repo": "koopa",
+      "routePath": "koopa/koopa-shell-internals",
+      "updatedAt": "2026-06-19T15:45:12Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "AcidicSoil/DSPyTeach/design-a2a-agent-card",
       "owner": "AcidicSoil",
       "repo": "DSPyTeach",
@@ -3811,7 +3833,7 @@
       "owner": "addozhang",
       "repo": "openclaw-forge",
       "routePath": "openclaw-forge/research-prep",
-      "updatedAt": "2026-08-04T14:37:42.689Z",
+      "updatedAt": "2026-08-05T03:30:19.653Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -31331,7 +31353,7 @@
       "owner": "cablate",
       "repo": "Agentic-MCP-Skill",
       "routePath": "Agentic-MCP-Skill/agentic-mcp",
-      "updatedAt": "2026-08-04T14:37:42.679Z",
+      "updatedAt": "2026-08-05T03:30:19.647Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -52066,7 +52088,7 @@
       "owner": "eannnnnn",
       "repo": "taptik-labs",
       "routePath": "taptik-labs/gh",
-      "updatedAt": "2026-08-04T14:37:42.697Z",
+      "updatedAt": "2026-08-05T03:30:19.657Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -73417,7 +73439,7 @@
       "owner": "hongyangAndroid",
       "repo": "blog_ai",
       "routePath": "blog_ai/github-repo-search",
-      "updatedAt": "2026-08-04T14:37:42.693Z",
+      "updatedAt": "2026-08-05T03:30:19.655Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -73862,7 +73884,7 @@
       "owner": "hoyvoh",
       "repo": "claude-workspace-prototype",
       "routePath": "claude-workspace-prototype/git-operations",
-      "updatedAt": "2026-08-04T14:37:42.688Z",
+      "updatedAt": "2026-08-05T03:30:19.652Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -81407,7 +81429,7 @@
       "owner": "jarosser06",
       "repo": "drift",
       "routePath": "drift/github-operations",
-      "updatedAt": "2026-08-04T14:37:42.686Z",
+      "updatedAt": "2026-08-05T03:30:19.651Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96795,7 +96817,7 @@
       "owner": "lekman",
       "repo": "cdn",
       "routePath": "cdn/github-mcp",
-      "updatedAt": "2026-08-04T14:37:42.690Z",
+      "updatedAt": "2026-08-05T03:30:19.653Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -102273,7 +102295,7 @@
       "owner": "majiayu000",
       "repo": "claude-arsenal",
       "routePath": "claude-arsenal/github-trending",
-      "updatedAt": "2026-08-04T14:37:42.689Z",
+      "updatedAt": "2026-08-05T03:30:19.653Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -117495,7 +117517,7 @@
       "owner": "NextronSystems",
       "repo": "thor-skill",
       "routePath": "thor-skill/thor-skills",
-      "updatedAt": "2026-08-04T14:37:42.683Z",
+      "updatedAt": "2026-08-05T03:30:19.649Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -120366,7 +120388,7 @@
       "owner": "norsizu",
       "repo": "comfyui-zimage-skill",
       "routePath": "comfyui-zimage-skill/comfyui-zimage",
-      "updatedAt": "2026-08-04T14:37:42.679Z",
+      "updatedAt": "2026-08-05T03:30:19.647Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -124999,7 +125021,7 @@
       "owner": "openwork-hackathon",
       "repo": "team-sentinel",
       "routePath": "team-sentinel/clawathon",
-      "updatedAt": "2026-08-04T14:37:42.664Z",
+      "updatedAt": "2026-08-05T03:30:19.638Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -128674,7 +128696,7 @@
       "owner": "pem725",
       "repo": "be-critical",
       "routePath": "be-critical/be-critical",
-      "updatedAt": "2026-08-04T14:37:42.673Z",
+      "updatedAt": "2026-08-05T03:30:19.643Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139376,7 +139398,7 @@
       "owner": "rishavmukherji",
       "repo": "farcaster-agent",
       "routePath": "farcaster-agent/farcaster-agent",
-      "updatedAt": "2026-08-04T14:37:42.680Z",
+      "updatedAt": "2026-08-05T03:30:19.647Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -142728,7 +142750,7 @@
       "owner": "rysweet",
       "repo": "amplihack",
       "routePath": "amplihack/github",
-      "updatedAt": "2026-08-03T03:52:36.348Z",
+      "updatedAt": "2026-08-05T03:30:19.652Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -170603,7 +170625,7 @@
       "owner": "Ven0m0",
       "repo": ".github",
       "routePath": ".github/gh-cli",
-      "updatedAt": "2026-08-04T14:37:42.691Z",
+      "updatedAt": "2026-08-05T03:30:19.654Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -179185,7 +179207,7 @@
       "owner": "yangliu2060",
       "repo": "clawdchat-analysis",
       "routePath": "clawdchat-analysis/clawdchat",
-      "updatedAt": "2026-08-04T14:37:42.677Z",
+      "updatedAt": "2026-08-05T03:30:19.646Z",
       "metadataEligibleLocales": [
         "en"
       ],
