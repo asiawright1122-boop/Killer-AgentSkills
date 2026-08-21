@@ -3,7 +3,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/flags",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -13,7 +13,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/extract-errors",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -23,7 +23,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/fix",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -33,7 +33,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/flow",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -43,7 +43,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/verify",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en",
@@ -62,7 +62,7 @@
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/test",
-    "updatedAt": "2026-08-16T04:32:22Z",
+    "updatedAt": "2026-08-21T04:34:36Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en",
@@ -75,163 +75,13 @@
       "pt",
       "ru",
       "ar"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/algorithmic-art",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en",
-      "ar"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/mcp-builder",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/pdf",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/pptx",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/xlsx",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en",
-      "zh",
-      "ja",
-      "ko",
-      "es",
-      "fr",
-      "de",
-      "pt",
-      "ru",
-      "ar"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/internal-comms",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/theme-factory",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/docx",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/webapp-testing",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/slack-gif-creator",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/web-artifacts-builder",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/canvas-design",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/frontend-design",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "anthropics",
-    "repo": "skills",
-    "routePath": "skills/brand-guidelines",
-    "updatedAt": "2026-08-16T04:20:58Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
     ]
   },
   {
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/subagent-driven-development",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -241,7 +91,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/writing-skills",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -251,7 +101,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/dispatching-parallel-agents",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -261,7 +111,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/systematic-debugging",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -271,7 +121,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/test-driven-development",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -281,7 +131,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/using-git-worktrees",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -291,7 +141,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/brainstorming",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -301,7 +151,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/receiving-code-review",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -311,7 +161,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/verification-before-completion",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -321,7 +171,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/writing-plans",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -331,7 +181,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/finishing-a-development-branch",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -341,7 +191,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/requesting-code-review",
-    "updatedAt": "2026-08-16T04:20:25Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en",
@@ -360,37 +210,7 @@
     "owner": "obra",
     "repo": "superpowers",
     "routePath": "superpowers/executing-plans",
-    "updatedAt": "2026-08-16T04:20:25Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/frontend-code-review",
-    "updatedAt": "2026-08-16T04:06:52Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/how-to-write-component",
-    "updatedAt": "2026-08-16T04:06:52Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "langgenius",
-    "repo": "dify",
-    "routePath": "dify/frontend-testing",
-    "updatedAt": "2026-08-16T04:06:52Z",
+    "updatedAt": "2026-08-21T04:20:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -400,17 +220,208 @@
     "owner": "vercel-labs",
     "repo": "skills",
     "routePath": "skills/find-skills",
-    "updatedAt": "2026-08-16T03:59:26Z",
+    "updatedAt": "2026-08-21T04:12:51Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
     ]
   },
   {
-    "owner": "supabase",
-    "repo": "agent-skills",
-    "routePath": "agent-skills/supabase-postgres-best-practices",
-    "updatedAt": "2026-08-16T02:35:31Z",
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/algorithmic-art",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en",
+      "ar"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/discernment-nudge",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/mcp-builder",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/pdf",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/pptx",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/xlsx",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ru",
+      "ar"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/internal-comms",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/theme-factory",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/docx",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/webapp-testing",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/slack-gif-creator",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/web-artifacts-builder",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/canvas-design",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/frontend-design",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/academy-guide",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en",
+      "ar"
+    ]
+  },
+  {
+    "owner": "anthropics",
+    "repo": "skills",
+    "routePath": "skills/brand-guidelines",
+    "updatedAt": "2026-08-21T04:11:50Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/frontend-code-review",
+    "updatedAt": "2026-08-21T04:03:25Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/how-to-write-component",
+    "updatedAt": "2026-08-21T04:03:25Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "langgenius",
+    "repo": "dify",
+    "routePath": "dify/frontend-testing",
+    "updatedAt": "2026-08-21T04:03:25Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -420,7 +431,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-interactivity",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -430,7 +441,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-markup",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -440,7 +451,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-captions",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -450,7 +461,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-create",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -460,7 +471,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-docs",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -470,7 +481,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-studio",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -480,7 +491,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-render",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -490,7 +501,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-upgrade",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -500,7 +511,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-best-practices",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -510,7 +521,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-maps",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -520,7 +531,7 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-multimedia",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -530,117 +541,17 @@
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion-saas",
-    "updatedAt": "2026-08-16T02:02:10Z",
+    "updatedAt": "2026-08-21T03:38:13Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
     ]
   },
   {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/durable-objects",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare-one",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/turnstile-spin",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/workers-best-practices",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/wrangler",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/sandbox-migrate-to-next",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/sandbox-next",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/sandbox-stable",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/agents-sdk",
-    "updatedAt": "2026-08-16T00:34:05Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "cloudflare",
-    "repo": "skills",
-    "routePath": "skills/cloudflare-one-migrations",
-    "updatedAt": "2026-08-16T00:34:05Z",
+    "owner": "supabase",
+    "repo": "agent-skills",
+    "routePath": "agent-skills/supabase-postgres-best-practices",
+    "updatedAt": "2026-08-21T01:21:33Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -650,7 +561,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-llm-trainer",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -660,7 +571,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-paper-publisher",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -670,7 +581,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-spaces",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -680,7 +591,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-vision-trainer",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -690,7 +601,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/transformers-js",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -700,7 +611,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-papers",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -710,7 +621,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-trackio",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -720,7 +631,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/trl-training",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -730,7 +641,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-community-evals",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -740,7 +651,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/hf-cloud-sagemaker-production-defaults",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -750,7 +661,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-gradio",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -760,7 +671,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-lora-space-builder",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -770,27 +681,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/huggingface-zerogpu",
-    "updatedAt": "2026-08-15T21:30:32Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/hf-cloud-sagemaker-iam-preflight",
-    "updatedAt": "2026-08-15T21:30:32Z",
-    "canonicalLocale": "en",
-    "publishedLocales": [
-      "en"
-    ]
-  },
-  {
-    "owner": "huggingface",
-    "repo": "skills",
-    "routePath": "skills/huggingface-datasets",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -800,7 +691,27 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/train-sentence-transformers",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/hf-cloud-sagemaker-iam-preflight",
+    "updatedAt": "2026-08-21T00:29:10Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "huggingface",
+    "repo": "skills",
+    "routePath": "skills/huggingface-datasets",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -810,7 +721,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/hf-cloud-serving-image-selection",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -820,7 +731,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/hf-cloud-python-env-setup",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -830,7 +741,7 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/hf-cloud-sagemaker-deployment-planner",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -840,7 +751,117 @@
     "owner": "huggingface",
     "repo": "skills",
     "routePath": "skills/hf-cloud-aws-context-discovery",
-    "updatedAt": "2026-08-15T21:30:32Z",
+    "updatedAt": "2026-08-21T00:29:10Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/durable-objects",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/cloudflare-one",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/cloudflare",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/turnstile-spin",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/workers-best-practices",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/wrangler",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/sandbox-migrate-to-next",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/sandbox-next",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/sandbox-stable",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/agents-sdk",
+    "updatedAt": "2026-08-20T21:26:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "skills",
+    "routePath": "skills/cloudflare-one-migrations",
+    "updatedAt": "2026-08-20T21:26:16Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -850,7 +871,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/react-native-best-practices",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -860,7 +881,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/react-navigation",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -870,7 +891,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/upgrading-react-native",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -880,7 +901,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/github-actions",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -890,7 +911,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/react-native-tv-best-practices",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
@@ -900,7 +921,7 @@
     "owner": "callstackincubator",
     "repo": "agent-skills",
     "routePath": "agent-skills/create-react-native-library",
-    "updatedAt": "2026-08-15T19:01:34Z",
+    "updatedAt": "2026-08-20T06:33:29Z",
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
