@@ -1772,6 +1772,16 @@
     ]
   },
   {
+    "owner": "grafana",
+    "repo": "tempo",
+    "routePath": "tempo/docs-review",
+    "updatedAt": "2026-06-13T20:18:16Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en"
+    ]
+  },
+  {
     "owner": "ComplianceAsCode",
     "repo": "content",
     "routePath": "content/build-product",
@@ -2455,6 +2465,20 @@
     "canonicalLocale": "en",
     "publishedLocales": [
       "en"
+    ]
+  },
+  {
+    "owner": "apache",
+    "repo": "shardingsphere",
+    "routePath": "shardingsphere/gen-ut",
+    "updatedAt": "2026-06-05T15:29:28Z",
+    "canonicalLocale": "en",
+    "publishedLocales": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "es"
     ]
   },
   {
