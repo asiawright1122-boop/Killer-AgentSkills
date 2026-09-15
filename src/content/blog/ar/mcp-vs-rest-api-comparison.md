@@ -1,6 +1,6 @@
 ---
 title: "MCP مقابل REST API: أيهما يجب استخدامه لعمليات الوكلاء الذكية؟"
-description: "مقارنة شاملة بين بروتوكول سياق النموذج و REST API التقليدية"
+description: "مقارنة بين MCP و REST API في عمليات الوكلاء الذكية: هل سيتم تحديد ما إذا كان MCP أو REST API هو الأفضل لعمليات الوكلاء الذكية."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp
