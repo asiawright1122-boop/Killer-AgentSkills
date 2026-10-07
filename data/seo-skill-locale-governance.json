@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-07T06:03:37.610Z",
+  "generatedAt": "2026-10-07T19:07:16.274Z",
   "summary": {
-    "totalSkills": 8024,
-    "totalLocaleVariants": 80240,
-    "metadataEligibleVariants": 11127,
-    "eligibleVariants": 11127,
+    "totalSkills": 8025,
+    "totalLocaleVariants": 80250,
+    "metadataEligibleVariants": 11128,
+    "eligibleVariants": 11128,
     "suppressedMetadataVariants": 0,
     "skillsWithSuppressedMetadata": 0,
     "canonicalLocaleCounts": {
-      "en": 8024
+      "en": 8025
     },
     "detectedBodyLocaleCounts": {
       "zh": 304,
@@ -18,11 +18,11 @@
       "fr": 19,
       "pt": 31,
       "de": 13,
-      "ja": 163,
+      "ja": 164,
       "ru": 47
     },
     "eligibleLocaleCounts": {
-      "en": 8024,
+      "en": 8025,
       "zh": 347,
       "ja": 347,
       "ko": 347,
@@ -1750,7 +1750,7 @@
       "owner": "aAAaqwq",
       "repo": "AGI-Super-Team",
       "routePath": "AGI-Super-Team/github-automation",
-      "updatedAt": "2026-10-07T05:56:00.250Z",
+      "updatedAt": "2026-10-07T18:56:35.967Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -3833,7 +3833,7 @@
       "owner": "addozhang",
       "repo": "openclaw-forge",
       "routePath": "openclaw-forge/research-prep",
-      "updatedAt": "2026-10-07T05:56:00.252Z",
+      "updatedAt": "2026-10-07T18:56:35.968Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -23012,6 +23012,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "AtsushiHashimoto/research-project-template/commit-merge",
+      "owner": "AtsushiHashimoto",
+      "repo": "research-project-template",
+      "routePath": "research-project-template/commit-merge",
+      "updatedAt": "2026-04-01T22:35:49Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "ja"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "ja",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "attasec/tmdd/tmdd-threat-modeling",
       "owner": "attasec",
       "repo": "tmdd",
@@ -31253,7 +31275,7 @@
       "owner": "bug-ops",
       "repo": "zeph",
       "routePath": "zeph/github",
-      "updatedAt": "2026-10-06T18:20:12.798Z",
+      "updatedAt": "2026-10-07T18:56:35.966Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -31943,7 +31965,7 @@
       "owner": "cablate",
       "repo": "Agentic-MCP-Skill",
       "routePath": "Agentic-MCP-Skill/agentic-mcp",
-      "updatedAt": "2026-10-07T05:56:00.241Z",
+      "updatedAt": "2026-10-07T18:56:35.957Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -52901,7 +52923,7 @@
       "owner": "eannnnnn",
       "repo": "taptik-labs",
       "routePath": "taptik-labs/gh",
-      "updatedAt": "2026-10-07T05:56:00.259Z",
+      "updatedAt": "2026-10-07T18:56:35.975Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -74475,7 +74497,7 @@
       "owner": "hongyangAndroid",
       "repo": "blog_ai",
       "routePath": "blog_ai/github-repo-search",
-      "updatedAt": "2026-10-07T05:56:00.255Z",
+      "updatedAt": "2026-10-07T18:56:35.972Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -74920,7 +74942,7 @@
       "owner": "hoyvoh",
       "repo": "claude-workspace-prototype",
       "routePath": "claude-workspace-prototype/git-operations",
-      "updatedAt": "2026-10-07T05:56:00.251Z",
+      "updatedAt": "2026-10-07T18:56:35.967Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -82487,7 +82509,7 @@
       "owner": "jarosser06",
       "repo": "drift",
       "routePath": "drift/github-operations",
-      "updatedAt": "2026-10-07T05:56:00.248Z",
+      "updatedAt": "2026-10-07T18:56:35.964Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -103419,7 +103441,7 @@
       "owner": "majiayu000",
       "repo": "claude-arsenal",
       "routePath": "claude-arsenal/github-trending",
-      "updatedAt": "2026-10-07T05:56:00.252Z",
+      "updatedAt": "2026-10-07T18:56:35.968Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -118710,7 +118732,7 @@
       "owner": "NextronSystems",
       "repo": "thor-skill",
       "routePath": "thor-skill/thor-skills",
-      "updatedAt": "2026-10-07T05:56:00.246Z",
+      "updatedAt": "2026-10-07T18:56:35.961Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -121581,7 +121603,7 @@
       "owner": "norsizu",
       "repo": "comfyui-zimage-skill",
       "routePath": "comfyui-zimage-skill/comfyui-zimage",
-      "updatedAt": "2026-10-07T05:56:00.241Z",
+      "updatedAt": "2026-10-07T18:56:35.957Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -126236,7 +126258,7 @@
       "owner": "openwork-hackathon",
       "repo": "team-sentinel",
       "routePath": "team-sentinel/clawathon",
-      "updatedAt": "2026-10-07T05:56:00.227Z",
+      "updatedAt": "2026-10-07T18:56:35.942Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -129911,7 +129933,7 @@
       "owner": "pem725",
       "repo": "be-critical",
       "routePath": "be-critical/be-critical",
-      "updatedAt": "2026-10-07T05:56:00.235Z",
+      "updatedAt": "2026-10-07T18:56:35.951Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -140726,7 +140748,7 @@
       "owner": "rishavmukherji",
       "repo": "farcaster-agent",
       "routePath": "farcaster-agent/farcaster-agent",
-      "updatedAt": "2026-10-07T05:56:00.242Z",
+      "updatedAt": "2026-10-07T18:56:35.957Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -180802,7 +180824,7 @@
       "owner": "yangliu2060",
       "repo": "clawdchat-analysis",
       "routePath": "clawdchat-analysis/clawdchat",
-      "updatedAt": "2026-10-07T05:56:00.239Z",
+      "updatedAt": "2026-10-07T18:56:35.955Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -181790,7 +181812,7 @@
       "owner": "yldgio",
       "repo": "codereview-skills",
       "routePath": "codereview-skills/gh-cli",
-      "updatedAt": "2026-10-07T05:56:00.256Z",
+      "updatedAt": "2026-10-07T18:56:35.972Z",
       "metadataEligibleLocales": [
         "en"
       ],
