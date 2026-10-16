@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-16T04:36:33.252Z",
+  "generatedAt": "2026-10-16T08:51:44.655Z",
   "summary": {
-    "totalSkills": 8044,
-    "totalLocaleVariants": 80440,
-    "metadataEligibleVariants": 11153,
-    "eligibleVariants": 11153,
+    "totalSkills": 8051,
+    "totalLocaleVariants": 80510,
+    "metadataEligibleVariants": 11160,
+    "eligibleVariants": 11160,
     "suppressedMetadataVariants": 0,
     "skillsWithSuppressedMetadata": 0,
     "canonicalLocaleCounts": {
-      "en": 8044
+      "en": 8051
     },
     "detectedBodyLocaleCounts": {
       "zh": 304,
-      "en": 7320,
+      "en": 7327,
       "ko": 113,
       "es": 33,
       "fr": 19,
@@ -22,7 +22,7 @@
       "ru": 47
     },
     "eligibleLocaleCounts": {
-      "en": 8044,
+      "en": 8051,
       "zh": 348,
       "ja": 348,
       "ko": 348,
@@ -1750,7 +1750,7 @@
       "owner": "aAAaqwq",
       "repo": "AGI-Super-Team",
       "routePath": "AGI-Super-Team/github-automation",
-      "updatedAt": "2026-10-16T04:28:09.738Z",
+      "updatedAt": "2026-10-16T08:44:42.161Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -3833,7 +3833,7 @@
       "owner": "addozhang",
       "repo": "openclaw-forge",
       "routePath": "openclaw-forge/research-prep",
-      "updatedAt": "2026-10-16T04:28:09.739Z",
+      "updatedAt": "2026-10-16T08:44:42.162Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4784,7 +4784,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-architecture-audit",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4806,7 +4806,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-eval",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4828,7 +4828,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-harness-construction",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4850,7 +4850,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-introspection-debugging",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4872,7 +4872,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-payment-x402",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4894,7 +4894,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-runtime-gateway-smoke-test",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4916,7 +4916,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-security-hardening",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4938,7 +4938,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-self-evaluation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4960,7 +4960,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agent-sort",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -4982,7 +4982,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agentic-engineering",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5004,7 +5004,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/agentic-os",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5026,7 +5026,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ai-first-engineering",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5048,7 +5048,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ai-regression-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5070,7 +5070,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/android-clean-architecture",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5092,7 +5092,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/angular-developer",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5114,7 +5114,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/api-connector-builder",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5136,7 +5136,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/api-design",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5158,7 +5158,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/architecture-decision-records",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5180,7 +5180,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/article-writing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -5229,7 +5229,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/automation-audit-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5251,7 +5251,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/autonomous-agent-harness",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5273,7 +5273,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/autonomous-loops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5295,7 +5295,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/backend-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5317,7 +5317,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/benchmark",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5339,7 +5339,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/benchmark-methodology",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5361,7 +5361,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/benchmark-optimization-loop",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5383,7 +5383,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/bengali-nlp",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5405,7 +5405,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/blender-motion-state-inspection",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5427,7 +5427,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/blueprint",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -5476,7 +5476,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/brand-discovery",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5498,7 +5498,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/brand-voice",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5520,7 +5520,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/brownfield-retrospective",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5542,7 +5542,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/browser-qa",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5564,7 +5564,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/bun-runtime",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5586,7 +5586,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/canary-watch",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5608,7 +5608,29 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/carrier-relationship-management",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "affaan-m/everything-claude-code/change-impact",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "routePath": "everything-claude-code/change-impact",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5630,7 +5652,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/cisco-ios-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5652,7 +5674,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ck",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5696,7 +5718,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/claude-devfleet",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5718,7 +5740,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/click-path-audit",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5740,7 +5762,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/clickhouse-io",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5762,7 +5784,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/code-tour",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5784,7 +5806,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/codebase-onboarding",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5806,7 +5828,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/codehealth-mcp",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5828,7 +5850,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/coding-standards",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5850,7 +5872,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/competitive-platform-analysis",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5872,7 +5894,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/competitive-report-structure",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5894,7 +5916,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/compose-multiplatform-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5916,7 +5938,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/config-gc",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -5938,7 +5960,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/configure-ecc",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -5987,7 +6009,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/connections-optimizer",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6009,7 +6031,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/content-engine",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6031,7 +6053,29 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/content-hash-cache-pattern",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "affaan-m/everything-claude-code/context-and-decisions",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "routePath": "everything-claude-code/context-and-decisions",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6053,7 +6097,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/context-budget",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6075,7 +6119,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/continuous-agent-loop",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -6124,7 +6168,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/continuous-learning",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6146,7 +6190,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/continuous-learning-v2",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6168,7 +6212,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/contract-first",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6190,7 +6234,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/conventional-commit-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6212,7 +6256,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/cost-aware-llm-pipeline",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6234,7 +6278,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/cost-tracking",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6256,7 +6300,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/council",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6278,7 +6322,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/council-multi-model",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6300,7 +6344,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/counterparty-channel-discipline",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6322,7 +6366,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/cpp-coding-standards",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6344,7 +6388,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/cpp-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6366,7 +6410,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/crosspost",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6388,7 +6432,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/csharp-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6410,7 +6454,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/customer-billing-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6432,7 +6476,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/customs-trade-compliance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6454,7 +6498,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dart-flutter-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6476,7 +6520,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dashboard-builder",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6498,7 +6542,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/data-scraper-agent",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6520,7 +6564,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/data-throughput-accelerator",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6542,7 +6586,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/database-migrations",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6564,7 +6608,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/deep-research",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -6613,7 +6657,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/deepseek-harness-setup",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6635,7 +6679,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/defi-amm-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6657,7 +6701,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/delivery-gate",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6679,7 +6723,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/deployment-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6701,7 +6745,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/design-system",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6723,7 +6767,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dev-team",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6745,7 +6789,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/django-celery",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6767,7 +6811,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/django-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6789,7 +6833,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/django-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6811,7 +6855,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/django-tdd",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6833,7 +6877,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/django-verification",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6855,7 +6899,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dmux-workflows",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6877,7 +6921,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/docker-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6899,7 +6943,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/docs-governance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6921,7 +6965,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/documentation-lookup",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -6970,7 +7014,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dotnet-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -6992,7 +7036,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/dynamic-workflow-mode",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7014,7 +7058,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/e2e-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7036,7 +7080,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ecc-guide",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7058,7 +7102,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ecc-recipes",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7080,7 +7124,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ecc-tools-cost-audit",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7102,7 +7146,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/email-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7124,7 +7168,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/energy-procurement",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7146,7 +7190,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/enterprise-agent-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7168,7 +7212,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/error-handling",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7190,7 +7234,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/esign-field-placement",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7212,7 +7256,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/eval-harness",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -7261,7 +7305,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/evm-token-decimals",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7283,7 +7327,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/exa-search",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7305,7 +7349,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/fal-ai-media",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7327,7 +7371,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/fastapi-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7349,7 +7393,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/finance-billing-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7371,7 +7415,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/flox-environments",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7393,7 +7437,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/flutter-dart-code-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7415,7 +7459,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/foundation-models-on-device",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7437,7 +7481,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/frontend-a11y",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7481,7 +7525,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/frontend-design-direction",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7503,7 +7547,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/frontend-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7525,7 +7569,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/frontend-slides",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7547,7 +7591,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/fsharp-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7569,7 +7613,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/gan-style-harness",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7591,7 +7635,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/gateguard",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7613,7 +7657,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/generating-python-installer",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7635,7 +7679,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/git-workflow",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7657,7 +7701,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/github-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7679,7 +7723,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/golang-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7701,7 +7745,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/golang-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7723,7 +7767,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/google-workspace-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7745,7 +7789,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/growth-log",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7767,7 +7811,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/healthcare-cdss-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7789,7 +7833,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/healthcare-emr-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7811,7 +7855,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/healthcare-eval-harness",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7833,7 +7877,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/healthcare-phi-compliance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7855,7 +7899,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/hermes-imports",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7877,7 +7921,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/hexagonal-architecture",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7899,7 +7943,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/hipaa-compliance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7921,7 +7965,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/homelab-network-readiness",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7943,7 +7987,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/homelab-network-setup",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7965,7 +8009,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/homelab-pihole-dns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -7987,7 +8031,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/homelab-vlan-segmentation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8009,7 +8053,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/homelab-wireguard-vpn",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8031,7 +8075,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/hookify-rules",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8053,7 +8097,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/i18n-sync",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8075,7 +8119,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/inherit-legacy-style",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8097,7 +8141,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/intent-driven-development",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8119,7 +8163,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/inventory-demand-planning",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8141,7 +8185,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/investor-materials",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8163,7 +8207,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/investor-outreach",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8185,7 +8229,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ios-icon-gen",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8207,7 +8251,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/iterative-retrieval",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8251,7 +8295,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ito-baskets",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8273,7 +8317,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ito-compute",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8317,7 +8361,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ito-inference",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8383,7 +8427,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ito-training",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8405,7 +8449,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/java-coding-standards",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8427,7 +8471,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/jira-integration",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8449,7 +8493,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/jpa-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8471,7 +8515,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/knowledge-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8493,7 +8537,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kotlin-coroutines-flows",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8515,7 +8559,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kotlin-exposed-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8537,7 +8581,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kotlin-ktor-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8559,7 +8603,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kotlin-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8581,7 +8625,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kotlin-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -8630,7 +8674,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/kubernetes-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8652,7 +8696,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/laravel-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8674,7 +8718,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/laravel-plugin-discovery",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8696,7 +8740,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/laravel-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8718,7 +8762,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/laravel-tdd",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8740,7 +8784,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/laravel-verification",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8762,7 +8806,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/latency-critical-systems",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8784,7 +8828,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/lead-intelligence",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8806,7 +8850,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/liquid-glass-design",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8828,7 +8872,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/living-docs-governance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8850,7 +8894,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/llm-trading-agent-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8872,7 +8916,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/logistics-exception-management",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8894,7 +8938,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/loop-design-check",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8916,7 +8960,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mailtrap-email-integration",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8938,7 +8982,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/make-interfaces-feel-better",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8960,7 +9004,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/manim-video",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -8982,7 +9026,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/market-research",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -9031,7 +9075,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/marketing-campaign",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9053,7 +9097,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/master-agreement-generator",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9075,7 +9119,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mcp-dependency-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9097,7 +9141,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mcp-server-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9119,7 +9163,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/messages-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9141,7 +9185,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ml-adoption-playbook",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9163,7 +9207,29 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mle-workflow",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "affaan-m/everything-claude-code/module-regression",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "routePath": "everything-claude-code/module-regression",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9185,7 +9251,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/motion-advanced",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9207,7 +9273,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/motion-foundations",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9229,7 +9295,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/motion-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9273,7 +9339,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mybatis-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9295,7 +9361,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/mysql-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9317,7 +9383,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nanoclaw-repl",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -9366,7 +9432,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nasiko-control-plane",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9388,7 +9454,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nestjs-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9410,7 +9476,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/netmiko-ssh-automation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9432,7 +9498,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/network-bgp-diagnostics",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9454,7 +9520,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/network-config-validation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9476,7 +9542,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/network-interface-health",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9498,7 +9564,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nextjs-turbopack",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9520,7 +9586,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nodejs-keccak256",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9542,7 +9608,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nutrient-document-processing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9564,7 +9630,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/nuxt4-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9586,7 +9652,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/openclaw-persona-forge",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9608,7 +9674,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/opensource-pipeline",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9630,7 +9696,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/operator-approval-loop",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9652,7 +9718,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-add-feature",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9674,7 +9740,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-build-mvp",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9696,7 +9762,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-change-feature",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9718,7 +9784,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-fix-defect",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9740,7 +9806,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-pipeline",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9762,7 +9828,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/orch-refine-code",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9784,7 +9850,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/osint-investigation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9806,7 +9872,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/parallel-execution-optimizer",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9828,7 +9894,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/perl-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9850,7 +9916,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/perl-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9872,7 +9938,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/perl-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9894,7 +9960,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/plan-canvas",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9916,7 +9982,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/plan-orchestrate",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9938,7 +10004,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/plankton-code-quality",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9960,7 +10026,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/postgres-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -9982,7 +10048,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/prediction-market-oracle-research",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10004,7 +10070,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/prediction-market-risk-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10026,7 +10092,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/prisma-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10048,7 +10114,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/product-capability",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10070,7 +10136,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/product-lens",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10092,7 +10158,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/production-audit",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10114,7 +10180,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/production-scheduling",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10136,7 +10202,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/project-flow-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10189,7 +10255,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/prompt-caching-strategy",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10211,7 +10277,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/prompt-optimizer",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -10260,7 +10326,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/python-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10282,7 +10348,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/python-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10304,7 +10370,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/pytorch-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10326,7 +10392,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/quality-nonconformance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10348,7 +10414,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/quarkus-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10370,7 +10436,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/quarkus-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10392,7 +10458,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/quarkus-tdd",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10414,7 +10480,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/quarkus-verification",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10436,7 +10502,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/rails-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10458,7 +10524,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ralphinho-rfc-pipeline",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10480,7 +10546,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/react-native-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10502,7 +10568,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/react-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10524,7 +10590,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/react-performance",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10546,7 +10612,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/react-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10568,7 +10634,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/recsys-pipeline-architect",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10590,7 +10656,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/recursive-decision-ledger",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10612,7 +10678,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/redis-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10634,7 +10700,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/regex-vs-llm-structured-text",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10656,7 +10722,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/remotion-video-creation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10678,7 +10744,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/repo-scan",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10700,7 +10766,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/research-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10722,7 +10788,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/returns-reverse-logistics",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10744,7 +10810,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/rules-distill",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10766,7 +10832,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/rust-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10788,7 +10854,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/rust-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -10837,7 +10903,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/safety-guard",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10859,7 +10925,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/santa-method",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10881,7 +10947,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/scientific-db-pubmed-database",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10903,7 +10969,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/scientific-db-uspto-database",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10925,7 +10991,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/scientific-pkg-gget",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10947,7 +11013,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/scientific-thinking-literature-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10969,7 +11035,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/scientific-thinking-scholar-evaluation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -10991,7 +11057,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/search-first",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11013,7 +11079,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/security-bounty-hunter",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11035,7 +11101,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/security-review",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11057,7 +11123,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/security-scan",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11079,7 +11145,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/seo",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11101,7 +11167,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/skill-comply",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11123,7 +11189,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/skill-host-compat",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11145,7 +11211,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/skill-scout",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11167,7 +11233,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/skill-stocktake",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11189,7 +11255,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/social-graph-ranker",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11211,7 +11277,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/social-publisher",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11233,7 +11299,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/springboot-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11255,7 +11321,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/springboot-security",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11277,7 +11343,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/springboot-tdd",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -11326,7 +11392,29 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/springboot-verification",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "affaan-m/everything-claude-code/story-lifecycle",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "routePath": "everything-claude-code/story-lifecycle",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11348,7 +11436,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/strategic-compact",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11370,7 +11458,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/swift-actor-persistence",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11392,7 +11480,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/swift-concurrency-6-2",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11414,7 +11502,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/swift-protocol-di-testing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11436,7 +11524,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/swiftui-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11458,7 +11546,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/taste",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11480,7 +11568,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/taste-application",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11502,7 +11590,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/taste-distillation",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11524,7 +11612,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/tasteforge-video",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11546,7 +11634,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/tdd-workflow",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11568,7 +11656,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/team-agent-orchestration",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11590,7 +11678,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/team-builder",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11612,7 +11700,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/terminal-opener",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11634,7 +11722,29 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/terminal-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "affaan-m/everything-claude-code/test-collaboration",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "routePath": "everything-claude-code/test-collaboration",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11656,7 +11766,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/tinystruct-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11678,7 +11788,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/token-budget-advisor",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11700,7 +11810,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/token-card",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11722,7 +11832,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ui-demo",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11744,7 +11854,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/ui-to-vue",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11766,7 +11876,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/uncloud",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11788,7 +11898,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/unified-memory",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11810,7 +11920,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/unified-notifications-ops",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11832,7 +11942,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/verification-loop",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -11881,7 +11991,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/video-editing",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11903,7 +12013,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/videodb",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11925,7 +12035,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/visa-doc-translate",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11947,7 +12057,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/vite-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11969,7 +12079,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/vue-patterns",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -11991,7 +12101,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/windows-desktop-e2e",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -12013,7 +12123,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/workspace-surface-audit",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -12035,7 +12145,7 @@
       "owner": "affaan-m",
       "repo": "everything-claude-code",
       "routePath": "everything-claude-code/x-api",
-      "updatedAt": "2026-10-11T10:21:40Z",
+      "updatedAt": "2026-10-16T08:32:02Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19700,7 +19810,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/academy-guide",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en",
         "ar"
@@ -19725,7 +19835,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/algorithmic-art",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en",
         "ar"
@@ -19750,7 +19860,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/brand-guidelines",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19772,7 +19882,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/canvas-design",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19794,7 +19904,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/claude-api",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19816,7 +19926,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/discernment-nudge",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19838,7 +19948,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/doc-coauthoring",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19860,7 +19970,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/docx",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19882,7 +19992,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/frontend-design",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19904,7 +20014,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/internal-comms",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19926,7 +20036,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/mcp-builder",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19948,7 +20058,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/pdf",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19970,7 +20080,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/pptx",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -19992,7 +20102,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/skill-creator",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20014,7 +20124,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/slack-gif-creator",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20036,7 +20146,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/theme-factory",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20058,7 +20168,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/web-artifacts-builder",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20080,7 +20190,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/webapp-testing",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20102,7 +20212,7 @@
       "owner": "anthropics",
       "repo": "skills",
       "routePath": "skills/xlsx",
-      "updatedAt": "2026-10-11T10:17:48Z",
+      "updatedAt": "2026-10-16T08:30:18Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -31561,7 +31671,7 @@
       "owner": "bug-ops",
       "repo": "zeph",
       "routePath": "zeph/github",
-      "updatedAt": "2026-10-16T04:28:09.737Z",
+      "updatedAt": "2026-10-16T08:44:42.160Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -32251,7 +32361,7 @@
       "owner": "cablate",
       "repo": "Agentic-MCP-Skill",
       "routePath": "Agentic-MCP-Skill/agentic-mcp",
-      "updatedAt": "2026-10-16T04:28:09.732Z",
+      "updatedAt": "2026-10-16T08:44:42.152Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32493,7 +32603,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/assess-react-native-migration",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32515,7 +32625,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/create-react-native-library",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32586,7 +32696,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/github-actions",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32608,7 +32718,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/react-native-best-practices",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32630,7 +32740,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/react-native-brownfield-migration",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32652,7 +32762,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/react-native-tv-best-practices",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32674,7 +32784,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/react-navigation",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32696,7 +32806,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/upgrading-react-native",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -32718,7 +32828,7 @@
       "owner": "callstackincubator",
       "repo": "agent-skills",
       "routePath": "agent-skills/writing-user-docs",
-      "updatedAt": "2026-10-10T00:55:31Z",
+      "updatedAt": "2026-10-15T20:24:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37229,7 +37339,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/agents-sdk",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37251,7 +37361,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/basin",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37367,11 +37477,33 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "cloudflare/skills/cf-cli",
+      "owner": "cloudflare",
+      "repo": "skills",
+      "routePath": "skills/cf-cli",
+      "updatedAt": "2026-10-16T05:39:38Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "cloudflare/skills/cloudflare",
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/cloudflare",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37393,7 +37525,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/cloudflare-email-service",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37415,7 +37547,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/cloudflare-one",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37437,7 +37569,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/cloudflare-one-migrations",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37459,7 +37591,29 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/durable-objects",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "cloudflare/skills/gateway-workers",
+      "owner": "cloudflare",
+      "repo": "skills",
+      "routePath": "skills/gateway-workers",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37481,7 +37635,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/k2",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37503,7 +37657,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/nextjs-on-cloudflare",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37525,7 +37679,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/sandbox-migrate-to-next",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37547,7 +37701,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/sandbox-next",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37591,7 +37745,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/sandbox-stable",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37613,7 +37767,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/turnstile-spin",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37635,7 +37789,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/web-perf",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37657,7 +37811,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/workers-best-practices",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37679,7 +37833,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/workers-profiling",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -37701,7 +37855,7 @@
       "owner": "cloudflare",
       "repo": "skills",
       "routePath": "skills/wrangler",
-      "updatedAt": "2026-10-11T06:53:39Z",
+      "updatedAt": "2026-10-16T05:39:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -39537,7 +39691,7 @@
       "owner": "ComposioHQ",
       "repo": "awesome-claude-skills",
       "routePath": "awesome-claude-skills",
-      "updatedAt": "2026-10-11T08:11:19Z",
+      "updatedAt": "2026-10-16T07:42:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -53231,7 +53385,7 @@
       "owner": "eannnnnn",
       "repo": "taptik-labs",
       "routePath": "taptik-labs/gh",
-      "updatedAt": "2026-10-16T04:28:09.744Z",
+      "updatedAt": "2026-10-16T08:44:42.169Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -59484,7 +59638,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/extract-errors",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -59506,7 +59660,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/feature-flags",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -59528,7 +59682,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/fix",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -59550,7 +59704,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/flags",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -59572,7 +59726,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/flow",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -59594,7 +59748,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/test",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -59643,7 +59797,7 @@
       "owner": "facebook",
       "repo": "react",
       "routePath": "react/verify",
-      "updatedAt": "2026-10-11T10:29:18Z",
+      "updatedAt": "2026-10-16T07:58:45Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -74805,7 +74959,7 @@
       "owner": "hongyangAndroid",
       "repo": "blog_ai",
       "routePath": "blog_ai/github-repo-search",
-      "updatedAt": "2026-10-16T04:28:09.741Z",
+      "updatedAt": "2026-10-16T08:44:42.165Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75250,7 +75404,7 @@
       "owner": "hoyvoh",
       "repo": "claude-workspace-prototype",
       "routePath": "claude-workspace-prototype/git-operations",
-      "updatedAt": "2026-10-16T04:28:09.738Z",
+      "updatedAt": "2026-10-16T08:44:42.161Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75602,7 +75756,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cli",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75624,7 +75778,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-aws-context-discovery",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75646,7 +75800,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-python-env-setup",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75668,7 +75822,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-sagemaker-deployment-planner",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75690,7 +75844,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-sagemaker-iam-preflight",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75712,7 +75866,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-sagemaker-production-defaults",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75734,7 +75888,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-cloud-serving-image-selection",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75756,7 +75910,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/hf-mem",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76020,7 +76174,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-best",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76042,7 +76196,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-community-evals",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76064,7 +76218,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-datasets",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76086,7 +76240,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-gradio",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76139,7 +76293,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-llm-trainer",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76161,7 +76315,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-local-models",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76183,7 +76337,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-lora-space-builder",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76205,7 +76359,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-paper-publisher",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76227,7 +76381,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-papers",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76249,7 +76403,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-spaces",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76271,7 +76425,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-tool-builder",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76293,7 +76447,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-trackio",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76315,7 +76469,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-vision-trainer",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76337,7 +76491,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/huggingface-zerogpu",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76359,7 +76513,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/train-sentence-transformers",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76381,7 +76535,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/transformers-js",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -76403,7 +76557,7 @@
       "owner": "huggingface",
       "repo": "skills",
       "routePath": "skills/trl-training",
-      "updatedAt": "2026-10-11T08:27:57Z",
+      "updatedAt": "2026-10-16T07:42:17Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -82817,7 +82971,7 @@
       "owner": "jarosser06",
       "repo": "drift",
       "routePath": "drift/github-operations",
-      "updatedAt": "2026-10-16T04:28:09.736Z",
+      "updatedAt": "2026-10-16T08:44:42.159Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96324,7 +96478,7 @@
       "owner": "langgenius",
       "repo": "dify",
       "routePath": "dify/backend-code-review",
-      "updatedAt": "2026-10-11T09:54:27Z",
+      "updatedAt": "2026-10-16T08:38:46Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96368,7 +96522,7 @@
       "owner": "langgenius",
       "repo": "dify",
       "routePath": "dify/e2e-cucumber-playwright",
-      "updatedAt": "2026-10-11T09:54:27Z",
+      "updatedAt": "2026-10-16T08:38:46Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96390,7 +96544,7 @@
       "owner": "langgenius",
       "repo": "dify",
       "routePath": "dify/frontend-code-review",
-      "updatedAt": "2026-10-11T09:54:27Z",
+      "updatedAt": "2026-10-16T08:38:46Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96461,7 +96615,7 @@
       "owner": "langgenius",
       "repo": "dify",
       "routePath": "dify/frontend-testing",
-      "updatedAt": "2026-10-11T09:54:27Z",
+      "updatedAt": "2026-10-16T08:38:46Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96483,7 +96637,7 @@
       "owner": "langgenius",
       "repo": "dify",
       "routePath": "dify/how-to-write-component",
-      "updatedAt": "2026-10-11T09:54:27Z",
+      "updatedAt": "2026-10-16T08:38:46Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -103749,7 +103903,7 @@
       "owner": "majiayu000",
       "repo": "claude-arsenal",
       "routePath": "claude-arsenal/github-trending",
-      "updatedAt": "2026-10-16T04:28:09.739Z",
+      "updatedAt": "2026-10-16T08:44:42.162Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -118507,7 +118661,7 @@
       "owner": "neondatabase",
       "repo": "mcp-server-neon",
       "routePath": "mcp-server-neon",
-      "updatedAt": "2026-10-07T22:44:21Z",
+      "updatedAt": "2026-10-16T02:33:43Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -119040,7 +119194,7 @@
       "owner": "NextronSystems",
       "repo": "thor-skill",
       "routePath": "thor-skill/thor-skills",
-      "updatedAt": "2026-10-16T04:28:09.735Z",
+      "updatedAt": "2026-10-16T08:44:42.156Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -121936,7 +122090,7 @@
       "owner": "norsizu",
       "repo": "comfyui-zimage-skill",
       "routePath": "comfyui-zimage-skill/comfyui-zimage",
-      "updatedAt": "2026-10-16T04:28:09.732Z",
+      "updatedAt": "2026-10-16T08:44:42.152Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123251,7 +123405,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/brainstorming",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123273,7 +123427,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/diagnosing-superpowers",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123295,7 +123449,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/dispatching-parallel-agents",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123317,7 +123471,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/executing-plans",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123339,7 +123493,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/finishing-a-development-branch",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123361,7 +123515,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/receiving-code-review",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123383,7 +123537,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/requesting-code-review",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -123432,7 +123586,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/subagent-driven-development",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123454,7 +123608,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/systematic-debugging",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123476,7 +123630,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/test-driven-development",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123498,7 +123652,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/using-git-worktrees",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123520,7 +123674,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/using-superpowers",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123542,7 +123696,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/verification-before-completion",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123564,7 +123718,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/writing-plans",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -123586,7 +123740,7 @@
       "owner": "obra",
       "repo": "superpowers",
       "routePath": "superpowers/writing-skills",
-      "updatedAt": "2026-10-11T10:18:02Z",
+      "updatedAt": "2026-10-16T08:30:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -126591,7 +126745,7 @@
       "owner": "openwork-hackathon",
       "repo": "team-sentinel",
       "routePath": "team-sentinel/clawathon",
-      "updatedAt": "2026-10-16T04:28:09.721Z",
+      "updatedAt": "2026-10-16T08:44:42.137Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -130266,7 +130420,7 @@
       "owner": "pem725",
       "repo": "be-critical",
       "routePath": "be-critical/be-critical",
-      "updatedAt": "2026-10-16T04:28:09.726Z",
+      "updatedAt": "2026-10-16T08:44:42.146Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139668,7 +139822,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-best-practices",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139690,7 +139844,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-captions",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139712,7 +139866,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-create",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139734,7 +139888,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-docs",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139756,7 +139910,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-interactivity",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139778,7 +139932,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-maps",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139800,7 +139954,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-markup",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139822,7 +139976,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-multimedia",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139844,7 +139998,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-render",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139866,7 +140020,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-saas",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139888,7 +140042,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-studio",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -139910,7 +140064,7 @@
       "owner": "remotion-dev",
       "repo": "skills",
       "routePath": "skills/remotion-upgrade",
-      "updatedAt": "2026-10-11T09:17:36Z",
+      "updatedAt": "2026-10-16T08:09:26Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -141081,7 +141235,7 @@
       "owner": "rishavmukherji",
       "repo": "farcaster-agent",
       "routePath": "farcaster-agent/farcaster-agent",
-      "updatedAt": "2026-10-16T04:28:09.732Z",
+      "updatedAt": "2026-10-16T08:44:42.153Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157314,7 +157468,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/connect-recommend",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157336,7 +157490,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/connect-required-verification-information",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157358,7 +157512,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/metronome",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157380,7 +157534,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-apps",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157402,7 +157556,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-best-practices",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157424,7 +157578,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-directory",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157446,7 +157600,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-docs",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157468,7 +157622,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-pay",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157490,7 +157644,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/stripe-projects",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -157512,7 +157666,7 @@
       "owner": "stripe",
       "repo": "ai",
       "routePath": "ai/upgrade-stripe",
-      "updatedAt": "2026-10-11T06:53:25Z",
+      "updatedAt": "2026-10-16T00:44:37Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -158375,7 +158529,7 @@
       "owner": "supabase",
       "repo": "agent-skills",
       "routePath": "agent-skills/supabase",
-      "updatedAt": "2026-10-11T04:37:58Z",
+      "updatedAt": "2026-10-16T07:05:58Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -158397,7 +158551,7 @@
       "owner": "supabase",
       "repo": "agent-skills",
       "routePath": "agent-skills/supabase-postgres-best-practices",
-      "updatedAt": "2026-10-11T04:37:58Z",
+      "updatedAt": "2026-10-16T07:05:58Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -160172,7 +160326,7 @@
       "owner": "tadata-org",
       "repo": "fastapi_mcp",
       "routePath": "fastapi_mcp",
-      "updatedAt": "2026-10-10T13:35:56Z",
+      "updatedAt": "2026-10-16T00:36:40Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -172788,7 +172942,7 @@
       "owner": "vercel-labs",
       "repo": "skills",
       "routePath": "skills/find-skills",
-      "updatedAt": "2026-10-11T10:14:01Z",
+      "updatedAt": "2026-10-16T08:26:09Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -181260,7 +181414,7 @@
       "owner": "yangliu2060",
       "repo": "clawdchat-analysis",
       "routePath": "clawdchat-analysis/clawdchat",
-      "updatedAt": "2026-10-16T04:28:09.730Z",
+      "updatedAt": "2026-10-16T08:44:42.150Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -182248,7 +182402,7 @@
       "owner": "yldgio",
       "repo": "codereview-skills",
       "routePath": "codereview-skills/gh-cli",
-      "updatedAt": "2026-10-16T04:28:09.742Z",
+      "updatedAt": "2026-10-16T08:44:42.166Z",
       "metadataEligibleLocales": [
         "en"
       ],
