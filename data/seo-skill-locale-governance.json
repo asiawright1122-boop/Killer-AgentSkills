@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-21T17:16:23.057Z",
+  "generatedAt": "2026-10-22T04:46:56.609Z",
   "summary": {
-    "totalSkills": 8053,
-    "totalLocaleVariants": 80530,
-    "metadataEligibleVariants": 11164,
-    "eligibleVariants": 11164,
+    "totalSkills": 8054,
+    "totalLocaleVariants": 80540,
+    "metadataEligibleVariants": 11165,
+    "eligibleVariants": 11165,
     "suppressedMetadataVariants": 0,
     "skillsWithSuppressedMetadata": 0,
     "canonicalLocaleCounts": {
-      "en": 8053
+      "en": 8054
     },
     "detectedBodyLocaleCounts": {
       "zh": 304,
-      "en": 7329,
+      "en": 7330,
       "ko": 113,
       "es": 33,
       "fr": 19,
@@ -22,7 +22,7 @@
       "ru": 47
     },
     "eligibleLocaleCounts": {
-      "en": 8053,
+      "en": 8054,
       "zh": 348,
       "ja": 348,
       "ko": 348,
@@ -1750,7 +1750,7 @@
       "owner": "aAAaqwq",
       "repo": "AGI-Super-Team",
       "routePath": "AGI-Super-Team/github-automation",
-      "updatedAt": "2026-10-21T17:09:36.373Z",
+      "updatedAt": "2026-10-22T04:40:04.162Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -2125,6 +2125,28 @@
       "repo": "mosaicmem",
       "routePath": "mosaicmem/speckit-constitution",
       "updatedAt": "2026-06-21T01:40:50Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "abdias98/DevFlow/devflow-finalize",
+      "owner": "abdias98",
+      "repo": "DevFlow",
+      "routePath": "DevFlow/devflow-finalize",
+      "updatedAt": "2026-05-27T03:35:53Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -3833,7 +3855,7 @@
       "owner": "addozhang",
       "repo": "openclaw-forge",
       "routePath": "openclaw-forge/research-prep",
-      "updatedAt": "2026-10-21T17:09:36.375Z",
+      "updatedAt": "2026-10-22T04:40:04.163Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -31671,7 +31693,7 @@
       "owner": "bug-ops",
       "repo": "zeph",
       "routePath": "zeph/github",
-      "updatedAt": "2026-10-21T17:09:36.373Z",
+      "updatedAt": "2026-10-22T04:40:04.161Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -32361,7 +32383,7 @@
       "owner": "cablate",
       "repo": "Agentic-MCP-Skill",
       "routePath": "Agentic-MCP-Skill/agentic-mcp",
-      "updatedAt": "2026-10-21T17:09:36.365Z",
+      "updatedAt": "2026-10-22T04:40:04.153Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -53385,7 +53407,7 @@
       "owner": "eannnnnn",
       "repo": "taptik-labs",
       "routePath": "taptik-labs/gh",
-      "updatedAt": "2026-10-21T17:09:36.382Z",
+      "updatedAt": "2026-10-22T04:40:04.170Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -74959,7 +74981,7 @@
       "owner": "hongyangAndroid",
       "repo": "blog_ai",
       "routePath": "blog_ai/github-repo-search",
-      "updatedAt": "2026-10-21T17:09:36.378Z",
+      "updatedAt": "2026-10-22T04:40:04.167Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -75404,7 +75426,7 @@
       "owner": "hoyvoh",
       "repo": "claude-workspace-prototype",
       "routePath": "claude-workspace-prototype/git-operations",
-      "updatedAt": "2026-10-21T17:09:36.374Z",
+      "updatedAt": "2026-10-22T04:40:04.162Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -82971,7 +82993,7 @@
       "owner": "jarosser06",
       "repo": "drift",
       "routePath": "drift/github-operations",
-      "updatedAt": "2026-10-21T17:09:36.371Z",
+      "updatedAt": "2026-10-22T04:40:04.159Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -103903,7 +103925,7 @@
       "owner": "majiayu000",
       "repo": "claude-arsenal",
       "routePath": "claude-arsenal/github-trending",
-      "updatedAt": "2026-10-21T17:09:36.375Z",
+      "updatedAt": "2026-10-22T04:40:04.163Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -119244,7 +119266,7 @@
       "owner": "NextronSystems",
       "repo": "thor-skill",
       "routePath": "thor-skill/thor-skills",
-      "updatedAt": "2026-10-21T17:09:36.369Z",
+      "updatedAt": "2026-10-22T04:40:04.157Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -122140,7 +122162,7 @@
       "owner": "norsizu",
       "repo": "comfyui-zimage-skill",
       "routePath": "comfyui-zimage-skill/comfyui-zimage",
-      "updatedAt": "2026-10-21T17:09:36.365Z",
+      "updatedAt": "2026-10-22T04:40:04.153Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -126795,7 +126817,7 @@
       "owner": "openwork-hackathon",
       "repo": "team-sentinel",
       "routePath": "team-sentinel/clawathon",
-      "updatedAt": "2026-10-21T17:09:36.350Z",
+      "updatedAt": "2026-10-22T04:40:04.137Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -130470,7 +130492,7 @@
       "owner": "pem725",
       "repo": "be-critical",
       "routePath": "be-critical/be-critical",
-      "updatedAt": "2026-10-21T17:09:36.359Z",
+      "updatedAt": "2026-10-22T04:40:04.145Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -141285,7 +141307,7 @@
       "owner": "rishavmukherji",
       "repo": "farcaster-agent",
       "routePath": "farcaster-agent/farcaster-agent",
-      "updatedAt": "2026-10-21T17:09:36.366Z",
+      "updatedAt": "2026-10-22T04:40:04.153Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -181464,7 +181486,7 @@
       "owner": "yangliu2060",
       "repo": "clawdchat-analysis",
       "routePath": "clawdchat-analysis/clawdchat",
-      "updatedAt": "2026-10-21T17:09:36.363Z",
+      "updatedAt": "2026-10-22T04:40:04.151Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -182452,7 +182474,7 @@
       "owner": "yldgio",
       "repo": "codereview-skills",
       "routePath": "codereview-skills/gh-cli",
-      "updatedAt": "2026-10-21T17:09:36.379Z",
+      "updatedAt": "2026-10-22T04:40:04.167Z",
       "metadataEligibleLocales": [
         "en"
       ],
